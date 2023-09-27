@@ -71,7 +71,7 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
-    - images/
+    - assets/images/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
@@ -87,21 +87,21 @@ flutter:
   fonts:
     - family: GoogleSans-Bold
       fonts:
-        - asset: fonts/GoogleSans-Bold.ttf
+        - asset: assets/fonts/GoogleSans-Bold.ttf
     - family: GoogleSans-BoldItalic
       fonts:
-        - asset: fonts/GoogleSans-BoldItalic.ttf
+        - asset: assets/fonts/GoogleSans-BoldItalic.ttf
     - family: GoogleSans-Italic
       fonts:
-        - asset: fonts/GoogleSans-Italic.ttf
+        - asset: assets/fonts/GoogleSans-Italic.ttf
     - family: GoogleSans-Medium
       fonts:
-        - asset: fonts/GoogleSans-Medium.ttf
+        - asset: assets/fonts/GoogleSans-Medium.ttf
     - family: GoogleSans-MediumItalic
       fonts:
-        - asset: fonts/GoogleSans-MediumItalic.ttf
+        - asset: assets/fonts/GoogleSans-MediumItalic.ttf
     - family: GoogleSans-Regular
       fonts:
-        - asset: fonts/GoogleSans-Regular.ttf
+        - asset: assets/fonts/GoogleSans-Regular.ttf
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
