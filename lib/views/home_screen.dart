@@ -3,7 +3,6 @@
 //Nếu chưa vô app => Tới màn hình Intro
 //Nếu đã đăng nhập => Vô Main screen (cài đặt sau)
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rmservice/components/circle_indicator_screen.dart';
 import 'package:rmservice/constants/function.dart';
@@ -23,35 +22,34 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: BlocBuilder<GetFirstTimeCubit, GetFirstTimeState> (
+      body: BlocBuilder<GetFirstTimeCubit, GetFirstTimeState>(
         builder: (context, state) {
-          if(state is GetFirstTimeInitialState){
+          if (state is GetFirstTimeInitialState) {
             debugPrint('123');
             context.read<GetFirstTimeCubit>().getFirstTime();
             return CircleIndicatorScreen();
           }
 
-          if(state is GetFirstTimeLoadingState){
+          if (state is GetFirstTimeLoadingState) {
             return CircleIndicatorScreen();
           }
 
-          if(state is GetFirstTimeLoadedState){
-            if(state.firstTime == true) {
+          if (state is GetFirstTimeLoadedState) {
+            if (state.firstTime == true) {
               return IntroScreenApp();
-            }
-            else {
+            } else {
               return LoginScreen(title: 'SnS');
             }
           }
 
-          if(state is GetFirstTimeErrorState) {
+          if (state is GetFirstTimeErrorState) {
             errorMessage(state.error, context);
             return LoginScreen(title: 'SnS');
           }
 
           return CircleIndicatorScreen();
-        }
-      )
+        },
+      ),
     );
   }
 }

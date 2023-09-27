@@ -12,7 +12,6 @@ class IntroScreenApp extends StatefulWidget {
 }
 
 class _IntroScreenAppState extends State<IntroScreenApp> {
-  
   @override
   Widget build(BuildContext context) {
     final list = getOnbordingData(context);
@@ -23,13 +22,11 @@ class _IntroScreenAppState extends State<IntroScreenApp> {
         child: IntroScreen(
           onbordingDataList: list,
           colors: [
-            Color(0xFF00B27D)
+            Color(0xFF00B27D),
           ],
-        
           pageRoute: MaterialPageRoute(
             builder: (context) => SetFirstTimeScreen(),
           ),
-
           nextButton: Text(
             AppLocalizations.of(context)!.next,
             style: TextStyle(
@@ -37,7 +34,6 @@ class _IntroScreenAppState extends State<IntroScreenApp> {
               fontFamily: 'GoogleSans-Bold',
             ),
           ),
-
           lastButton: Text(
             AppLocalizations.of(context)!.start,
             style: TextStyle(
@@ -45,7 +41,6 @@ class _IntroScreenAppState extends State<IntroScreenApp> {
               fontFamily: 'GoogleSans-Bold',
             ),
           ),
-          
           skipButton: Text(
             AppLocalizations.of(context)!.pass,
             style: TextStyle(
@@ -53,11 +48,10 @@ class _IntroScreenAppState extends State<IntroScreenApp> {
               fontFamily: 'GoogleSans-Bold',
             ),
           ),
-          
           selectedDotColor: Color(0xFF00B27D),
           unSelectdDotColor: Colors.grey,
-        )
-      )
+        ),
+      ),
     );
   }
 }

@@ -10,7 +10,7 @@ class FirstTimeController {
       debugPrint('Thành công Set');
     } catch (e) {
       debugPrint(e.toString());
-      
+
       throw 'Something went wrong';
     }
   }

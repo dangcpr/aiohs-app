@@ -13,7 +13,7 @@ class _SplashScreenAppState extends State<SplashScreenApp> {
     return Scaffold(
       body: Center(
         child: Text('Splash Screen'),
-      )
+      ),
     );
   }
 }

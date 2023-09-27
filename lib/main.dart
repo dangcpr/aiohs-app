@@ -10,14 +10,19 @@ import 'package:rmservice/themes/light_theme.dart';
 import 'package:rmservice/views/home_screen.dart';
 
 void main() {
-  runApp(MultiBlocProvider(providers: [
-    BlocProvider<SetFirstTimeCubit>(
-      create: (_) => SetFirstTimeCubit(),
+  runApp(
+    MultiBlocProvider(
+      providers: [
+        BlocProvider<SetFirstTimeCubit>(
+          create: (_) => SetFirstTimeCubit(),
+        ),
+        BlocProvider<GetFirstTimeCubit>(
+          create: (_) => GetFirstTimeCubit(),
+        ),
+      ],
+      child: const MyApp(),
     ),
-    BlocProvider<GetFirstTimeCubit>(
-      create: (_) => GetFirstTimeCubit(),
-    ),
-  ], child: const MyApp()));
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -27,17 +32,18 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        debugShowCheckedModeBanner: false,
-        title: 'Service-and-Space',
-        theme: lightTheme,
-        darkTheme: darkTheme,
-        localizationsDelegates: const [
-          AppLocalizations.delegate,
-          GlobalMaterialLocalizations.delegate,
-          GlobalWidgetsLocalizations.delegate,
-          GlobalCupertinoLocalizations.delegate,
-        ],
-        supportedLocales: supportLanguage,
-        home: HomeScreen());
+      debugShowCheckedModeBanner: false,
+      title: 'Service-and-Space',
+      theme: lightTheme,
+      darkTheme: darkTheme,
+      localizationsDelegates: const [
+        AppLocalizations.delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      supportedLocales: supportLanguage,
+      home: HomeScreen(),
+    );
   }
 }

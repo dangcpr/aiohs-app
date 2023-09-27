@@ -6,6 +6,6 @@ ThemeData darkTheme = ThemeData(
   brightness: Brightness.dark,
   textTheme: TextTheme(
     titleLarge: TextStyle(fontFamily: 'GoogleSans-Bold', fontSize: 24),
-    labelMedium: TextStyle(fontFamily: 'GoogleSans-Regular', fontSize: 14)
-  )
+    labelMedium: TextStyle(fontFamily: 'GoogleSans-Regular', fontSize: 14),
+  ),
 );

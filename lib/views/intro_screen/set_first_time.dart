@@ -21,31 +21,31 @@ class _SetFirstTimeScreenState extends State<SetFirstTimeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: BlocBuilder<SetFirstTimeCubit, SetFirstTimeState> (
+      body: BlocBuilder<SetFirstTimeCubit, SetFirstTimeState>(
         builder: (context, state) {
-          if(state is SetFirstTimeInitialState){
+          if (state is SetFirstTimeInitialState) {
             debugPrint('456');
             context.read<SetFirstTimeCubit>().setFirstTime();
             return CircleIndicatorScreen();
           }
 
-          if(state is SetFirstTimeLoadingState){
+          if (state is SetFirstTimeLoadingState) {
             return CircleIndicatorScreen();
           }
 
-          if(state is SetFirstTimeLoadedState){
+          if (state is SetFirstTimeLoadedState) {
             debugPrint(state.firstTime.toString());
             return LoginScreen(title: 'SnS');
           }
 
-          if(state is SetFirstTimeErrorState) {
+          if (state is SetFirstTimeErrorState) {
             errorMessage(state.error, context);
             return LoginScreen(title: 'SnS');
           }
 
           return CircleIndicatorScreen();
-        }
-      )
+        },
+      ),
     );
   }
 }

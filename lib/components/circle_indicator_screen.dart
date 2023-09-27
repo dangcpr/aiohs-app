@@ -12,7 +12,7 @@ class _CircleIndicatorScreenState extends State<CircleIndicatorScreen> {
   Widget build(BuildContext context) {
     return Center(
       child: CircularProgressIndicator(
-        color: Color(0xFF00B27D)
+        color: Color(0xFF00B27D),
       ),
     );
   }
