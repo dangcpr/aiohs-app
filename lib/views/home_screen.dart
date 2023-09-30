@@ -9,6 +9,7 @@ import 'package:rmservice/constants/function.dart';
 import 'package:rmservice/cubits/get_first_time/get_first_time_cubit.dart';
 import 'package:rmservice/cubits/get_first_time/get_first_time_state.dart';
 import 'package:rmservice/views/auth/login_screen.dart';
+import 'package:rmservice/views/auth/signup_screen.dart';
 import 'package:rmservice/views/intro_screen/intro_screen.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -38,13 +39,13 @@ class _HomeScreenState extends State<HomeScreen> {
             if (state.firstTime == true) {
               return IntroScreenApp();
             } else {
-              return LoginScreen(title: 'SnS');
+              return SignupScreen(first_time: false);
             }
           }
 
           if (state is GetFirstTimeErrorState) {
             errorMessage(state.error, context);
-            return LoginScreen(title: 'SnS');
+            return LoginScreen(title: 'SnS', first_time: false);
           }
 
           return CircleIndicatorScreen();

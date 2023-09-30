@@ -33,7 +33,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Service-and-Space',
+      title: 'AIO Home Service',
       theme: lightTheme,
       darkTheme: darkTheme,
       localizationsDelegates: const [

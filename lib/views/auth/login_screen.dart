@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 
 class LoginScreen extends StatefulWidget {
-  const LoginScreen({super.key, required this.title});
+  const LoginScreen({super.key, required this.title, required this.first_time});
 
   final String title;
+  final bool first_time;
 
   @override
   State<LoginScreen> createState() => _LoginScreenState();
@@ -30,8 +31,8 @@ class _LoginScreenState extends State<LoginScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
+            Text(
+              widget.first_time == true ? 'Chào mừng bạn đến với app!' : 'Mừng bạn trở lại!',
             ),
             Text(
               '$_counter',
