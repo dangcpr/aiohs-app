@@ -1,6 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:rmservice/controllers/system/first_time.dart';
-import 'package:rmservice/cubits/set_first_time/set_first_time_state.dart';
+import 'package:rmservice/home_route/controllers/first_time.dart';
+import 'package:rmservice/home_route/cubits/set_first_time/set_first_time_state.dart';
 
 class SetFirstTimeCubit extends Cubit<SetFirstTimeState> {
   SetFirstTimeCubit() : super(SetFirstTimeInitialState());

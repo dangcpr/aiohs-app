@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_walkthrough_screen/flutter_walkthrough_screen.dart';
-import 'package:rmservice/constants/function.dart';
+import 'package:rmservice/utilities/constants/function.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:rmservice/views/intro_screen/set_first_time.dart';
+import 'package:rmservice/home_route/views/intro_screen/set_first_time.dart';
 
 class IntroScreenApp extends StatefulWidget {
   const IntroScreenApp({super.key});

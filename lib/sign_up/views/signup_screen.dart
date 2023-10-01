@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:rmservice/components/text_field.dart';
+import 'package:rmservice/utilities/components/text_field.dart';
 
 class SignupScreen extends StatefulWidget {
   const SignupScreen({super.key, required this.first_time});

@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:rmservice/utilities/constants/variable.dart';
+import 'package:rmservice/utilities/routes/route.dart';
 
 class LoginScreen extends StatefulWidget {
-  const LoginScreen({super.key, required this.title, required this.first_time});
+  const LoginScreen({super.key, required this.first_time});
 
-  final String title;
   final bool first_time;
 
   @override
@@ -11,13 +12,6 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +19,7 @@ class _LoginScreenState extends State<LoginScreen> {
       appBar: AppBar(
         automaticallyImplyLeading: false,
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: Text(widget.title),
+        title: Text(nameApp),
       ),
       body: Center(
         child: Column(
@@ -35,14 +29,16 @@ class _LoginScreenState extends State<LoginScreen> {
               widget.first_time == true ? 'Chào mừng bạn đến với app!' : 'Mừng bạn trở lại!',
             ),
             Text(
-              '$_counter',
+              '30',
               style: Theme.of(context).textTheme.headlineMedium,
             ),
           ],
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
+        onPressed: () {
+          Navigator.pushNamed(context, Routes.loginScreen, arguments: true);
+        },
         tooltip: 'Increment',
         child: const Icon(Icons.add),
       ), // This trailing comma makes auto-formatting nicer for build methods.

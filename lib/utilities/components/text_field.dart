@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:rmservice/constants/variable.dart';
+import 'package:rmservice/utilities/constants/variable.dart';
 
 // ignore: must_be_immutable
 class TextFieldApp extends StatefulWidget {

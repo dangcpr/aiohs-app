@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:rmservice/constants/variable.dart';
+import 'package:rmservice/utilities/constants/variable.dart';
 
 ThemeData lightTheme = ThemeData(
   primaryColor: Color(0xFF00B27D),
@@ -8,12 +8,12 @@ ThemeData lightTheme = ThemeData(
   textTheme: TextTheme(
     titleLarge: TextStyle(
         fontFamily: 'GoogleSans-Bold',
-        fontSize: 24,
+        fontSize: fontSize.large,
         fontWeight: FontWeight.w700,
         color: colorProject.primaryColor),
     labelMedium: TextStyle(
         fontFamily: 'GoogleSans-Regular',
-        fontSize: 15,
+        fontSize: fontSize.medium,
         fontWeight: FontWeight.w400,
         color: colorProject.subColor),
     titleSmall: TextStyle(

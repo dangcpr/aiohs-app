@@ -2,12 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:rmservice/constants/variable.dart';
-import 'package:rmservice/cubits/get_first_time/get_first_time_cubit.dart';
-import 'package:rmservice/cubits/set_first_time/set_first_time_cubit.dart';
-import 'package:rmservice/themes/dark_theme.dart';
-import 'package:rmservice/themes/light_theme.dart';
-import 'package:rmservice/views/home_screen.dart';
+import 'package:rmservice/utilities/constants/variable.dart';
+import 'package:rmservice/home_route/cubits/get_first_time/get_first_time_cubit.dart';
+import 'package:rmservice/home_route/cubits/set_first_time/set_first_time_cubit.dart';
+import 'package:rmservice/utilities/routes/route.dart';
+import 'package:rmservice/utilities/themes/dark_theme.dart';
+import 'package:rmservice/utilities/themes/light_theme.dart';
+import 'package:rmservice/home_route/views/home_screen.dart';
 
 void main() {
   runApp(
@@ -43,6 +44,7 @@ class MyApp extends StatelessWidget {
         GlobalCupertinoLocalizations.delegate,
       ],
       supportedLocales: supportLanguage,
+      onGenerateRoute: Routes.controller,
       home: HomeScreen(),
     );
   }

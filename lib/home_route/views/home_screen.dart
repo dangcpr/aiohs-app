@@ -4,13 +4,12 @@
 //Nếu đã đăng nhập => Vô Main screen (cài đặt sau)
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:rmservice/components/circle_indicator_screen.dart';
-import 'package:rmservice/constants/function.dart';
-import 'package:rmservice/cubits/get_first_time/get_first_time_cubit.dart';
-import 'package:rmservice/cubits/get_first_time/get_first_time_state.dart';
-import 'package:rmservice/views/auth/login_screen.dart';
-import 'package:rmservice/views/auth/signup_screen.dart';
-import 'package:rmservice/views/intro_screen/intro_screen.dart';
+import 'package:rmservice/login/views/login_screen.dart';
+import 'package:rmservice/utilities/components/circle_indicator_screen.dart';
+import 'package:rmservice/utilities/constants/function.dart';
+import 'package:rmservice/home_route/cubits/get_first_time/get_first_time_cubit.dart';
+import 'package:rmservice/home_route/cubits/get_first_time/get_first_time_state.dart';
+import 'package:rmservice/home_route/views/intro_screen/intro_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -39,13 +38,13 @@ class _HomeScreenState extends State<HomeScreen> {
             if (state.firstTime == true) {
               return IntroScreenApp();
             } else {
-              return SignupScreen(first_time: false);
+              return LoginScreen(first_time: false);
             }
           }
 
           if (state is GetFirstTimeErrorState) {
             errorMessage(state.error, context);
-            return LoginScreen(title: 'SnS', first_time: false);
+            return LoginScreen(first_time: false);
           }
 
           return CircleIndicatorScreen();
