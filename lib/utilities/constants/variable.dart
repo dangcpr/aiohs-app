@@ -3,6 +3,9 @@ const nameApp = "AIO Home Serives";
 
 const nameAppShort = "AIOHS";
 
+const fontApp = "GoogleSans-Regular";
+const fontBoldApp = "GoogleSans-Bold";
+
 const supportLanguage = [
   Locale('vi', 'VN'),
   Locale('en', 'US'),

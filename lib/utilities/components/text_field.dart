@@ -10,13 +10,17 @@ class TextFieldApp extends StatefulWidget {
     required this.label,
     this.obsecure = false,
     this.validatorFunc,
+    this.errorText,
+    required this.darkMode,
   });
 
   final TextEditingController controller;
   final IconData icon;
   final String label;
   bool obsecure;
-  String Function(String?)? validatorFunc;
+  String? Function(String?)? validatorFunc;
+  String? errorText;
+  bool darkMode;
 
   @override
   State<TextFieldApp> createState() => _TextFieldAppState();
@@ -29,39 +33,48 @@ class _TextFieldAppState extends State<TextFieldApp> {
       decoration: BoxDecoration(
         boxShadow: [
           BoxShadow(
-            color: Color.fromARGB(16, 0, 0, 0),
+            color: colorProject.primaryColor.withOpacity(0.07),
             blurRadius: 30,
-            offset: const Offset(0, 10),
+            spreadRadius: 1,
+            offset: const Offset(0, 0),
           ),
         ],
       ),
       child: TextFormField(
+        style: TextStyle(
+          fontFamily: fontApp,
+        ),
         controller: widget.controller,
         obscureText: widget.obsecure,
         cursorColor: colorProject.primaryColor,
         decoration: InputDecoration(
           filled: true,
-          fillColor: Colors.white,
+          fillColor: widget.darkMode == true ? Colors.transparent : Colors.white,
           border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(50),
+            borderRadius: BorderRadius.circular(15),
           ),
           hoverColor: colorProject.primaryColor,
           prefixIcon: Icon(widget.icon, color: colorProject.primaryColor),
           labelText: widget.label,
           labelStyle: TextStyle(
             color: colorProject.primaryColor,
-            fontFamily: 'GoogleSans-Regular',
+            fontFamily: fontApp,
           ),
           enabledBorder: OutlineInputBorder(
             borderSide: BorderSide(color: Colors.white, width: 0.0),
-            borderRadius: BorderRadius.circular(50),
+            borderRadius: BorderRadius.circular(15),
           ),
           focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: Colors.white, width: 0.0),
-            borderRadius: BorderRadius.circular(50),
+            borderSide: BorderSide(color: colorProject.primaryColor, width: 1.5),
+            borderRadius: BorderRadius.circular(15),
           ),
+          errorText: widget.errorText,
+          errorStyle: TextStyle(
+            fontFamily: fontApp,
+          )
         ),
         validator: widget.validatorFunc,
+        
       ),
     );
   }
