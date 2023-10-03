@@ -29,5 +29,14 @@
     "orLogin": "Hoặc đăng nhập bằng",
     "newAccount": "Bạn chưa có tài khoản? ",
     "signUp": "Đăng ký ngay",
+    "signupSuccess": "Đăng ký thành công",
+    "signIn": "Đăng nhập",
+    "welCome": "Chào bạn đến với App!",
+    "welComeBack": "Chào mừng bạn trở lại!",
+    "contentWelcome": "Đăng nhập để trải nghiệm dịch vụ",
+    "forgotPassword": "Quên mật khẩu?",
+    "orLogin": "Hoặc đăng nhập bằng",
+    "newAccount": "Bạn chưa có tài khoản?",
+    "signUp": "Đăng ký ngay",
     "password" : "Mật khẩu"
 }

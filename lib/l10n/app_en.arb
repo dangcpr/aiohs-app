@@ -29,5 +29,15 @@
     "orLogin": "Or login using",
     "newAccount": "You don't have account? ",
     "signUp": "SignUp",
+    "password" : "Password",
+    "signupSuccess": "Sign up successful",
+    "signIn": "Sign In",
+    "welCome": "Welcome to my App!",
+    "welComeBack": "Welcome back!",
+    "contentWelcome": "Sign in to experience the service!",
+    "forgotPassword": "Forgot password?",
+    "orLogin": "Or login using",
+    "newAccount": "You don't have account?",
+    "signUp": "Sign up",
     "password" : "Password"
 }
