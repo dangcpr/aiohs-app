@@ -24,19 +24,31 @@ class _SignupScreenState extends State<SignupScreen> with InputValidationMixin {
   TextEditingController confirmController = TextEditingController();
 
   @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    emailController.dispose();
+    passwordController.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     //check darkmode
     bool darkMode = Theme.of(context).brightness == Brightness.dark;
 
     return Scaffold(
       appBar: AppBar(
+        leading: InkWell(
+          onTap: () => Navigator.pop(context),
+          child: const Icon(Icons.keyboard_arrow_left),
+        ),
         centerTitle: true,
         automaticallyImplyLeading: false,
         title: Text(
           AppLocalizations.of(context)!.signupTitle,
-          style: TextStyle(fontSize: 20),
+          style: const TextStyle(fontSize: 20),
         ),
-        actions: <Widget>[
+        actions: const <Widget>[
           TextButton(
             onPressed: null,
             child: Text("SKIP"),
@@ -46,7 +58,7 @@ class _SignupScreenState extends State<SignupScreen> with InputValidationMixin {
       body: Form(
         key: formKey,
         child: ListView(
-          padding: EdgeInsets.only(left: 30, right: 30, top: 20),
+          padding: const EdgeInsets.only(left: 30, right: 30, top: 20),
           children: <Widget>[
             Padding(
               padding: EdgeInsets.zero,
@@ -56,7 +68,7 @@ class _SignupScreenState extends State<SignupScreen> with InputValidationMixin {
               ),
             ),
             Padding(
-              padding: EdgeInsets.only(bottom: 25),
+              padding: const EdgeInsets.only(bottom: 25),
               child: Text(
                 AppLocalizations.of(context)!.signupDesc,
                 style: Theme.of(context).textTheme.labelMedium,
@@ -200,7 +212,7 @@ class _SignupScreenState extends State<SignupScreen> with InputValidationMixin {
               ),
             ),
             Padding(
-              padding: EdgeInsets.only(bottom: 15),
+              padding: const EdgeInsets.only(bottom: 15),
               child: ButtonGreenApp(
                 label: AppLocalizations.of(context)!.signupButton,
                 onPressed: () {
@@ -214,9 +226,7 @@ class _SignupScreenState extends State<SignupScreen> with InputValidationMixin {
                         password: passwordController.text,
                       ),
                     );
-                  } else {
-                      
-                  }
+                  } else {}
                 },
               ),
             ),

@@ -20,5 +20,14 @@
     "signupEmailError": "The email is not in the correct format",
     "signupPasswordLengthError": "Password must be at least 6 characters",
     "signupConfirmError": "Please re-enter the password that matches the password entered",
-    "signupSuccess": "Signup successful"
+    "signupSuccess": "Signup successful",
+    "signIn": "Sign In",
+    "welCome": "WelCome to my App",
+    "welComeBack": "WelCome back",
+    "contentWelcome": "Sign in to experience the service!",
+    "forgotPassword": "Forgot password?",
+    "orLogin": "Or login using",
+    "newAccount": "You don't have account? ",
+    "signUp": "SignUp",
+    "password" : "Password"
 }
