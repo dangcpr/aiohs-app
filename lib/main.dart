@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:rmservice/sign_up/cubits/signup_cubit.dart';
 import 'package:rmservice/utilities/constants/variable.dart';
 import 'package:rmservice/home_route/cubits/get_first_time/get_first_time_cubit.dart';
 import 'package:rmservice/home_route/cubits/set_first_time/set_first_time_cubit.dart';
@@ -19,6 +20,9 @@ void main() {
         ),
         BlocProvider<GetFirstTimeCubit>(
           create: (_) => GetFirstTimeCubit(),
+        ),
+        BlocProvider<SignupCubit>(
+          create: (_) => SignupCubit(),
         ),
       ],
       child: const MyApp(),

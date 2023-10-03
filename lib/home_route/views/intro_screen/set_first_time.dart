@@ -35,12 +35,16 @@ class _SetFirstTimeScreenState extends State<SetFirstTimeScreen> {
 
           if (state is SetFirstTimeLoadedState) {
             debugPrint(state.firstTime.toString());
-            return LoginScreen(first_time: true,);
+            return LoginScreen(
+              first_time: true,
+            );
           }
 
           if (state is SetFirstTimeErrorState) {
             errorMessage(state.error, context);
-            return LoginScreen(first_time: true,);
+            return LoginScreen(
+              first_time: true,
+            );
           }
 
           return CircleIndicatorScreen();

@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 //import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:rmservice/sign_up/controllers/main.dart';
+import 'package:rmservice/sign_up/models/user.dart';
 import 'package:rmservice/utilities/components/button_green.dart';
 import 'package:rmservice/utilities/components/text_field.dart';
 
@@ -27,13 +30,18 @@ class _SignupScreenState extends State<SignupScreen> with InputValidationMixin {
 
     return Scaffold(
       appBar: AppBar(
+        centerTitle: true,
         automaticallyImplyLeading: false,
-        title: Center(
-          child: Text(
-            "Đăng ký tài khoản",
-            style: TextStyle(fontSize: 20),
-          ),
+        title: Text(
+          AppLocalizations.of(context)!.signupTitle,
+          style: TextStyle(fontSize: 20),
         ),
+        actions: <Widget>[
+          TextButton(
+            onPressed: null,
+            child: Text("SKIP"),
+          )
+        ],
       ),
       body: Form(
         key: formKey,
@@ -43,14 +51,14 @@ class _SignupScreenState extends State<SignupScreen> with InputValidationMixin {
             Padding(
               padding: EdgeInsets.zero,
               child: Text(
-                "Đăng ký tài khoản",
+                AppLocalizations.of(context)!.signupTitle,
                 style: Theme.of(context).textTheme.titleLarge,
               ),
             ),
             Padding(
               padding: EdgeInsets.only(bottom: 25),
               child: Text(
-                "Hãy để việc nhà trở nên nhẹ nhàng!",
+                AppLocalizations.of(context)!.signupDesc,
                 style: Theme.of(context).textTheme.labelMedium,
               ),
             ),
@@ -103,11 +111,11 @@ class _SignupScreenState extends State<SignupScreen> with InputValidationMixin {
               height: 95,
               child: TextFieldApp(
                 controller: nameController,
-                label: "Họ và tên",
+                label: AppLocalizations.of(context)!.signupName,
                 icon: Icons.person,
                 validatorFunc: (input) {
                   if (input!.isEmpty) {
-                    return "Không được để trống";
+                    return AppLocalizations.of(context)!.signupEmptyError;
                   } else {
                     return null;
                   }
@@ -119,14 +127,14 @@ class _SignupScreenState extends State<SignupScreen> with InputValidationMixin {
               height: 95,
               child: TextFieldApp(
                 controller: emailController,
-                label: "Email",
+                label: AppLocalizations.of(context)!.signupEmail,
                 icon: Icons.email,
                 validatorFunc: (input) {
                   if (input!.isEmpty) {
-                    return "Không được để trống";
+                    return AppLocalizations.of(context)!.signupEmptyError;
                   }
                   if (isEmailValid(input) == false) {
-                    return "Không đúng định dang email";
+                    return AppLocalizations.of(context)!.signupEmailError;
                   } else {
                     return null;
                   }
@@ -138,11 +146,11 @@ class _SignupScreenState extends State<SignupScreen> with InputValidationMixin {
               height: 95,
               child: TextFieldApp(
                 controller: phoneController,
-                label: "Số điện thoại",
+                label: AppLocalizations.of(context)!.signupPhone,
                 icon: Icons.phone,
                 validatorFunc: (input) {
                   if (input!.isEmpty) {
-                    return "Không được để trống";
+                    return AppLocalizations.of(context)!.signupEmptyError;
                   } else {
                     return null;
                   }
@@ -154,12 +162,16 @@ class _SignupScreenState extends State<SignupScreen> with InputValidationMixin {
               height: 95,
               child: TextFieldApp(
                 controller: passwordController,
-                label: "Mật khẩu",
+                label: AppLocalizations.of(context)!.signupPassword,
                 icon: Icons.password,
                 obsecure: true,
                 validatorFunc: (input) {
                   if (input!.isEmpty) {
-                    return "Không được để trống";
+                    return AppLocalizations.of(context)!.signupEmptyError;
+                  }
+                  if (isPasswordValid(input) == false) {
+                    return AppLocalizations.of(context)!
+                        .signupPasswordLengthError;
                   } else {
                     return null;
                   }
@@ -171,15 +183,15 @@ class _SignupScreenState extends State<SignupScreen> with InputValidationMixin {
               height: 95,
               child: TextFieldApp(
                 controller: confirmController,
-                label: "Nhập lại mật khẩu",
+                label: AppLocalizations.of(context)!.signupConfirm,
                 icon: Icons.password,
                 obsecure: true,
                 validatorFunc: (input) {
                   if (input!.isEmpty) {
-                    return "Không được để trống";
+                    return AppLocalizations.of(context)!.signupEmptyError;
                   }
                   if (input != passwordController.text) {
-                    return "Vui lòng nhập lại khớp mật khẩu đã nhập";
+                    return AppLocalizations.of(context)!.signupConfirmError;
                   } else {
                     return null;
                   }
@@ -190,10 +202,20 @@ class _SignupScreenState extends State<SignupScreen> with InputValidationMixin {
             Padding(
               padding: EdgeInsets.only(bottom: 15),
               child: ButtonGreenApp(
-                label: "Đăng ký",
+                label: AppLocalizations.of(context)!.signupButton,
                 onPressed: () {
                   if (formKey.currentState!.validate()) {
                     formKey.currentState!.save();
+                    SignupController().signup(
+                      UserSignup(
+                        name: nameController.text,
+                        email: emailController.text,
+                        phone: phoneController.text,
+                        password: passwordController.text,
+                      ),
+                    );
+                  } else {
+                      
                   }
                 },
               ),

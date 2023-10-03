@@ -7,5 +7,18 @@
     "secondOBtitle": "Guaranteed Service",
     "secondOBdesc": "Professional maids, all have good reviews on the app.",
     "thirdOBtitle": "Simple and easy",
-    "thirdOBdesc": "Easy scheduling. Get a maid in a short time."
+    "thirdOBdesc": "Easy scheduling. Get a maid in a short time.",
+    "signupTitle": "Sign up account",
+    "signupDesc": "Let's make housework easy!",
+    "signupButton": "Sign up",
+    "signupName": "Full name",
+    "signupEmail": "Email",
+    "signupPhone": "Phone number",
+    "signupPassword": "Password",
+    "signupConfirm": "Re-enter password",
+    "signupEmptyError": "Cannot be empty",
+    "signupEmailError": "The email is not in the correct format",
+    "signupPasswordLengthError": "Password must be at least 6 characters",
+    "signupConfirmError": "Please re-enter the password that matches the password entered",
+    "signupSuccess": "Signup successful"
 }

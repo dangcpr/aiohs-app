@@ -6,7 +6,7 @@ class ButtonGreenApp extends StatefulWidget {
       {super.key, required this.label, required this.onPressed});
 
   final String label;
-  final Function()? onPressed;
+  final void Function()? onPressed;
 
   @override
   State<ButtonGreenApp> createState() => _ButtonGreenAppState();
