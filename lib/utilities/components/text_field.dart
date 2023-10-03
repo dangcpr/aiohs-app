@@ -53,7 +53,6 @@ class _TextFieldAppState extends State<TextFieldApp> {
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(15),
           ),
-          hoverColor: colorProject.primaryColor,
           prefixIcon: Icon(widget.icon, color: colorProject.primaryColor),
           labelText: widget.label,
           labelStyle: TextStyle(
