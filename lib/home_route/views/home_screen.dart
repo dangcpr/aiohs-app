@@ -39,7 +39,7 @@ class _HomeScreenState extends State<HomeScreen> {
             if (state.firstTime == true) {
               return IntroScreenApp();
             } else {
-              return LoginScreen(first_time: false);
+              return LoginScreen(first_time: true);
             }
           }
 

@@ -5,6 +5,27 @@ import 'package:flutter_walkthrough_screen/flutter_walkthrough_screen.dart';
 List<OnbordingData> getOnbordingData(BuildContext context) {
   final List<OnbordingData> list = [
     OnbordingData(
+      image: AssetImage("assets/images/SS-0.png"),
+      titleText: Text(
+        AppLocalizations.of(context)!.helloOBtitle,
+        textAlign: TextAlign.center,
+        style: TextStyle(
+          fontFamily: 'GoogleSans-Bold',
+          fontSize: 24,
+          color: Color(0xFF00B27D),
+        ),
+      ),
+      descText: Text(
+        AppLocalizations.of(context)!.helloOBdesc,
+        textAlign: TextAlign.center,
+        style: TextStyle(
+          fontFamily: 'GoogleSans-Regular',
+          fontSize: 16,
+          color: Colors.black,
+        ),
+      ),
+    ),
+    OnbordingData(
       image: AssetImage("assets/images/SS-1.png"),
       titleText: Text(
         AppLocalizations.of(context)!.firstOBtitle,
