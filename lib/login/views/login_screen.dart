@@ -3,8 +3,6 @@ import 'package:rmservice/sign_up/views/signup_screen.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:rmservice/utilities/constants/variable.dart';
 
-import '../../sign_up/controllers/main.dart';
-import '../../sign_up/models/user.dart';
 import '../../utilities/components/button_green.dart';
 import '../../utilities/components/text_field.dart';
 import '../../utilities/constants/app_assets.dart';
