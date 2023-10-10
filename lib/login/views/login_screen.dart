@@ -63,16 +63,13 @@ class _LoginScreenState extends State<LoginScreen> with InputValidationMixin {
                   key: formKeyLogin,
                   child: ListView(
                     shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
                     children: <Widget>[
-                      Text(
-                        'Email',
-                        style: Theme.of(context).textTheme.labelMedium,
-                      ),
                       SizedBox(
                         height: 85,
                         child: TextFieldApp(
                           controller: emailController,
-                          label: '',
+                          label: 'Email',
                           icon: Icons.email,
                           validatorFunc: (input) {
                             if (input!.isEmpty) {
@@ -85,15 +82,11 @@ class _LoginScreenState extends State<LoginScreen> with InputValidationMixin {
                           darkMode: darkMode,
                         ),
                       ),
-                      Text(
-                        AppLocalizations.of(context)!.password,
-                        style: Theme.of(context).textTheme.labelMedium,
-                      ),
                       SizedBox(
                         height: 95,
                         child: TextFieldApp(
                           controller: passwordController,
-                          label: '',
+                          label: AppLocalizations.of(context)!.password,
                           icon: Icons.password,
                           obsecure: true,
                           validatorFunc: (input) {
