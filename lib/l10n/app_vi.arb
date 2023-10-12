@@ -31,5 +31,16 @@
     "orLogin": "Hoặc đăng nhập bằng",
     "newAccount": "Bạn chưa có tài khoản? ",
     "signUp": "Đăng ký ngay",
-    "password" : "Mật khẩu"
+    "password" : "Mật khẩu",
+    "hello": "Xin chào",
+    "register": "Đăng ký ngay",
+    "becomeAMaid": "Trở thành người giúp việc?",
+    "search": "Tìm kiếm....",
+    "services": "Dịch vụ",
+    "hourly": "Giúp việc theo giờ",
+    "timeToTime": "Giúp việc theo ca",
+    "airConditioningCleaning": "Vệ sinh máy lạnh",
+    "shopping": "Đi chợ hộ",
+    "options" : "Tùy chọn",
+    "needRoomForShortTerm": "Bạn cần chỗ để ngắn hạn?"
 }

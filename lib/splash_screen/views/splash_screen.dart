@@ -26,7 +26,7 @@ class _SplashScreenState extends State<SplashScreen> {
         child: Image.asset("assets/images/logo.png"),
       ),
       onAnimationEnd: () => debugPrint("On Fade In End"),
-      defaultNextScreen: const HomeScreen(),
+      defaultNextScreen: const IntroScreen(),
     );
   }
 }

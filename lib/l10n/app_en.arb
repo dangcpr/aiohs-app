@@ -31,5 +31,16 @@
     "orLogin": "Or login using",
     "newAccount": "You don't have account? ",
     "signUp": "Sign up",
-    "password" : "Password"
+    "password" : "Password",
+    "hello": "Hello",
+    "register": "Register",
+    "becomeAMaid": "Become a maid?",
+    "search": "Search...",
+    "services": "Services",
+    "hourly": "Hourly",
+    "timeToTime": "Time to time",
+    "airConditioningCleaning": "Air conditioning cleaning",
+    "shopping": "Shopping",
+    "options" : "Options",
+    "needRoomForShortTerm": "Need room for short-term?"
 }

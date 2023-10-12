@@ -11,14 +11,14 @@ import 'package:rmservice/home_route/cubits/get_first_time/get_first_time_cubit.
 import 'package:rmservice/home_route/cubits/get_first_time/get_first_time_state.dart';
 import 'package:rmservice/home_route/views/intro_screen/intro_screen.dart';
 
-class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+class IntroScreen extends StatefulWidget {
+  const IntroScreen({super.key});
 
   @override
-  State<HomeScreen> createState() => _HomeScreenState();
+  State<IntroScreen> createState() => _IntroScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _IntroScreenState extends State<IntroScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
