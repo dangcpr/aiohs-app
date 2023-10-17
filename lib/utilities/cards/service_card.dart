@@ -6,12 +6,14 @@ class ServiceCard extends StatefulWidget {
   final double width;
   Color? color;
   final String text;
+  Function()? onPressed;
   ServiceCard({
     Key? key,
     required this.icon,
     required this.width,
     this.color,
     required this.text,
+    this.onPressed
   }) : super(key: key);
 
   @override
@@ -22,7 +24,7 @@ class _ServiceCardState extends State<ServiceCard> {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () {},
+      onTap: widget.onPressed,
       child: Column(
         children: [
           Container(

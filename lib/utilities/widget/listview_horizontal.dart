@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:rmservice/cleaning_hourly/views/maps.dart';
 import '../cards/service_card.dart';
 
 class HorizontalListViewWithIndicator extends StatefulWidget {
@@ -36,6 +37,15 @@ class _HorizontalListViewWithIndicatorState
         icon: Icons.access_alarm,
         width: 50,
         text: AppLocalizations.of(context)!.hourly,
+        onPressed: () {
+          //Route
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => ChooseLocationScreen(),
+            )
+          );
+        },
       ),
       ServiceCard(
         icon: Icons.cleaning_services,
