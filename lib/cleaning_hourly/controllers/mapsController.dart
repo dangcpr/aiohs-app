@@ -73,6 +73,8 @@ class MapController {
       if (lat != null && lng != null) {
         var response = await http.get(Uri.parse(url));
 
+        debugPrint(response.statusCode.toString());
+
         if (response.statusCode == 200) {
           Map data = jsonDecode(response.body);
           String _formattedAddress = data["results"][0]["formatted_address"];
@@ -83,7 +85,7 @@ class MapController {
       } else
         return null;
     } catch (e) {
-      debugPrint('Something went wrong');
+      debugPrint(e.toString());
       return Future.error('Something went wrong');
     }
   }

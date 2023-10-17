@@ -5,7 +5,7 @@ const nameAppShort = "AIOHS";
 
 const fontApp = "GoogleSans-Regular";
 const fontBoldApp = "GoogleSans-Bold";
-const maps_api_key = "AIzaSyBnlwr6bji3cR2hBY1Ei3n3mUooQFGd2OA";
+const maps_api_key = "AIzaSyAq0YUCj0v0pFl9wGuZOiyIDm9Db8fGFPA";
 
 const supportLanguage = [
   Locale('vi', 'VN'),
