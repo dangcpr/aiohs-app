@@ -12,17 +12,23 @@ class _LocationCardState extends State<LocationCard> {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    return Wrap(
-      spacing: 10,
-      runSpacing: 10,
-      children: <Widget>[
-        Card(size),
-        Card(size),
-        Card(size),
-        Card(size),
-        Card(size),
-        Card(size),
-      ],
+    return Container(
+      alignment: Alignment.center,
+      child: Wrap(
+        spacing: 10,
+        runSpacing: 10,
+        children: <Widget>[
+          Card(size),
+          Card(size),
+          Card(size),
+          Card(size),
+          Card(size),
+          Card(size),
+          Card(size),
+          Card(size),
+          Card(size),
+        ],
+      ),
     );
   }
 
@@ -50,7 +56,7 @@ class _LocationCardState extends State<LocationCard> {
           children: [
             Image.asset(
               'assets/images/location.png',
-              height: 120,
+              height: size.height / 8,
             ),
             const Text(
               'Cho thuê phòng...',

@@ -1,11 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:rmservice/utilities/constants/variable.dart';
-import 'package:rmservice/utilities/themes/dark_theme.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-
-import '../../utilities/cards/location_card.dart';
-import '../../utilities/cards/service_card.dart';
 import '../../utilities/widget/listview_horizontal.dart';
 
 class MainPage extends StatefulWidget {
@@ -20,43 +15,31 @@ class _MainPageState extends State<MainPage> {
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
     bool darkMode = Theme.of(context).brightness == Brightness.dark;
-    return SafeArea(
-      child: Padding(
-        padding: const EdgeInsets.all(10),
-        child: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.all(8),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Appbar(),
-                const SizedBox(height: 12),
-                ProfileWidget(),
-                const SizedBox(height: 10),
-                Register(),
-                const SizedBox(height: 10),
-                SearchBox(),
-                const SizedBox(height: 10),
-                Text(
-                  AppLocalizations.of(context)!.services,
-                  style: const TextStyle(
-                    fontFamily: fontBoldApp,
-                    fontSize: 20,
-                  ),
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 8),
+      child: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(8),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              ProfileWidget(),
+              const SizedBox(height: 12),
+              Register(),
+              const SizedBox(height: 12),
+              SearchBox(),
+              const SizedBox(height: 12),
+              Text(
+                AppLocalizations.of(context)!.services,
+                style: const TextStyle(
+                  fontFamily: fontBoldApp,
+                  fontSize: 20,
                 ),
-                HorizontalListViewWithIndicator(),
-                const SizedBox(height: 15),
-                Text(
-                  AppLocalizations.of(context)!.needRoomForShortTerm,
-                  style: const TextStyle(
-                    fontFamily: fontBoldApp,
-                    fontSize: 20,
-                  ),
-                ),
-                const SizedBox(height: 10),
-                const LocationCard(),
-              ],
-            ),
+              ),
+              const SizedBox(height: 12),
+              HorizontalListViewWithIndicator(),
+              const SizedBox(height: 15),
+            ],
           ),
         ),
       ),
@@ -185,42 +168,42 @@ class _MainPageState extends State<MainPage> {
     );
   }
 
-  Widget Appbar() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Row(
-          children: [
-            Image.asset(
-              'assets/images/logo.png',
-              height: 50,
-              width: 50,
-            ),
-            const SizedBox(width: 10),
-            const Text(
-              'AIOHS',
-              style: TextStyle(
-                fontFamily: fontBoldApp,
-                fontSize: fontSize.large,
-                color: colorProject.primaryColor,
-              ),
-            ),
-          ],
-        ),
-        const Row(
-          children: [
-            Icon(
-              Icons.notifications,
-              color: colorProject.primaryColor,
-            ),
-            SizedBox(width: 20),
-            Icon(
-              Icons.account_circle_sharp,
-              color: colorProject.primaryColor,
-            ),
-          ],
-        )
-      ],
-    );
-  }
+  // Widget Appbar() {
+  //   return Row(
+  //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+  //     children: [
+  //       Row(
+  //         children: [
+  //           Image.asset(
+  //             'assets/images/logo.png',
+  //             height: 50,
+  //             width: 50,
+  //           ),
+  //           const SizedBox(width: 10),
+  //           const Text(
+  //             'AIOHS',
+  //             style: TextStyle(
+  //               fontFamily: fontBoldApp,
+  //               fontSize: fontSize.large,
+  //               color: colorProject.primaryColor,
+  //             ),
+  //           ),
+  //         ],
+  //       ),
+  //       const Row(
+  //         children: [
+  //           Icon(
+  //             Icons.notifications,
+  //             color: colorProject.primaryColor,
+  //           ),
+  //           SizedBox(width: 20),
+  //           Icon(
+  //             Icons.account_circle_sharp,
+  //             color: colorProject.primaryColor,
+  //           ),
+  //         ],
+  //       )
+  //     ],
+  //   );
+  // }
 }

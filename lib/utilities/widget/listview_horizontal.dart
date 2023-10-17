@@ -10,25 +10,6 @@ class HorizontalListViewWithIndicator extends StatefulWidget {
 
 class _HorizontalListViewWithIndicatorState
     extends State<HorizontalListViewWithIndicator> {
-  PageController _pageController = PageController();
-  int _currentPage = 0;
-
-  @override
-  void initState() {
-    super.initState();
-    _pageController.addListener(() {
-      setState(() {
-        _currentPage = _pageController.page!.round();
-      });
-    });
-  }
-
-  @override
-  void dispose() {
-    _pageController.dispose();
-    super.dispose();
-  }
-
   @override
   Widget build(BuildContext context) {
     final List<Widget> items = [
@@ -40,7 +21,7 @@ class _HorizontalListViewWithIndicatorState
       ServiceCard(
         icon: Icons.cleaning_services,
         width: 50,
-        text: AppLocalizations.of(context)!.timeToTime,
+        text: AppLocalizations.of(context)!.longTerm,
       ),
       ServiceCard(
         icon: Icons.ac_unit_outlined,
@@ -58,42 +39,15 @@ class _HorizontalListViewWithIndicatorState
         text: AppLocalizations.of(context)!.options,
       ),
     ];
-    return Column(
+    return Wrap(
+      spacing: 12,
+      runSpacing: 12,
       children: <Widget>[
-        SizedBox(
-          height: 140,
-          child: ListView.builder(
-            scrollDirection: Axis.horizontal,
-            controller: _pageController,
-            itemCount: items.length,
-            itemBuilder: (context, index) {
-              return Center(
-                child: Container(
-                  width: 80,
-                  margin: const EdgeInsets.all(10),
-                  child: items[index],
-                ),
-              );
-            },
-          ),
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: List.generate(
-            2,
-            (index) {
-              return Container(
-                margin: const EdgeInsets.all(5),
-                width: 8,
-                height: 8,
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: _currentPage == index ? Colors.blue : Colors.grey,
-                ),
-              );
-            },
-          ),
-        ),
+        items[0],
+        items[1],
+        items[2],
+        items[3],
+        items[4],
       ],
     );
   }

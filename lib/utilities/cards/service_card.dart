@@ -23,40 +23,43 @@ class _ServiceCardState extends State<ServiceCard> {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {},
-      child: Column(
-        children: [
-          Container(
-            height: 80,
-            width: 80,
-            decoration: BoxDecoration(
-              shape: BoxShape.rectangle,
-              color: widget.color ?? colorProject.primaryColor,
-              borderRadius: BorderRadius.circular(20),
-              boxShadow: [
-                BoxShadow(
-                  color: colorProject.primaryColor.withOpacity(0.25),
-                  blurRadius: 20,
-                  spreadRadius: 1,
-                  offset: const Offset(0, 2),
+      child: SizedBox(
+        child: Column(
+          children: [
+            Container(
+              height: MediaQuery.of(context).size.height / 12,
+              width: MediaQuery.of(context).size.width / 5,
+              decoration: BoxDecoration(
+                shape: BoxShape.rectangle,
+                color: widget.color ?? colorProject.primaryColor,
+                borderRadius: BorderRadius.circular(20),
+                boxShadow: [
+                  BoxShadow(
+                    color: colorProject.primaryColor.withOpacity(0.25),
+                    blurRadius: 20,
+                    spreadRadius: 1,
+                    offset: const Offset(0, 2),
+                  ),
+                ],
+              ),
+              child: Center(
+                child: Icon(
+                  widget.icon,
+                  size: 30,
+                  color: Colors.white,
                 ),
-              ],
-            ),
-            child: Center(
-              child: Icon(
-                widget.icon,
-                size: 30,
-                color: Colors.white,
               ),
             ),
-          ),
-          Text(
-            widget.text,
-            style: const TextStyle(
-              fontFamily: fontBoldApp,
+            Text(
+              widget.text,
+              style: const TextStyle(
+                fontFamily: fontApp,
+                fontSize: 12,
+              ),
+              textAlign: TextAlign.center,
             ),
-            textAlign: TextAlign.center,
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

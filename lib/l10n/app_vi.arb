@@ -37,9 +37,9 @@
     "becomeAMaid": "Trở thành người giúp việc?",
     "search": "Tìm kiếm....",
     "services": "Dịch vụ",
-    "hourly": "Giúp việc theo giờ",
-    "timeToTime": "Giúp việc theo ca",
-    "airConditioningCleaning": "Vệ sinh máy lạnh",
+    "hourly": "Giúp việc \ntheo giờ",
+    "longTerm": "Giúp việc \ndài hạn",
+    "airConditioningCleaning": "Vệ sinh \nmáy lạnh",
     "shopping": "Đi chợ hộ",
     "options" : "Tùy chọn",
     "needRoomForShortTerm": "Bạn cần chỗ để ngắn hạn?"

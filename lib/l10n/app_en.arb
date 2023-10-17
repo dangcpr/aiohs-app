@@ -38,8 +38,8 @@
     "search": "Search...",
     "services": "Services",
     "hourly": "Hourly",
-    "timeToTime": "Time to time",
-    "airConditioningCleaning": "Air conditioning cleaning",
+    "longTerm": "Long-term",
+    "airConditioningCleaning": "Air conditioning\ncleaning",
     "shopping": "Shopping",
     "options" : "Options",
     "needRoomForShortTerm": "Need room for short-term?"
