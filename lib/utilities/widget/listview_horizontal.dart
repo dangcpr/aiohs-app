@@ -4,6 +4,8 @@ import 'package:rmservice/cleaning_hourly/views/maps.dart';
 import '../cards/service_card.dart';
 
 class HorizontalListViewWithIndicator extends StatefulWidget {
+  const HorizontalListViewWithIndicator({super.key});
+
   @override
   _HorizontalListViewWithIndicatorState createState() =>
       _HorizontalListViewWithIndicatorState();
@@ -19,6 +21,7 @@ class _HorizontalListViewWithIndicatorState
         width: 50,
         text: AppLocalizations.of(context)!.hourly,
         onPressed: () {
+          debugPrint('On pressed');
           //Route
           Navigator.push(
             context,
