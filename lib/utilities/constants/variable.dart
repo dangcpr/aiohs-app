@@ -20,6 +20,7 @@ class colorProject {
 
 class fontSize {
   static const double large = 24;
+  static const double mediumLarger = 17;
   static const double medium = 15;
   static const double textField = 13;
 }

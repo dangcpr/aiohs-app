@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:rmservice/home_page/home_page.dart';
+import 'package:rmservice/login/controllers/login.dart';
 import 'package:rmservice/sign_up/views/signup_screen.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:rmservice/utilities/constants/variable.dart';
@@ -130,7 +131,12 @@ class _LoginScreenState extends State<LoginScreen> with InputValidationMixin {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    socialButton(assetString: AppAssets.google),
+                    socialButton(
+                      assetString: AppAssets.google,
+                      onPressed: () {
+                        LoginController().handleGoogleSignIn();
+                      },
+                    ),
                     const SizedBox(width: 15),
                     socialButton(assetString: AppAssets.facebook),
                   ],
@@ -172,10 +178,10 @@ class _LoginScreenState extends State<LoginScreen> with InputValidationMixin {
     );
   }
 
-  Ink socialButton({required String assetString}) {
+  Ink socialButton({required String assetString, void Function()? onPressed}) {
     return Ink(
       child: InkWell(
-        onTap: () {},
+        onTap: onPressed,
         child: Image.asset(
           assetString,
           height: 35,

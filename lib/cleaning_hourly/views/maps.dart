@@ -1,13 +1,7 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:maps_places_autocomplete/maps_places_autocomplete.dart';
-import 'package:maps_places_autocomplete/model/place.dart';
-import 'package:maps_places_autocomplete/model/suggestion.dart';
 import 'package:rmservice/cleaning_hourly/controllers/mapsController.dart';
-import 'package:rmservice/utilities/constants/function.dart';
 import 'package:rmservice/utilities/constants/variable.dart';
 
 class ChooseLocationScreen extends StatefulWidget {

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:rmservice/cleaning_hourly/views/maps.dart';
+import 'package:rmservice/cleaning_hourly/views/cleaning_hourly_step1.dart';
 import '../cards/service_card.dart';
 
 class HorizontalListViewWithIndicator extends StatefulWidget {
@@ -26,7 +26,7 @@ class _HorizontalListViewWithIndicatorState
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => ChooseLocationScreen(),
+              builder: (context) => CleaningHourlyStep1Screen(),
             )
           );
         },
