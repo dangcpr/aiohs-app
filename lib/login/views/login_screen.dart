@@ -7,6 +7,7 @@ import 'package:rmservice/utilities/constants/variable.dart';
 import '../../utilities/components/button_green.dart';
 import '../../utilities/components/text_field.dart';
 import '../../utilities/constants/app_assets.dart';
+import '../../utilities/dialog/dialog.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key, required this.first_time});
@@ -112,10 +113,18 @@ class _LoginScreenState extends State<LoginScreen> with InputValidationMixin {
                         label: AppLocalizations.of(context)!.signIn,
                         onPressed: () {
                           // if (formKeyLogin.currentState!.validate()) {};
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => HomePage()));
+                          // Navigator.push(
+                          //   context,
+                          //   MaterialPageRoute(
+                          //     builder: (context) => HomePage(),
+                          //   ),
+                          // );
+                          showCustomDialog(
+                            context: context,
+                            dialogType: CustomDialogType.FAILURE,
+                            msg: dialog.sthWrong,
+                            isMultipleButton: false,
+                          );
                         },
                       ),
                     ],
