@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rmservice/cleaning_hourly/constants/cleaning_hourly_const.dart';
+import 'package:rmservice/cleaning_hourly/cubits/save_info/save_info.dart';
 import 'package:rmservice/utilities/constants/variable.dart';
 
 class AddServiceChoice extends StatefulWidget {
@@ -26,10 +28,40 @@ class _AddServiceChoiceState extends State<AddServiceChoice> {
         (int index) {
           return InkWell(
             onTap: () {
-              setState(() {
-                isCheck[index] = !isCheck[index];
-              });
+              setState(
+                () {
+                  isCheck[index] = !isCheck[index];
+                  switch (index) {
+                    case 0:
+                      context
+                          .read<SaveInfoCleaningHourlyCubit>()
+                          .state
+                          .cooking = isCheck[index];
+                      
+                    case 1:
+                      context.read<SaveInfoCleaningHourlyCubit>().state.iron =
+                          isCheck[index];
+                      
+                    case 2:
+                      context
+                          .read<SaveInfoCleaningHourlyCubit>()
+                          .state
+                          .bringTool = isCheck[index];
+                    case 3:
+                      context
+                          .read<SaveInfoCleaningHourlyCubit>()
+                          .state
+                          .bringVaccum = isCheck[index];
+                  }
+                },
+              );
               debugPrint("Selected ${index}: ${isCheck[index]}");
+
+              debugPrint(context
+                  .read<SaveInfoCleaningHourlyCubit>()
+                  .state
+                  .toJson()
+                  .toString());
             },
             child: Ink(
               width: double.infinity,
@@ -63,6 +95,7 @@ class _AddServiceChoiceState extends State<AddServiceChoice> {
                         ),
                         SizedBox(width: 10),
                         Text(
+                          overflow: TextOverflow.ellipsis,
                           listAddService[index].name!,
                           style: TextStyle(
                             fontFamily: fontApp,
@@ -79,6 +112,7 @@ class _AddServiceChoiceState extends State<AddServiceChoice> {
                     Row(
                       children: [
                         Text(
+                          overflow: TextOverflow.ellipsis,
                           listAddService[index].action!,
                           style: TextStyle(
                             fontFamily: fontApp,
@@ -90,7 +124,6 @@ class _AddServiceChoiceState extends State<AddServiceChoice> {
                                     : Colors.black),
                           ),
                         ),
-
                         SizedBox(width: 13)
                       ],
                     ),

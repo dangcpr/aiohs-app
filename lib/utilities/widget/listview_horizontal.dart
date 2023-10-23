@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:page_transition/page_transition.dart';
 import 'package:rmservice/cleaning_hourly/views/cleaning_hourly_step1.dart';
+import 'package:rmservice/main_page/main_page.dart';
 import '../cards/service_card.dart';
 
 class HorizontalListViewWithIndicator extends StatefulWidget {
@@ -25,9 +27,7 @@ class _HorizontalListViewWithIndicatorState
           //Route
           Navigator.push(
             context,
-            MaterialPageRoute(
-              builder: (context) => CleaningHourlyStep1Screen(),
-            )
+             PageTransition(type: PageTransitionType.rightToLeftWithFade, child: CleaningHourlyStep1Screen(), childCurrent: MainPage())
           );
         },
       ),

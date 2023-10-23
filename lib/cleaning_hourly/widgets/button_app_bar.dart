@@ -22,48 +22,53 @@ class ButtonChooseLocation extends StatefulWidget {
 class _ButtonChooseLocationState extends State<ButtonChooseLocation> {
   @override
   Widget build(BuildContext context) {
-    return TextButton(
-      onPressed: widget.onPressed,
-      style: ButtonStyle(
-        shape: MaterialStateProperty.all(RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10),
-        )),
-        overlayColor: MaterialStateProperty.all(
-          colorProject.primaryColor.withOpacity(0.1),
+    return Container(
+      padding: EdgeInsets.only(right: 20),
+      child: TextButton(
+        onPressed: widget.onPressed,
+        style: ButtonStyle(
+          shape: MaterialStateProperty.all(
+            RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10),
+            ),
+          ),
+          overlayColor: MaterialStateProperty.all(
+            colorProject.primaryColor.withOpacity(0.1),
+          ),
         ),
-      ),
-      child: Row(
-        children: [
-          Icon(
-            Icons.location_on,
-            color: colorProject.primaryColor,
-            size: 30,
-          ),
-
-          SizedBox(width: 10),
-
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                widget.nameLocation,
-                style: const TextStyle(
-                  color: colorProject.primaryColor,
-                  fontFamily: fontBoldApp,
-                  fontSize: fontSize.mediumLarger,
+        child: Row(
+          children: [
+            Icon(
+              Icons.location_on,
+              color: colorProject.primaryColor,
+              size: 30,
+            ),
+            SizedBox(width: 10),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  overflow: TextOverflow.fade,
+                  widget.nameLocation,
+                  style: const TextStyle(
+                    color: colorProject.primaryColor,
+                    fontFamily: fontBoldApp,
+                    fontSize: fontSize.mediumLarger,
+                  ),
                 ),
-              ),
-              Text(
-                widget.addressLocation,
-                style: TextStyle(
-                  color: widget.isDarkMode ? Colors.white : Colors.black,
-                  fontFamily: fontBoldApp,
-                  fontSize: fontSize.medium,
+                Text(
+                  overflow: TextOverflow.ellipsis,
+                  widget.addressLocation,
+                  style: TextStyle(
+                    color: widget.isDarkMode ? Colors.white : Colors.black,
+                    fontFamily: fontBoldApp,
+                    fontSize: fontSize.medium,
+                  ),
                 ),
-              ),
-            ],
-          ),
-        ],
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }

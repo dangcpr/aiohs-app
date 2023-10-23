@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
+import 'package:rmservice/cleaning_hourly/cubits/save_info/save_info.dart';
 import 'package:rmservice/utilities/constants/variable.dart';
 
 class PickTimeWork extends StatefulWidget {
@@ -13,6 +15,7 @@ class PickTimeWork extends StatefulWidget {
 
 class _PickTimeWorkState extends State<PickTimeWork> {
   TimeOfDay? time = TimeOfDay.now();
+
   @override
   Widget build(BuildContext context) {
     DateTime timeChoose = DateTime(1969, 1, 1, time!.hour, time!.minute);
@@ -33,14 +36,37 @@ class _PickTimeWorkState extends State<PickTimeWork> {
         InkWell(
           onTap: () async {
             TimeOfDay? newTime = await showTimePicker(
-              
+              builder: (context, child) {
+                return Theme(
+                  data: ThemeData.light().copyWith(
+                    primaryColor: colorProject.primaryColor,
+                    colorScheme: widget.isDarkMode
+                        ? ColorScheme.dark(
+                            primary: colorProject.primaryColor,
+                          )
+                        : ColorScheme.light(
+                            primary: colorProject.primaryColor,
+                          ),
+                    buttonTheme: ButtonThemeData(),
+                  ),
+                  child: child!,
+                );
+              },
               context: context,
-              initialTime: TimeOfDay.now(),
+              initialTime: time!,
             );
             if (newTime != null) {
               setState(() {
                 time = newTime;
+                timeChoose = DateTime(1969, 1, 1, time!.hour, time!.minute);
               });
+              context.read<SaveInfoCleaningHourlyCubit>().state.time =
+                  timeChoose;
+              debugPrint(context
+                  .read<SaveInfoCleaningHourlyCubit>()
+                  .state
+                  .toJson()
+                  .toString());
             }
           },
           child: Ink(

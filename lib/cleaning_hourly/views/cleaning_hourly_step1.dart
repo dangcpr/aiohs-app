@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:rmservice/cleaning_hourly/views/cleaning_hourly_step2.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:rmservice/cleaning_hourly/cubits/save_info/save_info.dart';
+import 'package:rmservice/cleaning_hourly/models/info_cleaning_hourly.dart';
 import 'package:rmservice/cleaning_hourly/widgets/add_service_choice.dart';
 import 'package:rmservice/cleaning_hourly/widgets/button_app_bar.dart';
+import 'package:rmservice/cleaning_hourly/widgets/button_next_step1.dart';
 import 'package:rmservice/cleaning_hourly/widgets/duration_choice.dart';
 import 'package:rmservice/cleaning_hourly/widgets/notice_step1.dart';
 import 'package:rmservice/cleaning_hourly/widgets/pet_choice.dart';
 import 'package:rmservice/cleaning_hourly/widgets/text_label.dart';
 import 'package:rmservice/cleaning_hourly/widgets/text_sub_label.dart';
-import 'package:rmservice/utilities/components/button_green.dart';
 
 class CleaningHourlyStep1Screen extends StatefulWidget {
   const CleaningHourlyStep1Screen({super.key});
@@ -23,6 +25,13 @@ class _CleaningHourlyStep1ScreenState extends State<CleaningHourlyStep1Screen> {
   Widget build(BuildContext context) {
     var brightness = MediaQuery.of(context).platformBrightness;
     bool isDarkMode = brightness == Brightness.dark;
+    InfoCleaningHourly infoCleaningHourly = InfoCleaningHourly();
+
+    @override
+    void initState() {
+      super.initState();
+      infoCleaningHourly = context.read<SaveInfoCleaningHourlyCubit>().state;
+    }
 
     return Scaffold(
       appBar: AppBar(
@@ -43,7 +52,7 @@ class _CleaningHourlyStep1ScreenState extends State<CleaningHourlyStep1Screen> {
             Padding(
               padding: const EdgeInsets.only(top: 17),
               child: TextLabel(
-                label: "Thời lượng",
+                label: "Thời lượng (chưa tính dịch vụ gia tăng)",
                 isDarkMode: isDarkMode,
               ),
             ),
@@ -95,32 +104,15 @@ class _CleaningHourlyStep1ScreenState extends State<CleaningHourlyStep1Screen> {
               ),
             ),
             Padding(
-                padding: const EdgeInsets.only(top: 15),
-                child: NoticeStep1(
-                  isDarkMode: isDarkMode,
-                )),
+              padding: const EdgeInsets.only(top: 15),
+              child: NoticeStep1(
+                isDarkMode: isDarkMode,
+              ),
+            ),
           ],
         ),
       ),
-      floatingActionButton: Container(
-        width: double.infinity,
-        padding: EdgeInsets.only(
-          left: 20,
-          right: 20,
-          bottom: 10,
-        ),
-        child: ButtonGreenApp(
-          label: "Tiếp theo",
-          onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => CleaningHourlyStep2Screen(),
-              )
-            );
-          },
-        ),
-      ),
+      floatingActionButton: const ButtonNextStep1(),
       floatingActionButtonLocation:
           FloatingActionButtonLocation.miniCenterFloat,
     );

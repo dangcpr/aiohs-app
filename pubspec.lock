@@ -137,6 +137,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.2.5"
+  datetime_setting:
+    dependency: "direct main"
+    description:
+      name: datetime_setting
+      sha256: "6d29db095cfec381684d9e1ca98b38533da2669cab5ded64cd333bfd9d9ee91f"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.0.2"
   dots_indicator:
     dependency: transitive
     description:
@@ -778,6 +786,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.6.1"
+  time_range_picker:
+    dependency: "direct main"
+    description:
+      name: time_range_picker
+      sha256: "63c3e0beba3c261f7d95e9a2ecef3a3e0bc88d4874edbbef4471c1a60c228526"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.2.0"
   typed_data:
     dependency: transitive
     description:

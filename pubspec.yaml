@@ -51,6 +51,8 @@ dependencies:
   google_sign_in: ^6.1.5
   chips_choice: ^3.0.1
   date_picker_timeline: ^1.2.5
+  time_range_picker: ^2.2.0
+  datetime_setting: ^2.0.2
 
 dev_dependencies:
   flutter_test:

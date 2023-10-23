@@ -15,9 +15,12 @@ class _PickDateWorkState extends State<PickDateWork> {
   final items =
       List<DateTime>.generate(7, (i) => DateTime.now().add(Duration(days: i + 1)));
   int value = 0;
+  
 
   @override
   Widget build(BuildContext context) {
+    String locale = Localizations.localeOf(context).languageCode;
+
     return Container(
       height: 92,
       child: ListView(
@@ -47,7 +50,7 @@ class _PickDateWorkState extends State<PickDateWork> {
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       Text(
-                        DateFormat('MMM').format(items[index]).toString(),
+                        DateFormat.MMM(locale).format(items[index]).toString(),
                         style: TextStyle(
                           fontFamily: fontApp,
                           fontSize: fontSize.medium,
@@ -61,7 +64,7 @@ class _PickDateWorkState extends State<PickDateWork> {
                         ),
                       ),
                       Text(
-                        DateFormat('EEE').format(items[index]).toString(),
+                        DateFormat.E(locale).format(items[index]).toString(),
                         style: TextStyle(
                           fontFamily: fontApp,
                           fontSize: fontSize.medium,

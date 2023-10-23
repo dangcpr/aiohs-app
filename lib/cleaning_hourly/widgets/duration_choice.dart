@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rmservice/cleaning_hourly/constants/cleaning_hourly_const.dart';
+import 'package:rmservice/cleaning_hourly/cubits/save_info/save_info.dart';
 import 'package:rmservice/utilities/constants/variable.dart';
 
 class DurationChoice extends StatefulWidget {
@@ -13,10 +15,11 @@ class DurationChoice extends StatefulWidget {
 
 class _DurationChoiceState extends State<DurationChoice> {
   DurationClass durationChoice = DurationClass();
-  int _value = 0;
 
   @override
   Widget build(BuildContext context) {
+    int _value = BlocProvider.of<SaveInfoCleaningHourlyCubit>(context, listen: true).state.duration! - 2;
+
     return SizedBox(
       width: double.infinity,
       child: Wrap(
@@ -56,9 +59,9 @@ class _DurationChoiceState extends State<DurationChoice> {
               ),
               selectedColor: colorProject.primaryColor,
               showCheckmark: false,
-              selected: _value == index,
+              selected: index == _value,
               labelStyle: TextStyle(
-                color: _value == index
+                color: index == _value
                     ? Colors.white
                     : (widget.isDarkMode ? Colors.white : Colors.black),
               ),
@@ -66,7 +69,9 @@ class _DurationChoiceState extends State<DurationChoice> {
                 setState(() {
                   _value = selected ? index : 0;
                 });
-                debugPrint(listDuration[_value].toJson().toString());
+                context.read<SaveInfoCleaningHourlyCubit>().state.duration = listDuration[_value].duration;
+                
+                debugPrint(context.read<SaveInfoCleaningHourlyCubit>().state.duration.toString());
               },
             );
           },

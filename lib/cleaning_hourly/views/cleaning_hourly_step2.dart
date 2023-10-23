@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:rmservice/cleaning_hourly/widgets/button_next_step2.dart';
+import 'package:rmservice/cleaning_hourly/widgets/note_for_maid.dart';
 import 'package:rmservice/cleaning_hourly/widgets/notice_step2.dart';
 import 'package:rmservice/cleaning_hourly/widgets/pick_date_work.dart';
 import 'package:rmservice/cleaning_hourly/widgets/pick_time_work.dart';
@@ -62,14 +64,36 @@ class _CleaningHourlyStep2ScreenState extends State<CleaningHourlyStep2Screen> {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.only(top: 15), 
-              child: NoticeStep2(
+                padding: const EdgeInsets.only(top: 15),
+                child: NoticeStep2(
+                  isDarkMode: isDarkMode,
+                )),
+            Padding(
+              padding: const EdgeInsets.only(top: 17),
+              child: TextLabel(
+                label: "Ghi chú cho người làm",
                 isDarkMode: isDarkMode,
-              )
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(top: 5),
+              child: TextSubLabel(
+                label: "Ghi chú cho người làm để người làm dọn dẹp tốt hơn.",
+                isDarkMode: isDarkMode,
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(top: 7),
+              child: NoteForMaid(
+                isDarkMode: isDarkMode,
+              ),
             )
           ],
         ),
       ),
+      floatingActionButton: ButtonNextStep2(),
+      floatingActionButtonLocation:
+          FloatingActionButtonLocation.miniCenterFloat,
     );
   }
 }
