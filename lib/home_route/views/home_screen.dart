@@ -11,9 +11,6 @@ import 'package:rmservice/home_route/cubits/get_first_time/get_first_time_cubit.
 import 'package:rmservice/home_route/cubits/get_first_time/get_first_time_state.dart';
 import 'package:rmservice/home_route/views/intro_screen/intro_screen.dart';
 
-import '../../login/views/login_page.dart';
-import '../../network/cubit/network_cubit.dart';
-
 class IntroScreen extends StatefulWidget {
   const IntroScreen({super.key});
 
@@ -24,37 +21,34 @@ class IntroScreen extends StatefulWidget {
 class _IntroScreenState extends State<IntroScreen> {
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => InternetCubit()..checkConnection(),
-      child: Scaffold(
-        body: BlocBuilder<GetFirstTimeCubit, GetFirstTimeState>(
-          builder: (context, state) {
-            if (state is GetFirstTimeInitialState) {
-              debugPrint('123');
-              context.read<GetFirstTimeCubit>().getFirstTime();
-              return CircleIndicatorScreen();
-            }
-
-            if (state is GetFirstTimeLoadingState) {
-              return CircleIndicatorScreen();
-            }
-
-            if (state is GetFirstTimeLoadedState) {
-              if (state.firstTime == true) {
-                return IntroScreenApp();
-              } else {
-                return LoginPage(first_time: false);
-              }
-            }
-
-            if (state is GetFirstTimeErrorState) {
-              errorMessage(state.error, context);
-              return LoginPage(first_time: false);
-            }
-
+    return Scaffold(
+      body: BlocBuilder<GetFirstTimeCubit, GetFirstTimeState>(
+        builder: (context, state) {
+          if (state is GetFirstTimeInitialState) {
+            debugPrint('123');
+            context.read<GetFirstTimeCubit>().getFirstTime();
             return CircleIndicatorScreen();
-          },
-        ),
+          }
+
+          if (state is GetFirstTimeLoadingState) {
+            return CircleIndicatorScreen();
+          }
+
+          if (state is GetFirstTimeLoadedState) {
+            if (state.firstTime == true) {
+              return IntroScreenApp();
+            } else {
+              return LoginScreen(first_time: false);
+            }
+          }
+
+          if (state is GetFirstTimeErrorState) {
+            errorMessage(state.error, context);
+            return LoginScreen(first_time: false);
+          }
+
+          return CircleIndicatorScreen();
+        },
       ),
     );
   }

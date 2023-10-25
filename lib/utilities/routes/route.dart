@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:rmservice/home_route/views/intro_screen/intro_screen.dart';
-import 'package:rmservice/login/views/login_page.dart';
 import 'package:rmservice/login/views/login_screen.dart';
 import 'package:rmservice/sign_up/views/signup_screen.dart';
 class Routes {
@@ -15,7 +14,7 @@ class Routes {
     case loginScreen:
       bool argument = args as bool;
       return MaterialPageRoute(
-        builder: (context) => LoginPage(
+        builder: (context) => LoginScreen(
           first_time: argument,
         ),
       );
@@ -39,7 +38,7 @@ class Routes {
         content: Text('No route defined for ${settings.name}'),
       );
       return MaterialPageRoute(
-        builder: (context) => LoginPage(
+        builder: (context) => LoginScreen(
           first_time: argument,
         ),
       );
