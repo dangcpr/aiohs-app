@@ -6,6 +6,7 @@ const nameAppShort = "AIOHS";
 
 const fontApp = "GoogleSans-Regular";
 const fontBoldApp = "GoogleSans-Bold";
+const maps_api_key = "AIzaSyAq0YUCj0v0pFl9wGuZOiyIDm9Db8fGFPA";
 
 const supportLanguage = [
   Locale('vi', 'VN'),
@@ -20,6 +21,7 @@ class colorProject {
 
 class fontSize {
   static const double large = 24;
+  static const double mediumLarger = 17;
   static const double medium = 15;
   static const double textField = 13;
 }
