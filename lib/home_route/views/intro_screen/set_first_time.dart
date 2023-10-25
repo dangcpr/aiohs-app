@@ -10,6 +10,8 @@ import 'package:rmservice/utilities/constants/function.dart';
 import 'package:rmservice/home_route/cubits/set_first_time/set_first_time_cubit.dart';
 import 'package:rmservice/home_route/cubits/set_first_time/set_first_time_state.dart';
 
+import '../../../login/views/login_page.dart';
+
 class SetFirstTimeScreen extends StatefulWidget {
   const SetFirstTimeScreen({super.key});
 
@@ -35,14 +37,14 @@ class _SetFirstTimeScreenState extends State<SetFirstTimeScreen> {
 
           if (state is SetFirstTimeLoadedState) {
             debugPrint(state.firstTime.toString());
-            return LoginScreen(
+            return LoginPage(
               first_time: true,
             );
           }
 
           if (state is SetFirstTimeErrorState) {
             errorMessage(state.error, context);
-            return LoginScreen(
+            return LoginPage(
               first_time: true,
             );
           }
