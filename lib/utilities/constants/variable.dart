@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 const nameApp = "AIO Home Serives";
 
 const nameAppShort = "AIOHS";
@@ -23,4 +24,19 @@ class fontSize {
   static const double mediumLarger = 17;
   static const double medium = 15;
   static const double textField = 13;
+}
+
+class padding {
+  static const paddingSmall = 8.0;
+  static const paddingMedium = 16.0;
+  static const paddingLarge = 24.0;
+}
+
+class dialog {
+  static const networkError = "Unable to connect, please check your network";
+  static const sentOTP = "OTP code is sent";
+  static const wrongOTP = "OTP code incorrect";
+  static const emailExist = "Email already exist";
+  static const emailWrong = "Please check your email";
+  static const sthWrong = "Your email or password is incorrect";
 }
