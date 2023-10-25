@@ -114,18 +114,18 @@ class _LoginScreenState extends State<LoginScreen> with InputValidationMixin {
                         label: AppLocalizations.of(context)!.signIn,
                         onPressed: () {
                           // if (formKeyLogin.currentState!.validate()) {};
-                          // Navigator.push(
-                          //   context,
-                          //   MaterialPageRoute(
-                          //     builder: (context) => HomePage(),
-                          //   ),
-                          // );
-                          showCustomDialog(
-                            context: context,
-                            dialogType: CustomDialogType.FAILURE,
-                            msg: dialog.sthWrong,
-                            isMultipleButton: false,
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => HomePage(),
+                            ),
                           );
+                          // showCustomDialog(
+                          //   context: context,
+                          //   dialogType: CustomDialogType.FAILURE,
+                          //   msg: dialog.sthWrong,
+                          //   isMultipleButton: false,
+                          // );
                         },
                       ),
                     ],
