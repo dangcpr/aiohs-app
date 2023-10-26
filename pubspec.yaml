@@ -55,6 +55,10 @@ dependencies:
   date_picker_timeline: ^1.2.5
   time_range_picker: ^2.2.0
   datetime_setting: ^2.0.2
+  connectivity_plus: ^2.3.6+1
+  flutter_secure_storage: ^9.0.0
+  jwt_decoder: ^2.0.1
+  dio: ^5.3.3
 
 dev_dependencies:
   flutter_test:

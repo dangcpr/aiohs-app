@@ -37,16 +37,19 @@ class _AddServiceChoiceState extends State<AddServiceChoice> {
                           .read<SaveInfoCleaningHourlyCubit>()
                           .state
                           .cooking = isCheck[index];
-                      
+                      break;
+
                     case 1:
                       context.read<SaveInfoCleaningHourlyCubit>().state.iron =
                           isCheck[index];
-                      
+                      break;
+
                     case 2:
                       context
                           .read<SaveInfoCleaningHourlyCubit>()
                           .state
                           .bringTool = isCheck[index];
+                      break;
                     case 3:
                       context
                           .read<SaveInfoCleaningHourlyCubit>()
