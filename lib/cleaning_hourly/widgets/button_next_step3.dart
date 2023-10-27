@@ -4,21 +4,21 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:rmservice/cleaning_hourly/cubits/save_info/save_info.dart';
-import 'package:rmservice/cleaning_hourly/views/cleaning_hourly_step2.dart';
 import 'package:rmservice/cleaning_hourly/views/cleaning_hourly_step3.dart';
+import 'package:rmservice/cleaning_hourly/views/complete.dart';
 import 'package:rmservice/cleaning_hourly/widgets/dialog_wrong.dart';
 import 'package:rmservice/utilities/components/button_green.dart';
 import 'package:rmservice/utilities/constants/variable.dart';
 import 'package:datetime_setting/datetime_setting.dart';
 
-class ButtonNextStep2 extends StatefulWidget {
-  const ButtonNextStep2({super.key});
+class ButtonNextStep3 extends StatefulWidget {
+  const ButtonNextStep3({super.key});
 
   @override
-  State<ButtonNextStep2> createState() => _ButtonNextStep2State();
+  State<ButtonNextStep3> createState() => _ButtonNextStep3State();
 }
 
-class _ButtonNextStep2State extends State<ButtonNextStep2> {
+class _ButtonNextStep3State extends State<ButtonNextStep3> {
   //final timeIsAuto = DatetimeSetting.timeIsAuto();
   //final timeZoneIsAuto = DatetimeSetting.timeZoneIsAuto();
   int time6Hours = 6 * 60;
@@ -80,8 +80,8 @@ class _ButtonNextStep2State extends State<ButtonNextStep2> {
                 context,
                 PageTransition(
                   type: PageTransitionType.rightToLeftWithFade,
-                  child: CleaningHourlyStep3Screen(),
-                  childCurrent: CleaningHourlyStep2Screen(),
+                  child: CompleteCleaningHourlyScreen(),
+                  childCurrent: CleaningHourlyStep3Screen(),
                 ),
               );
 

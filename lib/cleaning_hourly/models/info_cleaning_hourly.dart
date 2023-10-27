@@ -15,6 +15,7 @@ class InfoCleaningHourly {
   late DateTime? time;
   late String? note;
   late int? price;
+  late String? paymentMethod;
 
   InfoCleaningHourly({
     this.location,
@@ -31,6 +32,7 @@ class InfoCleaningHourly {
     this.time,
     this.note = "",
     this.price,
+    this.paymentMethod = "cash",
   });
 
   InfoCleaningHourly.fromJson(Map<String, dynamic> json) {
@@ -39,10 +41,13 @@ class InfoCleaningHourly {
     iron = json['iron'];
     bringTool = json['bringTool'];
     bringVaccum = json['bringVaccum'];
+    realDuration = json['realDuration'];
     hasPet = json['hasPet'];
     date = DateTime.parse(json['date']);
     time = DateTime.parse(json['time']);
     note = json['note'];
+    price = json['price'];
+    paymentMethod = json['paymentMethod'];
   }
 
   Map<String, dynamic> toJson() => {
@@ -51,9 +56,12 @@ class InfoCleaningHourly {
     'iron': iron,
     'bringTool': bringTool,
     'bringVaccum': bringVaccum,
+    'realDuration': realDuration,
     'hasPet': hasPet,
     'date': date!.toIso8601String(),
     'time': time!.toIso8601String(),
     'note': note,
+    'price': price,
+    'paymentMethod': paymentMethod,
   };
 }

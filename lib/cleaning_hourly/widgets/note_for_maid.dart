@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:rmservice/cleaning_hourly/cubits/save_info/save_info.dart';
 import 'package:rmservice/utilities/constants/variable.dart';
 
 class NoteForMaid extends StatefulWidget {
@@ -12,7 +14,7 @@ class NoteForMaid extends StatefulWidget {
 
 class _NoteForMaidState extends State<NoteForMaid> {
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context) {    
     return SizedBox(
       height: 140,
       child: TextField(
@@ -35,6 +37,9 @@ class _NoteForMaidState extends State<NoteForMaid> {
           ),
           hintText: "Nhập ghi chú cho nhân viên",
         ),
+        onChanged: (value) {
+          context.read<SaveInfoCleaningHourlyCubit>().state.note = value;
+        },
       ),
     );
   }
