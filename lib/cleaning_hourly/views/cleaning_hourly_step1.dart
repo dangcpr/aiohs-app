@@ -10,6 +10,7 @@ import 'package:rmservice/cleaning_hourly/widgets/notice_step1.dart';
 import 'package:rmservice/cleaning_hourly/widgets/pet_choice.dart';
 import 'package:rmservice/cleaning_hourly/widgets/text_label.dart';
 import 'package:rmservice/cleaning_hourly/widgets/text_sub_label.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class CleaningHourlyStep1Screen extends StatefulWidget {
   const CleaningHourlyStep1Screen({super.key});
@@ -52,14 +53,14 @@ class _CleaningHourlyStep1ScreenState extends State<CleaningHourlyStep1Screen> {
             Padding(
               padding: const EdgeInsets.only(top: 17),
               child: TextLabel(
-                label: "Thời lượng (chưa tính dịch vụ gia tăng)",
+                label: AppLocalizations.of(context)!.durationLabel,
                 isDarkMode: isDarkMode,
               ),
             ),
             Padding(
               padding: const EdgeInsets.only(top: 5),
               child: TextSubLabel(
-                label: "Vui lòng ước lượng thời gian cần dọn dẹp",
+                label: AppLocalizations.of(context)!.durationSub,
                 isDarkMode: isDarkMode,
               ),
             ),
@@ -73,14 +74,14 @@ class _CleaningHourlyStep1ScreenState extends State<CleaningHourlyStep1Screen> {
             Padding(
               padding: const EdgeInsets.only(top: 17),
               child: TextLabel(
-                label: "Dịch vụ gia tăng",
+                label: AppLocalizations.of(context)!.addServiceLabel,
                 isDarkMode: isDarkMode,
               ),
             ),
             Padding(
               padding: const EdgeInsets.only(top: 5),
               child: TextSubLabel(
-                label: "Vui lòng các dịch vụ gia tăng nếu bạn có nhu cầu",
+                label: AppLocalizations.of(context)!.durationSub,
                 isDarkMode: isDarkMode,
               ),
             ),
@@ -93,7 +94,7 @@ class _CleaningHourlyStep1ScreenState extends State<CleaningHourlyStep1Screen> {
             Padding(
               padding: const EdgeInsets.only(top: 20),
               child: TextLabel(
-                label: "Tùy chọn",
+                label: AppLocalizations.of(context)!.optionLabel,
                 isDarkMode: isDarkMode,
               ),
             ),

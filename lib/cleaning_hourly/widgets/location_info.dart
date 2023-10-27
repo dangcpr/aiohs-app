@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:rmservice/utilities/constants/variable.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class LocationInfoCleaningHourly extends StatefulWidget {
   const LocationInfoCleaningHourly({super.key, required this.isDarkMode});
@@ -44,7 +45,7 @@ class _LocationInfoCleaningHourlyState
             ),
             SizedBox(height: 8),
             Text(
-              "Chi tiết địa chỉ",
+              AppLocalizations.of(context)!.locationDetailLabel,
               style: TextStyle(
                 fontSize: fontSize.medium,
                 fontFamily: fontBoldApp,

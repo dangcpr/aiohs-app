@@ -2,12 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:rmservice/cleaning_hourly/cubits/save_info/save_info.dart';
-import 'package:rmservice/cleaning_hourly/models/info_cleaning_hourly.dart';
 import 'package:rmservice/cleaning_hourly/views/cleaning_hourly_step1.dart';
 import 'package:rmservice/cleaning_hourly/views/cleaning_hourly_step2.dart';
 import 'package:rmservice/cleaning_hourly/widgets/dialog_wrong.dart';
 import 'package:rmservice/utilities/components/button_green.dart';
-import 'package:rmservice/utilities/constants/variable.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ButtonNextStep1 extends StatefulWidget {
   const ButtonNextStep1({super.key});
@@ -27,7 +26,7 @@ class _ButtonNextStep1State extends State<ButtonNextStep1> {
         bottom: 10,
       ),
       child: ButtonGreenApp(
-        label: "Tiếp theo",
+        label: AppLocalizations.of(context)!.nextLabel,
         onPressed: () {
           /*
           if (context.read<SaveInfoCleaningHourlyCubit>().state.location ==

@@ -5,6 +5,7 @@ import 'package:rmservice/cleaning_hourly/widgets/method_payment.dart';
 import 'package:rmservice/cleaning_hourly/widgets/text_label.dart';
 import 'package:rmservice/cleaning_hourly/widgets/work_info.dart';
 import 'package:rmservice/utilities/constants/variable.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class CleaningHourlyStep3Screen extends StatefulWidget {
   const CleaningHourlyStep3Screen({super.key});
@@ -38,7 +39,7 @@ class _CleaningHourlyStep3ScreenState extends State<CleaningHourlyStep3Screen> {
             Padding(
               padding: const EdgeInsets.only(top: 17),
               child: TextLabel(
-                label: 'Vị trí',
+                label: AppLocalizations.of(context)!.locationLabel,
                 isDarkMode: isDarkMode,
               ),
             ),
@@ -51,7 +52,7 @@ class _CleaningHourlyStep3ScreenState extends State<CleaningHourlyStep3Screen> {
             Padding(
               padding: const EdgeInsets.only(top: 17),
               child: TextLabel(
-                label: 'Thông tin công việc',
+                label: AppLocalizations.of(context)!.workingInfoLabel,
                 isDarkMode: isDarkMode,
               ),
             ),

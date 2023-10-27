@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:rmservice/cleaning_hourly/cubits/save_info/save_info.dart';
 import 'package:rmservice/utilities/constants/variable.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class WorkInfoCleaningHourly extends StatefulWidget {
   const WorkInfoCleaningHourly({super.key, required this.isDarkMode});
@@ -32,7 +33,7 @@ class _WorkInfoCleaningHourlyState extends State<WorkInfoCleaningHourly> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              "Giờ làm việc",
+              AppLocalizations.of(context)!.workingInfoLabel,
               style: TextStyle(
                 fontSize: fontSize.medium,
                 fontFamily: fontBoldApp,
@@ -71,7 +72,7 @@ class _WorkInfoCleaningHourlyState extends State<WorkInfoCleaningHourly> {
                 SizedBox(width: 8),
                 Flexible(
                   child: Text(
-                    '${infoCleaningHourly.realDuration!} giờ, từ ${DateFormat.Hm(locale).format(infoCleaningHourly.time!)} tới ${DateFormat.Hm(locale).format(infoCleaningHourly.time!.add(Duration(hours: infoCleaningHourly.realDuration!)))}',
+                    '${infoCleaningHourly.realDuration!} ${AppLocalizations.of(context)!.hourLabel}, từ ${DateFormat.Hm(locale).format(infoCleaningHourly.time!)} tới ${DateFormat.Hm(locale).format(infoCleaningHourly.time!.add(Duration(hours: infoCleaningHourly.realDuration!)))}',
                     style: TextStyle(
                       fontSize: fontSize.medium,
                       fontFamily: fontApp,
@@ -83,7 +84,7 @@ class _WorkInfoCleaningHourlyState extends State<WorkInfoCleaningHourly> {
             ),
             SizedBox(height: 10),
             Text(
-              "Chi tiết công việc",
+              AppLocalizations.of(context)!.workingInfoDetailLabel,
               style: TextStyle(
                 fontSize: fontSize.medium,
                 fontFamily: fontBoldApp,

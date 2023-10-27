@@ -4,6 +4,7 @@ import 'package:rmservice/cleaning_hourly/constants/cleaning_hourly_const.dart';
 import 'package:rmservice/cleaning_hourly/cubits/save_info/save_info.dart';
 import 'package:rmservice/utilities/constants/variable.dart';
 
+
 class AddServiceChoice extends StatefulWidget {
   const AddServiceChoice({super.key, required this.isDarkMode});
 
@@ -14,13 +15,15 @@ class AddServiceChoice extends StatefulWidget {
 }
 
 class _AddServiceChoiceState extends State<AddServiceChoice> {
-  List<bool> isCheck = List.generate(
-    listAddService.length,
-    (int index) => false,
-  );
-
   @override
   Widget build(BuildContext context) {
+    List<AddServiceClass> listAddService = getListAddService(context);
+
+    List<bool> isCheck = List.generate(
+      listAddService.length,
+      (int index) => false,
+    );
+
     return Wrap(
       runSpacing: 14,
       children: List<Widget>.generate(
@@ -37,11 +40,11 @@ class _AddServiceChoiceState extends State<AddServiceChoice> {
                           .read<SaveInfoCleaningHourlyCubit>()
                           .state
                           .cooking = isCheck[index];
-                      
+
                     case 1:
                       context.read<SaveInfoCleaningHourlyCubit>().state.iron =
                           isCheck[index];
-                      
+
                     case 2:
                       context
                           .read<SaveInfoCleaningHourlyCubit>()
