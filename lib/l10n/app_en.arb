@@ -19,6 +19,7 @@
     "signupPassword": "Password",
     "signupConfirm": "Re-enter password",
     "signupEmptyError": "Cannot be empty",
+    "signupPhone10Chacs": "Phone number must be 10 characters",
     "signupEmailError": "The email is not in the correct format",
     "signupPasswordLengthError": "Password must be at least 6 characters",
     "signupConfirmError": "Please re-enter the password that matches the password entered",

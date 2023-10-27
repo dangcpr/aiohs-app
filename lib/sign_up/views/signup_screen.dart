@@ -1,10 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 //import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:rmservice/sign_up/controllers/main.dart';
+import 'package:page_transition/page_transition.dart';
+import 'package:rmservice/login/views/login_screen.dart';
+import 'package:rmservice/sign_up/cubits/signup_cubit.dart';
+import 'package:rmservice/sign_up/cubits/signup_state.dart';
 import 'package:rmservice/sign_up/models/user.dart';
+import 'package:rmservice/sign_up/widgets/skip_button.dart';
 import 'package:rmservice/utilities/components/button_green.dart';
 import 'package:rmservice/utilities/components/text_field.dart';
+import 'package:rmservice/utilities/constants/function.dart';
+import 'package:rmservice/utilities/constants/variable.dart';
 
 class SignupScreen extends StatefulWidget {
   const SignupScreen({super.key, required this.first_time});
@@ -22,6 +29,11 @@ class _SignupScreenState extends State<SignupScreen> with InputValidationMixin {
   TextEditingController phoneController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   TextEditingController confirmController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+  }
 
   @override
   void dispose() {
@@ -48,11 +60,8 @@ class _SignupScreenState extends State<SignupScreen> with InputValidationMixin {
           AppLocalizations.of(context)!.signupTitle,
           style: const TextStyle(fontSize: 20),
         ),
-        actions: const <Widget>[
-          TextButton(
-            onPressed: null,
-            child: Text("SKIP"),
-          )
+        actions: <Widget>[
+          SkipButton(),
         ],
       ),
       body: Form(
@@ -163,6 +172,9 @@ class _SignupScreenState extends State<SignupScreen> with InputValidationMixin {
                 validatorFunc: (input) {
                   if (input!.isEmpty) {
                     return AppLocalizations.of(context)!.signupEmptyError;
+                  }
+                  if (input!.length != 10) {
+                    return AppLocalizations.of(context)!.signupPhone10Chacs;
                   } else {
                     return null;
                   }
@@ -213,6 +225,63 @@ class _SignupScreenState extends State<SignupScreen> with InputValidationMixin {
             ),
             Padding(
               padding: const EdgeInsets.only(bottom: 15),
+              child: BlocBuilder<SignupCubit, SignupState>(
+                builder: (context, state) {
+                  if (state is SignupLoadingState) {
+                    return TextButton(
+                      onPressed: null,
+                      style: ButtonStyle(
+                        backgroundColor: MaterialStateProperty.all(
+                          Colors.grey,
+                        ),
+                      ),
+                      child: CircularProgressIndicator(
+                        color: Colors.white,
+                      ),
+                    );
+                  } else {
+                    if (state is SignupCompleteState) {
+                      successMessage(
+                          AppLocalizations.of(context)!.signupSuccess, context);
+                      //Làm trò gì tiếp theo phía dưới
+                      // Navigator.pushAndRemoveUntil(
+                      //   context,
+                      //   PageTransition(
+                      //     type: PageTransitionType.rightToLeftWithFade,
+                      //     child: SignupScreen(first_time: false),
+                      //     childCurrent: LoginScreen(first_time: false),
+                      //   ),
+                      //   (route) => false,
+                      // );
+                    }
+                    if (state is SignupErrorState) {
+                      errorMessage(state.error, context);
+                    }
+                    return ButtonGreenApp(
+                      label: AppLocalizations.of(context)!.signupButton,
+                      onPressed: () {
+                        if (formKey.currentState!.validate()) {
+                          formKey.currentState!.save();
+                          BlocProvider.of<SignupCubit>(context).signup(
+                            UserSignup(
+                              name: nameController.text,
+                              email: emailController.text,
+                              phone: phoneController.text,
+                              password: passwordController.text,
+                            ),
+                          );
+                        } else {
+                          return;
+                        }
+                      },
+                    );
+                  }
+                },
+              ),
+            ),
+            /*
+            Padding(
+              padding: const EdgeInsets.only(bottom: 15),
               child: ButtonGreenApp(
                 label: AppLocalizations.of(context)!.signupButton,
                 onPressed: () {
@@ -230,6 +299,7 @@ class _SignupScreenState extends State<SignupScreen> with InputValidationMixin {
                 },
               ),
             ),
+            */
           ],
         ), // This trailing comma makes auto-formatting nicer for build methods.
       ),
@@ -238,7 +308,7 @@ class _SignupScreenState extends State<SignupScreen> with InputValidationMixin {
 }
 
 mixin InputValidationMixin {
-  bool isPasswordValid(String password) => password.length == 6;
+  bool isPasswordValid(String password) => password.length >= 6;
 
   bool isEmailValid(String email) {
     String pattern =
