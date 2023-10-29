@@ -79,6 +79,7 @@ class _ButtonNextStep3State extends State<ButtonNextStep3> {
               Navigator.push(
                 context,
                 PageTransition(
+                  duration: Duration(milliseconds: 400),
                   type: PageTransitionType.rightToLeftWithFade,
                   child: CompleteCleaningHourlyScreen(),
                   childCurrent: CleaningHourlyStep3Screen(),

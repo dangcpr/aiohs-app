@@ -57,6 +57,8 @@
      "hourWorkingLabel": "working hours",
      "optionLabel": "Option",
      "hasPetLabel": "The house has pets",
+     "yesPetLabel": "House HAS pets",
+     "noPetLabel": "House has NO pets",
      "noticeLabel": "Note",
      "fourHourNotice": "The service only supports a maximum of 4 hours. If you want to order more, please book 2 jobs with close time frames.",
      "dateLabel": "Working time",
@@ -71,5 +73,7 @@
      "workingInfoLabel": "Work information",
      "workingInfoTimeLabel": "Working hours",
      "workingInfoDetailLabel": "Work details",
-     "nextLabel": "Next step"
+     "nextLabel": "Next step",
+    "fromLabel": "from",
+    "toLabel": "to"
 }

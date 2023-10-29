@@ -1,6 +1,8 @@
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class InfoCleaningHourly {
+  //late String? name;
+  //late String? phone;
   late LatLng? location;
   late String? shortAddress;
   late String? address;
@@ -18,6 +20,8 @@ class InfoCleaningHourly {
   late String? paymentMethod;
 
   InfoCleaningHourly({
+    //this.name,
+    //this.phone,
     this.location,
     this.shortAddress,
     this.address,

@@ -57,6 +57,8 @@
     "hourWorkingLabel": "giờ làm việc",
     "optionLabel": "Tùy chọn",
     "hasPetLabel": "Nhà có thú cưng",
+    "yesPetLabel": "Có thú cưng",
+    "noPetLabel": "Không có thú cưng",
     "noticeLabel": "Lưu ý",
     "fourHourNotice": "Dịch vụ chỉ hỗ trợ tối đa 4 giờ. Nếu bạn muốn đặt thêm, vui lòng đặt 2 công việc có khung thời gian gần nhau.",
     "dateLabel": "Thời gian làm việc",
@@ -71,5 +73,7 @@
     "workingInfoLabel": "Thông tin công việc",
     "workingInfoTimeLabel": "Giờ làm việc",
     "workingInfoDetailLabel": "Chi tiết công việc",
-    "nextLabel": "Tiếp theo"
+    "nextLabel": "Tiếp theo",
+    "fromLabel": "từ",
+    "toLabel": "đến"
 }
