@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:page_transition/page_transition.dart';
+import 'package:rmservice/cleaning_hourly/cubits/save_info/save_address.dart';
 import 'package:rmservice/cleaning_hourly/cubits/save_info/save_info.dart';
 import 'package:rmservice/cleaning_hourly/models/info_cleaning_hourly.dart';
+import 'package:rmservice/cleaning_hourly/views/maps.dart';
 import 'package:rmservice/cleaning_hourly/widgets/add_service_choice.dart';
 import 'package:rmservice/cleaning_hourly/widgets/button_app_bar.dart';
 import 'package:rmservice/cleaning_hourly/widgets/button_next_step1.dart';
@@ -38,11 +41,23 @@ class _CleaningHourlyStep1ScreenState extends State<CleaningHourlyStep1Screen> {
       appBar: AppBar(
         titleSpacing: 0,
         title: ButtonChooseLocation(
-          nameLocation: 'Vui lòng chọn địa điểm',
-          addressLocation: 'Vui lòng chọn địa điểm',
+          nameLocation: context.watch<SaveAddressCubit>().state == null
+              ? "Vui lòng chọn địa điểm"
+              : context.watch<SaveAddressCubit>().state!.shortAddress!,
+          addressLocation: context.watch<SaveAddressCubit>().state == null
+              ? "Vui lòng chọn địa điểm"
+              : context.watch<SaveAddressCubit>().state!.address!,
           isDarkMode: isDarkMode,
           onPressed: () {
-            debugPrint('Vui lòng chọn địa điểm');
+            Navigator.push(
+              context,
+              PageTransition(
+                duration: Duration(milliseconds: 400),
+                type: PageTransitionType.rightToLeftWithFade,
+                child: ChooseLocationScreen(),
+                childCurrent: CleaningHourlyStep1Screen(),
+              ),
+            );
           },
         ),
       ),

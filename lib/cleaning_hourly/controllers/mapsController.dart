@@ -70,18 +70,42 @@ class MapController {
 
       final url = '$_host?key=$mapApiKey&language=en&latlng=$lat,$lng';
 
-      if (lat != null && lng != null) {
-        var response = await http.get(Uri.parse(url));
+      var response = await http.get(Uri.parse(url));
 
-        debugPrint(response.statusCode.toString());
+      debugPrint(response.statusCode.toString());
 
-        if (response.statusCode == 200) {
-          Map data = jsonDecode(response.body);
-          String _formattedAddress = data["results"][0]["formatted_address"];
-          print("response ==== $_formattedAddress");
-          return _formattedAddress;
-        } else
-          return null;
+      if (response.statusCode == 200) {
+        Map data = jsonDecode(response.body);
+        //String _formattedAddress = data["results"][0]["formatted_address"];
+        debugPrint("response ==== ${data["results"][0]}");
+        return jsonEncode(data["results"][0]);
+      } else {
+        return null;
+      }
+    } catch (e) {
+      debugPrint(e.toString());
+      return Future.error('Something went wrong');
+    }
+  }
+
+  Future<String?> convertAddressToLocation(String address) async {
+    try {
+      String mapApiKey = maps_api_key;
+
+      String _host =
+          'https://maps.googleapis.com/maps/api/place/textsearch/json';
+
+      final url = '$_host?&query=$address&key=$mapApiKey&language=en';
+
+      var response = await http.get(Uri.parse(url));
+
+      debugPrint(response.statusCode.toString());
+
+      if (response.statusCode == 200) {
+        Map data = jsonDecode(response.body);
+        //String _formattedAddress = data["results"][0]["formatted_address"];
+        debugPrint("response ==== ${data["results"][0]}");
+        return jsonEncode(data["results"][0]);
       } else
         return null;
     } catch (e) {

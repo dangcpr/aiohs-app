@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:rmservice/cleaning_hourly/cubits/save_info/save_address.dart';
 import 'package:rmservice/utilities/constants/variable.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -28,7 +30,7 @@ class _LocationInfoCleaningHourlyState
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              "90 Nguyễn Lâm, Phường 6 , Quận 3",
+              context.watch<SaveAddressCubit>().state!.shortAddress!,
               style: TextStyle(
                 fontSize: fontSize.mediumLarger,
                 fontFamily: fontBoldApp,
@@ -63,7 +65,7 @@ class _LocationInfoCleaningHourlyState
                 SizedBox(width: 8),
                 Flexible(
                   child: Text(
-                    "Nguyễn Hải Đăng",
+                    context.watch<SaveAddressCubit>().state!.name!,
                     style: TextStyle(
                       fontSize: fontSize.medium,
                       fontFamily: fontApp,
@@ -84,7 +86,7 @@ class _LocationInfoCleaningHourlyState
                 SizedBox(width: 8),
                 Flexible(
                   child: Text(
-                    "0123456789",
+                    context.watch<SaveAddressCubit>().state!.phone!,
                     style: TextStyle(
                       fontSize: fontSize.medium,
                       fontFamily: fontApp,
@@ -105,7 +107,7 @@ class _LocationInfoCleaningHourlyState
                 SizedBox(width: 8),
                 Flexible(
                   child: Text(
-                    "90 Nguyễn Lâm, Phường 6 , Quận 3, Thành phố Hồ Chí Minh",
+                    context.watch<SaveAddressCubit>().state!.address!,
                     style: TextStyle(
                       fontSize: fontSize.medium,
                       fontFamily: fontApp,

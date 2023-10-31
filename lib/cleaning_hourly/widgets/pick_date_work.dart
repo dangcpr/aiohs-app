@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
+import 'package:rmservice/cleaning_hourly/cubits/save_info/save_info.dart';
 import 'package:rmservice/utilities/constants/variable.dart';
 
 class PickDateWork extends StatefulWidget {
@@ -43,6 +45,7 @@ class _PickDateWorkState extends State<PickDateWork> {
                     setState(() {
                       value = selected ? index : 0;
                     });
+                    context.read<SaveInfoCleaningHourlyCubit>().state.date = items[index];
                     debugPrint("Selected ${index}: ${items[index].toString()}");
                   },
                   label: Column(

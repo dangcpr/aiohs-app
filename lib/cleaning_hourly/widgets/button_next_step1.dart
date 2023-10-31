@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:page_transition/page_transition.dart';
+import 'package:rmservice/cleaning_hourly/cubits/save_info/save_address.dart';
 import 'package:rmservice/cleaning_hourly/cubits/save_info/save_info.dart';
 import 'package:rmservice/cleaning_hourly/views/cleaning_hourly_step1.dart';
 import 'package:rmservice/cleaning_hourly/views/cleaning_hourly_step2.dart';
@@ -64,6 +65,17 @@ class _ButtonNextStep1State extends State<ButtonNextStep1> {
                 return DialogWrong(
                   notification: "Tổng thời gian làm tính cả dịch vụ gia tăng là " 
                     + context.read<SaveInfoCleaningHourlyCubit>().state.realDuration.toString() + " giờ. Vui lòng lựa chọn lại sao cho thời gian làm dưới 4 giờ",
+                );
+              }
+            );
+            return;
+          }
+          if(context.read<SaveAddressCubit>().state == null) {
+            showDialog(
+              context: context,
+              builder: (context) {
+                return DialogWrong(
+                  notification: "Vui lòng chọn địa điểm làm việc",
                 );
               }
             );

@@ -27,7 +27,7 @@ class _CleaningHourlyStep2ScreenState extends State<CleaningHourlyStep2Screen> {
       appBar: AppBar(
         titleSpacing: 0,
         title: Text(
-          'Chọn thời gian làm việc',
+          AppLocalizations.of(context)!.confirmCleaningHourly,
           style: TextStyle(
             fontSize: fontSize.mediumLarger,
             color: isDarkMode ? Colors.white : Colors.black,

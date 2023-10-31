@@ -25,7 +25,7 @@ class _CleaningHourlyStep3ScreenState extends State<CleaningHourlyStep3Screen> {
       appBar: AppBar(
         titleSpacing: 0,
         title: Text(
-          'Xác nhận và thanh toán',
+          AppLocalizations.of(context)!.confirmCleaningHourly,
           style: TextStyle(
             fontSize: fontSize.mediumLarger,
             color: isDarkMode ? Colors.white : Colors.black,

@@ -15,11 +15,12 @@ class PickTimeWork extends StatefulWidget {
 }
 
 class _PickTimeWorkState extends State<PickTimeWork> {
-  TimeOfDay? time = TimeOfDay.now();
-
   @override
   Widget build(BuildContext context) {
-    DateTime timeChoose = DateTime(1969, 1, 1, time!.hour, time!.minute);
+    TimeOfDay? time =
+        TimeOfDay.fromDateTime(context.read<SaveInfoCleaningHourlyCubit>().state.time!);
+
+    DateTime timeChoose = DateTime(1969, 1, 1, time.hour, time.minute);
 
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
