@@ -56,6 +56,7 @@ dependencies:
   time_range_picker: ^2.2.0
   datetime_setting: ^2.0.2
   dio: ^5.3.3
+  pattern_formatter: ^3.0.0
 
 dev_dependencies:
   flutter_test:
