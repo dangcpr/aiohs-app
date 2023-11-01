@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:rmservice/cleaning_hourly/widgets/button_next_step3.dart';
 import 'package:rmservice/cleaning_hourly/widgets/location_info.dart';
 import 'package:rmservice/cleaning_hourly/widgets/method_payment.dart';
+import 'package:rmservice/cleaning_hourly/widgets/show_bottom_edit_name_phone.dart';
 import 'package:rmservice/cleaning_hourly/widgets/text_label.dart';
 import 'package:rmservice/cleaning_hourly/widgets/work_info.dart';
 import 'package:rmservice/utilities/constants/variable.dart';
@@ -38,16 +39,37 @@ class _CleaningHourlyStep3ScreenState extends State<CleaningHourlyStep3Screen> {
           children: [
             Padding(
               padding: const EdgeInsets.only(top: 17),
-              child: TextLabel(
-                label: AppLocalizations.of(context)!.locationLabel,
-                isDarkMode: isDarkMode,
+              child: Row(
+                //mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Expanded(
+                    child: TextLabel(
+                      label: AppLocalizations.of(context)!.locationLabel,
+                      isDarkMode: isDarkMode,
+                    ),
+                  ),
+                  IconButton(
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStateColor.resolveWith(
+                        (states) => colorProject.primaryColor,
+                      ),
+                    ),
+                    icon: Icon(color: Colors.white, Icons.edit),
+                    onPressed: () {
+                      showModalBottomSheet(
+                        isScrollControlled: true,
+                        context: context,
+                        builder: (builder) {
+                          return BottomEditNamePhone(isDarkMode: isDarkMode);
+                        },
+                      );
+                    },
+                  )
+                ],
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.only(top: 17),
-              child: LocationInfoCleaningHourly(
-                isDarkMode: isDarkMode,
-              ),
+            LocationInfoCleaningHourly(
+              isDarkMode: isDarkMode,
             ),
             Padding(
               padding: const EdgeInsets.only(top: 17),

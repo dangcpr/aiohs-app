@@ -41,10 +41,10 @@ class _CleaningHourlyStep1ScreenState extends State<CleaningHourlyStep1Screen> {
       appBar: AppBar(
         titleSpacing: 0,
         title: ButtonChooseLocation(
-          nameLocation: context.watch<SaveAddressCubit>().state == null
+          nameLocation: context.watch<SaveAddressCubit>().state == null || context.watch<SaveAddressCubit>().state!.shortAddress == ""
               ? "Vui lòng chọn địa điểm"
               : context.watch<SaveAddressCubit>().state!.shortAddress!,
-          addressLocation: context.watch<SaveAddressCubit>().state == null
+          addressLocation: context.watch<SaveAddressCubit>().state == null || context.watch<SaveAddressCubit>().state!.address == ""
               ? "Vui lòng chọn địa điểm"
               : context.watch<SaveAddressCubit>().state!.address!,
           isDarkMode: isDarkMode,

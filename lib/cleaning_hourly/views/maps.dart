@@ -1,11 +1,11 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-//import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:rmservice/cleaning_hourly/controllers/mapsController.dart';
-//import 'package:rmservice/cleaning_hourly/cubits/save_info/save_address.dart';
+import 'package:rmservice/cleaning_hourly/cubits/save_info/save_address.dart';
 import 'package:rmservice/cleaning_hourly/models/address.dart';
 import 'package:rmservice/cleaning_hourly/widgets/show_bottom_address.dart';
 import 'package:rmservice/utilities/constants/variable.dart';
@@ -66,6 +66,8 @@ class _ChooseLocationScreenState extends State<ChooseLocationScreen> {
           TextButton(
             onPressed: () {
               if (isSearch) {
+                context.read<SaveAddressCubit>().state!.address = searchLocationController.text;
+                context.read<SaveAddressCubit>().state!.shortAddress = addressObject.shortAddress;
                 showModalBottomSheet(
                   context: context,
                   isScrollControlled: true,
@@ -192,6 +194,12 @@ class _ChooseLocationScreenState extends State<ChooseLocationScreen> {
                               ),
                             ),
                           ),
+                        );
+
+                        addressObject = Address(
+                          address: jsonDecode(detailAddress)['formatted_address'],
+                          shortAddress:
+                              jsonDecode(detailAddress)['name']
                         );
 
                         setState(() {
