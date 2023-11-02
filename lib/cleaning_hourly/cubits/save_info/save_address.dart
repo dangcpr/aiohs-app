@@ -14,4 +14,8 @@ class SaveAddressCubit extends Cubit<Address?> {
     newAddress.phone = phone;
     emit(newAddress);
   }
+
+  void setInit() {
+    emit(Address(name: "", phone: "", address: "", shortAddress: "", typeOfAddress: "Nhà riêng"));
+  }
 }

@@ -4,7 +4,9 @@ import 'package:rmservice/shopping/cubits/add_items.dart';
 import 'package:rmservice/shopping/widgets/every_product.dart';
 
 class ListProduct extends StatefulWidget {
-  const ListProduct({super.key});
+  const ListProduct({super.key, required this.isRemove});
+
+  final bool isRemove;
 
   @override
   State<ListProduct> createState() => _ListProductState();
@@ -22,6 +24,7 @@ class _ListProductState extends State<ListProduct> {
             children: [
               EveryProduct(
                 product: listProduct[index],
+                isRemove: widget.isRemove
               ),
               SizedBox(height: 10),
             ],

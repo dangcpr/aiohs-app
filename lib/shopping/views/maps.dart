@@ -5,9 +5,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:rmservice/cleaning_hourly/controllers/mapsController.dart';
-import 'package:rmservice/cleaning_hourly/cubits/save_info/save_address.dart';
-import 'package:rmservice/cleaning_hourly/models/address.dart';
-import 'package:rmservice/cleaning_hourly/widgets/show_bottom_address.dart';
+import 'package:rmservice/shopping/widgets/show_bottom_address.dart';
+import 'package:rmservice/shopping/cubits/save_address.dart';
+import 'package:rmservice/shopping/models/address_shopping.dart';
 import 'package:rmservice/utilities/constants/variable.dart';
 
 class ChooseLocationScreen extends StatefulWidget {
@@ -34,7 +34,7 @@ class _ChooseLocationScreenState extends State<ChooseLocationScreen> {
 
   bool isSearch = false;
 
-  Address addressObject = Address();
+  AddressShopping addressObject = AddressShopping();
 
   bool isOnCameraMove = true;
 
@@ -66,14 +66,16 @@ class _ChooseLocationScreenState extends State<ChooseLocationScreen> {
           TextButton(
             onPressed: () {
               if (isSearch) {
-                context.read<SaveAddressCubit>().state!.address = searchLocationController.text;
-                context.read<SaveAddressCubit>().state!.shortAddress = addressObject.shortAddress;
+                debugPrint(addressObject.nameAddress);
+                context.read<SaveAddressShoppingCubit>().state!.fullAddress =
+                    searchLocationController.text;
+                context.read<SaveAddressShoppingCubit>().state!.nameAddress =
+                    addressObject.nameAddress;
                 showModalBottomSheet(
                   context: context,
                   isScrollControlled: true,
                   builder: (builder) {
                     return BottomSheetAddress(isDarkMode: isDarkMode);
-                    
                   },
                 );
               } else
@@ -129,9 +131,9 @@ class _ChooseLocationScreenState extends State<ChooseLocationScreen> {
               searchLocationController.text =
                   jsonDecode(address!)['formatted_address']!;
 
-              addressObject = Address(
-                address: jsonDecode(address)['formatted_address'],
-                shortAddress: jsonDecode(address)['address_components'][0]
+              addressObject = AddressShopping(
+                fullAddress: jsonDecode(address)['formatted_address'],
+                nameAddress: jsonDecode(address)['address_components'][0]
                         ['long_name'] +
                     ' ' +
                     jsonDecode(address)['address_components'][1]['long_name'],
@@ -197,10 +199,10 @@ class _ChooseLocationScreenState extends State<ChooseLocationScreen> {
                           ),
                         );
 
-                        addressObject = Address(
-                          address: jsonDecode(detailAddress)['formatted_address'],
-                          shortAddress:
-                              jsonDecode(detailAddress)['name']
+                        addressObject = AddressShopping(
+                          fullAddress:
+                              jsonDecode(detailAddress)['formatted_address'],
+                          nameAddress: jsonDecode(detailAddress)['name'],
                         );
 
                         setState(() {

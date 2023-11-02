@@ -70,7 +70,7 @@ class _ButtonNextStep1State extends State<ButtonNextStep1> {
             );
             return;
           }
-          if(context.read<SaveAddressCubit>().state == null) {
+          if(context.read<SaveAddressCubit>().state == null || context.read<SaveAddressCubit>().state!.address == "") {
             showDialog(
               context: context,
               builder: (context) {

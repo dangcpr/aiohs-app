@@ -1,29 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:rmservice/shopping/cubits/save_address.dart';
 import 'package:rmservice/utilities/constants/variable.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-class EveryAddressShopping extends StatefulWidget {
-  const EveryAddressShopping(
-      {super.key,
-      required this.isDarkMode,
-      required this.nameAddress,
-      required this.typeOfAddress,
-      required this.yourName,
-      required this.phoneNum,
-      required this.fullAddress});
+class LocationInfoShopping extends StatefulWidget {
+  const LocationInfoShopping({super.key, required this.isDarkMode});
 
   final bool isDarkMode;
-  final String nameAddress;
-  final String typeOfAddress;
-  final String yourName;
-  final String phoneNum;
-  final String fullAddress;
 
   @override
-  State<EveryAddressShopping> createState() => _EveryAddressShoppingState();
+  State<LocationInfoShopping> createState() => _LocationInfoShoppingState();
 }
 
-class _EveryAddressShoppingState extends State<EveryAddressShopping> {
+class _LocationInfoShoppingState extends State<LocationInfoShopping> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -38,7 +28,7 @@ class _EveryAddressShoppingState extends State<EveryAddressShopping> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              widget.nameAddress,
+              context.watch<SaveAddressShoppingCubit>().state!.nameAddress!,
               style: TextStyle(
                 fontSize: fontSize.mediumLarger,
                 fontFamily: fontBoldApp,
@@ -46,7 +36,7 @@ class _EveryAddressShoppingState extends State<EveryAddressShopping> {
               ),
             ),
             Text(
-              widget.typeOfAddress,
+              "Nhà riêng",
               style: TextStyle(
                 fontSize: fontSize.medium,
                 fontFamily: fontApp,
@@ -73,7 +63,7 @@ class _EveryAddressShoppingState extends State<EveryAddressShopping> {
                 SizedBox(width: 8),
                 Flexible(
                   child: Text(
-                    widget.yourName,
+                    context.watch<SaveAddressShoppingCubit>().state!.yourName!,
                     style: TextStyle(
                       fontSize: fontSize.medium,
                       fontFamily: fontApp,
@@ -94,7 +84,7 @@ class _EveryAddressShoppingState extends State<EveryAddressShopping> {
                 SizedBox(width: 8),
                 Flexible(
                   child: Text(
-                    widget.phoneNum,
+                    context.watch<SaveAddressShoppingCubit>().state!.phoneNum!,
                     style: TextStyle(
                       fontSize: fontSize.medium,
                       fontFamily: fontApp,
@@ -115,7 +105,7 @@ class _EveryAddressShoppingState extends State<EveryAddressShopping> {
                 SizedBox(width: 8),
                 Flexible(
                   child: Text(
-                    widget.fullAddress,
+                    context.watch<SaveAddressShoppingCubit>().state!.fullAddress!,
                     style: TextStyle(
                       fontSize: fontSize.medium,
                       fontFamily: fontApp,
@@ -124,17 +114,6 @@ class _EveryAddressShoppingState extends State<EveryAddressShopping> {
                   ),
                 )
               ],
-            ),
-            Align(
-              alignment: Alignment.centerRight,
-              child: Container(
-                padding: EdgeInsets.all(5),
-                decoration: new BoxDecoration(
-                  color: colorProject.primaryColor,
-                  shape: BoxShape.circle,
-                ),
-                child: Icon(Icons.arrow_forward_rounded, color: Colors.white),
-              ),
             ),
           ],
         ),

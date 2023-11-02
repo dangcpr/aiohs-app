@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:rmservice/home_page/home_page.dart';
 import 'package:rmservice/login/controllers/login.dart';
+import 'package:rmservice/sign_up/views/signup_page.dart';
 import 'package:rmservice/sign_up/views/signup_screen.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:rmservice/utilities/constants/variable.dart';
@@ -157,7 +158,7 @@ class _LoginScreenState extends State<LoginScreen> with InputValidationMixin {
                       context,
                       MaterialPageRoute(
                         builder: (context) =>
-                            SignupScreen(first_time: widget.first_time),
+                            SignUpPage(first_time: widget.first_time),
                       ),
                     ),
                     child: Text.rich(

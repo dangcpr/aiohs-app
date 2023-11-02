@@ -46,7 +46,7 @@ class _ShoppingStep3Method1ScreenState
               isDarkMode: isDarkMode,
             ),
             SizedBox(height: 10),
-            ListProduct(),
+            ListProduct(isRemove: true),
           ],
         ),
       ),

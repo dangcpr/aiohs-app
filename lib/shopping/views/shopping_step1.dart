@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:page_transition/page_transition.dart';
 import 'package:rmservice/cleaning_hourly/widgets/text_sub_label.dart';
+import 'package:rmservice/shopping/views/maps.dart';
 import 'package:rmservice/shopping/widgets/list_address.dart';
 import 'package:rmservice/shopping/widgets/text_label.dart';
+import 'package:rmservice/utilities/components/button_green.dart';
 import 'package:rmservice/utilities/constants/variable.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -26,7 +29,7 @@ class _ShoppingStep1ScreenState extends State<ShoppingStep1Screen> {
         ),
       ),
       body: Padding(
-        padding: const EdgeInsets.only(left: 20, right: 20, bottom: 90),
+        padding: const EdgeInsets.only(left: 20, right: 20),
         child: ListView(
           children: [
             Padding(
@@ -46,7 +49,19 @@ class _ShoppingStep1ScreenState extends State<ShoppingStep1Screen> {
             Padding(
               padding: const EdgeInsets.only(top: 7),
               child: ListAddress(),
-            )
+            ),
+            SizedBox(height: 20),
+            ButtonGreenApp(label: "Chọn địa điểm khác", onPressed: () {
+              Navigator.push(
+                context,
+                PageTransition(
+                  duration: Duration(milliseconds: 400),
+                  type: PageTransitionType.rightToLeftWithFade,
+                  child: ChooseLocationScreen(),
+                  childCurrent: ShoppingStep1Screen(),
+                )
+              );
+            })
           ],
         ),
       ),
