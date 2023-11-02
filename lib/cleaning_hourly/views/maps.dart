@@ -1,7 +1,13 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:rmservice/cleaning_hourly/controllers/mapsController.dart';
+import 'package:rmservice/cleaning_hourly/cubits/save_info/save_address.dart';
+import 'package:rmservice/cleaning_hourly/models/address.dart';
+import 'package:rmservice/cleaning_hourly/widgets/show_bottom_address.dart';
 import 'package:rmservice/utilities/constants/variable.dart';
 
 class ChooseLocationScreen extends StatefulWidget {
@@ -26,6 +32,12 @@ class _ChooseLocationScreenState extends State<ChooseLocationScreen> {
 
   TextEditingController searchLocationController = TextEditingController();
 
+  bool isSearch = false;
+
+  Address addressObject = Address();
+
+  bool isOnCameraMove = true;
+
   @override
   void initState() {
     super.initState();
@@ -37,15 +49,45 @@ class _ChooseLocationScreenState extends State<ChooseLocationScreen> {
     };
   }
 
-  void _onMapCreated(GoogleMapController controller) {
+  Future<void> _onMapCreated(GoogleMapController controller) async {
     googleMapController = controller;
+    //controller.setMapStyle(Utils.mapStyles)
   }
 
   @override
   Widget build(BuildContext context) {
+    var brightness = MediaQuery.of(context).platformBrightness;
+    bool isDarkMode = brightness == Brightness.dark;
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Choose Location'),
+        actions: [
+          TextButton(
+            onPressed: () {
+              if (isSearch) {
+                context.read<SaveAddressCubit>().state!.address = searchLocationController.text;
+                context.read<SaveAddressCubit>().state!.shortAddress = addressObject.shortAddress;
+                showModalBottomSheet(
+                  context: context,
+                  isScrollControlled: true,
+                  builder: (builder) {
+                    return BottomSheetAddress(isDarkMode: isDarkMode);
+                  },
+                );
+              } else
+                null;
+            },
+            child: Text(
+              "Chọn",
+              style: TextStyle(
+                fontFamily: fontBoldApp,
+                fontSize: fontSize.mediumLarger,
+                color: isSearch ? colorProject.primaryColor : Colors.grey,
+              ),
+            ),
+          )
+        ],
       ),
       body: Stack(
         children: [
@@ -56,10 +98,15 @@ class _ChooseLocationScreenState extends State<ChooseLocationScreen> {
               target: _center,
               zoom: 17.0,
             ),
-            onCameraMove: (cameraPosition) async {
+            onLongPress: (cameraPosition) {
+              setState(() {
+                isOnCameraMove = true;
+              });
+              debugPrint("On Long Press Map");
+            },
+            onCameraMove: (cameraPosition) {
               //currentLongitude = cameraPosition.target.longitude; //gets the center longitude
               //currentLatitude = cameraPosition.target.latitude;
-
               setState(() {
                 markers.clear();
                 latCurrent = cameraPosition.target.latitude;
@@ -74,12 +121,27 @@ class _ChooseLocationScreenState extends State<ChooseLocationScreen> {
               });
             },
             onCameraIdle: () async {
+              if (!isOnCameraMove) return;
               String? address = await MapController()
                   .convertLocationToAddress(latCurrent, lngCurrent);
 
-              searchLocationController.text = address!;
-              debugPrint(await MapController()
-                  .convertLocationToAddress(latCurrent, lngCurrent));
+              searchLocationController.text =
+                  jsonDecode(address!)['formatted_address']!;
+
+              addressObject = Address(
+                address: jsonDecode(address)['formatted_address'],
+                shortAddress: jsonDecode(address)['address_components'][0]
+                        ['long_name'] +
+                    ' ' +
+                    jsonDecode(address)['address_components'][1]['long_name'],
+              );
+
+              // debugPrint(await MapController()
+              //     .convertLocationToAddress(latCurrent, lngCurrent));
+
+              setState(() {
+                isSearch = true;
+              });
             },
           ),
           Padding(
@@ -97,15 +159,62 @@ class _ChooseLocationScreenState extends State<ChooseLocationScreen> {
                       borderSide: BorderSide(color: colorProject.primaryColor),
                     ),
                     filled: true,
-                    fillColor: Colors.white,
                     hintText: 'Search',
                     suffixIcon: IconButton(
-                      onPressed: () {
+                      onPressed: () async {
                         debugPrint('Search');
+                        String? detailAddress = await MapController()
+                            .convertAddressToLocation(
+                                searchLocationController.text);
+                        markers.clear();
+                        markers.add(
+                          Marker(
+                            markerId: MarkerId('Current Position'),
+                            position: LatLng(
+                              jsonDecode(detailAddress!)['geometry']['location']
+                                  ['lat'],
+                              jsonDecode(detailAddress)['geometry']['location']
+                                  ['lng'],
+                            ),
+                          ),
+                        );
+                        searchLocationController.text =
+                            jsonDecode(detailAddress)['formatted_address'];
+                        FocusManager.instance.primaryFocus?.unfocus();
+
+                        googleMapController.animateCamera(
+                          CameraUpdate.newCameraPosition(
+                            CameraPosition(
+                              zoom: 15.0,
+                              target: LatLng(
+                                jsonDecode(detailAddress!)['geometry']
+                                    ['location']['lat'],
+                                jsonDecode(detailAddress)['geometry']
+                                    ['location']['lng'],
+                              ),
+                            ),
+                          ),
+                        );
+
+                        addressObject = Address(
+                          address: jsonDecode(detailAddress)['formatted_address'],
+                          shortAddress:
+                              jsonDecode(detailAddress)['name']
+                        );
+
+                        setState(() {
+                          isSearch = true;
+                          isOnCameraMove = false;
+                        });
                       },
                       icon: Icon(Icons.search),
                     ),
                   ),
+                  onChanged: (value) {
+                    setState(() {
+                      isSearch = false;
+                    });
+                  },
                 ),
               ],
             ),
@@ -150,10 +259,11 @@ class _ChooseLocationScreenState extends State<ChooseLocationScreen> {
               ' ' +
               _currentPosition!.longitude.toString());
 
-          debugPrint(await MapController().convertLocationToAddress(
-              _currentPosition!.latitude, _currentPosition!.longitude));
+          // debugPrint(await MapController().convertLocationToAddress(
+          //     _currentPosition!.latitude, _currentPosition!.longitude));
 
           setState(() {
+            isOnCameraMove = true;
             markers.clear();
             markers.add(
               Marker(
@@ -164,6 +274,7 @@ class _ChooseLocationScreenState extends State<ChooseLocationScreen> {
                 ),
               ),
             );
+
             FocusManager.instance.primaryFocus?.unfocus();
           });
         },

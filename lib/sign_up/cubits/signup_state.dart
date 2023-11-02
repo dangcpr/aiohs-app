@@ -4,7 +4,9 @@ class SignupInitialState extends SignupState {}
 
 class SignupLoadingState extends SignupState {}
 
-class SignupCompleteState extends SignupState {}
+class SignupCompleteState extends SignupState {
+
+}
 
 class SignupErrorState extends SignupState {
   final String error;

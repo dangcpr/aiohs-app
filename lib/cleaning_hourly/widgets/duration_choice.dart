@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rmservice/cleaning_hourly/constants/cleaning_hourly_const.dart';
 import 'package:rmservice/cleaning_hourly/cubits/save_info/save_info.dart';
 import 'package:rmservice/utilities/constants/variable.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class DurationChoice extends StatefulWidget {
   const DurationChoice({super.key, required this.isDarkMode});
@@ -33,24 +34,24 @@ class _DurationChoiceState extends State<DurationChoice> {
               label: Column(
                 children: [
                   Text(
-                    listDuration[index].duration.toString() + ' giờ',
-                    style: TextStyle(
+                    "${listDuration[index].duration} ${AppLocalizations.of(context)!.hourLabel}",
+                    style: const TextStyle(
                       fontFamily: fontBoldApp,
                       fontSize: fontSize.mediumLarger,
                     ),
                   ),
 
                   Text(
-                    listDuration[index].area.toString() + ' m' + '\u00B2',
-                    style: TextStyle(
+                    '${listDuration[index].area} m\u00B2',
+                    style: const TextStyle(
                       fontFamily: fontApp,
                       fontSize: fontSize.medium,
                     ),
                   ),
 
                   Text(
-                    listDuration[index].numOfRoom.toString() + ' phòng',
-                    style: TextStyle(
+                    '${listDuration[index].numOfRoom} ${AppLocalizations.of(context)!.roomLabel}',
+                    style: const TextStyle(
                       fontFamily: fontApp,
                       fontSize: fontSize.medium,
                     ),

@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:page_transition/page_transition.dart';
+import 'package:rmservice/cleaning_hourly/cubits/save_info/save_address.dart';
 import 'package:rmservice/cleaning_hourly/cubits/save_info/save_info.dart';
 import 'package:rmservice/cleaning_hourly/models/info_cleaning_hourly.dart';
+import 'package:rmservice/cleaning_hourly/views/maps.dart';
 import 'package:rmservice/cleaning_hourly/widgets/add_service_choice.dart';
 import 'package:rmservice/cleaning_hourly/widgets/button_app_bar.dart';
 import 'package:rmservice/cleaning_hourly/widgets/button_next_step1.dart';
@@ -10,6 +13,7 @@ import 'package:rmservice/cleaning_hourly/widgets/notice_step1.dart';
 import 'package:rmservice/cleaning_hourly/widgets/pet_choice.dart';
 import 'package:rmservice/cleaning_hourly/widgets/text_label.dart';
 import 'package:rmservice/cleaning_hourly/widgets/text_sub_label.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class CleaningHourlyStep1Screen extends StatefulWidget {
   const CleaningHourlyStep1Screen({super.key});
@@ -37,11 +41,23 @@ class _CleaningHourlyStep1ScreenState extends State<CleaningHourlyStep1Screen> {
       appBar: AppBar(
         titleSpacing: 0,
         title: ButtonChooseLocation(
-          nameLocation: 'Vui lòng chọn địa điểm',
-          addressLocation: 'Vui lòng chọn địa điểm',
+          nameLocation: context.watch<SaveAddressCubit>().state == null || context.watch<SaveAddressCubit>().state!.shortAddress == ""
+              ? "Vui lòng chọn địa điểm"
+              : context.watch<SaveAddressCubit>().state!.shortAddress!,
+          addressLocation: context.watch<SaveAddressCubit>().state == null || context.watch<SaveAddressCubit>().state!.address == ""
+              ? "Vui lòng chọn địa điểm"
+              : context.watch<SaveAddressCubit>().state!.address!,
           isDarkMode: isDarkMode,
           onPressed: () {
-            debugPrint('Vui lòng chọn địa điểm');
+            Navigator.push(
+              context,
+              PageTransition(
+                duration: Duration(milliseconds: 400),
+                type: PageTransitionType.rightToLeftWithFade,
+                child: ChooseLocationScreen(),
+                childCurrent: CleaningHourlyStep1Screen(),
+              ),
+            );
           },
         ),
       ),
@@ -52,14 +68,14 @@ class _CleaningHourlyStep1ScreenState extends State<CleaningHourlyStep1Screen> {
             Padding(
               padding: const EdgeInsets.only(top: 17),
               child: TextLabel(
-                label: "Thời lượng (chưa tính dịch vụ gia tăng)",
+                label: AppLocalizations.of(context)!.durationLabel,
                 isDarkMode: isDarkMode,
               ),
             ),
             Padding(
               padding: const EdgeInsets.only(top: 5),
               child: TextSubLabel(
-                label: "Vui lòng ước lượng thời gian cần dọn dẹp",
+                label: AppLocalizations.of(context)!.durationSub,
                 isDarkMode: isDarkMode,
               ),
             ),
@@ -73,14 +89,14 @@ class _CleaningHourlyStep1ScreenState extends State<CleaningHourlyStep1Screen> {
             Padding(
               padding: const EdgeInsets.only(top: 17),
               child: TextLabel(
-                label: "Dịch vụ gia tăng",
+                label: AppLocalizations.of(context)!.addServiceLabel,
                 isDarkMode: isDarkMode,
               ),
             ),
             Padding(
               padding: const EdgeInsets.only(top: 5),
               child: TextSubLabel(
-                label: "Vui lòng các dịch vụ gia tăng nếu bạn có nhu cầu",
+                label: AppLocalizations.of(context)!.durationSub,
                 isDarkMode: isDarkMode,
               ),
             ),
@@ -93,7 +109,7 @@ class _CleaningHourlyStep1ScreenState extends State<CleaningHourlyStep1Screen> {
             Padding(
               padding: const EdgeInsets.only(top: 20),
               child: TextLabel(
-                label: "Tùy chọn",
+                label: AppLocalizations.of(context)!.optionLabel,
                 isDarkMode: isDarkMode,
               ),
             ),

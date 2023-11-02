@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_walkthrough_screen/flutter_walkthrough_screen.dart';
+import 'package:rmservice/utilities/constants/variable.dart';
 
 List<OnbordingData> getOnbordingData(BuildContext context) {
   final List<OnbordingData> list = [
@@ -96,7 +97,7 @@ void errorMessage(String message, BuildContext context) {
       SnackBar(
         content: Text(
           message,
-          style: const TextStyle(color: Colors.white),
+          style: const TextStyle(color: Colors.white, fontFamily: fontApp),
         ),
         backgroundColor: Colors.red,
       ),
@@ -110,7 +111,7 @@ void successMessage(String message, BuildContext context) {
       SnackBar(
         content: Text(
           message,
-          style: const TextStyle(color: Colors.white),
+          style: const TextStyle(color: Colors.white, fontFamily: fontApp),
         ),
         backgroundColor: Colors.green,
       ),

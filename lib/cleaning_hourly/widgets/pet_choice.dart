@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rmservice/cleaning_hourly/cubits/save_info/save_info.dart';
 import 'package:rmservice/utilities/constants/variable.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class PetChoice extends StatefulWidget {
   const PetChoice({super.key, required this.isDarkMode});
@@ -33,7 +34,7 @@ class _PetChoiceState extends State<PetChoice> {
                 ),
                 SizedBox(width: 10),
                 Text(
-                  "Nhà có thú cưng",
+                  AppLocalizations.of(context)!.hasPetLabel,
                   style: TextStyle(
                     fontFamily: fontApp,
                     fontSize: fontSize.medium,

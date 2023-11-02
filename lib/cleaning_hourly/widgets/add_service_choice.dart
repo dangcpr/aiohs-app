@@ -14,13 +14,16 @@ class AddServiceChoice extends StatefulWidget {
 }
 
 class _AddServiceChoiceState extends State<AddServiceChoice> {
+  
   List<bool> isCheck = List.generate(
-    listAddService.length,
+    4,
     (int index) => false,
   );
 
   @override
   Widget build(BuildContext context) {
+    List<AddServiceClass> listAddService = getListAddService(context);
+
     return Wrap(
       runSpacing: 14,
       children: List<Widget>.generate(
@@ -30,7 +33,9 @@ class _AddServiceChoiceState extends State<AddServiceChoice> {
             onTap: () {
               setState(
                 () {
-                  isCheck[index] = !isCheck[index];
+                  isCheck[index] == true
+                      ? isCheck[index] = false
+                      : isCheck[index] = true;
                   switch (index) {
                     case 0:
                       context
@@ -38,6 +43,7 @@ class _AddServiceChoiceState extends State<AddServiceChoice> {
                           .state
                           .cooking = isCheck[index];
                       break;
+
 
                     case 1:
                       context.read<SaveInfoCleaningHourlyCubit>().state.iron =
