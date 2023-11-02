@@ -65,9 +65,9 @@ class _LocationCardState extends State<LocationCard> {
                 color: Colors.black,
               ),
             ),
-            const Row(
+            Row(
               mainAxisAlignment: MainAxisAlignment.center,
-              children: [
+              children: const [
                 Icon(
                   Icons.location_on,
                   color: colorProject.primaryColor,
