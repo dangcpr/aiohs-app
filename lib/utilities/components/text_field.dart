@@ -6,7 +6,7 @@ class TextFieldApp extends StatefulWidget {
   TextFieldApp({
     super.key,
     required this.controller,
-    required this.icon,
+    this.icon,
     required this.label,
     this.obsecure = false,
     this.validatorFunc,
@@ -15,7 +15,7 @@ class TextFieldApp extends StatefulWidget {
   });
 
   final TextEditingController controller;
-  final IconData icon;
+  final IconData? icon;
   final String label;
   bool obsecure;
   String? Function(String?)? validatorFunc;
