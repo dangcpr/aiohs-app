@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:rmservice/cleaning_hourly/cubits/save_info/save_info.dart';
 import 'package:rmservice/utilities/constants/variable.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class NoteForMaid extends StatefulWidget {
   const NoteForMaid({super.key, required this.isDarkMode});
@@ -12,7 +15,7 @@ class NoteForMaid extends StatefulWidget {
 
 class _NoteForMaidState extends State<NoteForMaid> {
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context) {    
     return SizedBox(
       height: 140,
       child: TextField(
@@ -33,8 +36,11 @@ class _NoteForMaidState extends State<NoteForMaid> {
             borderSide: BorderSide(color: colorProject.primaryColor, width: 1),
             borderRadius: BorderRadius.circular(10),
           ),
-          hintText: "Nhập ghi chú cho nhân viên",
+          hintText: AppLocalizations.of(context)!.hintForMaidLabel,
         ),
+        onChanged: (value) {
+          context.read<SaveInfoCleaningHourlyCubit>().state.note = value;
+        },
       ),
     );
   }

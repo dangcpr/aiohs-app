@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:rmservice/utilities/constants/variable.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class NoticeStep1 extends StatefulWidget {
   const NoticeStep1({super.key, required this.isDarkMode});
@@ -29,9 +30,9 @@ class _NoticeStep1State extends State<NoticeStep1> {
                 fontSize: 14.0,
                 color: widget.isDarkMode ? Colors.white : Colors.black,
               ),
-              children: const <TextSpan>[
+              children: <TextSpan>[
                 TextSpan(
-                  text: 'Lưu ý: ',
+                  text: '${AppLocalizations.of(context)!.noticeLabel}: ',
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontFamily: fontBoldApp,
@@ -39,7 +40,7 @@ class _NoticeStep1State extends State<NoticeStep1> {
                 ),
                 TextSpan(
                   text:
-                      'Dịch vụ chỉ hỗ trợ tối đa 4 giờ. Nếu bạn muốn đặt thêm, vui lòng đặt 2 công việc có khung thời gian gần nhau.',
+                      AppLocalizations.of(context)!.fourHourNotice,
                   style: TextStyle(
                     fontFamily: fontApp,
                   ),

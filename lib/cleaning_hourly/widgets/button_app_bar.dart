@@ -37,6 +37,7 @@ class _ButtonChooseLocationState extends State<ButtonChooseLocation> {
           ),
         ),
         child: Row(
+          mainAxisSize: MainAxisSize.min,
           children: [
             Icon(
               Icons.location_on,
@@ -44,28 +45,30 @@ class _ButtonChooseLocationState extends State<ButtonChooseLocation> {
               size: 30,
             ),
             SizedBox(width: 10),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  overflow: TextOverflow.fade,
-                  widget.nameLocation,
-                  style: const TextStyle(
-                    color: colorProject.primaryColor,
-                    fontFamily: fontBoldApp,
-                    fontSize: fontSize.mediumLarger,
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    overflow: TextOverflow.ellipsis,
+                    widget.nameLocation,
+                    style: const TextStyle(
+                      color: colorProject.primaryColor,
+                      fontFamily: fontBoldApp,
+                      fontSize: fontSize.mediumLarger,
+                    ),
                   ),
-                ),
-                Text(
-                  overflow: TextOverflow.ellipsis,
-                  widget.addressLocation,
-                  style: TextStyle(
-                    color: widget.isDarkMode ? Colors.white : Colors.black,
-                    fontFamily: fontBoldApp,
-                    fontSize: fontSize.medium,
+                  Text(
+                    overflow: TextOverflow.ellipsis,
+                    widget.addressLocation,
+                    style: TextStyle(
+                      color: widget.isDarkMode ? Colors.white : Colors.black,
+                      fontFamily: fontBoldApp,
+                      fontSize: fontSize.medium,
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ],
         ),
