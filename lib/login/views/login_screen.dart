@@ -149,18 +149,22 @@ class _LoginScreenState extends State<LoginScreen> with InputValidationMixin {
                             ButtonGreenApp(
                               label: AppLocalizations.of(context)!.signIn,
                               onPressed: () {
-                                // if (formKeyLogin.currentState!.validate()) {
-                                //   context.read<LoginCubit>().logIn(
-                                //         username: emailController.text,
-                                //         password: passwordController.text,
-                                //       );
-                                // }
+                                if (formKeyLogin.currentState!.validate()) {
+                                  context.read<LoginCubit>().logIn(
+                                        username: emailController.text,
+                                        password: passwordController.text,
+                                      );
+                                }
+                                else {
+                                  return;
+                                }
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
                                     builder: (_) => HomePage(),
                                   ),
                                 );
+                                
                               },
                             ),
                           ],

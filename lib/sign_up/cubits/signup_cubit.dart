@@ -17,4 +17,8 @@ class SignupCubit extends Cubit<SignupState> {
       emit(SignupErrorState(error: e.toString()));
     }
   }
+
+  void setInit() {
+    emit(SignupInitialState());
+  }
 }

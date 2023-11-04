@@ -7,7 +7,7 @@ import 'package:dio/dio.dart';
 enum AuthenticationStatus { unknown, authenticated, unauthenticated, error }
 
 class AuthenticationRepository {
-  final baseUrl = 'http://192.168.220.130:9000';
+  final baseUrl = 'http://192.168.74.130:9000';
 
   //ignore: close_sinks
   final _controller = StreamController<AuthenticationStatus>();
@@ -53,7 +53,8 @@ class AuthenticationRepository {
       if (response.statusCode == 200) {
         const storage = FlutterSecureStorage();
         await storage.write(key: 'token', value: response.data['token']);
-        print('token got: ${storage.read(key: 'token').toString()}');
+        String token = await storage.read(key: 'token') ?? "";
+        print('token got: $token');
         // await storage.write(
         //     key: 'refreshToken',
         //     value: response.data['response']['tokens']['refresh']['token']);

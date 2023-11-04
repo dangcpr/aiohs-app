@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 //import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:page_transition/page_transition.dart';
-import 'package:rmservice/login/views/login_screen.dart';
 import 'package:rmservice/sign_up/cubits/signup_cubit.dart';
 import 'package:rmservice/sign_up/cubits/signup_state.dart';
 import 'package:rmservice/sign_up/models/user.dart';
@@ -162,25 +160,25 @@ class _SignupScreenState extends State<SignupScreen> with InputValidationMixin {
                 darkMode: darkMode,
               ),
             ),
-            SizedBox(
-              height: 95,
-              child: TextFieldApp(
-                controller: phoneController,
-                label: AppLocalizations.of(context)!.signupPhone,
-                icon: Icons.phone,
-                validatorFunc: (input) {
-                  if (input!.isEmpty) {
-                    return AppLocalizations.of(context)!.signupEmptyError;
-                  }
-                  if (input!.length != 10) {
-                    return AppLocalizations.of(context)!.signupPhone10Chacs;
-                  } else {
-                    return null;
-                  }
-                },
-                darkMode: darkMode,
-              ),
-            ),
+            // SizedBox(
+            //   height: 95,
+            //   child: TextFieldApp(
+            //     controller: phoneController,
+            //     label: AppLocalizations.of(context)!.signupPhone,
+            //     icon: Icons.phone,
+            //     validatorFunc: (input) {
+            //       if (input!.isEmpty) {
+            //         return AppLocalizations.of(context)!.signupEmptyError;
+            //       }
+            //       if (input!.length != 10) {
+            //         return AppLocalizations.of(context)!.signupPhone10Chacs;
+            //       } else {
+            //         return null;
+            //       }
+            //     },
+            //     darkMode: darkMode,
+            //   ),
+            // ),
             SizedBox(
               height: 95,
               child: TextFieldApp(
@@ -242,19 +240,14 @@ class _SignupScreenState extends State<SignupScreen> with InputValidationMixin {
                     if (state is SignupCompleteState) {
                       successMessage(
                           AppLocalizations.of(context)!.signupSuccess, context);
-                      //Làm trò gì tiếp theo phía dưới
-                      // Navigator.pushAndRemoveUntil(
-                      //   context,
-                      //   PageTransition(
-                      //     type: PageTransitionType.rightToLeftWithFade,
-                      //     child: SignupScreen(first_time: false),
-                      //     childCurrent: LoginScreen(first_time: false),
-                      //   ),
-                      //   (route) => false,
-                      // );
+                      BlocProvider.of<SignupCubit>(context).setInit();
+                      WidgetsBinding.instance.addPostFrameCallback((_) {
+                        Navigator.pop(context);
+                      });
                     }
                     if (state is SignupErrorState) {
                       errorMessage(state.error, context);
+                      BlocProvider.of<SignupCubit>(context).setInit();
                     }
                     return ButtonGreenApp(
                       label: AppLocalizations.of(context)!.signupButton,

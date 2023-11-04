@@ -19,12 +19,9 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: BlocProvider(
-          create: (context) =>
-              LoginCubit(authenticationRepository: AuthenticationRepository()),
-          child: LoginScreen(first_time: widget.first_time),
+        child: LoginScreen(first_time: widget.first_time),
         ),
-      ),
+      
     );
   }
 }

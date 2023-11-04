@@ -19,7 +19,7 @@ class SignupController {
     try {
       //delay 3s
       final response = await dio.post(
-        '/user/account/register',
+        '/user/register',
         data: {
           "email": user.email,
           "phone": user.phone,

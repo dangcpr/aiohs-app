@@ -23,7 +23,7 @@
     "signupEmailError": "The email is not in the correct format",
     "signupPasswordLengthError": "Password must be at least 6 characters",
     "signupConfirmError": "Please re-enter the password that matches the password entered",
-    "signupSuccess": "Signup successful",
+    "signupSuccess": "Signup successful. Please login.",
     "signIn": "Sign in",
     "welCome": "Welcome to AIO HS!",
     "welComeBack": "Welcome back!",

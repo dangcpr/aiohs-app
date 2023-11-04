@@ -23,7 +23,7 @@
     "signupEmailError": "Thư điện tử không đúng định dạng",
     "signupPasswordLengthError": "Mật khẩu phải có ít nhất 6 kí tự",
     "signupConfirmError": "Vui lòng nhập lại mật khẩu khớp mật khẩu đã nhập",
-    "signupSuccess": "Đăng ký thành công",
+    "signupSuccess": "Đăng ký thành công. Vui lòng đăng nhập",
     "signIn": "Đăng nhập",
     "welCome": "Chào bạn đến với AIO HS!",
     "welComeBack": "Chào mừng bạn trở lại!",
