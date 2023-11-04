@@ -10,6 +10,8 @@ import 'package:rmservice/cleaning_hourly/widgets/dialog_wrong.dart';
 import 'package:rmservice/utilities/components/button_green.dart';
 import 'package:rmservice/utilities/constants/variable.dart';
 import 'package:datetime_setting/datetime_setting.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 
 class ButtonNextStep2 extends StatefulWidget {
   const ButtonNextStep2({super.key});
@@ -53,7 +55,7 @@ class _ButtonNextStep2State extends State<ButtonNextStep2> {
                 color: colorProject.primaryColor),
           ),
           ButtonGreenApp(
-            label: "Tiếp theo",
+            label: AppLocalizations.of(context)!.nextLabel,
             onPressed: () async {
               if (await DatetimeSetting.timeIsAuto() == false ||
                   await DatetimeSetting.timeZoneIsAuto() == false) {
@@ -79,11 +81,14 @@ class _ButtonNextStep2State extends State<ButtonNextStep2> {
               Navigator.push(
                 context,
                 PageTransition(
+                  duration: Duration(milliseconds: 400),
                   type: PageTransitionType.rightToLeftWithFade,
                   child: CleaningHourlyStep3Screen(),
                   childCurrent: CleaningHourlyStep2Screen(),
                 ),
               );
+
+              debugPrint(context.read<SaveInfoCleaningHourlyCubit>().state.toJson().toString());
             },
           ),
         ],

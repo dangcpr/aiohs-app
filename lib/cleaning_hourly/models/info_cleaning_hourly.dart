@@ -1,7 +1,8 @@
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class InfoCleaningHourly {
-  late LatLng? location;
+  //late String? name;
+  //late String? phone;
   late String? shortAddress;
   late String? address;
   late int? duration;
@@ -15,9 +16,11 @@ class InfoCleaningHourly {
   late DateTime? time;
   late String? note;
   late int? price;
+  late String? paymentMethod;
 
   InfoCleaningHourly({
-    this.location,
+    //this.name,
+    //this.phone,
     this.shortAddress,
     this.address,
     this.duration = 2,
@@ -31,6 +34,7 @@ class InfoCleaningHourly {
     this.time,
     this.note = "",
     this.price,
+    this.paymentMethod = "cash",
   });
 
   InfoCleaningHourly.fromJson(Map<String, dynamic> json) {
@@ -39,10 +43,13 @@ class InfoCleaningHourly {
     iron = json['iron'];
     bringTool = json['bringTool'];
     bringVaccum = json['bringVaccum'];
+    realDuration = json['realDuration'];
     hasPet = json['hasPet'];
     date = DateTime.parse(json['date']);
     time = DateTime.parse(json['time']);
     note = json['note'];
+    price = json['price'];
+    paymentMethod = json['paymentMethod'];
   }
 
   Map<String, dynamic> toJson() => {
@@ -51,9 +58,12 @@ class InfoCleaningHourly {
     'iron': iron,
     'bringTool': bringTool,
     'bringVaccum': bringVaccum,
+    'realDuration': realDuration,
     'hasPet': hasPet,
     'date': date!.toIso8601String(),
     'time': time!.toIso8601String(),
     'note': note,
+    'price': price,
+    'paymentMethod': paymentMethod,
   };
 }

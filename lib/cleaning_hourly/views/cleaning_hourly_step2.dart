@@ -7,6 +7,7 @@ import 'package:rmservice/cleaning_hourly/widgets/pick_time_work.dart';
 import 'package:rmservice/cleaning_hourly/widgets/text_label.dart';
 import 'package:rmservice/cleaning_hourly/widgets/text_sub_label.dart';
 import 'package:rmservice/utilities/constants/variable.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class CleaningHourlyStep2Screen extends StatefulWidget {
   const CleaningHourlyStep2Screen({super.key});
@@ -26,7 +27,7 @@ class _CleaningHourlyStep2ScreenState extends State<CleaningHourlyStep2Screen> {
       appBar: AppBar(
         titleSpacing: 0,
         title: Text(
-          'Chọn thời gian làm việc',
+          AppLocalizations.of(context)!.confirmCleaningHourly,
           style: TextStyle(
             fontSize: fontSize.mediumLarger,
             color: isDarkMode ? Colors.white : Colors.black,
@@ -40,14 +41,14 @@ class _CleaningHourlyStep2ScreenState extends State<CleaningHourlyStep2Screen> {
             Padding(
               padding: const EdgeInsets.only(top: 17),
               child: TextLabel(
-                label: "Thời gian làm việc",
+                label: AppLocalizations.of(context)!.dateLabel,
                 isDarkMode: isDarkMode,
               ),
             ),
             Padding(
               padding: const EdgeInsets.only(top: 5),
               child: TextSubLabel(
-                label: "Vui lòng chọn ngày làm việc (trong vòng 7 ngày)",
+                label: AppLocalizations.of(context)!.dateSub,
                 isDarkMode: isDarkMode,
               ),
             ),
@@ -71,14 +72,14 @@ class _CleaningHourlyStep2ScreenState extends State<CleaningHourlyStep2Screen> {
             Padding(
               padding: const EdgeInsets.only(top: 17),
               child: TextLabel(
-                label: "Ghi chú cho người làm",
+                label: AppLocalizations.of(context)!.noticeForMaidLabel,
                 isDarkMode: isDarkMode,
               ),
             ),
             Padding(
               padding: const EdgeInsets.only(top: 5),
               child: TextSubLabel(
-                label: "Ghi chú cho người làm để người làm dọn dẹp tốt hơn.",
+                label: AppLocalizations.of(context)!.noticeForMaidSub,
                 isDarkMode: isDarkMode,
               ),
             ),
