@@ -23,7 +23,7 @@ class _PickDateWorkState extends State<PickDateWork> {
   Widget build(BuildContext context) {
     String locale = Localizations.localeOf(context).languageCode;
     return Container(
-      height: 92,
+      height: 100,
       child: ListView(
         scrollDirection: Axis.horizontal,
         children: List<Widget>.generate(
