@@ -42,7 +42,6 @@ class _CleaningLongTermStep1State extends State<CleaningLongTermStep1> {
         padding: const EdgeInsets.only(left: 20, right: 20, bottom: 90),
         child: ListView(
           children: [
-            ChooseNumberOfMaid(numberOfMaid: numberOfMaid),
             Padding(
               padding: const EdgeInsets.only(top: padding.paddingMedium),
               child: TextLabel(
