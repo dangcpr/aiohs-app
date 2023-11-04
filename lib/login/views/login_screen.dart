@@ -150,13 +150,13 @@ class _LoginScreenState extends State<LoginScreen> with InputValidationMixin {
                               label: AppLocalizations.of(context)!.signIn,
                               onPressed: () {
                                 if (formKeyLogin.currentState!.validate()) {
-                                  context.read<LoginCubit>().logIn(
-                                        username: emailController.text,
-                                        password: passwordController.text,
-                                      );
-                                }
-                                else {
-                                  return;
+                                //   context.read<LoginCubit>().logIn(
+                                //         username: emailController.text,
+                                //         password: passwordController.text,
+                                //       );
+                                // }
+                                // else {
+                                //   return;
                                 }
                                 Navigator.push(
                                   context,

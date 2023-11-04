@@ -27,6 +27,18 @@ class _BottomSheetAddressState extends State<BottomSheetAddress> {
   final _formKey = GlobalKey<FormState>();
 
   @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    nameController.dispose();
+    phoneController.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     //controller.text = context.read<SavePriceShopping>().state.toString();
     shortAddressController.text =
@@ -130,17 +142,19 @@ class _BottomSheetAddressState extends State<BottomSheetAddress> {
                             nameAddress: shortAddressController.text,
                           ),
                         );
-                    Navigator.pop(context);
-                    Navigator.pop(context);
-                    Navigator.push(
-                      context,
-                      PageTransition(
-                        duration: Duration(milliseconds: 400),
-                        type: PageTransitionType.rightToLeftWithFade,
-                        child: ShoppingStep2Screen(),
-                        childCurrent: ShoppingStep1Screen(),
-                      ),
-                    );
+                    WidgetsBinding.instance.addPostFrameCallback((_) {
+                      Navigator.pop(context);
+                      Navigator.pop(context);
+                      Navigator.push(
+                        context,
+                        PageTransition(
+                          duration: Duration(milliseconds: 400),
+                          type: PageTransitionType.rightToLeftWithFade,
+                          child: ShoppingStep2Screen(),
+                          childCurrent: ShoppingStep1Screen(),
+                        ),
+                      );
+                    });
                     _formKey.currentState!.save();
                   } else {}
                 },

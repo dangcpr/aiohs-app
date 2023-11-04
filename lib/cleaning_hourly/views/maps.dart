@@ -49,6 +49,13 @@ class _ChooseLocationScreenState extends State<ChooseLocationScreen> {
     };
   }
 
+  //dispose
+  @override
+  void dispose() {
+    googleMapController.dispose();
+    super.dispose();
+  }
+
   Future<void> _onMapCreated(GoogleMapController controller) async {
     googleMapController = controller;
     //controller.setMapStyle(Utils.mapStyles)
