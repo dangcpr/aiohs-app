@@ -28,14 +28,8 @@ class _HorizontalListViewWithIndicatorState
           debugPrint('On pressed');
           //Route
           Navigator.push(
-              context,
-              PageTransition(
-                  type: PageTransitionType.rightToLeftWithFade,
-                  child: CleaningHourlyStep1Screen(),
-                  childCurrent: MainPage()));
             context,
             PageTransition(
-              duration: Duration(milliseconds: 500),
               type: PageTransitionType.rightToLeftWithFade,
               child: CleaningHourlyStep1Screen(),
               childCurrent: MainPage(),
