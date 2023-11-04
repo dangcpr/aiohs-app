@@ -1,0 +1,41 @@
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:rmservice/cleaning_hourly/cubits/save_info/save_address.dart';
+import 'package:rmservice/home_route/cubits/get_first_time/get_first_time_cubit.dart';
+import 'package:rmservice/home_route/cubits/set_first_time/set_first_time_cubit.dart';
+import 'package:rmservice/shopping/cubits/add_items.dart';
+import 'package:rmservice/shopping/cubits/save_address.dart';
+import 'package:rmservice/shopping/cubits/save_data.dart';
+import 'package:rmservice/shopping/cubits/save_price_shopping.dart';
+import 'package:rmservice/sign_up/cubits/signup_cubit.dart';
+
+import '../../cleaning_hourly/cubits/save_info/save_info.dart';
+
+final listProvider = [
+  BlocProvider<SetFirstTimeCubit>(
+    create: (_) => SetFirstTimeCubit(),
+  ),
+  BlocProvider<GetFirstTimeCubit>(
+    create: (_) => GetFirstTimeCubit(),
+  ),
+  BlocProvider<SignupCubit>(
+    create: (_) => SignupCubit(),
+  ),
+  BlocProvider<SaveAddressCubit>(
+    create: (_) => SaveAddressCubit(),
+  ),
+  BlocProvider<SaveAddressShoppingCubit>(
+    create: (_) => SaveAddressShoppingCubit(),
+  ),
+  BlocProvider<SaveInfoCleaningHourlyCubit>(
+    create: (_) => SaveInfoCleaningHourlyCubit(),
+  ),
+  BlocProvider<SaveDataShopping>(
+    create: (_) => SaveDataShopping(),
+  ),
+  BlocProvider<AddItemCubit>(
+    create: (_) => AddItemCubit(),
+  ),
+  BlocProvider<SavePriceShopping>(
+    create: (_) => SavePriceShopping(),
+  ),
+];

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rmservice/cleaning_hourly/cubits/save_info/save_address.dart';
-import 'package:rmservice/cleaning_hourly/widgets/text_field_basic.dart';
+import 'package:rmservice/utilities/components/text_field_basic.dart';
 import 'package:rmservice/cleaning_hourly/widgets/text_label.dart';
 import 'package:rmservice/utilities/components/button_green.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -22,8 +22,8 @@ class _BottomEditNamePhoneState extends State<BottomEditNamePhone> {
 
   @override
   Widget build(BuildContext context) {
-    //nameController.text = context.read<SaveAddressCubit>().state!.name!;
-    //phoneController.text = context.read<SaveAddressCubit>().state!.phone!;
+    nameController.text = context.read<SaveAddressCubit>().state!.name!;
+    phoneController.text = context.read<SaveAddressCubit>().state!.phone!;
     return Container(
       padding: EdgeInsets.only(
         left: 20,

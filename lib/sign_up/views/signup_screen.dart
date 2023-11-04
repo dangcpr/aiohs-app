@@ -11,7 +11,6 @@ import 'package:rmservice/sign_up/widgets/skip_button.dart';
 import 'package:rmservice/utilities/components/button_green.dart';
 import 'package:rmservice/utilities/components/text_field.dart';
 import 'package:rmservice/utilities/constants/function.dart';
-import 'package:rmservice/utilities/constants/variable.dart';
 
 class SignupScreen extends StatefulWidget {
   const SignupScreen({super.key, required this.first_time});

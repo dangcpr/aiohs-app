@@ -79,7 +79,7 @@
     "fromLabel": "from",
     "toLabel": "to",
     "shoppingStep1Title": "Delivery to location",
-    "shoppingStep1LabelSub": "Please select 01 (one) location below or press \"Add location\"",
+    "shoppingStep1LabelSub": "Please select 01 (one) location below or press \"Choose another location\"",
     "shoppingStep1Label": "List of places",
     "typeOfAddress1": "Home",
     "typeOfAddress2": "Apartment",

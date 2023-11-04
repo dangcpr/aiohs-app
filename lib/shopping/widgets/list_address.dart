@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:page_transition/page_transition.dart';
-import 'package:rmservice/shopping/constants/function.dart';
+import 'package:rmservice/shopping/cubits/save_address.dart';
+import 'package:rmservice/utilities/constants/check_type_of_address.dart';
 import 'package:rmservice/shopping/constants/test_address.dart';
 import 'package:rmservice/shopping/cubits/save_data.dart';
 import 'package:rmservice/shopping/views/shopping_step1.dart';
@@ -33,7 +34,7 @@ class _ListAddressState extends State<ListAddress> {
                   debugPrint(index.toString() + " Shopping");
                   context.read<SaveDataShopping>().state.address =
                       testAddress[index];
-                      
+                  context.read<SaveAddressShoppingCubit>().setAddress(testAddress[index]);
                   Navigator.push(
                     context,
                     PageTransition(

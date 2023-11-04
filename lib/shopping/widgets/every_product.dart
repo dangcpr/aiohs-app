@@ -5,9 +5,10 @@ import 'package:rmservice/utilities/constants/app_assets.dart';
 import 'package:rmservice/utilities/constants/variable.dart';
 
 class EveryProduct extends StatefulWidget {
-  const EveryProduct({super.key, required this.product});
+  const EveryProduct({super.key, required this.product, required this.isRemove});
 
   final String product;
+  final bool isRemove;
 
   @override
   State<EveryProduct> createState() => _EveryProductState();
@@ -35,7 +36,7 @@ class _EveryProductState extends State<EveryProduct> {
               ),
             ),
           ),
-          InkWell(
+          if(widget.isRemove) InkWell(
             borderRadius: BorderRadius.circular(10),
             onTap: () {
               context.read<AddItemCubit>().removeItem(widget.product);

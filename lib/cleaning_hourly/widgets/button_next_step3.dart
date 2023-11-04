@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:page_transition/page_transition.dart';
+import 'package:rmservice/cleaning_hourly/cubits/save_info/save_address.dart';
 import 'package:rmservice/cleaning_hourly/cubits/save_info/save_info.dart';
 import 'package:rmservice/cleaning_hourly/views/cleaning_hourly_step3.dart';
 import 'package:rmservice/cleaning_hourly/views/complete.dart';
@@ -85,6 +86,7 @@ class _ButtonNextStep3State extends State<ButtonNextStep3> {
                   childCurrent: CleaningHourlyStep3Screen(),
                 ),
               );
+              context.read<SaveAddressCubit>().setInit();
 
               debugPrint(context.read<SaveInfoCleaningHourlyCubit>().state.toJson().toString());
             },

@@ -38,14 +38,14 @@ class _ShoppingStep4ScreenState extends State<ShoppingStep4Screen> {
             Padding(
               padding: const EdgeInsets.only(top: 17),
               child: TextLabel(
-                label: AppLocalizations.of(context)!.dateLabel,
+                label: "Thời gian giao hàng",
                 isDarkMode: isDarkMode,
               ),
             ),
             Padding(
               padding: const EdgeInsets.only(top: 5),
               child: TextSubLabel(
-                label: AppLocalizations.of(context)!.dateSub,
+                label: "Vui lòng chọn ngày giao hàng (trong vòng 7 ngày)",
                 isDarkMode: isDarkMode,
               ),
             ),
@@ -70,13 +70,6 @@ class _ShoppingStep4ScreenState extends State<ShoppingStep4Screen> {
               padding: const EdgeInsets.only(top: 17),
               child: TextLabel(
                 label: AppLocalizations.of(context)!.noticeForMaidLabel,
-                isDarkMode: isDarkMode,
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(top: 5),
-              child: TextSubLabel(
-                label: AppLocalizations.of(context)!.noticeForMaidSub,
                 isDarkMode: isDarkMode,
               ),
             ),

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
-import 'package:rmservice/cleaning_hourly/cubits/save_info/save_info.dart';
 import 'package:rmservice/shopping/cubits/save_data.dart';
 import 'package:rmservice/utilities/constants/variable.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -27,7 +26,7 @@ class _PickTimeWorkState extends State<PickTimeWork> {
       children: [
         Flexible(
           child: Text(
-            AppLocalizations.of(context)!.timeSub,
+            "Vui lòng chọn giờ giao hàng",
             style: TextStyle(
               color: widget.isDarkMode ? Colors.white : Colors.black,
               fontFamily: fontApp,
