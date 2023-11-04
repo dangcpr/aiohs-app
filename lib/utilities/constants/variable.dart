@@ -41,3 +41,58 @@ class dialog {
   static const emailWrong = "Please check your email";
   static const sthWrong = "Your email or password is incorrect";
 }
+
+class textStyle {
+  static TextStyle normalStyle({double fontSize = 14}) {
+    return TextStyle(
+      fontSize: fontSize,
+      fontFamily: fontApp,
+    );
+  }
+
+  static TextStyle headerStyle({double fontSize = 24}) {
+    return TextStyle(
+      fontSize: fontSize,
+      fontFamily: fontBoldApp,
+      fontWeight: FontWeight.bold,
+    );
+  }
+}
+
+class sizedBox {
+  static SizedBox largeHeight() {
+    return const SizedBox(
+      height: 20,
+    );
+  }
+
+  static SizedBox mediumHeight() {
+    return const SizedBox(
+      height: 15,
+    );
+  }
+
+  static SizedBox smallHeight() {
+    return const SizedBox(
+      width: 10,
+    );
+  }
+
+  static SizedBox largeWidth() {
+    return const SizedBox(
+      width: 15,
+    );
+  }
+
+  static SizedBox mediumWidth() {
+    return const SizedBox(
+      height: 10,
+    );
+  }
+
+  static SizedBox smallWidth() {
+    return const SizedBox(
+      width: 8,
+    );
+  }
+}
