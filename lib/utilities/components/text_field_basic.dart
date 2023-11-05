@@ -7,6 +7,8 @@ class TextFieldBasic extends StatefulWidget {
     required this.controller,
     required this.isDarkMode,
     required this.hintText,
+    this.onTap,
+    this.isReadOnly,
     this.onChanged,
     this.validator,
     //required this.errorText,
@@ -15,6 +17,8 @@ class TextFieldBasic extends StatefulWidget {
   final TextEditingController controller;
   final bool isDarkMode;
   final String hintText;
+  final bool? isReadOnly;
+  final void Function()? onTap;
   final Function(String)? onChanged;
   final String? Function(String?)? validator;
   //final String errorText;
@@ -30,6 +34,7 @@ class _TextFieldBasicState extends State<TextFieldBasic> {
       //inputFormatters: [ThousandsFormatter()],
       //keyboardType: TextInputType.number,
       controller: widget.controller,
+      readOnly: widget.isReadOnly ?? false,
       style: TextStyle(
         fontFamily: fontApp,
       ),
@@ -53,11 +58,21 @@ class _TextFieldBasicState extends State<TextFieldBasic> {
           borderSide: BorderSide(color: colorProject.primaryColor, width: 1),
           borderRadius: BorderRadius.circular(10),
         ),
+        labelText: widget.hintText,
+        labelStyle: const TextStyle(
+          color: Colors.grey,
+          fontFamily: fontApp,
+        ),
         hintText: widget.hintText,
+        hintStyle: const TextStyle(
+          color: Colors.grey,
+          fontFamily: fontApp,
+        ),
         errorStyle: TextStyle(fontFamily: fontApp),
         //errorText: widget.errorText,
       ),
       onChanged: widget.onChanged,
+      onTap: widget.onTap,
       validator: widget.validator,
     );
   }

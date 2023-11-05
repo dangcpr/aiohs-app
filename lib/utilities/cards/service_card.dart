@@ -35,14 +35,14 @@ class _ServiceCardState extends State<ServiceCard> {
                 shape: BoxShape.rectangle,
                 color: widget.color ?? colorProject.primaryColor,
                 borderRadius: BorderRadius.circular(20),
-                boxShadow: [
-                  BoxShadow(
-                    color: colorProject.primaryColor.withOpacity(0.25),
-                    blurRadius: 20,
-                    spreadRadius: 1,
-                    offset: const Offset(0, 2),
-                  ),
-                ],
+                // boxShadow: [
+                //   BoxShadow(
+                //     color: colorProject.primaryColor.withOpacity(0.25),
+                //     blurRadius: 20,
+                //     spreadRadius: 1,
+                //     offset: const Offset(0, 2),
+                //   ),
+                // ],
               ),
               child: Center(
                 child: Icon(

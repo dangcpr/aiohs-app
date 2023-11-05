@@ -1,6 +1,6 @@
 import 'package:rmservice/shopping/models/address_shopping.dart';
 
-List<AddressShopping> testAddress = [
+final List<AddressShopping> testAddress = [
   AddressShopping(
     yourName: "Nguyễn Văn A",
     phoneNum: "0123456789",

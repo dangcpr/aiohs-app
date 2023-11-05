@@ -4,7 +4,7 @@ import 'package:rmservice/main_page/main_page.dart';
 import 'package:rmservice/message_page/message_page.dart';
 import 'package:rmservice/utilities/constants/variable.dart';
 
-import '../../place_page/place_page.dart';
+import '../../place_page/views/place_page.dart';
 
 class HomePage extends StatefulWidget {
   @override

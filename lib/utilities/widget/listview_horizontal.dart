@@ -5,6 +5,7 @@ import 'package:rmservice/cleaning_hourly/views/cleaning_hourly_step1.dart';
 import 'package:rmservice/cleaning_longterm/cleaning_longterm.dart';
 import 'package:rmservice/main_page/main_page.dart';
 import 'package:rmservice/shopping/views/shopping_step1.dart';
+import 'package:rmservice/utilities/constants/variable.dart';
 import '../cards/service_card.dart';
 
 class HorizontalListViewWithIndicator extends StatefulWidget {
@@ -24,6 +25,7 @@ class _HorizontalListViewWithIndicatorState
         icon: Icons.access_alarm,
         width: 50,
         text: AppLocalizations.of(context)!.hourly,
+        //color: colorProject.primaryColor.withOpacity(0.65),
         onPressed: () {
           debugPrint('On pressed');
           //Route
@@ -41,6 +43,7 @@ class _HorizontalListViewWithIndicatorState
         icon: Icons.cleaning_services,
         width: 50,
         text: AppLocalizations.of(context)!.longTerm,
+        //color: Color(0xff0e5bb0).withOpacity(0.65),
         onPressed: () {
           debugPrint('On pressed');
           //Route
@@ -54,12 +57,14 @@ class _HorizontalListViewWithIndicatorState
       ),
       ServiceCard(
         icon: Icons.ac_unit_outlined,
+        //color: Color(0xffFF9A00).withOpacity(0.65),
         width: 50,
         text: AppLocalizations.of(context)!.airConditioningCleaning,
       ),
       ServiceCard(
         icon: Icons.shopping_cart,
         width: 50,
+        //color: Color(0xffFF5900).withOpacity(0.65),
         text: AppLocalizations.of(context)!.shopping,
         onPressed: () {
           debugPrint('On pressed Shopping');

@@ -31,7 +31,7 @@ class _ShoppingStep2ScreenState extends State<ShoppingStep2Screen> {
             SizedBox(
               height: 30,
             ),
-            Methoad2ShoppingButton()
+            //Methoad2ShoppingButton()
           ],
         ),
       ),
