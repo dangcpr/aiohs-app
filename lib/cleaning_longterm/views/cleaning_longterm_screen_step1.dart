@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import '../../cleaning_hourly/widgets/button_app_bar.dart';
-import '../../cleaning_hourly/widgets/text_label.dart';
-import '../../cleaning_hourly/widgets/text_sub_label.dart';
-import '../widgets/button_next_step1.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:rmservice/cleaning_longterm/cubit/save_info_cubit.dart';
 import 'package:rmservice/utilities/constants/variable.dart';
 
-import '../widgets/choose_number_of_maid.dart';
+import '../../cleaning_hourly/widgets/button_app_bar.dart';
+import '../../cleaning_hourly/widgets/text_label.dart';
+import '../widgets/button_next_step1.dart';
 import '../widgets/duration_choices.dart';
 import '../widgets/month_choice.dart';
 import '../widgets/note_for_maid.dart';
@@ -20,6 +20,14 @@ class CleaningLongTermStep1 extends StatefulWidget {
 }
 
 class _CleaningLongTermStep1State extends State<CleaningLongTermStep1> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    print(
+        'Start data: ${context.read<SaveInfoCleaningLongTermCubit>().state.toJson().toString()}');
+  }
+
   @override
   Widget build(BuildContext context) {
     var brightness = MediaQuery.of(context).platformBrightness;
@@ -36,6 +44,13 @@ class _CleaningLongTermStep1State extends State<CleaningLongTermStep1> {
           onPressed: () {
             debugPrint('Vui lòng chọn địa điểm');
           },
+        ),
+        leading: InkWell(
+          onTap: () {
+            context.read<SaveInfoCleaningLongTermCubit>().setInitial();
+            Navigator.pop(context);
+          },
+          child: const Icon(Icons.arrow_back),
         ),
       ),
       body: Padding(

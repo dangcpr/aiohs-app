@@ -1,14 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:page_transition/page_transition.dart';
-import 'package:rmservice/cleaning_hourly/cubits/save_info/save_info.dart';
-import 'package:rmservice/cleaning_hourly/models/info_cleaning_hourly.dart';
-import 'package:rmservice/cleaning_hourly/views/cleaning_hourly_step1.dart';
-import 'package:rmservice/cleaning_hourly/views/cleaning_hourly_step2.dart';
-import 'package:rmservice/cleaning_hourly/widgets/dialog_wrong.dart';
 import 'package:rmservice/cleaning_longterm/cleaning_longterm.dart';
 import 'package:rmservice/utilities/components/button_green.dart';
-import 'package:rmservice/utilities/constants/variable.dart';
 
 import '../views/cleaning_longterm_screen_step2.dart';
 
@@ -58,36 +51,6 @@ class _ButtonNextStep1State extends State<ButtonNextStep1> {
             return;
           }
           */
-          int cooking =
-              context.read<SaveInfoCleaningHourlyCubit>().state.cooking! == true
-                  ? 1
-                  : 0;
-          int iron =
-              context.read<SaveInfoCleaningHourlyCubit>().state.iron! == true
-                  ? 1
-                  : 0;
-          context.read<SaveInfoCleaningHourlyCubit>().state.realDuration =
-              context.read<SaveInfoCleaningHourlyCubit>().state.duration! +
-                  cooking +
-                  iron;
-          if (context.read<SaveInfoCleaningHourlyCubit>().state.realDuration! >
-              4) {
-            showDialog(
-                context: context,
-                builder: (context) {
-                  return DialogWrong(
-                    notification:
-                        "Tổng thời gian làm tính cả dịch vụ gia tăng là " +
-                            context
-                                .read<SaveInfoCleaningHourlyCubit>()
-                                .state
-                                .realDuration
-                                .toString() +
-                            " giờ. Vui lòng lựa chọn lại sao cho thời gian làm dưới 4 giờ",
-                  );
-                });
-            return;
-          }
           Navigator.push(
             context,
             PageTransition(

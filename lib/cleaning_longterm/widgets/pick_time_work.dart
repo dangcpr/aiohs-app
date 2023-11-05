@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:intl/intl.dart';
-import 'package:rmservice/cleaning_hourly/cubits/save_info/save_info.dart';
+import 'package:rmservice/cleaning_longterm/cubit/save_info_cubit.dart';
 import 'package:rmservice/utilities/constants/variable.dart';
 
 class PickTimeWork extends StatefulWidget {
@@ -14,18 +15,18 @@ class PickTimeWork extends StatefulWidget {
 }
 
 class _PickTimeWorkState extends State<PickTimeWork> {
-  TimeOfDay? time = TimeOfDay.now();
-
   @override
   Widget build(BuildContext context) {
-    DateTime timeChoose = DateTime(1969, 1, 1, time!.hour, time!.minute);
+    TimeOfDay time = TimeOfDay.fromDateTime(
+        context.read<SaveInfoCleaningLongTermCubit>().state.time!);
+    DateTime timeChoose = DateTime(1969, 1, 1, time.hour, time.minute);
 
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Flexible(
           child: Text(
-            "Vui lòng chọn giờ bắt đầu làm việc",
+            AppLocalizations.of(context)!.timeSub,
             style: TextStyle(
               color: widget.isDarkMode ? Colors.white : Colors.black,
               fontFamily: fontApp,
@@ -53,18 +54,23 @@ class _PickTimeWorkState extends State<PickTimeWork> {
                 );
               },
               context: context,
-              initialTime: time!,
+              initialTime: time,
             );
             if (newTime != null) {
               setState(() {
                 time = newTime;
-                timeChoose = DateTime(1969, 1, 1, time!.hour, time!.minute);
+                timeChoose = DateTime(1969, 1, 1, time.hour, time.minute);
               });
-              context.read<SaveInfoCleaningHourlyCubit>().state.time =
+              context.read<SaveInfoCleaningLongTermCubit>().state.time =
                   timeChoose;
+              // debugPrint(context
+              //     .read<SaveInfoCleaningLongTermCubit>()
+              //     .state
+              //     .toJson()
+              //     .toString());
               debugPrint(context
-                  .read<SaveInfoCleaningHourlyCubit>()
-                  .state
+                  .read<SaveInfoCleaningLongTermCubit>()
+                  .state.
                   .toJson()
                   .toString());
             }

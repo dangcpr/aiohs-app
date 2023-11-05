@@ -1,61 +1,58 @@
-class InfoCleaningLongterm {
-  InfoCleaningLongterm({
-    required this.durationWork,
-    required this.numberOfMaid,
-    required this.datesOfWork,
-    required this.timeToWork,
-    required this.monthsOfWork,
-    required this.notes,
+import 'dart:convert';
+
+class InfoCleaningLongTerm {
+  //late String? name;
+  //late String? phone;
+  late String? shortAddress;
+  late String? address;
+  late int? duration;
+  late int? realDuration;
+  late List<DateTime> days;
+  late DateTime? time;
+  late int? month;
+  late String? note;
+  late int? price;
+  late String? paymentMethod;
+  late DateTime? startDay;
+
+  InfoCleaningLongTerm({
+    //this.name,
+    //this.phone,
+    this.shortAddress,
+    this.address,
+    this.duration = 2,
+    this.realDuration = 2,
+    required this.days,
+    this.time,
+    this.startDay,
+    this.month = 1,
+    this.note = "",
+    this.price,
+    this.paymentMethod = "cash",
   });
-  late final DurationWork durationWork;
-  late final int numberOfMaid;
-  late final List<String> datesOfWork;
-  late final String timeToWork;
-  late final String monthsOfWork;
-  late final String notes;
 
-  InfoCleaningLongterm.fromJson(Map<String, dynamic> json) {
-    durationWork = DurationWork.fromJson(json['durationWork']);
-    numberOfMaid = json['numberOfMaid'];
-    datesOfWork = json['datesOfWork'];
-    timeToWork = json['timeToWork'];
-    monthsOfWork = json['monthsOfWork'];
-    notes = json['notes'];
+  InfoCleaningLongTerm.fromJson(Map<String, dynamic> json) {
+    duration = json['duration'];
+    realDuration = json['realDuration'];
+    days = json['days'];
+    time = DateTime.parse(json['time']);
+    note = json['note'];
+    month = json['month'];
+    price = json['price'];
+    paymentMethod = json['paymentMethod'];
+    startDay = json['startDay'];
   }
 
-  Map<String, dynamic> toJson() {
-    final _data = <String, dynamic>{};
-    _data['durationWork'] = durationWork.toJson();
-    _data['numberOfMaid'] = numberOfMaid;
-    _data['datesOfWork'] = datesOfWork;
-    _data['timeToWork'] = timeToWork;
-    _data['monthsOfWork'] = monthsOfWork;
-    _data['notes'] = notes;
-    return _data;
-  }
-}
-
-class DurationWork {
-  DurationWork({
-    required this.time,
-    required this.square,
-    required this.numberOfRoom,
-  });
-  late final String time;
-  late final String square;
-  late final String numberOfRoom;
-
-  DurationWork.fromJson(Map<String, dynamic> json) {
-    time = json['time'];
-    square = json['square'];
-    numberOfRoom = json['numberOfRoom'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final _data = <String, dynamic>{};
-    _data['time'] = time;
-    _data['square'] = square;
-    _data['numberOfRoom'] = numberOfRoom;
-    return _data;
-  }
+  Map<String, dynamic> toJson() => {
+        'duration': duration,
+        'days': jsonEncode(
+            days.map((dateTime) => dateTime.toIso8601String()).toList()),
+        'time': time!.toIso8601String(),
+        'note': note,
+        'month': month,
+        'realDuration': realDuration,
+        'price': price,
+        'paymentMethod': paymentMethod,
+        'startDay': startDay,
+      };
 }

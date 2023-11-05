@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:rmservice/cleaning_longterm/cubit/save_info_cubit.dart';
 
-import '../../cleaning_hourly/constants/cleaning_hourly_const.dart';
-import '../../cleaning_hourly/cubits/save_info/save_info.dart';
 import '../../utilities/constants/variable.dart';
 
 class MonthChoice extends StatefulWidget {
@@ -13,12 +12,7 @@ class MonthChoice extends StatefulWidget {
 }
 
 class _MonthChoiceState extends State<MonthChoice> {
-  late List<String> months = [
-    '1 Tháng',
-    '2 Tháng',
-    '3 Tháng',
-    '4 Tháng',
-  ];
+  late List<int> months = [1, 2, 3, 4];
 
   int value = 0;
   @override
@@ -36,7 +30,7 @@ class _MonthChoiceState extends State<MonthChoice> {
               label: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 12),
                 child: Text(
-                  months[index],
+                  '${months[index]} tháng',
                   style: const TextStyle(
                     fontFamily: fontBoldApp,
                     fontSize: fontSize.mediumLarger,
@@ -52,9 +46,18 @@ class _MonthChoiceState extends State<MonthChoice> {
                     : (widget.isDarkMode ? Colors.white : Colors.black),
               ),
               onSelected: (bool selected) {
-                setState(() {
-                  value = selected ? index : 0;
-                });
+                setState(
+                  () {
+                    value = selected ? index : 0;
+                  },
+                );
+                context.read<SaveInfoCleaningLongTermCubit>().state.month =
+                    months[index];
+                debugPrint(context
+                    .read<SaveInfoCleaningLongTermCubit>()
+                    .state
+                    .toJson()
+                    .toString());
               },
             );
           },

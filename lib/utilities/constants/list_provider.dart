@@ -11,6 +11,7 @@ import 'package:rmservice/shopping/cubits/save_price_shopping.dart';
 import 'package:rmservice/sign_up/cubits/signup_cubit.dart';
 
 import '../../cleaning_hourly/cubits/save_info/save_info.dart';
+import '../../cleaning_longterm/cubit/save_info_cubit.dart';
 
 final listProvider = [
   BlocProvider<SetFirstTimeCubit>(
@@ -20,9 +21,9 @@ final listProvider = [
     create: (_) => GetFirstTimeCubit(),
   ),
   BlocProvider<LoginCubit>(
-      create: (_) =>
-          LoginCubit(authenticationRepository: AuthenticationRepository()),
-     ),
+    create: (_) =>
+        LoginCubit(authenticationRepository: AuthenticationRepository()),
+  ),
   BlocProvider<SignupCubit>(
     create: (_) => SignupCubit(),
   ),
@@ -43,5 +44,8 @@ final listProvider = [
   ),
   BlocProvider<SavePriceShopping>(
     create: (_) => SavePriceShopping(),
+  ),
+  BlocProvider<SaveInfoCleaningLongTermCubit>(
+    create: (_) => SaveInfoCleaningLongTermCubit(),
   ),
 ];

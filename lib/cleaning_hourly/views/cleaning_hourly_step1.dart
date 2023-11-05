@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:rmservice/cleaning_hourly/cubits/save_info/save_address.dart';
 import 'package:rmservice/cleaning_hourly/cubits/save_info/save_info.dart';
@@ -13,7 +14,6 @@ import 'package:rmservice/cleaning_hourly/widgets/notice_step1.dart';
 import 'package:rmservice/cleaning_hourly/widgets/pet_choice.dart';
 import 'package:rmservice/cleaning_hourly/widgets/text_label.dart';
 import 'package:rmservice/cleaning_hourly/widgets/text_sub_label.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class CleaningHourlyStep1Screen extends StatefulWidget {
   const CleaningHourlyStep1Screen({super.key});
@@ -41,10 +41,12 @@ class _CleaningHourlyStep1ScreenState extends State<CleaningHourlyStep1Screen> {
       appBar: AppBar(
         titleSpacing: 0,
         title: ButtonChooseLocation(
-          nameLocation: context.watch<SaveAddressCubit>().state == null || context.watch<SaveAddressCubit>().state!.shortAddress == ""
+          nameLocation: context.watch<SaveAddressCubit>().state == null ||
+                  context.watch<SaveAddressCubit>().state!.shortAddress == ""
               ? "Vui lòng chọn địa điểm"
               : context.watch<SaveAddressCubit>().state!.shortAddress!,
-          addressLocation: context.watch<SaveAddressCubit>().state == null || context.watch<SaveAddressCubit>().state!.address == ""
+          addressLocation: context.watch<SaveAddressCubit>().state == null ||
+                  context.watch<SaveAddressCubit>().state!.address == ""
               ? "Vui lòng chọn địa điểm"
               : context.watch<SaveAddressCubit>().state!.address!,
           isDarkMode: isDarkMode,

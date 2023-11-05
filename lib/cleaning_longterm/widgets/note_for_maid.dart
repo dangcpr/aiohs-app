@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:rmservice/cleaning_longterm/cubit/save_info_cubit.dart';
 import 'package:rmservice/utilities/constants/variable.dart';
 
 class NoteForMaid extends StatefulWidget {
@@ -37,6 +39,9 @@ class _NoteForMaidState extends State<NoteForMaid> {
           ),
           hintText: "Nhập ghi chú cho nhân viên",
         ),
+        onChanged: (value) {
+          context.read<SaveInfoCleaningLongTermCubit>().state.note = value;
+        },
       ),
     );
   }

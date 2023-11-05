@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
+import 'package:rmservice/cleaning_longterm/cubit/save_info_cubit.dart';
 
 import '../../utilities/constants/variable.dart';
 
@@ -12,15 +15,9 @@ class TimeChoice extends StatefulWidget {
 }
 
 class _TimeChoiceState extends State<TimeChoice> {
-  late List<String> days = [
-    'Mo',
-    'Tu',
-    'We',
-    'Th',
-    'Fr',
-    'Sa',
-    'Su',
-  ];
+  final items = List<DateTime>.generate(
+      7, (i) => DateTime.now().add(Duration(days: i + 1)));
+  int value = 0;
 
   List<bool> isCheck = List.generate(
     7,
@@ -30,30 +27,45 @@ class _TimeChoiceState extends State<TimeChoice> {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
+    String locale = Localizations.localeOf(context).languageCode;
+    List<DateTime> days =
+        context.read<SaveInfoCleaningLongTermCubit>().state.days;
     return SingleChildScrollView(
       scrollDirection: Axis.horizontal,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: List<Widget>.generate(
-          days.length,
+          items.length,
           (int index) {
             return InkWell(
               onTap: () {
                 setState(
                   () {
                     isCheck[index] = !isCheck[index];
-                    switch (index) {
-                      case 0:
-                        break;
-
-                      case 1:
-                        break;
-
-                      case 2:
-                        break;
-                      case 3:
-                        break;
+                    int indexOfDay = context
+                        .read<SaveInfoCleaningLongTermCubit>()
+                        .checkDay(items[index], days);
+                    if (indexOfDay != -1) {
+                      context
+                          .read<SaveInfoCleaningLongTermCubit>()
+                          .remove(indexOfDay);
+                      print('Deleted at $indexOfDay');
+                    } else {
+                      context
+                          .read<SaveInfoCleaningLongTermCubit>()
+                          .addDay(items[index]);
+                      print('Added');
                     }
+                    context.read<SaveInfoCleaningLongTermCubit>().checkStartDay(
+                        context
+                            .read<SaveInfoCleaningLongTermCubit>()
+                            .state
+                            .days);
+                    debugPrint(context
+                        .read<SaveInfoCleaningLongTermCubit>()
+                        .state
+                        .days
+                        .toString());
                   },
                 );
               },
@@ -61,8 +73,8 @@ class _TimeChoiceState extends State<TimeChoice> {
               splashColor: colorProject.primaryColor,
               child: Container(
                 alignment: Alignment.center,
-                height: 40,
-                width: 40,
+                height: 50,
+                width: 50,
                 margin: EdgeInsets.all(size.width / 120),
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
@@ -77,7 +89,11 @@ class _TimeChoiceState extends State<TimeChoice> {
                 child: Padding(
                   padding: const EdgeInsets.all(padding.paddingSmall),
                   child: Text(
-                    days[index],
+                    DateFormat.E(locale).format(items[index]).toString(),
+                    style: TextStyle(
+                      fontFamily: fontApp,
+                      fontSize: fontSize.medium,
+                    ),
                   ),
                 ),
               ),

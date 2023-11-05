@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:rmservice/home_page/home_page.dart';
 import 'package:rmservice/login/cubit/login_cubit.dart';
 import 'package:rmservice/sign_up/views/signup_screen.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:rmservice/utilities/constants/variable.dart';
 
 import '../../utilities/components/button_green.dart';
@@ -149,22 +149,21 @@ class _LoginScreenState extends State<LoginScreen> with InputValidationMixin {
                             ButtonGreenApp(
                               label: AppLocalizations.of(context)!.signIn,
                               onPressed: () {
-                                if (formKeyLogin.currentState!.validate()) {
-                                  context.read<LoginCubit>().logIn(
-                                        username: emailController.text,
-                                        password: passwordController.text,
-                                      );
-                                }
-                                else {
-                                  return;
-                                }
+                                // if (formKeyLogin.currentState!.validate()) {
+                                //   context.read<LoginCubit>().logIn(
+                                //         username: emailController.text,
+                                //         password: passwordController.text,
+                                //       );
+                                // }
+                                // else {
+                                //   return;
+                                // }
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
                                     builder: (_) => HomePage(),
                                   ),
                                 );
-                                
                               },
                             ),
                           ],
