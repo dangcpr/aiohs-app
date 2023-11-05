@@ -70,7 +70,7 @@ class _PickTimeWorkState extends State<PickTimeWork> {
               //     .toString());
               debugPrint(context
                   .read<SaveInfoCleaningLongTermCubit>()
-                  .state.
+                  .state
                   .toJson()
                   .toString());
             }

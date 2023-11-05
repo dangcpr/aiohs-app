@@ -25,21 +25,28 @@ class SaveInfoCleaningLongTermCubit extends Cubit<InfoCleaningLongTerm> {
     return -1;
   }
 
-  void addDay(DateTime day) =>
-      {state.days.add(day), emit(InfoCleaningLongTerm(days: state.days))};
+  void addDay(DateTime day) {
+    InfoCleaningLongTerm infoCleaningLongTermNew = state;
+    infoCleaningLongTermNew.days.add(day);
+    emit(infoCleaningLongTermNew);
+  }
 
-  void remove(int index) => {
-        state.days.removeAt(index),
-        emit(InfoCleaningLongTerm(days: state.days))
-      };
+  void remove(int index) {
+    InfoCleaningLongTerm infoCleaningLongTermNew = state;
+    infoCleaningLongTermNew.days.removeAt(index);
+    emit(infoCleaningLongTermNew);
+  }
 
   void checkStartDay(List<DateTime> days) {
+    InfoCleaningLongTerm infoCleaningLongTermNew = state;
     DateTime startDay = days[0];
     for (int i = 0; i < days.length; i++) {
       if (startDay.day >= days[i].day) {
         startDay = days[i];
       }
-      emit(InfoCleaningLongTerm(days: days, startDay: startDay));
     }
+    infoCleaningLongTermNew.days = days;
+    infoCleaningLongTermNew.startDay = startDay;
+    emit(infoCleaningLongTermNew);
   }
 }
