@@ -1,6 +1,7 @@
 import 'package:another_flutter_splash_screen/another_flutter_splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:rmservice/home_route/views/home_screen.dart';
+import 'package:rmservice/notification/controllers/fcm.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -16,6 +17,7 @@ class _SplashScreenState extends State<SplashScreen> {
       backgroundColor: Colors.white,
       onInit: () {
         debugPrint("On Init");
+        NotificationController().init();
       },
       onEnd: () {
         debugPrint("On End");
