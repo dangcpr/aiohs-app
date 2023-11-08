@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:page_transition/page_transition.dart';
+import 'package:rmservice/air_conditioning_cleaning/views/air_conditioning_cleaning_page.dart';
 import 'package:rmservice/cleaning_hourly/views/cleaning_hourly_step1.dart';
 import 'package:rmservice/cleaning_longterm/cleaning_longterm.dart';
 import 'package:rmservice/main_page/main_page.dart';
 import 'package:rmservice/shopping/views/shopping_step1.dart';
+
 import '../cards/service_card.dart';
 
 class HorizontalListViewWithIndicator extends StatefulWidget {
@@ -56,6 +58,16 @@ class _HorizontalListViewWithIndicatorState
         icon: Icons.ac_unit_outlined,
         width: 50,
         text: AppLocalizations.of(context)!.airConditioningCleaning,
+        onPressed: () {
+          debugPrint('On pressed');
+          //Route
+          Navigator.push(
+              context,
+              PageTransition(
+                  type: PageTransitionType.rightToLeftWithFade,
+                  child: AirConditioningCleaningPage(),
+                  childCurrent: MainPage()));
+        },
       ),
       ServiceCard(
         icon: Icons.shopping_cart,
