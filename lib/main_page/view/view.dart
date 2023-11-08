@@ -101,6 +101,7 @@ class _MainPageState extends State<MainPage> {
               AppLocalizations.of(context)!.becomeAMaid,
               style: const TextStyle(
                 fontFamily: fontApp,
+                color: Colors.white,
               ),
             ),
             Container(

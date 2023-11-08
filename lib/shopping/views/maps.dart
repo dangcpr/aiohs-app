@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:rmservice/cleaning_hourly/controllers/mapsController.dart';
+import 'package:rmservice/utilities/constants/mapsController.dart';
 import 'package:rmservice/shopping/widgets/show_bottom_address.dart';
 import 'package:rmservice/shopping/cubits/save_address.dart';
 import 'package:rmservice/shopping/models/address_shopping.dart';
@@ -47,6 +47,13 @@ class _ChooseLocationScreenState extends State<ChooseLocationScreen> {
         position: _center,
       )
     };
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    googleMapController.dispose();
+    searchLocationController.dispose();
   }
 
   Future<void> _onMapCreated(GoogleMapController controller) async {

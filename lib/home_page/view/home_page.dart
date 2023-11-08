@@ -4,7 +4,7 @@ import 'package:rmservice/main_page/main_page.dart';
 import 'package:rmservice/message_page/message_page.dart';
 import 'package:rmservice/utilities/constants/variable.dart';
 
-import '../../place_page/place_page.dart';
+import '../../place_page/views/place_page.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -53,51 +53,58 @@ class HomePageState extends State<HomePage> {
           ],
         ),
         bottomNavigationBar: Container(
-          margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
-          decoration: BoxDecoration(boxShadow: [
-            BoxShadow(
-                color: colorProject.primaryColor.withOpacity(0.15),
+          height: 70,
+          //margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+          decoration: BoxDecoration(
+            boxShadow: [
+              BoxShadow(
+                color: colorProject.primaryColor.withOpacity(0.3),
                 blurRadius: 25,
-                offset: const Offset(8, 20))
-          ]),
+                //offset: const Offset(8, 20)
+              )
+            ],
+          ),
           child: ClipRRect(
-            borderRadius: BorderRadius.circular(30),
+            //borderRadius: BorderRadius.vertical(top: Radius.circular(30)),
             child: BottomNavigationBar(
-                selectedItemColor: colorProject.primaryColor,
-                unselectedItemColor: Colors.black,
-                currentIndex: myCurrentIndex,
-                onTap: (index) {
-                  setState(() {
-                    myCurrentIndex = index;
-                  });
-                },
-                items: const [
-                  BottomNavigationBarItem(
-                    icon: Icon(
-                      Icons.home,
-                      color: colorProject.primaryColor,
-                    ),
-                    label: "Home",
+              selectedItemColor: colorProject.primaryColor,
+              //selectedIconTheme: IconThemeData(color: colorProject.primaryColor.withOpacity(0.3)),
+              selectedLabelStyle: TextStyle(fontFamily: fontBoldApp),
+              unselectedItemColor: Colors.black,
+              currentIndex: myCurrentIndex,
+              onTap: (index) {
+                setState(() {
+                  myCurrentIndex = index;
+                });
+              },
+              items: const [
+                BottomNavigationBarItem(
+                  icon: Icon(
+                    Icons.home,
+                    color: colorProject.primaryColor,
                   ),
-                  BottomNavigationBarItem(
-                    icon: Icon(
-                      Icons.apartment,
-                      color: colorProject.primaryColor,
-                    ),
-                    label: "Place",
+                  label: "Home",
+                ),
+                BottomNavigationBarItem(
+                  icon: Icon(
+                    Icons.apartment,
+                    color: colorProject.primaryColor,
                   ),
-                  BottomNavigationBarItem(
-                    icon: Icon(Icons.message, color: colorProject.primaryColor),
-                    label: "Message",
+                  label: "Place",
+                ),
+                BottomNavigationBarItem(
+                  icon: Icon(Icons.message, color: colorProject.primaryColor),
+                  label: "Message",
+                ),
+                BottomNavigationBarItem(
+                  icon: Icon(
+                    Icons.account_circle_outlined,
+                    color: colorProject.primaryColor,
                   ),
-                  BottomNavigationBarItem(
-                    icon: Icon(
-                      Icons.account_circle_outlined,
-                      color: colorProject.primaryColor,
-                    ),
-                    label: "Profile",
-                  ),
-                ]),
+                  label: "Profile",
+                ),
+              ],
+            ),
           ),
         ),
         body: pages[myCurrentIndex],

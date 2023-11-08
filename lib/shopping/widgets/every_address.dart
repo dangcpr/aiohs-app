@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:rmservice/shopping/models/address_shopping.dart';
+import 'package:rmservice/utilities/constants/check_type_of_address.dart';
 import 'package:rmservice/utilities/constants/variable.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -6,18 +8,11 @@ class EveryAddressShopping extends StatefulWidget {
   const EveryAddressShopping(
       {super.key,
       required this.isDarkMode,
-      required this.nameAddress,
-      required this.typeOfAddress,
-      required this.yourName,
-      required this.phoneNum,
-      required this.fullAddress});
+      required this.addressShopping,
+      });
 
   final bool isDarkMode;
-  final String nameAddress;
-  final String typeOfAddress;
-  final String yourName;
-  final String phoneNum;
-  final String fullAddress;
+  final AddressShopping addressShopping;
 
   @override
   State<EveryAddressShopping> createState() => _EveryAddressShoppingState();
@@ -38,7 +33,7 @@ class _EveryAddressShoppingState extends State<EveryAddressShopping> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              widget.nameAddress,
+              widget.addressShopping.nameAddress!,
               style: TextStyle(
                 fontSize: fontSize.mediumLarger,
                 fontFamily: fontBoldApp,
@@ -46,7 +41,7 @@ class _EveryAddressShoppingState extends State<EveryAddressShopping> {
               ),
             ),
             Text(
-              widget.typeOfAddress,
+              checkTypeOfAddress(widget.addressShopping.typeOfAddress!, context),
               style: TextStyle(
                 fontSize: fontSize.medium,
                 fontFamily: fontApp,
@@ -73,7 +68,7 @@ class _EveryAddressShoppingState extends State<EveryAddressShopping> {
                 SizedBox(width: 8),
                 Flexible(
                   child: Text(
-                    widget.yourName,
+                    widget.addressShopping.yourName!,
                     style: TextStyle(
                       fontSize: fontSize.medium,
                       fontFamily: fontApp,
@@ -94,7 +89,7 @@ class _EveryAddressShoppingState extends State<EveryAddressShopping> {
                 SizedBox(width: 8),
                 Flexible(
                   child: Text(
-                    widget.phoneNum,
+                    widget.addressShopping.phoneNum!,
                     style: TextStyle(
                       fontSize: fontSize.medium,
                       fontFamily: fontApp,
@@ -115,7 +110,7 @@ class _EveryAddressShoppingState extends State<EveryAddressShopping> {
                 SizedBox(width: 8),
                 Flexible(
                   child: Text(
-                    widget.fullAddress,
+                    widget.addressShopping.fullAddress!,
                     style: TextStyle(
                       fontSize: fontSize.medium,
                       fontFamily: fontApp,
