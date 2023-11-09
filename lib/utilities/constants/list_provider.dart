@@ -1,4 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:rmservice/air_conditioning_cleaning/cubit/save_info_air_conditioning_cleaning.dart';
 import 'package:rmservice/authentication_repository/authentication_repository.dart';
 import 'package:rmservice/cleaning_hourly/cubits/save_info/save_address.dart';
 import 'package:rmservice/home_route/cubits/get_first_time/get_first_time_cubit.dart';
@@ -47,5 +48,8 @@ final listProvider = [
   ),
   BlocProvider<SaveInfoCleaningLongTermCubit>(
     create: (_) => SaveInfoCleaningLongTermCubit(),
+  ),
+  BlocProvider<SaveInfoAirConditioningCleaningCubit>(
+    create: (_) => SaveInfoAirConditioningCleaningCubit(),
   ),
 ];

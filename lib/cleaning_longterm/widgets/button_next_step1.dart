@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:page_transition/page_transition.dart';
+import 'package:rmservice/air_conditioning_cleaning/views/air_conditioning_cleaning_screen_step2.dart';
 import 'package:rmservice/cleaning_longterm/cleaning_longterm.dart';
 import 'package:rmservice/cleaning_longterm/cubit/save_info_cubit.dart';
 import 'package:rmservice/utilities/components/button_green.dart';
 
+import '../../air_conditioning_cleaning/views/air_conditioning_cleaning_sreen_step1.dart';
 import '../../cleaning_hourly/cubits/save_info/save_address.dart';
 import '../../cleaning_hourly/widgets/dialog_wrong.dart';
 import '../../utilities/constants/variable.dart';
@@ -41,38 +43,12 @@ class _ButtonNextStep1State extends State<ButtonNextStep1> {
                 });
             return;
           }
-          if (context
-              .read<SaveInfoCleaningLongTermCubit>()
-              .state
-              .days
-              .isEmpty) {
-            showDialog(
-              context: context,
-              builder: (context) {
-                return AlertDialog(
-                  icon: Icon(
-                    Icons.cancel_outlined,
-                    color: Colors.red,
-                    size: 50,
-                  ),
-                  content: Text(
-                      textAlign: TextAlign.center,
-                      "Bạn chưa chọn ngày làm",
-                      style: TextStyle(
-                        fontFamily: fontBoldApp,
-                        fontSize: fontSize.mediumLarger,
-                      )),
-                );
-              },
-            );
-            return;
-          }
           Navigator.push(
             context,
             PageTransition(
               type: PageTransitionType.rightToLeftWithFade,
-              child: CleaningLongTermStep2(),
-              childCurrent: CleaningLongTermStep1(),
+              child: AirConditioningCleaningScreenStep2(),
+              childCurrent: AirConditioningCleaningScreenStep1(),
             ),
           );
         },
