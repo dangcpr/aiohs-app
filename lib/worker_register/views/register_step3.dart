@@ -54,6 +54,7 @@ class _WorkerRegisterStep3ScreenState extends State<WorkerRegisterStep3Screen> {
         if (state is WorkerRegisterLoadingState) {
           showDialog(
             context: context,
+            barrierDismissible: false,
             builder: (context) {
               return AlertDialog(
                 content: Container(
