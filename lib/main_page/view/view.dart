@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:page_transition/page_transition.dart';
 import 'package:rmservice/utilities/constants/variable.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:rmservice/worker_register/views/register_step1.dart';
 import '../../utilities/widget/listview_horizontal.dart';
 
 class MainPage extends StatefulWidget {
@@ -89,7 +91,13 @@ class _MainPageState extends State<MainPage> {
       height: 65,
       width: size.width,
       decoration: BoxDecoration(
-        color: colorProject.primaryColor.withOpacity(0.9),
+        //color: colorProject.primaryColor.withOpacity(0.4),
+        gradient: LinearGradient(
+          colors: [
+            const Color.fromARGB(255, 0, 223, 156),
+            Color.fromARGB(255, 78, 252, 255),
+          ],
+        ),
         borderRadius: BorderRadius.circular(15),
       ),
       child: Padding(
@@ -101,26 +109,38 @@ class _MainPageState extends State<MainPage> {
               AppLocalizations.of(context)!.becomeAMaid,
               style: const TextStyle(
                 fontFamily: fontApp,
-                color: Colors.white,
+                color: Colors.black,
               ),
             ),
-            Container(
-              height: 27,
-              width: 102,
-              decoration: BoxDecoration(
-                color: Colors.white60,
-                borderRadius: BorderRadius.circular(25),
-              ),
-              child: Center(
-                child: Text(
-                  AppLocalizations.of(context)!.register,
-                  style: const TextStyle(
-                    fontFamily: fontBoldApp,
-                    color: colorProject.primaryColor,
+            InkWell(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  PageTransition(
+                    duration: Duration(milliseconds: 400),
+                    type: PageTransitionType.rightToLeftWithFade,
+                    child: WorkerRegisterStep1Screen(),
+                  )
+                );
+              },
+              child: Container(
+                height: 27,
+                width: 102,
+                decoration: BoxDecoration(
+                  color: Colors.white60,
+                  borderRadius: BorderRadius.circular(25),
+                ),
+                child: Center(
+                  child: Text(
+                    AppLocalizations.of(context)!.register,
+                    style: const TextStyle(
+                      fontFamily: fontBoldApp,
+                      color: colorProject.primaryColor,
+                    ),
                   ),
                 ),
               ),
-            )
+            ),
           ],
         ),
       ),

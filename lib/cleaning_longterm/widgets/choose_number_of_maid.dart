@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:rmservice/utilities/constants/variable.dart';
 
-import '../../cleaning_hourly/widgets/text_label.dart';
-import '../../cleaning_hourly/widgets/text_sub_label.dart';
+import '../../utilities/components/text_label.dart';
+import '../../utilities/components/text_sub_label.dart';
 
 class ChooseNumberOfMaid extends StatelessWidget {
   ChooseNumberOfMaid({super.key, required this.numberOfMaid});

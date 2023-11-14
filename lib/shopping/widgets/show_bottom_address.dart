@@ -7,7 +7,7 @@ import 'package:rmservice/shopping/models/address_shopping.dart';
 import 'package:rmservice/shopping/views/shopping_step1.dart';
 import 'package:rmservice/shopping/views/shopping_step2.dart';
 import 'package:rmservice/utilities/components/text_field_basic.dart';
-import 'package:rmservice/cleaning_hourly/widgets/text_label.dart';
+import 'package:rmservice/utilities/components/text_label.dart';
 import 'package:rmservice/utilities/components/button_green.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 

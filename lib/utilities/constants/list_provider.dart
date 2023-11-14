@@ -9,6 +9,8 @@ import 'package:rmservice/shopping/cubits/save_address.dart';
 import 'package:rmservice/shopping/cubits/save_data.dart';
 import 'package:rmservice/shopping/cubits/save_price_shopping.dart';
 import 'package:rmservice/sign_up/cubits/signup_cubit.dart';
+import 'package:rmservice/worker_register/cubits/worker_cubit.dart';
+import 'package:rmservice/worker_register/cubits/worker_register/worker_register_cubit.dart';
 
 import '../../cleaning_hourly/cubits/save_info/save_info.dart';
 import '../../cleaning_longterm/cubit/save_info_cubit.dart';
@@ -48,4 +50,10 @@ final listProvider = [
   BlocProvider<SaveInfoCleaningLongTermCubit>(
     create: (_) => SaveInfoCleaningLongTermCubit(),
   ),
+  BlocProvider<WorkerCubit>(
+    create: (_) => WorkerCubit(),
+  ),
+  BlocProvider<WorkerRegisterCubit>(
+    create: (_) => WorkerRegisterCubit(),
+  )
 ];

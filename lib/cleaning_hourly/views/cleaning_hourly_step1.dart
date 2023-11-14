@@ -12,8 +12,8 @@ import 'package:rmservice/cleaning_hourly/widgets/button_next_step1.dart';
 import 'package:rmservice/cleaning_hourly/widgets/duration_choice.dart';
 import 'package:rmservice/cleaning_hourly/widgets/notice_step1.dart';
 import 'package:rmservice/cleaning_hourly/widgets/pet_choice.dart';
-import 'package:rmservice/cleaning_hourly/widgets/text_label.dart';
-import 'package:rmservice/cleaning_hourly/widgets/text_sub_label.dart';
+import 'package:rmservice/utilities/components/text_label.dart';
+import 'package:rmservice/utilities/components/text_sub_label.dart';
 
 class CleaningHourlyStep1Screen extends StatefulWidget {
   const CleaningHourlyStep1Screen({super.key});
