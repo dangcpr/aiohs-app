@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:rmservice/account_page/account_page.dart';
+import 'package:rmservice/account/account.dart';
 import 'package:rmservice/main_page/main_page.dart';
 import 'package:rmservice/message_page/message_page.dart';
+import 'package:rmservice/profile/profile.dart';
 import 'package:rmservice/utilities/constants/variable.dart';
 
 import '../../place_page/place_page.dart';
@@ -39,17 +40,21 @@ class HomePageState extends State<HomePage> {
               color: colorProject.primaryColor,
             ),
           ),
-          actions: const [
-            Icon(
+          actions: [
+            const Icon(
               Icons.notifications,
               color: colorProject.primaryColor,
             ),
-            SizedBox(width: 20),
-            Icon(
-              Icons.account_circle_sharp,
-              color: colorProject.primaryColor,
+            const SizedBox(width: 20),
+            InkWell(
+              onTap: () => Navigator.push(
+                  context, MaterialPageRoute(builder: (_) => ProfilePage())),
+              child: Icon(
+                Icons.account_circle_sharp,
+                color: colorProject.primaryColor,
+              ),
             ),
-            SizedBox(width: 20),
+            const SizedBox(width: 20),
           ],
         ),
         bottomNavigationBar: Container(

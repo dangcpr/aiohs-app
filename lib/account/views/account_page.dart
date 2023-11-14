@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:rmservice/account/views/account_screen.dart';
 
 class AccountPage extends StatefulWidget {
   const AccountPage({super.key});
@@ -10,10 +11,8 @@ class AccountPage extends StatefulWidget {
 class _AccountPageState extends State<AccountPage> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: const Center(
-        child: Text('Account Page'),
-      ),
+    return Scaffold(
+      body: AccountScreen(),
     );
   }
 }

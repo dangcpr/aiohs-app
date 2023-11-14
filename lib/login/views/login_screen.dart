@@ -6,6 +6,7 @@ import 'package:rmservice/login/cubit/login_cubit.dart';
 import 'package:rmservice/sign_up/views/signup_screen.dart';
 import 'package:rmservice/utilities/constants/variable.dart';
 
+import '../../forgot_password/forgot_password.dart';
 import '../../utilities/components/button_green.dart';
 import '../../utilities/components/text_field.dart';
 import '../../utilities/constants/app_assets.dart';
@@ -137,12 +138,19 @@ class _LoginScreenState extends State<LoginScreen> with InputValidationMixin {
                             Row(
                               mainAxisAlignment: MainAxisAlignment.end,
                               children: [
-                                Text(
-                                    AppLocalizations.of(context)!
-                                        .forgotPassword,
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .labelMedium),
+                                InkWell(
+                                  onTap: () => Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (_) =>
+                                              ForgotPasswordPage())),
+                                  child: Text(
+                                      AppLocalizations.of(context)!
+                                          .forgotPassword,
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .labelMedium),
+                                ),
                               ],
                             ),
                             const SizedBox(height: 8),

@@ -12,6 +12,7 @@ class TextFieldApp extends StatefulWidget {
     this.validatorFunc,
     this.errorText,
     required this.darkMode,
+    this.enabled = true,
   });
 
   final TextEditingController controller;
@@ -21,6 +22,7 @@ class TextFieldApp extends StatefulWidget {
   String? Function(String?)? validatorFunc;
   String? errorText;
   bool darkMode;
+  bool enabled;
 
   @override
   State<TextFieldApp> createState() => _TextFieldAppState();
@@ -41,6 +43,7 @@ class _TextFieldAppState extends State<TextFieldApp> {
         ],
       ),
       child: TextFormField(
+        enabled: widget.enabled,
         style: const TextStyle(
           fontFamily: fontApp,
         ),
