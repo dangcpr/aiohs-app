@@ -6,4 +6,5 @@ class AppAssets {
   static String shoppingM1 = 'assets/images/S-ST2-1.png';
   static String shoppingM3 = 'assets/images/S-ST2-3.png';
   static String trashImage = 'assets/images/trash_image.png';
+  static String profile = 'assets/images/profile.png';
 }
