@@ -4,6 +4,7 @@ import 'package:rmservice/cleaning_hourly/cubits/save_info/save_address.dart';
 import 'package:rmservice/home_route/cubits/get_first_time/get_first_time_cubit.dart';
 import 'package:rmservice/home_route/cubits/set_first_time/set_first_time_cubit.dart';
 import 'package:rmservice/login/cubit/login_cubit.dart';
+import 'package:rmservice/login/cubit/user_cubit.dart';
 import 'package:rmservice/shopping/cubits/add_items.dart';
 import 'package:rmservice/shopping/cubits/save_address.dart';
 import 'package:rmservice/shopping/cubits/save_data.dart';
@@ -25,6 +26,9 @@ final listProvider = [
   BlocProvider<LoginCubit>(
     create: (_) =>
         LoginCubit(authenticationRepository: AuthenticationRepository()),
+  ),
+  BlocProvider<UserCubit>(
+    create: (_) => UserCubit(),
   ),
   BlocProvider<SignupCubit>(
     create: (_) => SignupCubit(),
