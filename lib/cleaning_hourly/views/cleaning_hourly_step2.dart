@@ -4,8 +4,8 @@ import 'package:rmservice/cleaning_hourly/widgets/note_for_maid.dart';
 import 'package:rmservice/cleaning_hourly/widgets/notice_step2.dart';
 import 'package:rmservice/cleaning_hourly/widgets/pick_date_work.dart';
 import 'package:rmservice/cleaning_hourly/widgets/pick_time_work.dart';
-import 'package:rmservice/cleaning_hourly/widgets/text_label.dart';
-import 'package:rmservice/cleaning_hourly/widgets/text_sub_label.dart';
+import 'package:rmservice/utilities/components/text_label.dart';
+import 'package:rmservice/utilities/components/text_sub_label.dart';
 import 'package:rmservice/utilities/constants/variable.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 

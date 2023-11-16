@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
-import 'package:rmservice/cleaning_hourly/widgets/text_sub_label.dart';
+import 'package:rmservice/utilities/components/text_sub_label.dart';
 import 'package:rmservice/shopping/views/maps.dart';
 import 'package:rmservice/shopping/widgets/list_address.dart';
 import 'package:rmservice/shopping/widgets/text_label.dart';

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:rmservice/cleaning_hourly/widgets/text_label.dart';
-import 'package:rmservice/cleaning_hourly/widgets/text_sub_label.dart';
+import 'package:rmservice/utilities/components/text_label.dart';
+import 'package:rmservice/utilities/components/text_sub_label.dart';
 import 'package:rmservice/shopping/cubits/save_price_shopping.dart';
 import 'package:rmservice/shopping/widgets/dialog_wrong.dart';
 import 'package:rmservice/utilities/components/button_green.dart';

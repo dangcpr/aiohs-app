@@ -1,8 +1,11 @@
 import 'dart:async';
+import 'dart:convert';
 import 'dart:io';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:dio/dio.dart';
+import 'package:rmservice/authentication_repository/login_model.dart';
+import 'package:rmservice/login/models/user.dart';
 
 enum AuthenticationStatus { unknown, authenticated, unauthenticated, error }
 
@@ -33,7 +36,7 @@ class AuthenticationRepository {
     }
   }
 
-  Future<AuthenticationStatus> logIn({
+  Future<LoginModel> logIn({
     required String username,
     required String password,
   }) async {
@@ -45,11 +48,14 @@ class AuthenticationRepository {
       contentType: 'application/json',
       method: 'POST',
       baseUrl: baseUrl,
+      validateStatus: (status) {
+        return status! < 500;
+      },
     );
     final dio = Dio(options);
     try {
       final response = await dio.request("/user/login", data: body);
-      print(response.statusCode);
+      print(jsonEncode(response.data));
       if (response.statusCode == 200) {
         const storage = FlutterSecureStorage();
         await storage.write(key: 'token', value: response.data['token']);
@@ -62,20 +68,33 @@ class AuthenticationRepository {
         //     key: 'uid',
         //     value: response.data['response']['user']['id'].toString());
         _controller.add(AuthenticationStatus.authenticated);
-        return AuthenticationStatus.authenticated;
+        LoginModel loginModel = LoginModel(
+          status: AuthenticationStatus.authenticated,
+          user: User.fromJson(response.data['user']),
+        );
+        return loginModel;
       } else {
         _controller.add(AuthenticationStatus.unauthenticated);
-        return AuthenticationStatus.unauthenticated;
+        LoginModel loginModel = LoginModel(
+          status: AuthenticationStatus.unauthenticated,
+        );
+        return loginModel;
       }
     } catch (error) {
       print('test: ${error.toString()}');
       if (error is DioError &&
           error.response?.statusCode == HttpStatus.unauthorized) {
         _controller.add(AuthenticationStatus.unauthenticated);
-        return AuthenticationStatus.unauthenticated;
+        LoginModel loginModel = LoginModel(
+          status: AuthenticationStatus.unauthenticated,
+        );
+        return loginModel;
       } else {
         _controller.add(AuthenticationStatus.error);
-        return AuthenticationStatus.error;
+        LoginModel loginModel = LoginModel(
+          status: AuthenticationStatus.error,
+        );
+        return loginModel;
       }
     }
   }

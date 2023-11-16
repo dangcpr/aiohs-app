@@ -18,6 +18,8 @@ class colorProject {
   static const Color primaryColor = Color(0xFF00B27D);
   static const Color subColor = Color(0xFF696969);
   static const Color smallTitle = Colors.black;
+  static const Color primaryColorLight = Color.fromARGB(255, 0, 223, 156);
+  static const Color secondaryColorLight = Color.fromARGB(255, 78, 252, 255);
 }
 
 class fontSize {

@@ -3,7 +3,7 @@ import 'package:rmservice/cleaning_hourly/widgets/button_next_step3.dart';
 import 'package:rmservice/cleaning_hourly/widgets/location_info.dart';
 import 'package:rmservice/cleaning_hourly/widgets/method_payment.dart';
 import 'package:rmservice/cleaning_hourly/widgets/show_bottom_edit_name_phone.dart';
-import 'package:rmservice/cleaning_hourly/widgets/text_label.dart';
+import 'package:rmservice/utilities/components/text_label.dart';
 import 'package:rmservice/cleaning_hourly/widgets/work_info.dart';
 import 'package:rmservice/utilities/constants/variable.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';

@@ -34,6 +34,7 @@ class _ServiceCardState extends State<ServiceCard> {
               decoration: BoxDecoration(
                 shape: BoxShape.rectangle,
                 color: widget.color ?? colorProject.primaryColor,
+                
                 borderRadius: BorderRadius.circular(20),
                 // boxShadow: [
                 //   BoxShadow(
