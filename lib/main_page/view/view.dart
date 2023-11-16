@@ -36,7 +36,9 @@ class _MainPageState extends State<MainPage> {
                   ""),
               const SizedBox(height: 12),
               //Register(),
-              context.read<UserCubit>().state.role == "maid" ? maidCard() : Register(),
+              context.read<UserCubit>().state.role == "normal"
+                  ? Register()
+                  : maidCard(),
               const SizedBox(height: 12),
               SearchBox(),
               const SizedBox(height: 12),
@@ -188,11 +190,13 @@ class _MainPageState extends State<MainPage> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(
-              "Bạn muốn nhận việc để giúp việc?",
-              style: const TextStyle(
-                fontFamily: fontApp,
-                color: Colors.black,
+            Expanded(
+              child: Text(
+                "Bạn muốn nhận việc để giúp việc?",
+                style: const TextStyle(
+                  fontFamily: fontApp,
+                  color: Colors.black,
+                ),
               ),
             ),
             InkWell(
