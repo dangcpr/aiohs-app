@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:page_transition/page_transition.dart';
-import 'package:rmservice/login/cubit/login_cubit.dart';
 import 'package:rmservice/login/cubit/user_cubit.dart';
+import 'package:rmservice/main_page/widgets/button_post_job.dart';
 import 'package:rmservice/utilities/constants/variable.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:rmservice/worker_register/views/register_step1.dart';
@@ -52,13 +52,7 @@ class _MainPageState extends State<MainPage> {
               const SizedBox(height: 12),
               HorizontalListViewWithIndicator(),
               const SizedBox(height: 15),
-              Text(
-                "Bạn cần người giúp việc",
-                style: const TextStyle(
-                  fontFamily: fontBoldApp,
-                  fontSize: 20,
-                ),
-              ),
+              ButtonPostJob(),
             ],
           ),
         ),
