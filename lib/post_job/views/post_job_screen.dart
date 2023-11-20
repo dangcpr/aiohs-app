@@ -42,8 +42,8 @@ class _PostJobScreenState extends State<PostJobScreen> {
             indicatorColor: colorProject.primaryColor,
             tabs: [
               Tab(icon: Icon(Icons.all_inbox), text: "Bạn đã đăng"),
-              Tab(icon: Icon(Icons.directions_transit), text: "Đang nhận"),
-              Tab(icon: Icon(Icons.directions_bike), text: "Đã đóng"),
+              Tab(icon: Icon(Icons.access_time), text: "Đang nhận"),
+              Tab(icon: Icon(Icons.close), text: "Đã đóng"),
             ],
           ),
         ),
