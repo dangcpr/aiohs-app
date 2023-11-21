@@ -18,13 +18,9 @@ class LoginCubit extends Cubit<LoginState> {
       var res = await authenticationRepository.logIn(
           username: username, password: password);
       if (res.status == AuthenticationStatus.authenticated) {
-        if (res.user!.status != "active") {
-          emit(LoginFailure(
-              error:
-                  "Tài khoản đang bị tạm ngưng hoạt động, vui lòng liên hệ quản trị viên"));
-          return;
-        }
         emit(LoginSuccess(statusLogin: res.status.toString(), user: res.user!));
+      } else if (res.status == AuthenticationStatus.inactive) {
+        emit(LoginFailure(error: "Tài khoản đang bị khoá. Vui lòng liên hệ quản trị viên"));
       } else {
         emit(LoginFailure(error: "Tài khoản hoặc mật khẩu không đúng"));
       }

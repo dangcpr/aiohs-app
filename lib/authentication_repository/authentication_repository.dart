@@ -1,13 +1,20 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
+import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:dio/dio.dart';
 import 'package:rmservice/authentication_repository/login_model.dart';
 import 'package:rmservice/login/models/user.dart';
 
-enum AuthenticationStatus { unknown, authenticated, unauthenticated, error }
+enum AuthenticationStatus {
+  unknown,
+  authenticated,
+  unauthenticated,
+  inactive,
+  error
+}
 
 class AuthenticationRepository {
   final baseUrl = 'http://192.168.74.130:9000';
@@ -58,20 +65,28 @@ class AuthenticationRepository {
       print(jsonEncode(response.data));
       if (response.statusCode == 200) {
         const storage = FlutterSecureStorage();
-        await storage.write(key: 'token', value: response.data['token']);
-        String token = await storage.read(key: 'token') ?? "";
-        print('token got: $token');
+        LoginModel loginModel;
         // await storage.write(
         //     key: 'refreshToken',
         //     value: response.data['response']['tokens']['refresh']['token']);
         // await storage.write(
         //     key: 'uid',
         //     value: response.data['response']['user']['id'].toString());
-        _controller.add(AuthenticationStatus.authenticated);
-        LoginModel loginModel = LoginModel(
-          status: AuthenticationStatus.authenticated,
-          user: User.fromJson(response.data['user']),
-        );
+        if (response.data['user']['status'] != "active") {
+          debugPrint(response.data['user']['status']);
+          loginModel = LoginModel(
+            status: AuthenticationStatus.inactive,
+          );
+        } else {
+          _controller.add(AuthenticationStatus.authenticated);
+          await storage.write(key: 'token', value: response.data['token']);
+          String token = await storage.read(key: 'token') ?? "";
+          print('token got: $token');
+          loginModel = LoginModel(
+            status: AuthenticationStatus.authenticated,
+            user: User.fromJson(response.data['user']),
+          );
+        }
         return loginModel;
       } else {
         _controller.add(AuthenticationStatus.unauthenticated);

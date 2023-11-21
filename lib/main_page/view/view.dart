@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:page_transition/page_transition.dart';
+import 'package:rmservice/get_product/controllers/get_product.dart';
+import 'package:rmservice/get_product/cubits/get_product/get_product_cubit.dart';
+import 'package:rmservice/get_product/cubits/get_product/get_product_state.dart';
 import 'package:rmservice/login/cubit/user_cubit.dart';
 import 'package:rmservice/main_page/widgets/button_post_job.dart';
+import 'package:rmservice/shopping/widgets/dialog_wrong.dart';
 import 'package:rmservice/utilities/constants/variable.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:rmservice/worker_register/views/register_step1.dart';
@@ -18,45 +22,58 @@ class MainPage extends StatefulWidget {
 
 class _MainPageState extends State<MainPage> {
   @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
     bool darkMode = Theme.of(context).brightness == Brightness.dark;
+    //context.read<GetProductCubit>().getProduct();
+
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 8),
-      child: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(8),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              ProfileWidget(
-                  context.read<UserCubit>().state.full_name! == ""
-                      ? context.read<UserCubit>().state.email!
-                      : context.read<UserCubit>().state.full_name!,
-                  ""),
-              const SizedBox(height: 12),
-              //Register(),
-              context.read<UserCubit>().state.role == "normal"
-                  ? Register()
-                  : maidCard(),
-              const SizedBox(height: 12),
-              SearchBox(),
-              const SizedBox(height: 12),
-              Text(
-                AppLocalizations.of(context)!.services,
-                style: const TextStyle(
-                  fontFamily: fontBoldApp,
-                  fontSize: 20,
+        padding: const EdgeInsets.symmetric(horizontal: 8),
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.all(8),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                ProfileWidget(
+                    context.read<UserCubit>().state.full_name! == ""
+                        ? context.read<UserCubit>().state.email!
+                        : context.read<UserCubit>().state.full_name!,
+                    ""),
+                const SizedBox(height: 12),
+                //Register(),
+                context.read<UserCubit>().state.role == "normal"
+                    ? Register()
+                    : maidCard(),
+                const SizedBox(height: 12),
+                SearchBox(),
+                const SizedBox(height: 12),
+                Text(
+                  AppLocalizations.of(context)!.services,
+                  style: const TextStyle(
+                    fontFamily: fontBoldApp,
+                    fontSize: 20,
+                  ),
                 ),
-              ),
-              const SizedBox(height: 12),
-              HorizontalListViewWithIndicator(),
-              const SizedBox(height: 15),
-              ButtonPostJob(),
-            ],
+                const SizedBox(height: 12),
+                HorizontalListViewWithIndicator(),
+                const SizedBox(height: 15),
+                ButtonPostJob(),
+                TextButton(
+                    onPressed: () {},
+                    child: Text(
+                      "Test",
+                    ))
+              ],
+            ),
           ),
         ),
-      ),
+      
     );
   }
 

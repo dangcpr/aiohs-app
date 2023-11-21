@@ -223,7 +223,7 @@ class _PostJobRegisterState extends State<PostJobRegister> {
                       selected: indexSex == index,
                       onSelected: (bool selected) {
                         setState(() {
-                          indexSex = (selected ? index : null)!;
+                          indexSex = selected ? index : -1;
                         });
                       },
                     );
