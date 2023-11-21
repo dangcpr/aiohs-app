@@ -1,3 +1,5 @@
+import 'package:rmservice/get_product/models/product.dart';
+
 abstract class GetProductState {}
 
 class GetProductInitial extends GetProductState {}
@@ -8,7 +10,7 @@ class GetProductLoading extends GetProductState {
 }
 
 class GetProductLoaded extends GetProductState {
-  final String products;
+  final List<Product> products;
 
   GetProductLoaded(this.products);
 }
