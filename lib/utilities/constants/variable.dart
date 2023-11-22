@@ -86,7 +86,7 @@ class sizedBox {
 
   static SizedBox mediumWidth() {
     return const SizedBox(
-      height: 10,
+      width: 12,
     );
   }
 

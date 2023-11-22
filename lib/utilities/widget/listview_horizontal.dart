@@ -4,6 +4,7 @@ import 'package:page_transition/page_transition.dart';
 import 'package:rmservice/air_conditioning_cleaning/views/air_conditioning_cleaning_page.dart';
 import 'package:rmservice/cleaning_hourly/views/cleaning_hourly_step1.dart';
 import 'package:rmservice/cleaning_longterm/cleaning_longterm.dart';
+import 'package:rmservice/cooking/cooking.dart';
 import 'package:rmservice/main_page/main_page.dart';
 import 'package:rmservice/shopping/views/shopping_step1.dart';
 
@@ -88,6 +89,23 @@ class _HorizontalListViewWithIndicatorState
         },
       ),
       ServiceCard(
+        icon: Icons.cookie,
+        width: 50,
+        text: 'Nấu ăn',
+        onPressed: () {
+          debugPrint('On pressed');
+          //Route
+          Navigator.push(
+            context,
+            PageTransition(
+              type: PageTransitionType.rightToLeftWithFade,
+              child: CookingPage(),
+              childCurrent: MainPage(),
+            ),
+          );
+        },
+      ),
+      ServiceCard(
         icon: Icons.menu,
         width: 50,
         text: AppLocalizations.of(context)!.options,
@@ -102,6 +120,7 @@ class _HorizontalListViewWithIndicatorState
         items[2],
         items[3],
         items[4],
+        items[5],
       ],
     );
   }

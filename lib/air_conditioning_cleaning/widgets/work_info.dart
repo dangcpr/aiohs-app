@@ -21,6 +21,13 @@ class WorkInfoCleaningAirConditioning extends StatefulWidget {
 class _WorkInfoCleaningAirConditioningState
     extends State<WorkInfoCleaningAirConditioning> {
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    print(context.read<SaveInfoAirConditioningCleaningCubit>().state.toJson());
+  }
+
+  @override
   Widget build(BuildContext context) {
     String locale = Localizations.localeOf(context).languageCode;
     final infoCleaningHourly =
