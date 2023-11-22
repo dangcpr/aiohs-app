@@ -47,8 +47,7 @@ class _ButtonNextStep1State extends State<ButtonNextStep1> {
             context,
             PageTransition(
               type: PageTransitionType.rightToLeftWithFade,
-              child: AirConditioningCleaningScreenStep2(),
-              childCurrent: AirConditioningCleaningScreenStep1(),
+              child: CleaningLongTermStep2(),
             ),
           );
         },
