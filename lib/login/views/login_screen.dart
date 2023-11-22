@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:rmservice/home_page/home_page.dart';
 import 'package:rmservice/login/cubit/login_cubit.dart';
+import 'package:rmservice/login/cubit/user_cubit.dart';
 import 'package:rmservice/sign_up/views/signup_screen.dart';
 import 'package:rmservice/utilities/constants/variable.dart';
 
@@ -47,7 +48,9 @@ class _LoginScreenState extends State<LoginScreen> with InputValidationMixin {
             context: context,
             builder: (_) {
               final width = MediaQuery.of(context).size.width / 5 + 10;
-              return CustomProgressIndicator(limitedRadius: width);
+              return CustomProgressIndicator(
+                limitedRadius: width,
+              );
             },
           );
         } else if (state is LoginFailure) {
@@ -58,6 +61,15 @@ class _LoginScreenState extends State<LoginScreen> with InputValidationMixin {
             msg: state.error.toString(),
             isMultipleButton: false,
           );
+        } else if (state is LoginSuccess) {
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+              builder: (_) => HomePage(),
+            ),
+          );
+          context.read<UserCubit>().setUser(state.user);
+          context.read<LoginCubit>().setInit();
         }
       },
       child: BlocBuilder<LoginCubit, LoginState>(
@@ -157,21 +169,14 @@ class _LoginScreenState extends State<LoginScreen> with InputValidationMixin {
                             ButtonGreenApp(
                               label: AppLocalizations.of(context)!.signIn,
                               onPressed: () {
-                                // if (formKeyLogin.currentState!.validate()) {
-                                //   context.read<LoginCubit>().logIn(
-                                //         username: emailController.text,
-                                //         password: passwordController.text,
-                                //       );
-                                // }
-                                // else {
-                                //   return;
-                                // }
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (_) => HomePage(),
-                                  ),
-                                );
+                                if (formKeyLogin.currentState!.validate()) {
+                                  context.read<LoginCubit>().logIn(
+                                        username: emailController.text,
+                                        password: passwordController.text,
+                                      );
+                                } else {
+                                  return;
+                                }
                               },
                             ),
                           ],

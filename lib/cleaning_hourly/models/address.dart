@@ -3,6 +3,8 @@ class Address {
   late String? phone;
   late String? shortAddress;
   late String? address;
+  late double? latitude;
+  late double? longitude;
   late String? typeOfAddress;
 
   Address({
@@ -10,6 +12,8 @@ class Address {
     this.phone,
     this.shortAddress,
     this.address,
+    this.latitude,
+    this.longitude,
     this.typeOfAddress
   });
 
@@ -18,6 +22,8 @@ class Address {
     phone = json['phone'];
     shortAddress = json['shortAddress'];
     address = json['address'];
+    latitude = json['latitude'];
+    longitude = json['longitude'];
     typeOfAddress = json['typeOfAddress'];
   }
 
@@ -26,6 +32,8 @@ class Address {
     'phone': phone,
     'shortAddress': shortAddress,
     'address': address,
+    'latitude': latitude,
+    'longitude': longitude,
     'typeOfAddress': typeOfAddress
   };
 }

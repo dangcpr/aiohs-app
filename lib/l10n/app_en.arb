@@ -42,6 +42,8 @@
     "longTerm": "Long-term",
     "airConditioningCleaning": "Air conditioning\ncleaning",
     "shopping": "Shopping",
+    "laundry": "Laundry",
+    "cooking": "Cooking",
     "options" : "Options",
     "needRoomForShortTerm": "Need room for short-term?",
     "durationLabel": "Duration (not including added services)",

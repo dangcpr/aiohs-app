@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:rmservice/cleaning_hourly/widgets/text_sub_label.dart';
+import 'package:rmservice/utilities/components/text_sub_label.dart';
 import 'package:rmservice/shopping/widgets/floating_step3.dart';
 import 'package:rmservice/shopping/widgets/label_step3_list.dart';
 import 'package:rmservice/shopping/widgets/list_product.dart';

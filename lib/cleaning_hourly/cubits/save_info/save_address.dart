@@ -2,7 +2,15 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rmservice/cleaning_hourly/models/address.dart';
 
 class SaveAddressCubit extends Cubit<Address?> {
-  SaveAddressCubit() : super(Address(name: "", phone: "", address: "", shortAddress: "", typeOfAddress: "Nhà riêng"));
+  SaveAddressCubit()
+      : super(Address(
+            name: "",
+            phone: "",
+            address: "",
+            shortAddress: "",
+            latitude: 0,
+            longitude: 0,
+            typeOfAddress: "Nhà riêng"));
 
   void setAddress(Address name) {
     emit(name);
@@ -16,6 +24,13 @@ class SaveAddressCubit extends Cubit<Address?> {
   }
 
   void setInit() {
-    emit(Address(name: "", phone: "", address: "", shortAddress: "", typeOfAddress: "Nhà riêng"));
+    emit(Address(
+        name: "",
+        phone: "",
+        address: "",
+        shortAddress: "",
+        latitude: 0,
+        longitude: 0,
+        typeOfAddress: "Nhà riêng"));
   }
 }

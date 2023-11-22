@@ -5,6 +5,7 @@ import 'package:rmservice/air_conditioning_cleaning/views/air_conditioning_clean
 import 'package:rmservice/cleaning_hourly/views/cleaning_hourly_step1.dart';
 import 'package:rmservice/cleaning_longterm/cleaning_longterm.dart';
 import 'package:rmservice/cooking/cooking.dart';
+import 'package:rmservice/laundry/views/laundry_step1.dart';
 import 'package:rmservice/main_page/main_page.dart';
 import 'package:rmservice/shopping/views/shopping_step1.dart';
 
@@ -27,6 +28,7 @@ class _HorizontalListViewWithIndicatorState
         icon: Icons.access_alarm,
         width: 50,
         text: AppLocalizations.of(context)!.hourly,
+        //color: colorProject.primaryColor.withOpacity(0.65),
         onPressed: () {
           debugPrint('On pressed');
           //Route
@@ -44,6 +46,7 @@ class _HorizontalListViewWithIndicatorState
         icon: Icons.cleaning_services,
         width: 50,
         text: AppLocalizations.of(context)!.longTerm,
+        //color: Color(0xff0e5bb0).withOpacity(0.65),
         onPressed: () {
           debugPrint('On pressed');
           //Route
@@ -57,6 +60,7 @@ class _HorizontalListViewWithIndicatorState
       ),
       ServiceCard(
         icon: Icons.ac_unit_outlined,
+        //color: Color(0xffFF9A00).withOpacity(0.65),
         width: 50,
         text: AppLocalizations.of(context)!.airConditioningCleaning,
         onPressed: () {
@@ -73,6 +77,7 @@ class _HorizontalListViewWithIndicatorState
       ServiceCard(
         icon: Icons.shopping_cart,
         width: 50,
+        //color: Color(0xffFF5900).withOpacity(0.65),
         text: AppLocalizations.of(context)!.shopping,
         onPressed: () {
           debugPrint('On pressed Shopping');
@@ -107,13 +112,46 @@ class _HorizontalListViewWithIndicatorState
       ),
       ServiceCard(
         icon: Icons.menu,
+        icon: Icons.iron,
         width: 50,
-        text: AppLocalizations.of(context)!.options,
+        text: AppLocalizations.of(context)!.laundry,
+        onPressed: () {
+          debugPrint('On pressed Shopping');
+          //Route
+          Navigator.push(
+            context,
+            PageTransition(
+              duration: Duration(milliseconds: 500),
+              type: PageTransitionType.rightToLeftWithFade,
+              child: LaundryStep1Screen(),
+              childCurrent: MainPage(),
+            ),
+          );
+        },
+      ),
+      ServiceCard(
+        icon: Icons.cookie,
+        width: 50,
+        text: AppLocalizations.of(context)!.cooking,
+        onPressed: () {
+          debugPrint('On pressed Shopping');
+          //Route
+          Navigator.push(
+            context,
+            PageTransition(
+              duration: Duration(milliseconds: 500),
+              type: PageTransitionType.rightToLeftWithFade,
+              child: LaundryStep1Screen(),
+              childCurrent: MainPage(),
+            ),
+          );
+        },
       ),
     ];
     return Wrap(
-      spacing: 12,
+      spacing: 16,
       runSpacing: 12,
+      alignment: WrapAlignment.spaceBetween,
       children: <Widget>[
         items[0],
         items[1],

@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
 import 'package:rmservice/authentication_repository/authentication_repository.dart';
+import 'package:rmservice/login/models/user.dart';
 
 part 'login_state.dart';
 
@@ -16,13 +17,19 @@ class LoginCubit extends Cubit<LoginState> {
       print('Loading');
       var res = await authenticationRepository.logIn(
           username: username, password: password);
-      if (res == AuthenticationStatus.authenticated) {
-        emit(LoginSuccess(statusLogin: res.toString()));
+      if (res.status == AuthenticationStatus.authenticated) {
+        emit(LoginSuccess(statusLogin: res.status.toString(), user: res.user!));
+      } else if (res.status == AuthenticationStatus.inactive) {
+        emit(LoginFailure(error: "Tài khoản đang bị khoá. Vui lòng liên hệ quản trị viên"));
       } else {
-        emit(LoginFailure(error: res.toString()));
+        emit(LoginFailure(error: "Tài khoản hoặc mật khẩu không đúng"));
       }
     } catch (e) {
       emit(LoginFailure(error: e.toString()));
     }
+  }
+
+  Future<void> setInit() async {
+    emit(LoginInitial());
   }
 }

@@ -8,7 +8,7 @@ import 'package:rmservice/utilities/components/button_green.dart';
 
 import '../../air_conditioning_cleaning/views/air_conditioning_cleaning_sreen_step1.dart';
 import '../../cleaning_hourly/cubits/save_info/save_address.dart';
-import '../../cleaning_hourly/widgets/dialog_wrong.dart';
+import '../../utilities/components/dialog_wrong.dart';
 import '../../utilities/constants/variable.dart';
 import '../views/cleaning_longterm_screen_step2.dart';
 

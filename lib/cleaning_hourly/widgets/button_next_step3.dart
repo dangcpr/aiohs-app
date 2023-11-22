@@ -7,7 +7,7 @@ import 'package:rmservice/cleaning_hourly/cubits/save_info/save_address.dart';
 import 'package:rmservice/cleaning_hourly/cubits/save_info/save_info.dart';
 import 'package:rmservice/cleaning_hourly/views/cleaning_hourly_step3.dart';
 import 'package:rmservice/cleaning_hourly/views/complete.dart';
-import 'package:rmservice/cleaning_hourly/widgets/dialog_wrong.dart';
+import 'package:rmservice/utilities/components/dialog_wrong.dart';
 import 'package:rmservice/utilities/components/button_green.dart';
 import 'package:rmservice/utilities/constants/variable.dart';
 import 'package:datetime_setting/datetime_setting.dart';

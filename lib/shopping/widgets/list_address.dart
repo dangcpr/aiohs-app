@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:rmservice/shopping/cubits/save_address.dart';
+import 'package:rmservice/shopping/models/address_shopping.dart';
 import 'package:rmservice/utilities/constants/check_type_of_address.dart';
 import 'package:rmservice/shopping/constants/test_address.dart';
 import 'package:rmservice/shopping/cubits/save_data.dart';
@@ -16,7 +17,18 @@ class ListAddress extends StatefulWidget {
   State<ListAddress> createState() => _ListAddressState();
 }
 
+
 class _ListAddressState extends State<ListAddress> {
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     var brightness = MediaQuery.of(context).platformBrightness;
@@ -47,12 +59,7 @@ class _ListAddressState extends State<ListAddress> {
                 },
                 child: EveryAddressShopping(
                   isDarkMode: isDarkMode,
-                  nameAddress: testAddress[index].nameAddress!,
-                  typeOfAddress: checkTypeOfAddress(
-                      testAddress[index].typeOfAddress!, context),
-                  yourName: testAddress[index].yourName!,
-                  phoneNum: testAddress[index].phoneNum!,
-                  fullAddress: testAddress[index].fullAddress!,
+                  addressShopping: testAddress[index],
                 ),
               ),
               SizedBox(height: 15),

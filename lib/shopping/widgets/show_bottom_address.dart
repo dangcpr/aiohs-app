@@ -7,7 +7,7 @@ import 'package:rmservice/shopping/models/address_shopping.dart';
 import 'package:rmservice/shopping/views/shopping_step1.dart';
 import 'package:rmservice/shopping/views/shopping_step2.dart';
 import 'package:rmservice/utilities/components/text_field_basic.dart';
-import 'package:rmservice/cleaning_hourly/widgets/text_label.dart';
+import 'package:rmservice/utilities/components/text_label.dart';
 import 'package:rmservice/utilities/components/button_green.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -25,6 +25,18 @@ class _BottomSheetAddressState extends State<BottomSheetAddress> {
   TextEditingController phoneController = TextEditingController();
   TextEditingController shortAddressController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    nameController.dispose();
+    phoneController.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -130,17 +142,19 @@ class _BottomSheetAddressState extends State<BottomSheetAddress> {
                             nameAddress: shortAddressController.text,
                           ),
                         );
-                    Navigator.pop(context);
-                    Navigator.pop(context);
-                    Navigator.push(
-                      context,
-                      PageTransition(
-                        duration: Duration(milliseconds: 400),
-                        type: PageTransitionType.rightToLeftWithFade,
-                        child: ShoppingStep2Screen(),
-                        childCurrent: ShoppingStep1Screen(),
-                      ),
-                    );
+                    WidgetsBinding.instance.addPostFrameCallback((_) {
+                      Navigator.pop(context);
+                      Navigator.pop(context);
+                      Navigator.push(
+                        context,
+                        PageTransition(
+                          duration: Duration(milliseconds: 400),
+                          type: PageTransitionType.rightToLeftWithFade,
+                          child: ShoppingStep2Screen(),
+                          childCurrent: ShoppingStep1Screen(),
+                        ),
+                      );
+                    });
                     _formKey.currentState!.save();
                   } else {}
                 },

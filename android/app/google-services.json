@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "843331886089",
+    "project_id": "datn-20cq-aiohs",
+    "storage_bucket": "datn-20cq-aiohs.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:843331886089:android:6d7617016fd6b30557ecd8",
+        "android_client_info": {
+          "package_name": "com.example.rmservice"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "843331886089-5ebsb7bpokhvlr1o2h4h60248li1pav4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAjH26qXf_fIavKWHOuX8vLZXsAJGqrz40"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "843331886089-5ebsb7bpokhvlr1o2h4h60248li1pav4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

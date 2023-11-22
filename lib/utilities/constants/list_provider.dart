@@ -3,14 +3,18 @@ import 'package:rmservice/air_conditioning_cleaning/cubit/save_info_air_conditio
 import 'package:rmservice/authentication_repository/authentication_repository.dart';
 import 'package:rmservice/cleaning_hourly/cubits/save_info/save_address.dart';
 import 'package:rmservice/cooking/cubit/save_info_cooking.dart';
+import 'package:rmservice/get_product/cubits/get_product/get_product_cubit.dart';
 import 'package:rmservice/home_route/cubits/get_first_time/get_first_time_cubit.dart';
 import 'package:rmservice/home_route/cubits/set_first_time/set_first_time_cubit.dart';
 import 'package:rmservice/login/cubit/login_cubit.dart';
+import 'package:rmservice/login/cubit/user_cubit.dart';
 import 'package:rmservice/shopping/cubits/add_items.dart';
 import 'package:rmservice/shopping/cubits/save_address.dart';
 import 'package:rmservice/shopping/cubits/save_data.dart';
 import 'package:rmservice/shopping/cubits/save_price_shopping.dart';
 import 'package:rmservice/sign_up/cubits/signup_cubit.dart';
+import 'package:rmservice/worker_register/cubits/worker_cubit.dart';
+import 'package:rmservice/worker_register/cubits/worker_register/worker_register_cubit.dart';
 
 import '../../cleaning_hourly/cubits/save_info/save_info.dart';
 import '../../cleaning_longterm/cubit/save_info_cubit.dart';
@@ -25,6 +29,12 @@ final listProvider = [
   BlocProvider<LoginCubit>(
     create: (_) =>
         LoginCubit(authenticationRepository: AuthenticationRepository()),
+  ),
+  BlocProvider<GetProductCubit>(
+    create: (_) => GetProductCubit(),
+  ),
+  BlocProvider<UserCubit>(
+    create: (_) => UserCubit(),
   ),
   BlocProvider<SignupCubit>(
     create: (_) => SignupCubit(),
@@ -56,4 +66,10 @@ final listProvider = [
   BlocProvider<SaveInfoCookingCubit>(
     create: (_) => SaveInfoCookingCubit(),
   ),
+  BlocProvider<WorkerCubit>(
+    create: (_) => WorkerCubit(),
+  ),
+  BlocProvider<WorkerRegisterCubit>(
+    create: (_) => WorkerRegisterCubit(),
+  )
 ];
