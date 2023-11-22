@@ -108,5 +108,7 @@
     "shoppingPriceDialog": "Số tiền đi chợ ước tính",
     "shoppingPriceDialogSub": "Vui lòng nhập số tiền sẽ đưa cho cộng tác viên từ 100,000 tới 3,000,000 ₫ (đơn vị VNĐ)",
     "shoppingStep4Title": "Chọn thời gian giao hàng",
-    "normalCleaning": "Giặt thường"
+    "normalCleaning": "Giặt thường",
+    "dryCleaning": "Giặt khô",
+    "serviceCleaning": "Dịch vụ khác"
 }

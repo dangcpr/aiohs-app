@@ -1,10 +1,18 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:page_transition/page_transition.dart';
+import 'package:rmservice/cleaning_hourly/cubits/save_info/save_address.dart';
+import 'package:rmservice/cleaning_hourly/views/maps.dart';
+import 'package:rmservice/cleaning_hourly/widgets/button_app_bar.dart';
 import 'package:rmservice/get_product/cubits/get_product/get_product_cubit.dart';
 import 'package:rmservice/get_product/cubits/get_product/get_product_state.dart';
 import 'package:rmservice/get_product/models/product.dart';
+import 'package:rmservice/laundry/helpers/set_price_laundry.dart';
+import 'package:rmservice/laundry/widgets/button/button_next_step1.dart';
+import 'package:rmservice/laundry/widgets/card/dry_cleaning_card.dart';
+import 'package:rmservice/laundry/widgets/card/normal_cleaning_card.dart';
+import 'package:rmservice/laundry/widgets/card/service_cleaning_card.dart';
+import 'package:rmservice/utilities/components/text_label.dart';
 
 class LaundryStep1Screen extends StatefulWidget {
   const LaundryStep1Screen({super.key});
@@ -16,29 +24,67 @@ class LaundryStep1Screen extends StatefulWidget {
 class _LaundryStep1ScreenState extends State<LaundryStep1Screen> {
   @override
   Widget build(BuildContext context) {
+    bool isDarkMode =
+        MediaQuery.of(context).platformBrightness == Brightness.dark;
     Product product;
+
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        titleSpacing: 0,
+        title: ButtonChooseLocation(
+          nameLocation: context.watch<SaveAddressCubit>().state == null ||
+                  context.watch<SaveAddressCubit>().state!.shortAddress == ""
+              ? "Vui lòng chọn địa điểm"
+              : context.watch<SaveAddressCubit>().state!.shortAddress!,
+          addressLocation: context.watch<SaveAddressCubit>().state == null ||
+                  context.watch<SaveAddressCubit>().state!.address == ""
+              ? "Vui lòng chọn địa điểm"
+              : context.watch<SaveAddressCubit>().state!.address!,
+          isDarkMode: isDarkMode,
+          onPressed: () {
+            Navigator.push(
+              context,
+              PageTransition(
+                duration: Duration(milliseconds: 400),
+                type: PageTransitionType.rightToLeftWithFade,
+                child: ChooseLocationScreen(),
+              ),
+            );
+          },
+        ),
+      ),
       body: BlocBuilder<GetProductCubit, GetProductState>(
         builder: (context, state) {
           if (state is GetProductLoaded) {
             product = state.products
                 .firstWhere((element) => element.code == 'LAUNDRY');
-            String normalPrice = jsonDecode(product.price)['laundry_price']['normal_cleaning'].toString();
-            int clothes = int.parse(jsonDecode(product.price)['laundry_price']['normal_cleaning']['Clothes'].toString());
-            int blanket = int.parse(jsonDecode(product.price)['laundry_price']['normal_cleaning']['Blanket'].toString());
-            int mosquito = int.parse(jsonDecode(product.price)['laundry_price']['normal_cleaning']['Mosquito'].toString());
-            int net = int.parse(jsonDecode(product.price)['laundry_price']['normal_cleaning']['Net'].toString());
-            int drap = int.parse(jsonDecode(product.price)['laundry_price']['normal_cleaning']['Drap'].toString());
-            int topper = int.parse(jsonDecode(product.price)['laundry_price']['normal_cleaning']['Topper'].toString());
-            int pillow = int.parse(jsonDecode(product.price)['laundry_price']['normal_cleaning']['Pillow'].toString());
+            setPriceLaundry(product, context);
 
-
-            return Text(normalPrice + '   ' + clothes.toString());
+            return Padding(
+              padding: EdgeInsets.only(left: 20, right: 20, bottom: 90),
+              child: ListView(
+                padding: EdgeInsets.only(top: 20),
+                children: [
+                  TextLabel(
+                    label: "Vui lòng chọn những thứ bạn muốn giặt ủi",
+                    isDarkMode: isDarkMode,
+                  ),
+                  SizedBox(height: 10),
+                  NormalCleaningCard(),
+                  SizedBox(height: 10),
+                  DryCleaningCard(),
+                  SizedBox(height: 10),
+                  ServiceCleaningCard(),
+                ],
+              ),
+            );
           }
           return const SizedBox();
         },
       ),
-    );
+      floatingActionButton: ButtonNextStep1Laundry(),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+    )
+    ;
   }
 }

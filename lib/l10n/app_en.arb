@@ -108,5 +108,7 @@
      "shoppingPriceDialog": "Estimated shopping amount",
     "shoppingPriceDialogSub": "Please enter the amount to be given to the collaborator from 100,000 to 3,000,000 VND (VND unit)",
     "shoppingStep4Title": "Select delivery time",
-    "normalCleaning": "Normal cleaning"
+    "normalCleaning": "Normal cleaning",
+    "dryCleaning": "Dry cleaning",
+    "serviceCleaning": "Service cleaning"
 }
