@@ -7,12 +7,15 @@ import 'package:rmservice/cleaning_hourly/widgets/button_app_bar.dart';
 import 'package:rmservice/get_product/cubits/get_product/get_product_cubit.dart';
 import 'package:rmservice/get_product/cubits/get_product/get_product_state.dart';
 import 'package:rmservice/get_product/models/product.dart';
+import 'package:rmservice/laundry/cubits/get_price_laundry/get_price_laundry_cubit.dart';
+import 'package:rmservice/laundry/cubits/get_price_laundry/get_price_laundry_state.dart';
 import 'package:rmservice/laundry/helpers/set_price_laundry.dart';
 import 'package:rmservice/laundry/widgets/button/button_next_step1.dart';
 import 'package:rmservice/laundry/widgets/card/dry_cleaning_card.dart';
 import 'package:rmservice/laundry/widgets/card/normal_cleaning_card.dart';
 import 'package:rmservice/laundry/widgets/card/service_cleaning_card.dart';
 import 'package:rmservice/utilities/components/text_label.dart';
+import 'package:rmservice/utilities/constants/variable.dart';
 
 class LaundryStep1Screen extends StatefulWidget {
   const LaundryStep1Screen({super.key});
@@ -53,12 +56,10 @@ class _LaundryStep1ScreenState extends State<LaundryStep1Screen> {
           },
         ),
       ),
-      body: BlocBuilder<GetProductCubit, GetProductState>(
+      body: BlocBuilder<GetPriceLaundryCubit, GetPriceLaundryState>(
         builder: (context, state) {
-          if (state is GetProductLoaded) {
-            product = state.products
-                .firstWhere((element) => element.code == 'LAUNDRY');
-            setPriceLaundry(product, context);
+          if (state is GetPriceLaundrySuccess) {
+            setPriceLaundry(state.priceLaundry, context);
 
             return Padding(
               padding: EdgeInsets.only(left: 20, right: 20, bottom: 90),
@@ -78,6 +79,18 @@ class _LaundryStep1ScreenState extends State<LaundryStep1Screen> {
                   
                 ],
               ),
+            );
+          }
+          if (state is GetPriceLaundryLoading) {
+            return const Center(
+              child: CircularProgressIndicator(
+                color: colorProject.primaryColor
+              ),
+            );
+          }
+          if (state is GetPriceLaundryError) {
+            return Center(
+              child: Text(state.message),
             );
           }
           return const SizedBox();

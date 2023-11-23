@@ -5,7 +5,6 @@ import 'package:rmservice/utilities/components/button_green.dart';
 import 'package:rmservice/utilities/components/dialog_wrong.dart';
 import 'package:rmservice/utilities/components/text_label.dart';
 import 'package:rmservice/utilities/constants/variable.dart';
-import 'package:rmservice/utilities/indicator/custom_progress_indicator.dart';
 import 'package:rmservice/utilities/widget/success.dart';
 import 'package:rmservice/worker_register/cubits/worker_cubit.dart';
 import 'package:rmservice/worker_register/cubits/worker_register/worker_register_cubit.dart';
