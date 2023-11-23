@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:rmservice/laundry/constants/payment_method.dart';
+import 'package:rmservice/utilities/constants/payment_method.dart';
 import 'package:rmservice/laundry/cubits/save_info_laundry_cubit.dart';
 import 'package:rmservice/utilities/constants/variable.dart';
 
