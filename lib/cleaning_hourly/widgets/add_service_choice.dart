@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rmservice/cleaning_hourly/constants/cleaning_hourly_const.dart';
+import 'package:rmservice/cleaning_hourly/cubits/price_cleaning_hourly_cubit.dart';
 import 'package:rmservice/cleaning_hourly/cubits/save_info/save_info.dart';
+import 'package:rmservice/cleaning_hourly/models/cleaning_hourly_price.dart';
 import 'package:rmservice/utilities/constants/variable.dart';
 
 class AddServiceChoice extends StatefulWidget {
@@ -14,20 +16,22 @@ class AddServiceChoice extends StatefulWidget {
 }
 
 class _AddServiceChoiceState extends State<AddServiceChoice> {
-  
-  List<bool> isCheck = List.generate(
-    4,
-    (int index) => false,
-  );
-
   @override
   Widget build(BuildContext context) {
+    var infoCleaningHourlyCubit = context.read<SaveInfoCleaningHourlyCubit>();
+    List<bool> isCheck = [
+      infoCleaningHourlyCubit.state.cooking!,
+      infoCleaningHourlyCubit.state.iron!,
+      infoCleaningHourlyCubit.state.bringTool!
+    ];
     List<AddServiceClass> listAddService = getListAddService(context);
+    CleaningHourlyPrice cleaningHourlyPrice =
+        context.read<PriceCleaningHourlyCubit>().state;
 
     return Wrap(
       runSpacing: 14,
       children: List<Widget>.generate(
-        listAddService.length,
+        listAddService.length - 1,
         (int index) {
           return InkWell(
             onTap: () {
@@ -40,30 +44,26 @@ class _AddServiceChoiceState extends State<AddServiceChoice> {
                     case 0:
                       context
                           .read<SaveInfoCleaningHourlyCubit>()
-                          .state
-                          .cooking = isCheck[index];
+                          .updateCooking(isCheck[index]);
                       break;
 
-
                     case 1:
-                      context.read<SaveInfoCleaningHourlyCubit>().state.iron =
-                          isCheck[index];
+                      context
+                          .read<SaveInfoCleaningHourlyCubit>()
+                          .updateIron(isCheck[index]);
                       break;
 
                     case 2:
                       context
                           .read<SaveInfoCleaningHourlyCubit>()
-                          .state
-                          .bringTool = isCheck[index];
+                          .updateBringTool(isCheck[index]);
                       break;
-                    case 3:
-                      context
-                          .read<SaveInfoCleaningHourlyCubit>()
-                          .state
-                          .bringVaccum = isCheck[index];
                   }
                 },
               );
+              context
+                  .read<SaveInfoCleaningHourlyCubit>()
+                  .updatePrice(cleaningHourlyPrice);
               debugPrint("Selected ${index}: ${isCheck[index]}");
 
               debugPrint(context

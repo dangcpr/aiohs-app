@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:rmservice/air_conditioning_cleaning/views/air_conditioning_cleaning_page.dart';
+import 'package:rmservice/cleaning_hourly/cubits/get_price_cleaning_hourly/get_price_cleaning_hourly_cubit.dart';
 import 'package:rmservice/cleaning_hourly/views/cleaning_hourly_step1.dart';
 import 'package:rmservice/cleaning_longterm/cleaning_longterm.dart';
 import 'package:rmservice/laundry/cubits/get_price_laundry/get_price_laundry_cubit.dart';
@@ -41,6 +42,7 @@ class _HorizontalListViewWithIndicatorState
               childCurrent: MainPage(),
             ),
           );
+          context.read<GetPriceCleaningHourlyCubit>().getPriceCleaningHourly();
         },
       ),
       ServiceCard(

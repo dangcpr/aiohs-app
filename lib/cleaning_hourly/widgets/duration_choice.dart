@@ -1,7 +1,11 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rmservice/cleaning_hourly/constants/cleaning_hourly_const.dart';
+import 'package:rmservice/cleaning_hourly/cubits/price_cleaning_hourly_cubit.dart';
 import 'package:rmservice/cleaning_hourly/cubits/save_info/save_info.dart';
+import 'package:rmservice/cleaning_hourly/models/cleaning_hourly_price.dart';
 import 'package:rmservice/utilities/constants/variable.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -20,6 +24,7 @@ class _DurationChoiceState extends State<DurationChoice> {
   @override
   Widget build(BuildContext context) {
     int _value = BlocProvider.of<SaveInfoCleaningHourlyCubit>(context, listen: true).state.duration! - 2;
+    CleaningHourlyPrice cleaningHourlyPrice = context.read<PriceCleaningHourlyCubit>().state;
 
     return SizedBox(
       width: double.infinity,
@@ -70,9 +75,10 @@ class _DurationChoiceState extends State<DurationChoice> {
                 setState(() {
                   _value = selected ? index : 0;
                 });
-                context.read<SaveInfoCleaningHourlyCubit>().state.duration = listDuration[_value].duration;
+                context.read<SaveInfoCleaningHourlyCubit>().updateDuration(listDuration[_value].duration!);
+                context.read<SaveInfoCleaningHourlyCubit>().updatePrice(cleaningHourlyPrice);
                 
-                debugPrint(context.read<SaveInfoCleaningHourlyCubit>().state.duration.toString());
+                debugPrint(jsonEncode(context.read<SaveInfoCleaningHourlyCubit>().state));
               },
             );
           },

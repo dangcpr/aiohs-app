@@ -4,7 +4,9 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
+import 'package:rmservice/cleaning_hourly/cubits/order_cleaning_hourly/order_cleaning_hourly_cubit.dart';
 import 'package:rmservice/cleaning_hourly/cubits/save_info/save_address.dart';
+import 'package:rmservice/cleaning_hourly/cubits/save_info/save_info.dart';
 import 'package:rmservice/laundry/cubits/order_laundry/order_laundry_cubit.dart';
 import 'package:rmservice/laundry/cubits/save_info_laundry_cubit.dart';
 import 'package:rmservice/login/cubit/user_cubit.dart';
@@ -62,6 +64,17 @@ class _PayScreenState extends State<PayScreen> {
                 context.read<OrderLaundryCubit>().orderLaundry(
                       // ignore: use_build_context_synchronously
                       context.read<SaveInfoLaundryCubit>().state,
+                      // ignore: use_build_context_synchronously
+                      context.read<SaveAddressCubit>().state!,
+                      // ignore: use_build_context_synchronously
+                      context.read<UserCubit>().state.code!,
+                    );
+                context.read<OrderLaundryCubit>().setInit();
+              } else if (widget.service == 'CLEAN_ON_DEMAND') {
+                // ignore: use_build_context_synchronously
+                context.read<OrderCleaningHourlyCubit>().orderCleaningHourly(
+                      // ignore: use_build_context_synchronously
+                      context.read<SaveInfoCleaningHourlyCubit>().state,
                       // ignore: use_build_context_synchronously
                       context.read<SaveAddressCubit>().state!,
                       // ignore: use_build_context_synchronously

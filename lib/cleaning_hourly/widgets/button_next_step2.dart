@@ -2,8 +2,10 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:rmservice/cleaning_hourly/cubits/save_info/save_info.dart';
+import 'package:rmservice/cleaning_hourly/cubits/total_price_CH.dart';
 import 'package:rmservice/cleaning_hourly/views/cleaning_hourly_step2.dart';
 import 'package:rmservice/cleaning_hourly/views/cleaning_hourly_step3.dart';
 import 'package:rmservice/utilities/components/dialog_wrong.dart';
@@ -25,9 +27,16 @@ class _ButtonNextStep2State extends State<ButtonNextStep2> {
   //final timeZoneIsAuto = DatetimeSetting.timeZoneIsAuto();
   int time6Hours = 6 * 60;
   int time23Hours = 23 * 60;
+  NumberFormat numberFormat = NumberFormat.simpleCurrency(locale: 'vi-VN');
+  
+  @override
+  void initState() {
+    super.initState();
+  }
   
   @override
   Widget build(BuildContext context) {
+    TotalPriceCHCubit totalPriceCH = context.read<TotalPriceCHCubit>();
     final date = context.read<SaveInfoCleaningHourlyCubit>().state.date;
     final time = context.read<SaveInfoCleaningHourlyCubit>().state.time;
 
@@ -48,7 +57,7 @@ class _ButtonNextStep2State extends State<ButtonNextStep2> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(
-            "200.000" + " VNĐ - " + context.read<SaveInfoCleaningHourlyCubit>().state.realDuration.toString() + " giờ",
+            numberFormat.format(totalPriceCH.state) + ' - ' + context.read<SaveInfoCleaningHourlyCubit>().state.realDuration.toString() + " giờ",
             style: TextStyle(
                 fontFamily: fontBoldApp,
                 fontSize: fontSize.mediumLarger + 1,

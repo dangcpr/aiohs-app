@@ -1,7 +1,11 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rmservice/air_conditioning_cleaning/cubit/save_info_air_conditioning_cleaning.dart';
 import 'package:rmservice/authentication_repository/authentication_repository.dart';
+import 'package:rmservice/cleaning_hourly/cubits/get_price_cleaning_hourly/get_price_cleaning_hourly_cubit.dart';
+import 'package:rmservice/cleaning_hourly/cubits/order_cleaning_hourly/order_cleaning_hourly_cubit.dart';
+import 'package:rmservice/cleaning_hourly/cubits/price_cleaning_hourly_cubit.dart';
 import 'package:rmservice/cleaning_hourly/cubits/save_info/save_address.dart';
+import 'package:rmservice/cleaning_hourly/cubits/total_price_CH.dart';
 import 'package:rmservice/get_product/cubits/get_product/get_product_cubit.dart';
 import 'package:rmservice/home_route/cubits/get_first_time/get_first_time_cubit.dart';
 import 'package:rmservice/home_route/cubits/set_first_time/set_first_time_cubit.dart';
@@ -43,14 +47,32 @@ final listProvider = [
   BlocProvider<SignupCubit>(
     create: (_) => SignupCubit(),
   ),
+
+  //Address
   BlocProvider<SaveAddressCubit>(
     create: (_) => SaveAddressCubit(),
   ),
-  BlocProvider<SaveAddressShoppingCubit>(
-    create: (_) => SaveAddressShoppingCubit(),
-  ),
+
+  //Cleaning Hourly
   BlocProvider<SaveInfoCleaningHourlyCubit>(
     create: (_) => SaveInfoCleaningHourlyCubit(),
+  ),
+  BlocProvider<GetPriceCleaningHourlyCubit>(
+    create: (_) => GetPriceCleaningHourlyCubit(),
+  ),
+  BlocProvider<PriceCleaningHourlyCubit>(
+    create: (_) => PriceCleaningHourlyCubit(),
+  ),
+  BlocProvider<TotalPriceCHCubit>(
+    create: (_) => TotalPriceCHCubit(),
+  ),
+  BlocProvider<OrderCleaningHourlyCubit>(
+    create: (_) => OrderCleaningHourlyCubit(),
+  ),
+
+  //Shopping
+  BlocProvider<SaveAddressShoppingCubit>(
+    create: (_) => SaveAddressShoppingCubit(),
   ),
   BlocProvider<SaveDataShopping>(
     create: (_) => SaveDataShopping(),
