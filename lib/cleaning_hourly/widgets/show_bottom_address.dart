@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rmservice/cleaning_hourly/cubits/save_info/save_address.dart';
 import 'package:rmservice/cleaning_hourly/models/address.dart';
+import 'package:rmservice/login/cubit/user_cubit.dart';
 import 'package:rmservice/utilities/components/text_field_basic.dart';
 import 'package:rmservice/utilities/components/text_label.dart';
 import 'package:rmservice/utilities/components/button_green.dart';
@@ -27,6 +28,22 @@ class _BottomSheetAddressState extends State<BottomSheetAddress> {
     //controller.text = context.read<SavePriceShopping>().state.toString();
     shortAddressController.text =
         context.read<SaveAddressCubit>().state!.shortAddress!;
+    nameController.text =
+        (context.read<SaveAddressCubit>().state!.name != null &&
+                context.read<SaveAddressCubit>().state!.name!.isNotEmpty
+            ? context.read<SaveAddressCubit>().state!.name
+            : (context.read<UserCubit>().state.full_name == null ||
+                    context.read<UserCubit>().state.full_name!.isEmpty
+                ? ""
+                : context.read<UserCubit>().state.full_name)!)!;
+    phoneController.text =
+        (context.read<SaveAddressCubit>().state!.phone != null &&
+                context.read<SaveAddressCubit>().state!.phone!.isNotEmpty
+            ? context.read<SaveAddressCubit>().state!.phone
+            : (context.read<UserCubit>().state.phone_number == null ||
+                    context.read<UserCubit>().state.phone_number!.isEmpty
+                ? ""
+                : context.read<UserCubit>().state.phone_number)!)!;
     return Container(
       padding: EdgeInsets.only(
         left: 20,
@@ -79,11 +96,11 @@ class _BottomSheetAddressState extends State<BottomSheetAddress> {
                     //debugPrint("Lỗi họ và tên");
                     return AppLocalizations.of(context)!.signupEmptyError;
                   }
-                  if (value.length != 10) {
-                    return AppLocalizations.of(context)!.signupPhone10Chacs;
-                  }
-                  if (value.substring(0, 1) != "0") {
-                    return "Không đúng định dạng số điện thoại";
+                  // if (value.length != 10) {
+                  //   return AppLocalizations.of(context)!.signupPhone10Chacs;
+                  // }
+                  if (value.substring(0, 1) != "0" && value.substring(0, 1) != "+") {
+                    return "Ký tự bắt đầu phải là 0 hoặc +";
                   }
                   return null;
                 },
@@ -124,7 +141,7 @@ class _BottomSheetAddressState extends State<BottomSheetAddress> {
                             shortAddress: shortAddressController.text,
                           ),
                         );
-                    
+
                     Navigator.pop(context);
                     Navigator.pop(context);
 

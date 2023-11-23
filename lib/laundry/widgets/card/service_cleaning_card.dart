@@ -15,7 +15,20 @@ class ServiceCleaningCard extends StatefulWidget {
 }
 
 class _ServiceCleaningCardState extends State<ServiceCleaningCard> {
-bool expanded = false;
+  static bool expanded = false;
+
+  ExpandableController additionalInfoController = ExpandableController(
+    initialExpanded: expanded,
+  );
+
+  @override
+  void initState() {
+    super.initState();
+    additionalInfoController.addListener(() {
+      expanded = !expanded;
+    });
+  }
+
   final formatter = NumberFormat.simpleCurrency(locale: "vi-VN");
   @override
   Widget build(BuildContext context) {
@@ -77,7 +90,6 @@ bool expanded = false;
                 BleachingServiceCount(),
               ],
             ),
-            
           ],
         ),
         controller: ExpandableController(

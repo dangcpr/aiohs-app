@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rmservice/laundry/cubits/price_laundry_cubit.dart';
 import 'package:rmservice/laundry/cubits/save_info_laundry_cubit.dart';
+import 'package:rmservice/laundry/cubits/update_price_laundry_cubit.dart';
 import 'package:rmservice/utilities/constants/variable.dart';
 
 class BleachingServiceCount extends StatefulWidget {
@@ -36,10 +37,16 @@ class _BleachingServiceCountState extends State<BleachingServiceCount> {
                 onTap: () {
                   setState(() {
                     if (infoLaundryCubit.state.bleaching >= 1) {
-                      infoLaundryCubit
-                          .updateBleaching(infoLaundryCubit.state.bleaching - 1);
+                      infoLaundryCubit.updateBleaching(
+                          infoLaundryCubit.state.bleaching - 1);
                       infoLaundryCubit.updateTotalPrice(
                           context.read<PriceLaundryCubit>().state);
+                      context
+                          .read<UpdatePriceLaundryCubit>()
+                          .updatePriceLaundry(context
+                              .read<SaveInfoLaundryCubit>()
+                              .state
+                              .totalPrice);
                       debugPrint(infoLaundryCubit.state.totalPrice.toString());
                     }
                   });
@@ -48,7 +55,7 @@ class _BleachingServiceCountState extends State<BleachingServiceCount> {
               ),
             ),
             Text(
-              infoLaundryCubit.state.bleaching.toString(),
+              context.watch<SaveInfoLaundryCubit>().state.bleaching.toString(),
               style: textStyle.headerStyle(fontSize: 20),
             ),
             Container(
@@ -59,10 +66,13 @@ class _BleachingServiceCountState extends State<BleachingServiceCount> {
               child: InkWell(
                 onTap: () {
                   setState(() {
-                    infoLaundryCubit
+                    context
+                        .read<SaveInfoLaundryCubit>()
                         .updateBleaching(infoLaundryCubit.state.bleaching + 1);
-                    infoLaundryCubit.updateTotalPrice(
+                    context.read<SaveInfoLaundryCubit>().updateTotalPrice(
                         context.read<PriceLaundryCubit>().state);
+                    context.read<UpdatePriceLaundryCubit>().updatePriceLaundry(
+                        context.read<SaveInfoLaundryCubit>().state.totalPrice);
                     debugPrint(infoLaundryCubit.state.totalPrice.toString());
                   });
                 },

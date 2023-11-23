@@ -3,7 +3,13 @@ import 'package:rmservice/laundry/models/info_laundry.dart';
 import 'package:rmservice/laundry/models/price_laundry.dart';
 
 class SaveInfoLaundryCubit extends Cubit<InfoLaundry> {
-  SaveInfoLaundryCubit() : super(InfoLaundry());
+  SaveInfoLaundryCubit()
+      : super(InfoLaundry(
+          sendDate: DateTime.now().add(const Duration(days: 1)),
+          sendTime: DateTime.now(),
+          receiveDate: DateTime.now().add(const Duration(days: 1)),
+          receiveTime: DateTime.now(),
+        ));
 
   void updateInfoLaundry(InfoLaundry infoLaundry) {
     emit(infoLaundry);
@@ -88,6 +94,66 @@ class SaveInfoLaundryCubit extends Cubit<InfoLaundry> {
         infoLaundry.vietnamDress * (priceLaundry.vietnamDress ?? 0) +
         infoLaundry.weedingDress * (priceLaundry.weedingDress ?? 0) +
         infoLaundry.bleaching * (priceLaundry.bleaching ?? 0);
+    emit(infoLaundry);
+  }
+
+  void updateOnPeakDate(bool value) {
+    InfoLaundry infoLaundry = state;
+    infoLaundry.isOnPeakDate = value;
+    emit(infoLaundry);
+  }
+
+  void updateOnPeakHour(bool value) {
+    InfoLaundry infoLaundry = state;
+    infoLaundry.isOnPeakHour = value;
+    emit(infoLaundry);
+  }
+
+  void updateOnHoliday(bool value) {
+    InfoLaundry infoLaundry = state;
+    infoLaundry.isOnHoliday = value;
+    emit(infoLaundry);
+  }
+
+  void updateOnWeekend(bool value) {
+    InfoLaundry infoLaundry = state;
+    infoLaundry.isOnWeekend = value;
+    emit(infoLaundry);
+  }
+
+  void updateSendDate(DateTime value) {
+    InfoLaundry infoLaundry = state;
+    infoLaundry.sendDate = value;
+    emit(infoLaundry);
+  }
+
+  void updateSendTime(DateTime value) {
+    InfoLaundry infoLaundry = state;
+    infoLaundry.sendTime = value;
+    emit(infoLaundry);
+  }
+
+  void updateReceiveDate(DateTime value) {
+    InfoLaundry infoLaundry = state;
+    infoLaundry.receiveDate = value;
+    emit(infoLaundry);
+  }
+
+  void updateReceiveTime(DateTime value) {
+    InfoLaundry infoLaundry = state;
+    infoLaundry.receiveTime = value;
+    emit(infoLaundry);
+  }
+
+  void updateNote(String value) {
+    InfoLaundry infoLaundry = state;
+    infoLaundry.note = value;
+    emit(infoLaundry);
+  }
+
+  void upatePaymentMethod(String value) {
+    InfoLaundry infoLaundry = state;
+    infoLaundry.paymentMethod = value;
     emit(infoLaundry);
   }
 }

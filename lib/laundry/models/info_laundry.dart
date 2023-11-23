@@ -15,6 +15,12 @@ class InfoLaundry {
   bool isOnHoliday;
   bool isOnWeekend;
   int totalPrice;
+  DateTime? sendDate;
+  DateTime? sendTime;
+  DateTime? receiveDate;
+  DateTime? receiveTime;
+  String note;
+  String paymentMethod;
 
   InfoLaundry({
     this.clothes = 0,
@@ -32,6 +38,12 @@ class InfoLaundry {
     this.isOnPeakHour = false,
     this.isOnHoliday = false,
     this.isOnWeekend = false,
-    this.totalPrice = 0
+    this.totalPrice = 0,
+    this.sendDate,
+    this.sendTime,
+    this.receiveDate,
+    this.receiveTime,
+    this.note = '',
+    this.paymentMethod = 'PAYMENT_METHOD_CASH'
   });
 }

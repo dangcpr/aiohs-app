@@ -67,6 +67,7 @@ dependencies:
   popup_banner: ^1.0.0
   multi_select_flutter: ^4.1.3
   expandable: ^5.0.1
+  flutter_inappwebview: ^5.8.0
 
 dev_dependencies:
   flutter_test:

@@ -21,7 +21,19 @@ class NormalCleaningCard extends StatefulWidget {
 }
 
 class _NormalCleaningCardState extends State<NormalCleaningCard> {
-  bool expanded = false;
+  static bool expanded = false;
+
+  ExpandableController additionalInfoController = ExpandableController(
+    initialExpanded: expanded,
+  );
+
+  @override
+  void initState() {
+    super.initState();
+    additionalInfoController.addListener(() {
+      expanded=!expanded;
+    });
+  }
   final formatter = NumberFormat.simpleCurrency(locale: "vi-VN");
   @override
   Widget build(BuildContext context) {
@@ -269,9 +281,7 @@ class _NormalCleaningCardState extends State<NormalCleaningCard> {
             ),
           ],
         ),
-        controller: ExpandableController(
-          initialExpanded: expanded,
-        ),
+        controller: additionalInfoController,
       ),
     );
   }

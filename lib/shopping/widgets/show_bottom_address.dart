@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:page_transition/page_transition.dart';
-import 'package:rmservice/cleaning_hourly/views/maps.dart';
+import 'package:rmservice/login/cubit/user_cubit.dart';
 import 'package:rmservice/shopping/cubits/save_address.dart';
 import 'package:rmservice/shopping/models/address_shopping.dart';
 import 'package:rmservice/shopping/views/shopping_step1.dart';
@@ -43,6 +43,22 @@ class _BottomSheetAddressState extends State<BottomSheetAddress> {
     //controller.text = context.read<SavePriceShopping>().state.toString();
     shortAddressController.text =
         context.read<SaveAddressShoppingCubit>().state!.nameAddress!;
+    nameController.text =
+        (context.read<SaveAddressShoppingCubit>().state!.yourName != null &&
+                context.read<SaveAddressShoppingCubit>().state!.yourName!.isNotEmpty
+            ? context.read<SaveAddressShoppingCubit>().state!.yourName
+            : (context.read<UserCubit>().state.full_name == null ||
+                    context.read<UserCubit>().state.full_name!.isEmpty
+                ? ""
+                : context.read<UserCubit>().state.full_name)!)!;
+    phoneController.text =
+        (context.read<SaveAddressShoppingCubit>().state!.phoneNum != null &&
+                context.read<SaveAddressShoppingCubit>().state!.phoneNum!.isNotEmpty
+            ? context.read<SaveAddressShoppingCubit>().state!.phoneNum
+            : (context.read<UserCubit>().state.phone_number == null ||
+                    context.read<UserCubit>().state.phone_number!.isEmpty
+                ? ""
+                : context.read<UserCubit>().state.phone_number)!)!;
     return Container(
       padding: EdgeInsets.only(
         left: 20,

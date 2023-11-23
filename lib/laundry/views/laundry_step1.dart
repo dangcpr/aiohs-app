@@ -75,6 +75,7 @@ class _LaundryStep1ScreenState extends State<LaundryStep1Screen> {
                   DryCleaningCard(),
                   SizedBox(height: 10),
                   ServiceCleaningCard(),
+                  
                 ],
               ),
             );

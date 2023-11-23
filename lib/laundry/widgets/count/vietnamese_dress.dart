@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rmservice/laundry/cubits/price_laundry_cubit.dart';
 import 'package:rmservice/laundry/cubits/save_info_laundry_cubit.dart';
+import 'package:rmservice/laundry/cubits/update_price_laundry_cubit.dart';
 import 'package:rmservice/utilities/constants/variable.dart';
 
 class VietnameseDressCount extends StatefulWidget {
@@ -36,13 +37,15 @@ class _VietnameseDressCountState extends State<VietnameseDressCount> {
                 onTap: () {
                   setState(() {
                     if (infoLaundryCubit.state.vietnamDress >= 1) {
-                      infoLaundryCubit
-                          .updateVietnamDress(infoLaundryCubit.state.vietnamDress - 1);
+                      infoLaundryCubit.updateVietnamDress(
+                          infoLaundryCubit.state.vietnamDress - 1);
                       infoLaundryCubit.updateTotalPrice(
                           context.read<PriceLaundryCubit>().state);
                       debugPrint(infoLaundryCubit.state.totalPrice.toString());
                     }
                   });
+                  context.read<UpdatePriceLaundryCubit>().updatePriceLaundry(
+                      context.read<SaveInfoLaundryCubit>().state.totalPrice);
                 },
                 child: Icon(Icons.remove),
               ),
@@ -59,12 +62,14 @@ class _VietnameseDressCountState extends State<VietnameseDressCount> {
               child: InkWell(
                 onTap: () {
                   setState(() {
-                    infoLaundryCubit
-                        .updateVietnamDress(infoLaundryCubit.state.vietnamDress + 1);
+                    infoLaundryCubit.updateVietnamDress(
+                        infoLaundryCubit.state.vietnamDress + 1);
                     infoLaundryCubit.updateTotalPrice(
                         context.read<PriceLaundryCubit>().state);
                     debugPrint(infoLaundryCubit.state.totalPrice.toString());
                   });
+                  context.read<UpdatePriceLaundryCubit>().updatePriceLaundry(
+                      context.read<SaveInfoLaundryCubit>().state.totalPrice);
                 },
                 child: Icon(Icons.add),
               ),
