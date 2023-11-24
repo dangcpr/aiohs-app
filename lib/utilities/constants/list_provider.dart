@@ -5,6 +5,7 @@ import 'package:rmservice/cleaning_hourly/cubits/get_price_cleaning_hourly/get_p
 import 'package:rmservice/cleaning_hourly/cubits/order_cleaning_hourly/order_cleaning_hourly_cubit.dart';
 import 'package:rmservice/cleaning_hourly/cubits/price_cleaning_hourly_cubit.dart';
 import 'package:rmservice/cleaning_hourly/cubits/save_info/save_address.dart';
+import 'package:rmservice/cooking/cubit/save_info_cooking.dart';
 import 'package:rmservice/cleaning_hourly/cubits/total_price_CH.dart';
 import 'package:rmservice/get_product/cubits/get_product/get_product_cubit.dart';
 import 'package:rmservice/home_route/cubits/get_first_time/get_first_time_cubit.dart';
@@ -103,6 +104,9 @@ final listProvider = [
   ),
   BlocProvider<SaveInfoAirConditioningCleaningCubit>(
     create: (_) => SaveInfoAirConditioningCleaningCubit(),
+  ),
+  BlocProvider<SaveInfoCookingCubit>(
+    create: (_) => SaveInfoCookingCubit(),
   ),
   BlocProvider<WorkerCubit>(
     create: (_) => WorkerCubit(),

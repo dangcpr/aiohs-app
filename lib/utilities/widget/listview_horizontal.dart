@@ -6,6 +6,7 @@ import 'package:rmservice/air_conditioning_cleaning/views/air_conditioning_clean
 import 'package:rmservice/cleaning_hourly/cubits/get_price_cleaning_hourly/get_price_cleaning_hourly_cubit.dart';
 import 'package:rmservice/cleaning_hourly/views/cleaning_hourly_step1.dart';
 import 'package:rmservice/cleaning_longterm/cleaning_longterm.dart';
+import 'package:rmservice/cooking/cooking.dart';
 import 'package:rmservice/laundry/cubits/get_price_laundry/get_price_laundry_cubit.dart';
 import 'package:rmservice/laundry/views/laundry_step1.dart';
 import 'package:rmservice/main_page/main_page.dart';
@@ -122,14 +123,13 @@ class _HorizontalListViewWithIndicatorState
         width: 50,
         text: AppLocalizations.of(context)!.cooking,
         onPressed: () {
-          debugPrint('On pressed Shopping');
+           debugPrint('On pressed');
           //Route
           Navigator.push(
             context,
             PageTransition(
-              duration: Duration(milliseconds: 500),
               type: PageTransitionType.rightToLeftWithFade,
-              child: LaundryStep1Screen(),
+              child: CookingPage(),
               childCurrent: MainPage(),
             ),
           );
