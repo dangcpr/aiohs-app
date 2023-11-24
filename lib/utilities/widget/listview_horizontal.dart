@@ -111,7 +111,6 @@ class _HorizontalListViewWithIndicatorState
         },
       ),
       ServiceCard(
-        icon: Icons.menu,
         icon: Icons.iron,
         width: 50,
         text: AppLocalizations.of(context)!.laundry,

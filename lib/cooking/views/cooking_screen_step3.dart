@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rmservice/cooking/cubit/save_info_cooking.dart';
 import 'package:rmservice/cooking/widgets/work_info_cooking.dart';
+import 'package:rmservice/shopping/widgets/text_label.dart';
 
 import '../../cleaning_hourly/widgets/location_info.dart';
 import '../../cleaning_hourly/widgets/method_payment.dart';
 import '../../cleaning_hourly/widgets/show_bottom_edit_name_phone.dart';
-import '../../cleaning_hourly/widgets/text_label.dart';
 import 'package:rmservice/utilities/constants/variable.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 

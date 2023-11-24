@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:rmservice/shopping/widgets/text_label.dart';
+import 'package:rmservice/utilities/components/text_sub_label.dart';
 
-import '../../cleaning_hourly/widgets/text_label.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:rmservice/utilities/constants/variable.dart';
 
-import '../../cleaning_hourly/widgets/text_sub_label.dart';
 import '../widgets/button_next_step2.dart';
 import '../widgets/note_for_maid.dart';
 import '../widgets/notice_step2.dart';

@@ -7,7 +7,6 @@ import 'package:rmservice/cleaning_hourly/cubits/save_info/save_address.dart';
 import 'package:rmservice/cleaning_hourly/cubits/save_info/save_info.dart';
 import 'package:rmservice/cleaning_hourly/views/cleaning_hourly_step3.dart';
 import 'package:rmservice/cleaning_hourly/views/complete.dart';
-import 'package:rmservice/cleaning_hourly/widgets/dialog_wrong.dart';
 import 'package:rmservice/cooking/cubit/save_info_cooking.dart';
 import 'package:rmservice/cooking/views/complete_screen.dart';
 import 'package:rmservice/cooking/views/cooking_screen_step3.dart';
