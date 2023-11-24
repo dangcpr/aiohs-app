@@ -17,7 +17,7 @@ enum AuthenticationStatus {
 }
 
 class AuthenticationRepository {
-  final baseUrl = 'http://192.168.74.130:9000';
+  final baseUrl = 'http://192.168.72.128:9000';
 
   //ignore: close_sinks
   final _controller = StreamController<AuthenticationStatus>();

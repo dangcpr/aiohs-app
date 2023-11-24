@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 const nameApp = "AIO Home Serives";
-const debugServer = "http://192.168.74.130:9000";
+const debugServer = "http://192.168.72.128:9000";
 
 const nameAppShort = "AIOHS";
 
