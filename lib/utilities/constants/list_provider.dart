@@ -17,9 +17,13 @@ import 'package:rmservice/laundry/cubits/update_price_laundry_cubit.dart';
 import 'package:rmservice/login/cubit/login_cubit.dart';
 import 'package:rmservice/login/cubit/user_cubit.dart';
 import 'package:rmservice/shopping/cubits/add_items.dart';
+import 'package:rmservice/shopping/cubits/get_shopping_price/get_shopping_price_cubit.dart';
+import 'package:rmservice/shopping/cubits/order_shopping/order_shopping_cubit.dart';
 import 'package:rmservice/shopping/cubits/save_address.dart';
 import 'package:rmservice/shopping/cubits/save_data.dart';
 import 'package:rmservice/shopping/cubits/save_price_shopping.dart';
+import 'package:rmservice/shopping/cubits/shopping_price_cubit.dart';
+import 'package:rmservice/shopping/models/shopping_price.dart';
 import 'package:rmservice/sign_up/cubits/signup_cubit.dart';
 import 'package:rmservice/worker_register/cubits/worker_cubit.dart';
 import 'package:rmservice/worker_register/cubits/worker_register/worker_register_cubit.dart';
@@ -83,6 +87,17 @@ final listProvider = [
   BlocProvider<SavePriceShopping>(
     create: (_) => SavePriceShopping(),
   ),
+  BlocProvider<GetShoppingPriceCubit>(
+    create: (_) => GetShoppingPriceCubit(),
+  ),
+  BlocProvider<ShoppingPriceCubit>(
+    create: (_) => ShoppingPriceCubit(),
+  ),
+  BlocProvider<OrderShoppingCubit>(
+    create: (_) => OrderShoppingCubit(),
+  ),
+
+
   BlocProvider<SaveInfoCleaningLongTermCubit>(
     create: (_) => SaveInfoCleaningLongTermCubit(),
   ),

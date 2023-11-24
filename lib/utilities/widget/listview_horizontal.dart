@@ -9,6 +9,7 @@ import 'package:rmservice/cleaning_longterm/cleaning_longterm.dart';
 import 'package:rmservice/laundry/cubits/get_price_laundry/get_price_laundry_cubit.dart';
 import 'package:rmservice/laundry/views/laundry_step1.dart';
 import 'package:rmservice/main_page/main_page.dart';
+import 'package:rmservice/shopping/cubits/get_shopping_price/get_shopping_price_cubit.dart';
 import 'package:rmservice/shopping/views/shopping_step1.dart';
 
 import '../cards/service_card.dart';
@@ -94,6 +95,7 @@ class _HorizontalListViewWithIndicatorState
               childCurrent: MainPage(),
             ),
           );
+          context.read<GetShoppingPriceCubit>().getShoppingPrice();
         },
       ),
       ServiceCard(

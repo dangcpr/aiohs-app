@@ -1,7 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:page_transition/page_transition.dart';
+import 'package:rmservice/shopping/cubits/order_shopping/order_shopping_cubit.dart';
+import 'package:rmservice/shopping/cubits/order_shopping/order_shopping_state.dart';
+import 'package:rmservice/shopping/views/complete_shopping.dart';
 import 'package:rmservice/shopping/widgets/floating_step5.dart';
 import 'package:rmservice/shopping/widgets/location_info.dart';
+import 'package:rmservice/shopping/widgets/method_payment.dart';
 import 'package:rmservice/shopping/widgets/shopping_detail.dart';
 import 'package:rmservice/shopping/widgets/show_bottom_edit_name_phone.dart';
 import 'package:rmservice/shopping/widgets/text_label.dart';
@@ -20,94 +26,138 @@ class _ShoppingStep5ScreenState extends State<ShoppingStep5Screen> {
     var brightness = MediaQuery.of(context).platformBrightness;
     bool isDarkMode = brightness == Brightness.dark;
 
-    return Scaffold(
-      appBar: AppBar(
-        titleSpacing: 0,
-        title: Text(
-          AppLocalizations.of(context)!.confirmCleaningHourly,
-          style: TextStyle(
-            fontSize: fontSize.mediumLarger,
-            color: isDarkMode ? Colors.white : Colors.black,
-          ),
-        ),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.only(left: 20, right: 20, bottom: 90),
-        child: ListView(
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(top: 17),
-              child: Row(
-                //mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Expanded(
-                    child: TextLabel(
-                      label: AppLocalizations.of(context)!.locationLabel,
-                      isDarkMode: isDarkMode,
-                    ),
-                  ),
-                  IconButton(
-                    style: ButtonStyle(
-                      backgroundColor: MaterialStateColor.resolveWith(
-                        (states) => colorProject.primaryColor,
+    return BlocListener<OrderShoppingCubit, OrderShoppingState>(
+      listener: (context, state) {
+        if (state is OrderShoppingSuccess) {
+          debugPrint('OrderShoppingSuccess');
+          Navigator.pop(context);
+          Navigator.push(
+            context,
+            PageTransition(
+              duration: Duration(milliseconds: 400),
+              type: PageTransitionType.rightToLeftWithFade,
+              child: CompleteScreen(),
+              childCurrent: ShoppingStep5Screen(),
+            ),
+          );
+          context.read<OrderShoppingCubit>().setInit();
+        }
+        if (state is OrderShoppingError) {
+          debugPrint(state.message);
+          Navigator.pop(context);
+          context.read<OrderShoppingCubit>().setInit();
+        }
+        if (state is OrderShoppingLoading) {
+          showDialog(
+            barrierDismissible: false,
+            context: context,
+            builder: (context) {
+              return PopScope(
+                canPop: false,
+                child: AlertDialog(
+                  content: Container(
+                    height: 100,
+                    child: Center(
+                      child: CircularProgressIndicator(
+                        color: colorProject.primaryColor,
                       ),
                     ),
-                    icon: Icon(color: Colors.white, Icons.edit),
-                    onPressed: () {
-                      showModalBottomSheet(
-                        isScrollControlled: true,
-                        context: context,
-                        builder: (builder) {
-                          return BottomEditNamePhone(isDarkMode: isDarkMode);
-                        },
-                      );
-                    },
-                  )
-                ],
-              ),
+                  ),
+                ),
+              );
+            },
+          );
+        }
+      },
+      child: Scaffold(
+        appBar: AppBar(
+          titleSpacing: 0,
+          title: Text(
+            AppLocalizations.of(context)!.confirmCleaningHourly,
+            style: TextStyle(
+              fontSize: fontSize.mediumLarger,
+              color: isDarkMode ? Colors.white : Colors.black,
             ),
-            LocationInfoShopping(
-              isDarkMode: isDarkMode,
-            ),
-            Padding(
-              padding: const EdgeInsets.only(top: 17),
-              child: TextLabel(
-                label: AppLocalizations.of(context)!.workingInfoLabel,
-                isDarkMode: isDarkMode,
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(top: 17),
-              child: ShoppingDetail(
-                isDarkMode: isDarkMode,
-              ),
-            ),
-            // Padding(
-            //   padding: const EdgeInsets.only(top: 17),
-            //   child: WorkInfoCleaningHourly(
-            //     isDarkMode: isDarkMode,
-            //   ),
-            // ),
-            Padding(
-              padding: const EdgeInsets.only(top: 17),
-              child: TextLabel(
-                label: 'Phương thức thanh toán',
-                isDarkMode: isDarkMode,
-              ),
-            ),
-            // Padding(
-            //   padding: const EdgeInsets.only(top: 17),
-            //   child: MethodPaymentCleaningHourly(
-            //     isDarkMode: isDarkMode,
-            //   ),
-            // ),
-            SizedBox(height: 8)
-          ],
+          ),
         ),
+        body: Padding(
+          padding: const EdgeInsets.only(left: 20, right: 20, bottom: 90),
+          child: ListView(
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(top: 17),
+                child: Row(
+                  //mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Expanded(
+                      child: TextLabel(
+                        label: AppLocalizations.of(context)!.locationLabel,
+                        isDarkMode: isDarkMode,
+                      ),
+                    ),
+                    IconButton(
+                      style: ButtonStyle(
+                        backgroundColor: MaterialStateColor.resolveWith(
+                          (states) => colorProject.primaryColor,
+                        ),
+                      ),
+                      icon: Icon(color: Colors.white, Icons.edit),
+                      onPressed: () {
+                        showModalBottomSheet(
+                          isScrollControlled: true,
+                          context: context,
+                          builder: (builder) {
+                            return BottomEditNamePhone(isDarkMode: isDarkMode);
+                          },
+                        );
+                      },
+                    )
+                  ],
+                ),
+              ),
+              LocationInfoShopping(
+                isDarkMode: isDarkMode,
+              ),
+              Padding(
+                padding: const EdgeInsets.only(top: 17),
+                child: TextLabel(
+                  label: AppLocalizations.of(context)!.workingInfoLabel,
+                  isDarkMode: isDarkMode,
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(top: 17),
+                child: ShoppingDetail(
+                  isDarkMode: isDarkMode,
+                ),
+              ),
+              // Padding(
+              //   padding: const EdgeInsets.only(top: 17),
+              //   child: WorkInfoCleaningHourly(
+              //     isDarkMode: isDarkMode,
+              //   ),
+              // ),
+              Padding(
+                padding: const EdgeInsets.only(top: 17),
+                child: TextLabel(
+                  label: 'Phương thức thanh toán',
+                  isDarkMode: isDarkMode,
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(top: 17),
+                child: MethodPaymentShopping(
+                  isDarkMode: isDarkMode,
+                ),
+              ),
+              SizedBox(height: 8)
+            ],
+          ),
+        ),
+        floatingActionButton: FloatingStep5(),
+        floatingActionButtonLocation:
+            FloatingActionButtonLocation.miniCenterFloat,
       ),
-      floatingActionButton: FloatingStep5(),
-      floatingActionButtonLocation:
-          FloatingActionButtonLocation.miniCenterFloat,
     );
   }
 }

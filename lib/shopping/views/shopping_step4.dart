@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:intl/intl.dart';
 import 'package:rmservice/cleaning_hourly/widgets/notice_step2.dart';
+import 'package:rmservice/shopping/cubits/save_data.dart';
 import 'package:rmservice/utilities/components/text_label.dart';
 import 'package:rmservice/utilities/components/text_sub_label.dart';
 import 'package:rmservice/shopping/widgets/floating_step4.dart';
@@ -20,7 +23,10 @@ class _ShoppingStep4ScreenState extends State<ShoppingStep4Screen> {
   @override
   Widget build(BuildContext context) {
     var brightness = MediaQuery.of(context).platformBrightness;
+    var infoShopping = context.read<SaveDataShopping>().state;
     bool isDarkMode = brightness == Brightness.dark;
+    NumberFormat formatter =
+        NumberFormat.simpleCurrency(locale: 'vi-VN', decimalDigits: 0);
 
     return Scaffold(
       appBar: AppBar(
@@ -78,14 +84,24 @@ class _ShoppingStep4ScreenState extends State<ShoppingStep4Screen> {
               child: NoteForMaid(
                 isDarkMode: isDarkMode,
               ),
-            )
+            ),
+            Padding(
+              padding: const EdgeInsets.only(top: 7),
+              child: Text(
+                '* Giá bên dưới đã bao gồm phí mua hàng (${formatter.format(infoShopping.purchaseFee)}) và phụ thu.',
+                textAlign: TextAlign.justify,
+                style: TextStyle(
+                  fontSize: fontSize.medium,
+                  fontFamily: fontApp,
+                ),
+              ),
+            ),
           ],
         ),
       ),
       floatingActionButton: FloatingStep4(),
       floatingActionButtonLocation:
-           FloatingActionButtonLocation.miniCenterFloat,
+          FloatingActionButtonLocation.miniCenterFloat,
     );
-    
   }
 }

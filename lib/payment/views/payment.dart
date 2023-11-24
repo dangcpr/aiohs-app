@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'dart:convert';
 import 'dart:typed_data';
 
@@ -10,8 +12,12 @@ import 'package:rmservice/cleaning_hourly/cubits/save_info/save_info.dart';
 import 'package:rmservice/laundry/cubits/order_laundry/order_laundry_cubit.dart';
 import 'package:rmservice/laundry/cubits/save_info_laundry_cubit.dart';
 import 'package:rmservice/login/cubit/user_cubit.dart';
+import 'package:rmservice/shopping/cubits/save_address.dart';
+import 'package:rmservice/shopping/cubits/save_data.dart';
 import 'package:rmservice/shopping/widgets/dialog_wrong.dart';
 import 'package:rmservice/utilities/constants/variable.dart';
+
+import '../../shopping/cubits/order_shopping/order_shopping_cubit.dart';
 
 class PayScreen extends StatefulWidget {
   const PayScreen({super.key, required this.money, required this.service});
@@ -60,29 +66,26 @@ class _PayScreenState extends State<PayScreen> {
             // debugPrint(code);
             if (code == "00") {
               if (widget.service == 'LAUNDRY') {
-                // ignore: use_build_context_synchronously
                 context.read<OrderLaundryCubit>().orderLaundry(
-                      // ignore: use_build_context_synchronously
                       context.read<SaveInfoLaundryCubit>().state,
-                      // ignore: use_build_context_synchronously
                       context.read<SaveAddressCubit>().state!,
-                      // ignore: use_build_context_synchronously
                       context.read<UserCubit>().state.code!,
                     );
                 context.read<OrderLaundryCubit>().setInit();
               } else if (widget.service == 'CLEAN_ON_DEMAND') {
-                // ignore: use_build_context_synchronously
                 context.read<OrderCleaningHourlyCubit>().orderCleaningHourly(
-                      // ignore: use_build_context_synchronously
                       context.read<SaveInfoCleaningHourlyCubit>().state,
-                      // ignore: use_build_context_synchronously
                       context.read<SaveAddressCubit>().state!,
-                      // ignore: use_build_context_synchronously
+                      context.read<UserCubit>().state.code!,
+                    );
+              } else if (widget.service == 'GROCERY_ASSISTANT') {
+                context.read<OrderShoppingCubit>().orderShopping(
+                      context.read<SaveDataShopping>().state,
+                      context.read<SaveAddressShoppingCubit>().state!,
                       context.read<UserCubit>().state.code!,
                     );
               }
             } else {
-              // ignore: use_build_context_synchronously
               await showDialog(
                 context: context,
                 builder: (context) {
