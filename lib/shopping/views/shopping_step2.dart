@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:rmservice/shopping/widgets/method1_shopping_button.dart';
-import 'package:rmservice/shopping/widgets/method2_shopping_button.dart';
 import 'package:rmservice/utilities/constants/variable.dart';
 
 class ShoppingStep2Screen extends StatefulWidget {

@@ -26,6 +26,7 @@ class _FloatingStep4State extends State<FloatingStep4> {
   Widget build(BuildContext context) {
     final date = context.read<SaveDataShopping>().state.date;
     final time = context.read<SaveDataShopping>().state.time;
+    var saveDataShopping = context.watch<SaveDataShopping>().state;
 
     int timeToInt = time!.hour * 60 + time.minute;
     int timeEnd = time22Hours;
@@ -42,13 +43,16 @@ class _FloatingStep4State extends State<FloatingStep4> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(
-            NumberFormat.simpleCurrency(locale: 'vi-VN', decimalDigits: 0)
-                .format(context.watch<SaveDataShopping>().state.price),
-            style: TextStyle(
-              fontFamily: fontBoldApp,
-              fontSize: fontSize.mediumLarger + 1,
-              color: colorProject.primaryColor,
+          Expanded(
+            child: Text(
+              NumberFormat.simpleCurrency(locale: 'vi-VN', decimalDigits: 0)
+                  .format(
+                      saveDataShopping.price! + saveDataShopping.purchaseFee!),
+              style: TextStyle(
+                fontFamily: fontBoldApp,
+                fontSize: fontSize.mediumLarger + 1,
+                color: colorProject.primaryColor,
+              ),
             ),
           ),
           ButtonGreenApp(
@@ -101,6 +105,7 @@ class _FloatingStep4State extends State<FloatingStep4> {
                   context.read<SaveDataShopping>().state.toJson().toString());
             },
           ),
+          
         ],
       ),
     );

@@ -2,6 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:page_transition/page_transition.dart';
+import 'package:rmservice/login/cubit/user_cubit.dart';
+import 'package:rmservice/payment/views/payment.dart';
+import 'package:rmservice/shopping/cubits/order_shopping/order_shopping_cubit.dart';
+import 'package:rmservice/shopping/cubits/save_address.dart';
 import 'package:rmservice/shopping/cubits/save_data.dart';
 import 'package:rmservice/shopping/views/complete_shopping.dart';
 import 'package:rmservice/shopping/views/shopping_step5.dart';
@@ -19,6 +23,10 @@ class FloatingStep5 extends StatefulWidget {
 class _FloatingStep5State extends State<FloatingStep5> {
   @override
   Widget build(BuildContext context) {
+    final saveDataShopping = context.read<SaveDataShopping>().state;
+    final addressShopping = context.read<SaveAddressShoppingCubit>().state;
+    final userCode = context.read<UserCubit>().state.code;
+
     return Container(
       width: double.infinity,
       padding: EdgeInsets.only(
@@ -31,7 +39,8 @@ class _FloatingStep5State extends State<FloatingStep5> {
         children: [
           Text(
             NumberFormat.simpleCurrency(locale: 'vi-VN', decimalDigits: 0)
-                .format(context.watch<SaveDataShopping>().state.price),
+                .format(
+                    saveDataShopping.price! + saveDataShopping.purchaseFee!),
             style: TextStyle(
               fontFamily: fontBoldApp,
               fontSize: fontSize.mediumLarger + 1,
@@ -41,18 +50,24 @@ class _FloatingStep5State extends State<FloatingStep5> {
           ButtonGreenApp(
             label: AppLocalizations.of(context)!.nextLabel,
             onPressed: () async {
-
-              Navigator.push(
-                context,
-                PageTransition(
-                  duration: Duration(milliseconds: 400),
-                  type: PageTransitionType.rightToLeftWithFade,
-                  child: CompleteShoppingScreen(),
-                  childCurrent: ShoppingStep5Screen(),
-                ),
-              );
-
-
+              if (saveDataShopping.paymentMethod == 'PAYMENT_METHOD_CASH') {
+                context.read<OrderShoppingCubit>().orderShopping(
+                    saveDataShopping, addressShopping!, userCode!);
+              } else {
+                Navigator.push(
+                  context,
+                  PageTransition(
+                    duration: Duration(milliseconds: 400),
+                    type: PageTransitionType.rightToLeftWithFade,
+                    child: PayScreen(
+                      money: (saveDataShopping.price! +
+                              saveDataShopping.purchaseFee!)
+                          .toString(),
+                      service: 'GROCERY_ASSISTANT',
+                    ),
+                  ),
+                );
+              }
             },
           ),
         ],

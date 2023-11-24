@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:rmservice/air_conditioning_cleaning/cubit/save_info_air_conditioning_cleaning.dart';
-import 'package:rmservice/cleaning_hourly/cubits/save_info/save_info.dart';
 import 'package:rmservice/utilities/constants/variable.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -19,7 +18,7 @@ class _PickTimeWorkState extends State<PickTimeWork> {
   @override
   Widget build(BuildContext context) {
     TimeOfDay? time = TimeOfDay.fromDateTime(
-        context.read<SaveInfoCleaningHourlyCubit>().state.time!);
+        context.read<SaveInfoAirConditioningCleaningCubit>().state.time!);
 
     DateTime timeChoose = DateTime(1969, 1, 1, time.hour, time.minute);
 

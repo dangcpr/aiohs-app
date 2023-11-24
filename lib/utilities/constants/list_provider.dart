@@ -1,17 +1,30 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rmservice/air_conditioning_cleaning/cubit/save_info_air_conditioning_cleaning.dart';
 import 'package:rmservice/authentication_repository/authentication_repository.dart';
+import 'package:rmservice/cleaning_hourly/cubits/get_price_cleaning_hourly/get_price_cleaning_hourly_cubit.dart';
+import 'package:rmservice/cleaning_hourly/cubits/order_cleaning_hourly/order_cleaning_hourly_cubit.dart';
+import 'package:rmservice/cleaning_hourly/cubits/price_cleaning_hourly_cubit.dart';
 import 'package:rmservice/cleaning_hourly/cubits/save_info/save_address.dart';
 import 'package:rmservice/cooking/cubit/save_info_cooking.dart';
+import 'package:rmservice/cleaning_hourly/cubits/total_price_CH.dart';
 import 'package:rmservice/get_product/cubits/get_product/get_product_cubit.dart';
 import 'package:rmservice/home_route/cubits/get_first_time/get_first_time_cubit.dart';
 import 'package:rmservice/home_route/cubits/set_first_time/set_first_time_cubit.dart';
+import 'package:rmservice/laundry/cubits/get_price_laundry/get_price_laundry_cubit.dart';
+import 'package:rmservice/laundry/cubits/order_laundry/order_laundry_cubit.dart';
+import 'package:rmservice/laundry/cubits/price_laundry_cubit.dart';
+import 'package:rmservice/laundry/cubits/save_info_laundry_cubit.dart';
+import 'package:rmservice/laundry/cubits/update_price_laundry_cubit.dart';
 import 'package:rmservice/login/cubit/login_cubit.dart';
 import 'package:rmservice/login/cubit/user_cubit.dart';
 import 'package:rmservice/shopping/cubits/add_items.dart';
+import 'package:rmservice/shopping/cubits/get_shopping_price/get_shopping_price_cubit.dart';
+import 'package:rmservice/shopping/cubits/order_shopping/order_shopping_cubit.dart';
 import 'package:rmservice/shopping/cubits/save_address.dart';
 import 'package:rmservice/shopping/cubits/save_data.dart';
 import 'package:rmservice/shopping/cubits/save_price_shopping.dart';
+import 'package:rmservice/shopping/cubits/shopping_price_cubit.dart';
+import 'package:rmservice/shopping/models/shopping_price.dart';
 import 'package:rmservice/sign_up/cubits/signup_cubit.dart';
 import 'package:rmservice/worker_register/cubits/worker_cubit.dart';
 import 'package:rmservice/worker_register/cubits/worker_register/worker_register_cubit.dart';
@@ -39,14 +52,32 @@ final listProvider = [
   BlocProvider<SignupCubit>(
     create: (_) => SignupCubit(),
   ),
+
+  //Address
   BlocProvider<SaveAddressCubit>(
     create: (_) => SaveAddressCubit(),
   ),
-  BlocProvider<SaveAddressShoppingCubit>(
-    create: (_) => SaveAddressShoppingCubit(),
-  ),
+
+  //Cleaning Hourly
   BlocProvider<SaveInfoCleaningHourlyCubit>(
     create: (_) => SaveInfoCleaningHourlyCubit(),
+  ),
+  BlocProvider<GetPriceCleaningHourlyCubit>(
+    create: (_) => GetPriceCleaningHourlyCubit(),
+  ),
+  BlocProvider<PriceCleaningHourlyCubit>(
+    create: (_) => PriceCleaningHourlyCubit(),
+  ),
+  BlocProvider<TotalPriceCHCubit>(
+    create: (_) => TotalPriceCHCubit(),
+  ),
+  BlocProvider<OrderCleaningHourlyCubit>(
+    create: (_) => OrderCleaningHourlyCubit(),
+  ),
+
+  //Shopping
+  BlocProvider<SaveAddressShoppingCubit>(
+    create: (_) => SaveAddressShoppingCubit(),
   ),
   BlocProvider<SaveDataShopping>(
     create: (_) => SaveDataShopping(),
@@ -57,6 +88,17 @@ final listProvider = [
   BlocProvider<SavePriceShopping>(
     create: (_) => SavePriceShopping(),
   ),
+  BlocProvider<GetShoppingPriceCubit>(
+    create: (_) => GetShoppingPriceCubit(),
+  ),
+  BlocProvider<ShoppingPriceCubit>(
+    create: (_) => ShoppingPriceCubit(),
+  ),
+  BlocProvider<OrderShoppingCubit>(
+    create: (_) => OrderShoppingCubit(),
+  ),
+
+
   BlocProvider<SaveInfoCleaningLongTermCubit>(
     create: (_) => SaveInfoCleaningLongTermCubit(),
   ),
@@ -71,5 +113,22 @@ final listProvider = [
   ),
   BlocProvider<WorkerRegisterCubit>(
     create: (_) => WorkerRegisterCubit(),
+  ),
+
+  //Laundry
+  BlocProvider<SaveInfoLaundryCubit>(
+    create: (_) => SaveInfoLaundryCubit(),
+  ),
+  BlocProvider<GetPriceLaundryCubit>(
+    create: (_) => GetPriceLaundryCubit(),
+  ),
+  BlocProvider<PriceLaundryCubit>(
+    create: (_) => PriceLaundryCubit(),
+  ),
+  BlocProvider<UpdatePriceLaundryCubit>(
+    create: (_) => UpdatePriceLaundryCubit(),
+  ),
+  BlocProvider<OrderLaundryCubit>(
+    create: (_) => OrderLaundryCubit(),
   )
 ];

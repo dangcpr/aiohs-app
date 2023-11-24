@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:page_transition/page_transition.dart';
+import 'package:rmservice/air_conditioning_cleaning/views/air_conditioning_cleaning_screen_step2.dart';
 import 'package:rmservice/cleaning_hourly/cubits/save_info/save_address.dart';
 import 'package:rmservice/cleaning_hourly/cubits/save_info/save_info.dart';
-import 'package:rmservice/cleaning_hourly/views/cleaning_hourly_step1.dart';
-import 'package:rmservice/cleaning_hourly/views/cleaning_hourly_step2.dart';
 import 'package:rmservice/utilities/components/button_green.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:rmservice/utilities/components/dialog_wrong.dart';
@@ -101,8 +100,7 @@ class _ButtonNextStep1State extends State<ButtonNextStep1> {
             PageTransition(
               duration: Duration(milliseconds: 400),
               type: PageTransitionType.rightToLeftWithFade,
-              child: CleaningHourlyStep2Screen(),
-              childCurrent: CleaningHourlyStep1Screen(),
+              child: AirConditioningCleaningScreenStep2(),
             ),
           );
         },
