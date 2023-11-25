@@ -5,10 +5,10 @@ import 'package:rmservice/utilities/components/text_label.dart';
 import 'package:rmservice/utilities/components/text_sub_label.dart';
 import 'package:rmservice/utilities/constants/variable.dart';
 
-import '../../cleaning_hourly/widgets/note_for_maid.dart';
 import '../../cleaning_hourly/widgets/notice_step2.dart';
 import '../cubit/save_info_air_conditioning_cleaning.dart';
 import '../widgets/button_next_step2.dart';
+import '../widgets/notice_for_maid.dart';
 import '../widgets/pick_date_work.dart';
 import '../widgets/pick_time_work.dart';
 
