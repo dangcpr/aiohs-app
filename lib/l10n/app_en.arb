@@ -42,6 +42,8 @@
     "longTerm": "Long-term",
     "airConditioningCleaning": "Air conditioning\ncleaning",
     "shopping": "Shopping",
+    "laundry": "Laundry",
+    "cooking": "Cooking",
     "options" : "Options",
     "needRoomForShortTerm": "Need room for short-term?",
     "durationLabel": "Duration (not including added services)",
@@ -105,5 +107,8 @@
      "shoppingChoosePrice": "Choose price",
      "shoppingPriceDialog": "Estimated shopping amount",
     "shoppingPriceDialogSub": "Please enter the amount to be given to the collaborator from 100,000 to 3,000,000 VND (VND unit)",
-    "shoppingStep4Title": "Select delivery time"
+    "shoppingStep4Title": "Select delivery time",
+    "normalCleaning": "Normal cleaning",
+    "dryCleaning": "Dry cleaning",
+    "serviceCleaning": "Service cleaning"
 }

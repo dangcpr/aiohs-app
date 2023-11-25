@@ -7,7 +7,7 @@ import 'package:rmservice/utilities/constants/variable.dart';
 import '../../cleaning_hourly/cubits/save_info/save_address.dart';
 import '../../cleaning_hourly/views/maps.dart';
 import '../../cleaning_hourly/widgets/button_app_bar.dart';
-import '../../cleaning_hourly/widgets/text_label.dart';
+import '../../utilities/components/text_label.dart';
 import '../widgets/button_next_step1.dart';
 import '../widgets/duration_choices.dart';
 import '../widgets/month_choice.dart';

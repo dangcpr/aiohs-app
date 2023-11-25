@@ -8,7 +8,7 @@ import 'package:rmservice/utilities/constants/variable.dart';
 import '../../cleaning_hourly/widgets/location_info.dart';
 import '../../cleaning_hourly/widgets/method_payment.dart';
 import '../../cleaning_hourly/widgets/show_bottom_edit_name_phone.dart';
-import '../../cleaning_hourly/widgets/text_label.dart';
+import '../../utilities/components/text_label.dart';
 
 class CleaningLongTermStep2 extends StatefulWidget {
   const CleaningLongTermStep2({super.key});

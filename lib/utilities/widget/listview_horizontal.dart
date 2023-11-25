@@ -1,13 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:rmservice/air_conditioning_cleaning/views/air_conditioning_cleaning_page.dart';
+import 'package:rmservice/cleaning_hourly/cubits/get_price_cleaning_hourly/get_price_cleaning_hourly_cubit.dart';
 import 'package:rmservice/cleaning_hourly/views/cleaning_hourly_step1.dart';
 import 'package:rmservice/cleaning_longterm/cleaning_longterm.dart';
+import 'package:rmservice/cooking/cooking.dart';
+import 'package:rmservice/laundry/cubits/get_price_laundry/get_price_laundry_cubit.dart';
+import 'package:rmservice/laundry/views/laundry_step1.dart';
 import 'package:rmservice/main_page/main_page.dart';
+import 'package:rmservice/shopping/cubits/get_shopping_price/get_shopping_price_cubit.dart';
 import 'package:rmservice/shopping/views/shopping_step1.dart';
 
-import 'package:rmservice/utilities/constants/variable.dart';
 import '../cards/service_card.dart';
 
 class HorizontalListViewWithIndicator extends StatefulWidget {
@@ -39,6 +44,7 @@ class _HorizontalListViewWithIndicatorState
               childCurrent: MainPage(),
             ),
           );
+          context.read<GetPriceCleaningHourlyCubit>().getPriceCleaningHourly();
         },
       ),
       ServiceCard(
@@ -90,23 +96,57 @@ class _HorizontalListViewWithIndicatorState
               childCurrent: MainPage(),
             ),
           );
+          context.read<GetShoppingPriceCubit>().getShoppingPrice();
         },
       ),
       ServiceCard(
-        icon: Icons.menu,
+        icon: Icons.local_laundry_service,
         width: 50,
-        text: AppLocalizations.of(context)!.options,
+        text: AppLocalizations.of(context)!.laundry,
+        onPressed: () {
+          debugPrint('On pressed Shopping');
+          //Route
+          Navigator.push(
+            context,
+            PageTransition(
+              duration: Duration(milliseconds: 500),
+              type: PageTransitionType.rightToLeftWithFade,
+              child: LaundryStep1Screen(),
+              childCurrent: MainPage(),
+            ),
+          );
+          context.read<GetPriceLaundryCubit>().getPriceLaundry();
+        },
+      ),
+      ServiceCard(
+        icon: Icons.cookie,
+        width: 50,
+        text: AppLocalizations.of(context)!.cooking,
+        onPressed: () {
+           debugPrint('On pressed');
+          //Route
+          Navigator.push(
+            context,
+            PageTransition(
+              type: PageTransitionType.rightToLeftWithFade,
+              child: CookingPage(),
+              childCurrent: MainPage(),
+            ),
+          );
+        },
       ),
     ];
     return Wrap(
-      spacing: 12,
+      spacing: 16,
       runSpacing: 12,
+      alignment: WrapAlignment.spaceBetween,
       children: <Widget>[
         items[0],
         items[1],
         items[2],
         items[3],
         items[4],
+        items[5],
       ],
     );
   }

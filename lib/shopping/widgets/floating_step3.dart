@@ -131,6 +131,7 @@ class _FloatingStep3State extends State<FloatingStep3> {
                   context.read<SaveDataShopping>().state.price =
                       context.read<SavePriceShopping>().state;
                   debugPrint(context.read<SaveDataShopping>().state.toString());
+                  context.read<SaveDataShopping>().setItems(context.read<AddItemCubit>().state);
                   debugPrint("Lưu data");
                   Navigator.push(
                     context,

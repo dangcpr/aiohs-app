@@ -3,9 +3,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:rmservice/cleaning_hourly/cubits/save_info/save_address.dart';
 import 'package:rmservice/cleaning_hourly/cubits/save_info/save_info.dart';
+import 'package:rmservice/cleaning_hourly/cubits/total_price_CH.dart';
+import 'package:rmservice/cleaning_hourly/models/info_cleaning_hourly.dart';
 import 'package:rmservice/cleaning_hourly/views/cleaning_hourly_step1.dart';
 import 'package:rmservice/cleaning_hourly/views/cleaning_hourly_step2.dart';
-import 'package:rmservice/cleaning_hourly/widgets/dialog_wrong.dart';
+import 'package:rmservice/utilities/components/dialog_wrong.dart';
 import 'package:rmservice/utilities/components/button_green.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -19,6 +21,7 @@ class ButtonNextStep1 extends StatefulWidget {
 class _ButtonNextStep1State extends State<ButtonNextStep1> {
   @override
   Widget build(BuildContext context) {
+    InfoCleaningHourly info = context.read<SaveInfoCleaningHourlyCubit>().state;
     return Container(
       width: double.infinity,
       padding: EdgeInsets.only(
@@ -81,6 +84,7 @@ class _ButtonNextStep1State extends State<ButtonNextStep1> {
             );
             return;
           }
+          context.read<TotalPriceCHCubit>().setTotalPriceCH(info.price);
           Navigator.push(
             context,
             PageTransition(

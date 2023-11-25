@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-class CompleteShoppingScreen extends StatefulWidget {
-  const CompleteShoppingScreen({super.key});
+class CompleteScreen extends StatefulWidget {
+  const CompleteScreen({super.key});
 
   @override
-  State<CompleteShoppingScreen> createState() => _CompleteShoppingScreenState();
+  State<CompleteScreen> createState() => _CompleteScreenState();
 }
 
-class _CompleteShoppingScreenState extends State<CompleteShoppingScreen> {
+class _CompleteScreenState extends State<CompleteScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

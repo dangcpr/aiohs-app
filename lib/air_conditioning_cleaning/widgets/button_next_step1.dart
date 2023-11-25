@@ -5,13 +5,12 @@ import 'package:rmservice/air_conditioning_cleaning/cubit/save_info_air_conditio
 import 'package:rmservice/air_conditioning_cleaning/model/info_air_conditioning_cleaning.dart';
 import 'package:rmservice/air_conditioning_cleaning/views/air_conditioning_cleaning_screen_step2.dart';
 import 'package:rmservice/air_conditioning_cleaning/views/air_conditioning_cleaning_sreen_step1.dart';
+import 'package:rmservice/air_conditioning_cleaning/views/air_conditioning_cleaning_screen_step2.dart';
 import 'package:rmservice/cleaning_hourly/cubits/save_info/save_address.dart';
 import 'package:rmservice/cleaning_hourly/cubits/save_info/save_info.dart';
-import 'package:rmservice/cleaning_hourly/views/cleaning_hourly_step1.dart';
-import 'package:rmservice/cleaning_hourly/views/cleaning_hourly_step2.dart';
-import 'package:rmservice/cleaning_hourly/widgets/dialog_wrong.dart';
 import 'package:rmservice/utilities/components/button_green.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:rmservice/utilities/components/dialog_wrong.dart';
 
 class ButtonNextStep1 extends StatefulWidget {
   const ButtonNextStep1({super.key});

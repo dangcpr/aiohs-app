@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:rmservice/cleaning_hourly/widgets/text_label.dart';
-import 'package:rmservice/cleaning_hourly/widgets/text_sub_label.dart';
+import 'package:rmservice/utilities/components/text_label.dart';
+import 'package:rmservice/utilities/components/text_sub_label.dart';
 import 'package:rmservice/place_page/widgets/image_list_and_button.dart';
 import 'package:rmservice/utilities/components/text_field_basic.dart';
 import 'package:rmservice/utilities/components/text_field_long.dart';

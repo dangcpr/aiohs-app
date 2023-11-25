@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
 import 'package:rmservice/cleaning_hourly/constants/vaccum_icons_icons.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:rmservice/cleaning_hourly/cubits/price_cleaning_hourly_cubit.dart';
 
 class DurationClass {
   late int? duration;
@@ -64,7 +67,7 @@ class AddServiceClass {
   Map<String, dynamic> toJson() =>
       {'idService': idService, 'icon': icon, 'name': name, 'action': action};
 }
-
+NumberFormat numberFormat = NumberFormat.simpleCurrency(locale: 'vi-VN');
 List<AddServiceClass> getListAddService(BuildContext context) {
   return [
     AddServiceClass(
@@ -83,7 +86,7 @@ List<AddServiceClass> getListAddService(BuildContext context) {
       idService: 2,
       icon: Icons.cleaning_services,
       name: AppLocalizations.of(context)!.bringToolLabel,
-      action: '+ 30.000 VNĐ',
+      action: '+ ' + numberFormat.format(context.read<PriceCleaningHourlyCubit>().state.bringTools),
     ),
     AddServiceClass(
       idService: 3,

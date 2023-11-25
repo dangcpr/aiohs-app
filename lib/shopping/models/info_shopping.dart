@@ -1,11 +1,11 @@
 import 'package:rmservice/shopping/models/address_shopping.dart';
 
 class InfoShopping {
-  
   late AddressShopping? address;
   late int? methodOfShpping;
   late List<String>? listItems;
   late int? price;
+  late int? purchaseFee;
   late DateTime? date;
   late DateTime? time;
   late String? note;
@@ -16,10 +16,11 @@ class InfoShopping {
     this.methodOfShpping = 1,
     this.listItems = const [],
     this.price = 0,
+    this.purchaseFee = 0,
     this.date,
     this.time,
     this.note = "",
-    this.paymentMethod = 'cashing',
+    this.paymentMethod = 'PAYMENT_METHOD_CASH',
   });
 
   InfoShopping.fromJson(Map<String, dynamic> json) {
@@ -34,13 +35,13 @@ class InfoShopping {
   }
 
   Map<String, dynamic> toJson() => {
-    'address': address,
-    'methodOfShpping': methodOfShpping,
-    'listItems': listItems,
-    'price': price,
-    'date': date!.toIso8601String(),
-    'time': time!.toIso8601String(),
-    'note': note,
-    'paymentMethod': paymentMethod,
-  };
+        'address': address,
+        'methodOfShpping': methodOfShpping,
+        'listItems': listItems,
+        'price': price,
+        'date': date!.toIso8601String(),
+        'time': time!.toIso8601String(),
+        'note': note,
+        'paymentMethod': paymentMethod,
+      };
 }

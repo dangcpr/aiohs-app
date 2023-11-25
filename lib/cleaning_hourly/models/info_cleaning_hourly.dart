@@ -15,7 +15,7 @@ class InfoCleaningHourly {
   late DateTime? date;
   late DateTime? time;
   late String? note;
-  late int? price;
+  late int price;
   late String? paymentMethod;
 
   InfoCleaningHourly({
@@ -33,8 +33,8 @@ class InfoCleaningHourly {
     this.date,
     this.time,
     this.note = "",
-    this.price,
-    this.paymentMethod = "cash",
+    this.price = 0,
+    this.paymentMethod = "PAYMENT_METHOD_CASH",
   });
 
   InfoCleaningHourly.fromJson(Map<String, dynamic> json) {

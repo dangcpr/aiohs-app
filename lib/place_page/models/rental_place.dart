@@ -11,6 +11,8 @@ class RentalPlace {
   late String address;
   late double latitude;
   late double longitude;
+  late DateTime createdAt;
+  late DateTime expiredAt;
 
   RentalPlace({
     required this.id,
@@ -24,7 +26,9 @@ class RentalPlace {
     required this.images,
     required this.address,
     required this.latitude,
-    required this.longitude
+    required this.longitude,
+    required this.createdAt,
+    required this.expiredAt
   });
 
   RentalPlace.fromJson(Map<String, dynamic> json) {
@@ -40,6 +44,8 @@ class RentalPlace {
     address = json['address'];
     latitude = json['latitude'];
     longitude = json['longitude'];
+    createdAt = DateTime.parse(json['createdAt']);
+    expiredAt = DateTime.parse(json['expiredAt']);
   }
 
   Map<String, dynamic> toJson() => {
@@ -54,6 +60,8 @@ class RentalPlace {
     'images': images,
     'address': address,
     'latitude': latitude,
-    'longitude': longitude
+    'longitude': longitude,
+    'createdAt': createdAt.toIso8601String(),
+    'expiredAt': expiredAt.toIso8601String()
   };
 }

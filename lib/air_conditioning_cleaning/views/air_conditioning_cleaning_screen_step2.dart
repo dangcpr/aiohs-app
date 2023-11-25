@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:rmservice/utilities/components/text_label.dart';
+import 'package:rmservice/utilities/components/text_sub_label.dart';
 import 'package:rmservice/utilities/constants/variable.dart';
 
 import '../../cleaning_hourly/widgets/notice_step2.dart';
-import '../../cleaning_hourly/widgets/text_label.dart';
-import '../../cleaning_hourly/widgets/text_sub_label.dart';
 import '../cubit/save_info_air_conditioning_cleaning.dart';
 import '../widgets/button_next_step2.dart';
 import '../widgets/notice_for_maid.dart';
