@@ -5,11 +5,17 @@ import 'package:rmservice/cleaning_longterm/model/info_cleaning_longterm.dart';
 class SaveInfoAirConditioningCleaningCubit
     extends Cubit<InfoAirConditioningCleaning> {
   SaveInfoAirConditioningCleaningCubit()
-      : super(InfoAirConditioningCleaning(time: DateTime.now(), details: []));
+      : super(InfoAirConditioningCleaning(
+            time: DateTime.now(),
+            details: [],
+            date: DateTime.now().add(Duration(days: 1))));
 
   void setInitial() {
     InfoAirConditioningCleaning infoAirConditioningCleaning =
-        new InfoAirConditioningCleaning(time: DateTime.now(), details: []);
+        new InfoAirConditioningCleaning(
+            time: DateTime.now(),
+            details: [],
+            date: DateTime.now().add(Duration(days: 1)));
     emit(infoAirConditioningCleaning);
   }
 

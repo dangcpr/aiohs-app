@@ -3,8 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:rmservice/air_conditioning_cleaning/cubit/save_info_air_conditioning_cleaning.dart';
 import 'package:rmservice/air_conditioning_cleaning/model/info_air_conditioning_cleaning.dart';
-import 'package:rmservice/cleaning_hourly/constants/cleaning_hourly_const.dart';
-import 'package:rmservice/cleaning_hourly/cubits/save_info/save_info.dart';
 import 'package:rmservice/utilities/constants/variable.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -23,7 +21,7 @@ class _WorkInfoCleaningAirConditioningState
   @override
   Widget build(BuildContext context) {
     String locale = Localizations.localeOf(context).languageCode;
-    final infoCleaningHourly =
+    final infoAirCleaning =
         context.read<SaveInfoAirConditioningCleaningCubit>().state;
 
     return Container(
@@ -56,7 +54,7 @@ class _WorkInfoCleaningAirConditioningState
                 SizedBox(width: 8),
                 Flexible(
                   child: Text(
-                    '${DateFormat.yMMMMEEEEd(locale).format(infoCleaningHourly.date!)}, ${DateFormat.Hm(locale).format(infoCleaningHourly.time!)}',
+                    '${DateFormat.yMMMMEEEEd(locale).format(infoAirCleaning.date!)}, ${DateFormat.Hm(locale).format(infoAirCleaning.time!)}',
                     style: TextStyle(
                       fontSize: fontSize.medium,
                       fontFamily: fontApp,
@@ -77,7 +75,7 @@ class _WorkInfoCleaningAirConditioningState
                 SizedBox(width: 8),
                 Flexible(
                   child: Text(
-                    '${infoCleaningHourly.realDuration!} ${AppLocalizations.of(context)!.hourLabel}, ${AppLocalizations.of(context)!.fromLabel} ${DateFormat.Hm(locale).format(infoCleaningHourly.time!)} ${AppLocalizations.of(context)!.toLabel} ${DateFormat.Hm(locale).format(infoCleaningHourly.time!.add(Duration(hours: infoCleaningHourly.realDuration!)))}',
+                    '${infoAirCleaning.realDuration!} ${AppLocalizations.of(context)!.hourLabel}, ${AppLocalizations.of(context)!.fromLabel} ${DateFormat.Hm(locale).format(infoAirCleaning.time!)} ${AppLocalizations.of(context)!.toLabel} ${DateFormat.Hm(locale).format(infoAirCleaning.time!.add(Duration(hours: infoAirCleaning.realDuration!)))}',
                     style: TextStyle(
                       fontSize: fontSize.medium,
                       fontFamily: fontApp,
@@ -98,10 +96,11 @@ class _WorkInfoCleaningAirConditioningState
             ),
             SizedBox(height: 5),
             ListView.builder(
-              itemCount: infoCleaningHourly.details.length,
+              itemCount: infoAirCleaning.details.length,
               shrinkWrap: true,
+              physics: NeverScrollableScrollPhysics(),
               itemBuilder: (context, index) {
-                Details detail = infoCleaningHourly.details[index];
+                Details detail = infoAirCleaning.details[index];
                 return Padding(
                   padding: const EdgeInsets.symmetric(
                       horizontal: padding.paddingSmall),

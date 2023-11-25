@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:rmservice/air_conditioning_cleaning/views/air_conditioning_cleaning_screen_step2.dart';
-import 'package:rmservice/cleaning_hourly/cubits/save_info/save_info.dart';
 import 'package:rmservice/cleaning_hourly/widgets/dialog_wrong.dart';
 import 'package:rmservice/utilities/components/button_green.dart';
 import 'package:rmservice/utilities/constants/variable.dart';
@@ -130,12 +129,6 @@ class _ButtonNextStep2State extends State<ButtonNextStep2> {
                   childCurrent: AirConditioningCleaningScreenStep2(),
                 ),
               );
-
-              debugPrint(context
-                  .read<SaveInfoAirConditioningCleaningCubit>()
-                  .state
-                  .toJson()
-                  .toString());
             },
           ),
         ],
