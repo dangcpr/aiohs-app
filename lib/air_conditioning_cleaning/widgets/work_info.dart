@@ -130,7 +130,54 @@ class _WorkInfoCleaningAirConditioningState
                   ),
                 );
               },
-            )
+            ),
+            if (context
+                .read<SaveInfoAirConditioningCleaningCubit>()
+                .state
+                .note!
+                .isNotEmpty)
+              Text(
+                AppLocalizations.of(context)!.noticeForMaidLabel,
+                style: TextStyle(
+                  fontSize: fontSize.medium,
+                  fontFamily: fontBoldApp,
+                  color: widget.isDarkMode ? Colors.white : Colors.black,
+                ),
+              ),
+            if (context
+                .read<SaveInfoAirConditioningCleaningCubit>()
+                .state
+                .note!
+                .isNotEmpty)
+              SizedBox(height: 5),
+            if (context
+                .read<SaveInfoAirConditioningCleaningCubit>()
+                .state
+                .note!
+                .isNotEmpty)
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Icon(
+                    Icons.notes,
+                    color: colorProject.primaryColor,
+                  ),
+                  SizedBox(width: 8),
+                  Flexible(
+                    child: Text(
+                      context
+                          .read<SaveInfoAirConditioningCleaningCubit>()
+                          .state
+                          .note!,
+                      style: TextStyle(
+                        fontSize: fontSize.medium,
+                        fontFamily: fontApp,
+                        color: widget.isDarkMode ? Colors.white : Colors.black,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
           ],
         ),
       ),

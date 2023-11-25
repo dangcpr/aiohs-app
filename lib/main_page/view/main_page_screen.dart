@@ -64,11 +64,6 @@ class _MainPageState extends State<MainPage> {
                 HorizontalListViewWithIndicator(),
                 const SizedBox(height: 15),
                 ButtonPostJob(),
-                TextButton(
-                    onPressed: () {},
-                    child: Text(
-                      "Test",
-                    ))
               ],
             ),
           ),
