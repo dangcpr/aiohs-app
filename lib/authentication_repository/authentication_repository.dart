@@ -7,6 +7,7 @@ import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:dio/dio.dart';
 import 'package:rmservice/authentication_repository/login_model.dart';
 import 'package:rmservice/login/models/user.dart';
+import 'package:rmservice/utilities/constants/variable.dart';
 
 enum AuthenticationStatus {
   unknown,
@@ -17,8 +18,6 @@ enum AuthenticationStatus {
 }
 
 class AuthenticationRepository {
-  final baseUrl = 'http://192.168.72.128:9000';
-
   //ignore: close_sinks
   final _controller = StreamController<AuthenticationStatus>();
 
@@ -54,7 +53,7 @@ class AuthenticationRepository {
     var options = BaseOptions(
       contentType: 'application/json',
       method: 'POST',
-      baseUrl: baseUrl,
+      baseUrl: debugServer,
       validateStatus: (status) {
         return status! < 500;
       },
@@ -120,7 +119,7 @@ class AuthenticationRepository {
     var options = BaseOptions(
       contentType: 'application/json',
       method: 'POST',
-      baseUrl: baseUrl,
+      baseUrl: debugServer,
     );
     final dio = Dio(options);
     try {

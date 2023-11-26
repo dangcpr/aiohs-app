@@ -43,6 +43,17 @@ class _ButtonNextStep1State extends State<ButtonNextStep1> {
                 });
             return;
           }
+          if (context.read<SaveInfoCleaningLongTermCubit>().state.days.length ==
+              0) {
+            showDialog(
+                context: context,
+                builder: (context) {
+                  return DialogWrong(
+                    notification: "Vui lòng chọn ngày làm việc làm việc",
+                  );
+                });
+            return;
+          }
           Navigator.push(
             context,
             PageTransition(
