@@ -30,6 +30,7 @@ class PayScreen extends StatefulWidget {
 }
 
 class _PayScreenState extends State<PayScreen> {
+  double progress = 0;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -42,61 +43,81 @@ class _PayScreenState extends State<PayScreen> {
           ),
         ),
       ),
-      body: InAppWebView(
-        initialUrlRequest: URLRequest(
-            url: Uri.parse(
-                "https://vnpay-aiohs.onrender.com/order/create_payment_url"),
-            method: 'POST',
-            body: Uint8List.fromList(
-                utf8.encode("amount=${widget.money}&bankCode=&language=vn")),
-            headers: {'Content-Type': 'application/x-www-form-urlencoded'}),
-        onWebViewCreated: (controller) {
-          debugPrint("Open web success");
-        },
-        onLoadStop: (controller, url) async {
-          if (url.toString().contains("/order/vnpay_return")) {
-            var response = await controller.evaluateJavascript(
-                source: 'document.body.innerText');
-            var code = jsonDecode(response)['code'];
-            Navigator.pop(context);
-            // Navigator.push(
-            //     context,
-            //     MaterialPageRoute(
-            //         builder: (context) => ResultScreen(result: code)));
-            // debugPrint(code);
-            if (code == "00") {
-              if (widget.service == 'LAUNDRY') {
-                context.read<OrderLaundryCubit>().orderLaundry(
-                      context.read<SaveInfoLaundryCubit>().state,
-                      context.read<SaveAddressCubit>().state!,
-                      context.read<UserCubit>().state.code!,
+      body: Column(
+        children: [
+          if (progress < 100)
+            LinearProgressIndicator(
+              value: progress / 100,
+              color: colorProject.primaryColor,
+            ),
+          Expanded(
+            child: InAppWebView(
+              initialUrlRequest: URLRequest(
+                  url: Uri.parse(
+                      "https://vnpay-aiohs.onrender.com/order/create_payment_url"),
+                  method: 'POST',
+                  body: Uint8List.fromList(utf8.encode("amount=${widget.money}&bankCode=&language=vn")),
+                  headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                  }),
+              onWebViewCreated: (controller) {
+                debugPrint("Open web success");
+              },
+              onProgressChanged: (controller, progress) {
+                debugPrint("progress: $progress");
+                setState(() {
+                  this.progress = progress / 1;
+                });
+              },
+              onLoadStop: (controller, url) async {
+                if (url.toString().contains("/order/vnpay_return")) {
+                  var response = await controller.evaluateJavascript(
+                      source: 'document.body.innerText');
+                  var code = jsonDecode(response)['code'];
+                  Navigator.pop(context);
+                  // Navigator.push(
+                  //     context,
+                  //     MaterialPageRoute(
+                  //         builder: (context) => ResultScreen(result: code)));
+                  // debugPrint(code);
+                  if (code == "00") {
+                    if (widget.service == 'LAUNDRY') {
+                      context.read<OrderLaundryCubit>().orderLaundry(
+                            context.read<SaveInfoLaundryCubit>().state,
+                            context.read<SaveAddressCubit>().state!,
+                            context.read<UserCubit>().state.code!,
+                          );
+                      context.read<OrderLaundryCubit>().setInit();
+                    } else if (widget.service == 'CLEAN_ON_DEMAND') {
+                      context
+                          .read<OrderCleaningHourlyCubit>()
+                          .orderCleaningHourly(
+                            context.read<SaveInfoCleaningHourlyCubit>().state,
+                            context.read<SaveAddressCubit>().state!,
+                            context.read<UserCubit>().state.code!,
+                          );
+                    } else if (widget.service == 'GROCERY_ASSISTANT') {
+                      context.read<OrderShoppingCubit>().orderShopping(
+                            context.read<SaveDataShopping>().state,
+                            context.read<SaveAddressShoppingCubit>().state!,
+                            context.read<UserCubit>().state.code!,
+                          );
+                    }
+                  } else {
+                    await showDialog(
+                      context: context,
+                      builder: (context) {
+                        return DialogWrong(
+                          notification: "Thanh toán thất bại. Vui lòng thử lại",
+                        );
+                      },
                     );
-                context.read<OrderLaundryCubit>().setInit();
-              } else if (widget.service == 'CLEAN_ON_DEMAND') {
-                context.read<OrderCleaningHourlyCubit>().orderCleaningHourly(
-                      context.read<SaveInfoCleaningHourlyCubit>().state,
-                      context.read<SaveAddressCubit>().state!,
-                      context.read<UserCubit>().state.code!,
-                    );
-              } else if (widget.service == 'GROCERY_ASSISTANT') {
-                context.read<OrderShoppingCubit>().orderShopping(
-                      context.read<SaveDataShopping>().state,
-                      context.read<SaveAddressShoppingCubit>().state!,
-                      context.read<UserCubit>().state.code!,
-                    );
-              }
-            } else {
-              await showDialog(
-                context: context,
-                builder: (context) {
-                  return DialogWrong(
-                    notification: "Thanh toán thất bại. Vui lòng thử lại",
-                  );
-                },
-              );
-            }
-          }
-        },
+                  }
+                }
+              },
+            ),
+          ),
+        ],
       ),
     );
   }

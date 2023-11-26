@@ -3,11 +3,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rmservice/account/account.dart';
 import 'package:rmservice/get_product/cubits/get_product/get_product_cubit.dart';
 import 'package:rmservice/get_product/cubits/get_product/get_product_state.dart';
+import 'package:rmservice/history/views/history.dart';
 import 'package:rmservice/main_page/main_page.dart';
 import 'package:rmservice/message_page/message_page.dart';
 import 'package:rmservice/profile/profile.dart';
 import 'package:rmservice/shopping/widgets/dialog_wrong.dart';
-import 'package:rmservice/utilities/constants/function.dart';
 import 'package:rmservice/utilities/constants/variable.dart';
 
 import '../../place_page/views/place_page.dart';
@@ -21,6 +21,7 @@ class HomePageState extends State<HomePage> {
   int myCurrentIndex = 0;
   List pages = const [
     MainPage(),
+    HistoryPage(),
     PlacePage(),
     MessagePage(),
     AccountPage(),
@@ -128,6 +129,13 @@ class HomePageState extends State<HomePage> {
                       color: colorProject.primaryColor,
                     ),
                     label: "Home",
+                  ),
+                  BottomNavigationBarItem(
+                    icon: Icon(
+                      Icons.history,
+                      color: colorProject.primaryColor,
+                    ),
+                    label: "History",
                   ),
                   BottomNavigationBarItem(
                     icon: Icon(
