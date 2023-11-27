@@ -36,7 +36,7 @@ class _CleaningHourlyStep1ScreenState extends State<CleaningHourlyStep1Screen> {
     var brightness = MediaQuery.of(context).platformBrightness;
     bool isDarkMode = brightness == Brightness.dark;
     var priceCleaningHourlyCubit = context.read<PriceCleaningHourlyCubit>();
-    //InfoCleaningHourly infoCleaningHourly = InfoCleaningHourly();
+    var infoCleaningHourly = context.read<SaveInfoCleaningHourlyCubit>().state;
 
     @override
     void initState() {
@@ -82,6 +82,7 @@ class _CleaningHourlyStep1ScreenState extends State<CleaningHourlyStep1Screen> {
 
           if (state is GetPriceCleaningHourlySuccess) {
             priceCleaningHourlyCubit.setPriceCleaningHourly(state.cleaningHourlyPrice);
+            
             debugPrint(jsonEncode(priceCleaningHourlyCubit.state));
             return Padding(
               padding: const EdgeInsets.only(left: 20, right: 20, bottom: 90),
