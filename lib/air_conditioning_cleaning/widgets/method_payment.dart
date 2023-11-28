@@ -1,20 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:rmservice/cleaning_hourly/cubits/save_info/save_info.dart';
+import 'package:rmservice/air_conditioning_cleaning/cubit/save_info_air_conditioning_cleaning.dart';
 import 'package:rmservice/utilities/constants/payment_method.dart';
 import 'package:rmservice/utilities/constants/variable.dart';
 
-class MethodPaymentCleaningHourly extends StatefulWidget {
-  const MethodPaymentCleaningHourly({super.key, required this.isDarkMode});
+class MethodPayment extends StatefulWidget {
+  const MethodPayment({super.key, required this.isDarkMode});
   final bool isDarkMode;
 
   @override
-  State<MethodPaymentCleaningHourly> createState() =>
-      _MethodPaymentCleaningHourlyState();
+  State<MethodPayment> createState() => _MethodPaymentState();
 }
 
-class _MethodPaymentCleaningHourlyState
-    extends State<MethodPaymentCleaningHourly> {
+class _MethodPaymentState extends State<MethodPayment> {
   int value = 0;
   @override
   Widget build(BuildContext context) {
@@ -26,7 +24,7 @@ class _MethodPaymentCleaningHourlyState
               value = 0;
             });
             context
-                .read<SaveInfoCleaningHourlyCubit>()
+                .read<SaveInfoAirConditioningCleaningCubit>()
                 .updatePaymentMethod(paymentMethodCode[value]);
           },
           child: Container(
@@ -76,7 +74,7 @@ class _MethodPaymentCleaningHourlyState
               value = 1;
             });
             context
-                .read<SaveInfoCleaningHourlyCubit>()
+                .read<SaveInfoAirConditioningCleaningCubit>()
                 .updatePaymentMethod(paymentMethodCode[value]);
           },
           child: Container(

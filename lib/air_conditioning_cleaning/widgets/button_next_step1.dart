@@ -11,6 +11,7 @@ import 'package:rmservice/cleaning_hourly/cubits/save_info/save_info.dart';
 import 'package:rmservice/utilities/components/button_green.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:rmservice/utilities/components/dialog_wrong.dart';
+import 'package:rmservice/utilities/constants/variable.dart';
 
 class ButtonNextStep1 extends StatefulWidget {
   const ButtonNextStep1({super.key});

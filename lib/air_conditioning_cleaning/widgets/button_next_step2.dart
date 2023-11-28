@@ -2,7 +2,9 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
 import 'package:page_transition/page_transition.dart';
+import 'package:rmservice/air_conditioning_cleaning/cubit/price_air_cond_cubit.dart';
 import 'package:rmservice/air_conditioning_cleaning/views/air_conditioning_cleaning_screen_step2.dart';
 import 'package:rmservice/utilities/components/button_green.dart';
 import 'package:rmservice/utilities/components/dialog_wrong.dart';
@@ -31,14 +33,19 @@ class _ButtonNextStep2State extends State<ButtonNextStep2> {
     final time =
         context.read<SaveInfoAirConditioningCleaningCubit>().state.time;
 
-    int timeToInt = time!.hour * 60 + time.minute;
-    int duration = context
+    var airCondPrice = context.read<AirCondPriceCubit>().state;
+    var totalPrice = context
         .read<SaveInfoAirConditioningCleaningCubit>()
-        .state
-        .realDuration!;
+        .totalPrice(airCondPrice);
+
+    int timeToInt = time!.hour * 60 + time.minute;
+    int duration =
+        context.read<SaveInfoAirConditioningCleaningCubit>().state.realDuration;
     int timeEnd = time23Hours - duration * 60;
 
     debugPrint(timeToInt.toString() + ' ' + timeEnd.toString());
+
+    NumberFormat numberFormat = NumberFormat.simpleCurrency(locale: 'vi-VN');
 
     return Container(
       width: double.infinity,
@@ -51,8 +58,8 @@ class _ButtonNextStep2State extends State<ButtonNextStep2> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(
-            "200.000" +
-                " VNĐ - " +
+            numberFormat.format(totalPrice) +
+                ' - ' +
                 context
                     .read<SaveInfoAirConditioningCleaningCubit>()
                     .state

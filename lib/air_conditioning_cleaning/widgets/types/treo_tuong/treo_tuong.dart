@@ -17,11 +17,11 @@ class _TreoTuongState extends State<TreoTuong> {
     return Column(
       children: [
         AnimatedContanierTreoTuongCustom(
-          text: 'Dưới 2HP',
+          text: 'Below 2HP',
         ),
         sizedBox.largeHeight(),
         AnimatedContanierTreoTuongCustom(
-          text: 'Trên 2HP',
+          text: 'Above 2HP',
         ),
         sizedBox.largeHeight(),
         Footer(),

@@ -17,7 +17,7 @@ class _TuDungState extends State<TuDung> {
     return Column(
       children: [
         AnimatedContanierTuDungCustom(
-          text: 'Tủ đứng',
+          text: 'Portable',
         ),
         sizedBox.largeHeight(),
         Footer(),

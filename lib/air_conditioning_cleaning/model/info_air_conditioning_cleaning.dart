@@ -8,11 +8,11 @@ class InfoAirConditioningCleaning {
   late String? shortAddress;
   late String? address;
   late int? duration;
-  late int? realDuration;
+  late int realDuration;
   late DateTime? date;
   late DateTime? time;
   late String? note;
-  late int? price;
+  late int price;
   late String? paymentMethod;
   late List<Details> details;
 
@@ -22,13 +22,13 @@ class InfoAirConditioningCleaning {
     this.shortAddress,
     this.address,
     this.duration = 2,
-    this.realDuration = 2,
+    this.realDuration = 0,
     this.date,
     this.time,
     this.note = "",
-    this.price,
+    this.price = 0,
     required this.details,
-    this.paymentMethod = "cash",
+    this.paymentMethod = "PAYMENT_METHOD_CASH",
   });
 
   InfoAirConditioningCleaning.fromJson(Map<String, dynamic> json) {

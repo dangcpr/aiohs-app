@@ -17,7 +17,7 @@ class _GiauTranState extends State<GiauTran> {
     return Column(
       children: [
         AnimatedContanierGiauTranCustom(
-          text: 'Giấu trần',
+          text: 'Build_in',
         ),
         sizedBox.largeHeight(),
         Footer(),

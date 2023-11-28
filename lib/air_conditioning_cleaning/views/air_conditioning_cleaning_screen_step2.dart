@@ -23,18 +23,6 @@ class AirConditioningCleaningScreenStep2 extends StatefulWidget {
 class _AirConditioningCleaningScreenStep2State
     extends State<AirConditioningCleaningScreenStep2> {
   @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    final cubit = context.read<SaveInfoAirConditioningCleaningCubit>();
-    print('End data: ${cubit.state.details.length}');
-    print('End data: ${cubit.state.time}');
-    print('End data: ${cubit.state.note}');
-    print('End data: ${cubit.state.date}');
-    print('End data: ${cubit.state.duration}');
-  }
-
-  @override
   Widget build(BuildContext context) {
     var brightness = MediaQuery.of(context).platformBrightness;
     bool isDarkMode = brightness == Brightness.dark;

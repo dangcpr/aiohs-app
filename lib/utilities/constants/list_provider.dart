@@ -1,10 +1,14 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:rmservice/air_conditioning_cleaning/cubit/get_price_air_cond/get_price_air_cond_cubit.dart';
+import 'package:rmservice/air_conditioning_cleaning/cubit/order_air_cond/order_air_cond_cubit.dart';
+import 'package:rmservice/air_conditioning_cleaning/cubit/price_air_cond_cubit.dart';
 import 'package:rmservice/air_conditioning_cleaning/cubit/save_info_air_conditioning_cleaning.dart';
 import 'package:rmservice/authentication_repository/authentication_repository.dart';
 import 'package:rmservice/cleaning_hourly/cubits/get_price_cleaning_hourly/get_price_cleaning_hourly_cubit.dart';
 import 'package:rmservice/cleaning_hourly/cubits/order_cleaning_hourly/order_cleaning_hourly_cubit.dart';
 import 'package:rmservice/cleaning_hourly/cubits/price_cleaning_hourly_cubit.dart';
 import 'package:rmservice/cleaning_hourly/cubits/save_info/save_address.dart';
+import 'package:rmservice/cooking/cubit/get_price_cooking/get_price_cooking_cubit.dart';
 import 'package:rmservice/cooking/cubit/save_info_cooking.dart';
 import 'package:rmservice/cleaning_hourly/cubits/total_price_CH.dart';
 import 'package:rmservice/get_product/cubits/get_product/get_product_cubit.dart';
@@ -31,6 +35,7 @@ import 'package:rmservice/worker_register/cubits/worker_register/worker_register
 
 import '../../cleaning_hourly/cubits/save_info/save_info.dart';
 import '../../cleaning_longterm/cubit/save_info_cubit.dart';
+import '../../cooking/cubit/price_cooking_cubit.dart';
 
 final listProvider = [
   BlocProvider<SetFirstTimeCubit>(
@@ -98,19 +103,40 @@ final listProvider = [
     create: (_) => OrderShoppingCubit(),
   ),
 
-
+  // cleaning long-term
   BlocProvider<SaveInfoCleaningLongTermCubit>(
     create: (_) => SaveInfoCleaningLongTermCubit(),
   ),
+
+  // air conditioning cleaning
   BlocProvider<SaveInfoAirConditioningCleaningCubit>(
     create: (_) => SaveInfoAirConditioningCleaningCubit(),
   ),
+  BlocProvider<GetPriceAirCondCubit>(
+    create: (_) => GetPriceAirCondCubit(),
+  ),
+  BlocProvider<AirCondPriceCubit>(
+    create: (_) => AirCondPriceCubit(),
+  ),
+  BlocProvider<OrderAirCondCubit>(
+    create: (_) => OrderAirCondCubit(),
+  ),
+
+  // cooking
   BlocProvider<SaveInfoCookingCubit>(
     create: (_) => SaveInfoCookingCubit(),
   ),
+  BlocProvider<GetPriceCookingCubit>(
+    create: (_) => GetPriceCookingCubit(),
+  ),
+  BlocProvider<CookingPriceCubit>(
+    create: (_) => CookingPriceCubit(),
+  ),
+
   BlocProvider<WorkerCubit>(
     create: (_) => WorkerCubit(),
   ),
+
   BlocProvider<WorkerRegisterCubit>(
     create: (_) => WorkerRegisterCubit(),
   ),

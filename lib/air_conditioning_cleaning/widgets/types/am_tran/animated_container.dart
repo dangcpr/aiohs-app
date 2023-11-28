@@ -11,16 +11,17 @@ class AnimatedContanierCustomAmTran extends StatefulWidget {
 
   @override
   State<AnimatedContanierCustomAmTran> createState() =>
-      _AnimatedContanierCustomAmTranState();
+      _AnimatedContanierCustomAmTranCustomState();
 }
 
-class _AnimatedContanierCustomAmTranState
+class _AnimatedContanierCustomAmTranCustomState
     extends State<AnimatedContanierCustomAmTran> {
   bool isSwitched = false;
   bool select = false;
   int count = 1;
   late Details detail;
   late int index;
+
   @override
   Widget build(BuildContext context) {
     final cubit = context.read<SaveInfoAirConditioningCleaningCubit>();
@@ -94,8 +95,8 @@ class _AnimatedContanierCustomAmTranState
                               setState(() {
                                 count++;
                                 cubit.state.details[index].amount = count;
-                                print(cubit.printListItem);
                               });
+                              print(cubit.printListItem);
                             },
                             child: Icon(Icons.add),
                           ),
@@ -121,8 +122,8 @@ class _AnimatedContanierCustomAmTranState
                             setState(() {
                               isSwitched = value;
                               cubit.state.details[index].hasGas = isSwitched;
-                              print(cubit.printListItem);
                             });
+                            print(cubit.printListItem);
                           },
                         ),
                       ),
@@ -159,11 +160,13 @@ class _AnimatedContanierCustomAmTranState
               onTap: () {
                 setState(() {
                   select = !select;
-                  detail =
-                      cubit.createNewDetail(type: 'Âm trần', info: widget.text);
+                  detail = cubit.createNewDetail(
+                      type: 'Cassette', info: widget.text);
                   index = cubit.checkIndex(detail, cubit.state.details);
-                  print(cubit.printListItem);
+                  count = cubit.state.details[index].amount;
+                  isSwitched = cubit.state.details[index].hasGas;
                 });
+                print(cubit.printListItem);
               },
               child: Icon(Icons.keyboard_arrow_down_outlined),
             ),

@@ -174,14 +174,21 @@ class _ServiceBonusState extends State<ServiceBonus> {
                             onChanged: (value) {
                               int valueTemp = int.parse(value);
                               setState(() {
-                                context
-                                    .read<SaveInfoCookingCubit>()
-                                    .state
-                                    .bonusService = valueTemp;
-                                print(context
-                                    .read<SaveInfoCookingCubit>()
-                                    .state
-                                    .bonusService);
+                                if (value.isNotEmpty) {
+                                  context
+                                      .read<SaveInfoCookingCubit>()
+                                      .state
+                                      .bonusService = valueTemp;
+                                  print(context
+                                      .read<SaveInfoCookingCubit>()
+                                      .state
+                                      .bonusService);
+                                } else if (value.isEmpty) {
+                                  context
+                                      .read<SaveInfoCookingCubit>()
+                                      .state
+                                      .bonusService = 0;
+                                }
                               });
                             },
                           ),

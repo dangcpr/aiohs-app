@@ -160,8 +160,8 @@ class _AnimatedContanierTreoTuongCustomState
               onTap: () {
                 setState(() {
                   select = !select;
-                  detail = cubit.createNewDetail(
-                      type: 'Treo Tường', info: widget.text);
+                  detail =
+                      cubit.createNewDetail(type: 'Wall', info: widget.text);
                   index = cubit.checkIndex(detail, cubit.state.details);
                   count = cubit.state.details[index].amount;
                   isSwitched = cubit.state.details[index].hasGas;

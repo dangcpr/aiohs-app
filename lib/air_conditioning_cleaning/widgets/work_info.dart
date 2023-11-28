@@ -82,7 +82,7 @@ class _WorkInfoCleaningAirConditioningState
                 SizedBox(width: 8),
                 Flexible(
                   child: Text(
-                    '${infoAirCleaning.realDuration!} ${AppLocalizations.of(context)!.hourLabel}, ${AppLocalizations.of(context)!.fromLabel} ${DateFormat.Hm(locale).format(infoAirCleaning.time!)} ${AppLocalizations.of(context)!.toLabel} ${DateFormat.Hm(locale).format(infoAirCleaning.time!.add(Duration(hours: infoAirCleaning.realDuration!)))}',
+                    '${infoAirCleaning.realDuration} ${AppLocalizations.of(context)!.hourLabel}, ${AppLocalizations.of(context)!.fromLabel} ${DateFormat.Hm(locale).format(infoAirCleaning.time!)} ${AppLocalizations.of(context)!.toLabel} ${DateFormat.Hm(locale).format(infoAirCleaning.time!.add(Duration(hours: infoAirCleaning.realDuration!)))}',
                     style: TextStyle(
                       fontSize: fontSize.medium,
                       fontFamily: fontApp,
@@ -108,27 +108,30 @@ class _WorkInfoCleaningAirConditioningState
               physics: NeverScrollableScrollPhysics(),
               itemBuilder: (context, index) {
                 Details detail = infoAirCleaning.details[index];
-                return Padding(
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: padding.paddingSmall),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Text('${detail.type} - ${detail.detail}'),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text('Công việc:'),
-                          detail.hasGas
-                              ? Text('Vệ sinh, Bơm gas: x${detail.amount}')
-                              : Text('Vệ sinh: x${detail.amount}'),
-                        ],
-                      ),
-                      const Divider(),
-                    ],
-                  ),
-                );
+                return detail.amount != 0
+                    ? Padding(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: padding.paddingSmall),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Text('${detail.type} - ${detail.detail}'),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text('Công việc:'),
+                                detail.hasGas
+                                    ? Text(
+                                        'Vệ sinh, Bơm gas: x${detail.amount}')
+                                    : Text('Vệ sinh: x${detail.amount}'),
+                              ],
+                            ),
+                            const Divider(),
+                          ],
+                        ),
+                      )
+                    : SizedBox();
               },
             ),
             if (context

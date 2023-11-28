@@ -18,11 +18,11 @@ class _AmtranState extends State<Amtran> {
     return Column(
       children: [
         AnimatedContanierCustomAmTran(
-          text: 'Dưới 3HP',
+          text: 'Below 3HP',
         ),
         sizedBox.largeHeight(),
         AnimatedContanierCustomAmTran(
-          text: 'Trên 3HP',
+          text: 'Above 3HP',
         ),
         sizedBox.largeHeight(),
         Footer(),
