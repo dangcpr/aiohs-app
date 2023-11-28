@@ -150,11 +150,13 @@ class _CardHistoryOrderState extends State<CardHistoryOrder> {
                       fontSize: fontSize.medium,
                     ),
                   ),
-                  Text(
-                    orderDateString + ' lúc ' + orderHourString,
-                    style: TextStyle(
-                      fontFamily: fontApp,
-                      fontSize: fontSize.medium,
+                  Expanded(
+                    child: Text(
+                      orderDateString + ' ' + orderHourString,
+                      style: TextStyle(
+                        fontFamily: fontApp,
+                        fontSize: fontSize.medium,
+                      ),
                     ),
                   )
                 ],
