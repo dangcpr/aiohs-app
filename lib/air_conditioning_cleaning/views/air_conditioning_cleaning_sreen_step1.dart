@@ -1,7 +1,12 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:page_transition/page_transition.dart';
+import 'package:rmservice/air_conditioning_cleaning/cubit/get_price_air_cond/get_price_air_cond_cubit.dart';
+import 'package:rmservice/air_conditioning_cleaning/cubit/price_air_cond_cubit.dart';
 import 'package:rmservice/air_conditioning_cleaning/cubit/save_info_air_conditioning_cleaning.dart';
+import 'package:rmservice/air_conditioning_cleaning/model/air_conditioning_cleaning_price.dart';
 import 'package:rmservice/utilities/constants/variable.dart';
 
 import '../../cleaning_hourly/cubits/save_info/save_address.dart';
@@ -38,6 +43,8 @@ class _AirConditioningCleaningScreenStep1State
   Widget build(BuildContext context) {
     var brightness = MediaQuery.of(context).platformBrightness;
     bool isDarkMode = brightness == Brightness.dark;
+    var priceAirCondCubit = context.read<AirCondPriceCubit>();
+
     return DefaultTabController(
       length: 5,
       child: Scaffold(
@@ -100,37 +107,61 @@ class _AirConditioningCleaningScreenStep1State
             ],
           ),
         ),
-        body: Padding(
-          padding: const EdgeInsets.all(padding.paddingMedium),
-          child: TabBarView(
-            children: [
-              ListView(
-                physics: BouncingScrollPhysics(),
-                shrinkWrap: true,
-                children: [pages[0]],
-              ),
-              ListView(
-                physics: BouncingScrollPhysics(),
-                shrinkWrap: true,
-                children: [pages[1]],
-              ),
-              ListView(
-                physics: BouncingScrollPhysics(),
-                shrinkWrap: true,
-                children: [pages[2]],
-              ),
-              ListView(
-                physics: BouncingScrollPhysics(),
-                shrinkWrap: true,
-                children: [pages[3]],
-              ),
-              ListView(
-                physics: BouncingScrollPhysics(),
-                shrinkWrap: true,
-                children: [pages[4]],
-              ),
-            ],
-          ),
+        body: BlocBuilder<GetPriceAirCondCubit, GetPriceAirCondState>(
+          builder: (context, state) {
+            if (state is GetPriceAirCondLoading) {
+              return Center(
+                child:
+                    CircularProgressIndicator(color: colorProject.primaryColor),
+              );
+            }
+            if (state is GetPriceAirCondSuccess) {
+              priceAirCondCubit.setPriceCleaningHourly(state.airCondPrice);
+              debugPrint(jsonEncode(priceAirCondCubit.state));
+              return Padding(
+                padding: const EdgeInsets.all(padding.paddingMedium),
+                child: TabBarView(
+                  children: [
+                    ListView(
+                      physics: BouncingScrollPhysics(),
+                      shrinkWrap: true,
+                      children: [pages[0]],
+                    ),
+                    ListView(
+                      physics: BouncingScrollPhysics(),
+                      shrinkWrap: true,
+                      children: [pages[1]],
+                    ),
+                    ListView(
+                      physics: BouncingScrollPhysics(),
+                      shrinkWrap: true,
+                      children: [pages[2]],
+                    ),
+                    ListView(
+                      physics: BouncingScrollPhysics(),
+                      shrinkWrap: true,
+                      children: [pages[3]],
+                    ),
+                    ListView(
+                      physics: BouncingScrollPhysics(),
+                      shrinkWrap: true,
+                      children: [pages[4]],
+                    ),
+                  ],
+                ),
+              );
+            }
+            if (state is GetPriceAirCondFailed) {
+              return Center(
+                child: Text(state.message),
+              );
+            } else {
+              return Center(
+                  child: Container(
+                child: Text('Error'),
+              ));
+            }
+          },
         ),
         // floatingActionButton: const ButtonNextStep1(),
         // floatingActionButtonLocation:

@@ -17,11 +17,11 @@ class _ApTranState extends State<ApTran> {
     return Column(
       children: [
         AnimatedContanierApTranCustom(
-          text: 'Dưới 5HP',
+          text: 'Below 5HP',
         ),
         sizedBox.largeHeight(),
         AnimatedContanierApTranCustom(
-          text: 'Trên 5HP',
+          text: 'Above 5HP',
         ),
         sizedBox.largeHeight(),
         Footer(),

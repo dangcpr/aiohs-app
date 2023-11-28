@@ -21,6 +21,7 @@ class _AnimatedContanierApTranCustomState
   int count = 1;
   late Details detail;
   late int index;
+
   @override
   Widget build(BuildContext context) {
     final cubit = context.read<SaveInfoAirConditioningCleaningCubit>();
@@ -94,8 +95,8 @@ class _AnimatedContanierApTranCustomState
                               setState(() {
                                 count++;
                                 cubit.state.details[index].amount = count;
-                                print(cubit.printListItem);
                               });
+                              print(cubit.printListItem);
                             },
                             child: Icon(Icons.add),
                           ),
@@ -121,8 +122,8 @@ class _AnimatedContanierApTranCustomState
                             setState(() {
                               isSwitched = value;
                               cubit.state.details[index].hasGas = isSwitched;
-                              print(cubit.printListItem);
                             });
+                            print(cubit.printListItem);
                           },
                         ),
                       ),
@@ -160,10 +161,12 @@ class _AnimatedContanierApTranCustomState
                 setState(() {
                   select = !select;
                   detail =
-                      cubit.createNewDetail(type: 'Áp trần', info: widget.text);
+                      cubit.createNewDetail(type: 'Floor', info: widget.text);
                   index = cubit.checkIndex(detail, cubit.state.details);
-                  print(cubit.printListItem);
+                  count = cubit.state.details[index].amount;
+                  isSwitched = cubit.state.details[index].hasGas;
                 });
+                print(cubit.printListItem);
               },
               child: Icon(Icons.keyboard_arrow_down_outlined),
             ),
