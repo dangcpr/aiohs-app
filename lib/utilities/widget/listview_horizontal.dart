@@ -141,7 +141,7 @@ class _HorizontalListViewWithIndicatorState
       ),
     ];
     return Wrap(
-      spacing: 16,
+      spacing: 60,
       runSpacing: 12,
       alignment: WrapAlignment.spaceBetween,
       children: <Widget>[

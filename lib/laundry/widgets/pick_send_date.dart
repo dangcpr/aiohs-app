@@ -45,7 +45,7 @@ class _PickSendDateState extends State<PickSendDate> {
                       value = selected ? index : 0;
                     });
                     context.read<SaveInfoLaundryCubit>().updateSendDate(items[index]);
-                    debugPrint(context.read<SaveInfoLaundryCubit>().state.receiveDate.toString());
+                    debugPrint(context.read<SaveInfoLaundryCubit>().state.sendDate.toString());
                   },
                   label: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,

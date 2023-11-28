@@ -56,7 +56,7 @@ class LaundryController {
         "order_amount": infoLaundry.totalPrice,
         "payment_method": infoLaundry.paymentMethod,
         "working_date":
-            '${infoLaundry.sendDate!.year}-${infoLaundry.sendDate!.month}-${infoLaundry.sendDate!.day}',
+            '${infoLaundry.sendDate!.year.toString().padLeft(4, '0')}-${infoLaundry.sendDate!.month.toString().padLeft(2, '0')}-${infoLaundry.sendDate!.day.toString().padLeft(2, '0')}',
         "working_hour":
             '${infoLaundry.sendTime!.hour.toString().padLeft(2, '0')}:${infoLaundry.sendTime!.minute.toString().padLeft(2, '0')}:00',
         "working_address": '${address.shortAddress!}-${address.address}',

@@ -53,7 +53,7 @@ class ShoppingController {
         "order_amount": info.price! + info.purchaseFee!,
         "payment_method": info.paymentMethod,
         "working_date":
-            '${info.date!.year}-${info.date!.month}-${info.date!.day}',
+            '${info.date!.year.toString().padLeft(4, '0')}-${info.date!.month.toString().padLeft(2, '0')}-${info.date!.day.toString().padLeft(2, '0')}',
         "working_hour":
             '${info.time!.hour.toString().padLeft(2, '0')}:${info.time!.minute.toString().padLeft(2, '0')}:00',
         "working_address": '${address.nameAddress!}-${address.fullAddress}',
