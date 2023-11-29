@@ -8,6 +8,8 @@ import 'package:rmservice/cleaning_hourly/cubits/get_price_cleaning_hourly/get_p
 import 'package:rmservice/cleaning_hourly/cubits/order_cleaning_hourly/order_cleaning_hourly_cubit.dart';
 import 'package:rmservice/cleaning_hourly/cubits/price_cleaning_hourly_cubit.dart';
 import 'package:rmservice/cleaning_hourly/cubits/save_info/save_address.dart';
+import 'package:rmservice/cleaning_longterm/cubit/get_price/get_price_cleaning_longterm_cubit.dart';
+import 'package:rmservice/cleaning_longterm/cubit/order_cleaning_longterm/order_cleaning_longterm_cubit.dart';
 import 'package:rmservice/cooking/cubit/get_price_cooking/get_price_cooking_cubit.dart';
 import 'package:rmservice/cooking/cubit/save_info_cooking.dart';
 import 'package:rmservice/cleaning_hourly/cubits/total_price_CH.dart';
@@ -34,6 +36,7 @@ import 'package:rmservice/worker_register/cubits/worker_cubit.dart';
 import 'package:rmservice/worker_register/cubits/worker_register/worker_register_cubit.dart';
 
 import '../../cleaning_hourly/cubits/save_info/save_info.dart';
+import '../../cleaning_longterm/cubit/price_cleaning_longterm_cubit.dart';
 import '../../cleaning_longterm/cubit/save_info_cubit.dart';
 import '../../cooking/cubit/price_cooking_cubit.dart';
 
@@ -106,6 +109,15 @@ final listProvider = [
   // cleaning long-term
   BlocProvider<SaveInfoCleaningLongTermCubit>(
     create: (_) => SaveInfoCleaningLongTermCubit(),
+  ),
+  BlocProvider<GetPriceCleaningLongtermCubit>(
+    create: (_) => GetPriceCleaningLongtermCubit(),
+  ),
+  BlocProvider<PriceCleaningLongTermCubit>(
+    create: (_) => PriceCleaningLongTermCubit(),
+  ),
+  BlocProvider<OrderCleaningLongtermCubit>(
+    create: (_) => OrderCleaningLongtermCubit(),
   ),
 
   // air conditioning cleaning

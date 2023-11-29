@@ -1,5 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:rmservice/cleaning_longterm/cubit/price_cleaning_longterm_cubit.dart';
 import 'package:rmservice/cleaning_longterm/model/info_cleaning_longterm.dart';
+import 'package:rmservice/cleaning_longterm/model/price_cleaning_longterm.dart';
 
 class SaveInfoCleaningLongTermCubit extends Cubit<InfoCleaningLongTerm> {
   SaveInfoCleaningLongTermCubit()
@@ -48,5 +50,19 @@ class SaveInfoCleaningLongTermCubit extends Cubit<InfoCleaningLongTerm> {
     infoCleaningLongTermNew.days = days;
     infoCleaningLongTermNew.startDay = startDay;
     emit(infoCleaningLongTermNew);
+  }
+
+  void totalPrice(CleaningLongTermPrice cleaningLongTermPrice) {
+    state.price = cleaningLongTermPrice.unitPrice *
+        state.duration *
+        state.days.length *
+        state.month *
+        4;
+    emit(state);
+  }
+
+  void updatePaymentMethod(String paymentMethod) {
+    state.paymentMethod = paymentMethod;
+    emit(state);
   }
 }
