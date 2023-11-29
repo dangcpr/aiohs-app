@@ -1,7 +1,11 @@
+import 'dart:convert';
+
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:rmservice/history/models/cleaning_hourly_history.dart';
+import 'package:rmservice/history/models/laundry.dart';
 import 'package:rmservice/history/models/order.dart';
+import 'package:rmservice/history/models/shopping.dart';
 import 'package:rmservice/utilities/constants/variable.dart';
 
 final dio = Dio(
@@ -60,6 +64,67 @@ class HistoryController {
       if (response.data['code'] == 0) {
         CleaningHourlyHistory history =
             CleaningHourlyHistory.fromJson(response.data);
+        return history;
+      } else {
+        throw response.data['message'];
+      }
+    } on DioException catch (e) {
+      debugPrint(e.type.toString());
+      if (e.type == DioExceptionType.receiveTimeout ||
+          e.type == DioExceptionType.connectionTimeout) {
+        throw 'Connection Timeout';
+      }
+
+      if (e.type == DioExceptionType.unknown ||
+          e.type == DioExceptionType.connectionError) {
+        throw 'Internet Error or Server Error';
+      }
+      debugPrint(e.type.toString());
+      throw 'Server Error';
+    }
+  }
+
+  Future<LaundryHistory> getLaundryHistory(
+      String userCode, String orderCode) async {
+    try {
+      final response = await dio.get(
+        '/user/$userCode/orders/$orderCode',
+      );
+      await Future.delayed(const Duration(milliseconds: 700));
+
+      if (response.data['code'] == 0) {
+        LaundryHistory history = LaundryHistory.fromJson(response.data);
+        return history;
+      } else {
+        throw response.data['message'];
+      }
+    } on DioException catch (e) {
+      debugPrint(e.type.toString());
+      if (e.type == DioExceptionType.receiveTimeout ||
+          e.type == DioExceptionType.connectionTimeout) {
+        throw 'Connection Timeout';
+      }
+
+      if (e.type == DioExceptionType.unknown ||
+          e.type == DioExceptionType.connectionError) {
+        throw 'Internet Error or Server Error';
+      }
+      debugPrint(e.type.toString());
+      throw 'Server Error';
+    }
+  }
+
+  Future<ShoppingHistory> getShoppingHistory(
+      String userCode, String orderCode) async {
+    try {
+      final response = await dio.get(
+        '/user/$userCode/orders/$orderCode',
+      );
+      await Future.delayed(const Duration(milliseconds: 700));
+
+      if (response.data['code'] == 0) {
+        debugPrint(jsonEncode(response.data));
+        ShoppingHistory history = ShoppingHistory.fromJson(response.data);
         return history;
       } else {
         throw response.data['message'];
