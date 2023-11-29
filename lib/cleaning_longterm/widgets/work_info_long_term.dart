@@ -32,7 +32,7 @@ class _WorkInfoCleaningLongTermState extends State<WorkInfoCleaningLongTerm> {
     final endDay = startDay!.add(Duration(days: daysToWork));
 
     DurationClass duration = listDuration.firstWhere((durationClass) =>
-        durationClass.duration == infoCleaningLongTerm.realDuration!);
+        durationClass.duration == infoCleaningLongTerm.duration);
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),

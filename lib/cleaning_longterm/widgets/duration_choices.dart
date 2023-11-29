@@ -21,7 +21,7 @@ class _DurationChoiceState extends State<DurationChoice> {
     int _value =
         BlocProvider.of<SaveInfoCleaningLongTermCubit>(context, listen: true)
                 .state
-                .duration! -
+                .duration -
             2;
     late List<int> values = [1, 2, 3];
     return SizedBox(
@@ -72,7 +72,7 @@ class _DurationChoiceState extends State<DurationChoice> {
                   _value = selected ? index : 0;
                 });
                 context.read<SaveInfoCleaningLongTermCubit>().state.duration =
-                    listDuration[_value].duration;
+                    listDuration[_value].duration!;
                 print(context
                     .read<SaveInfoCleaningLongTermCubit>()
                     .state

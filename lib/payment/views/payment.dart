@@ -6,9 +6,13 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
+import 'package:rmservice/air_conditioning_cleaning/cubit/order_air_cond/order_air_cond_cubit.dart';
+import 'package:rmservice/air_conditioning_cleaning/cubit/save_info_air_conditioning_cleaning.dart';
 import 'package:rmservice/cleaning_hourly/cubits/order_cleaning_hourly/order_cleaning_hourly_cubit.dart';
 import 'package:rmservice/cleaning_hourly/cubits/save_info/save_address.dart';
 import 'package:rmservice/cleaning_hourly/cubits/save_info/save_info.dart';
+import 'package:rmservice/cleaning_longterm/cubit/order_cleaning_longterm/order_cleaning_longterm_cubit.dart';
+import 'package:rmservice/cleaning_longterm/cubit/save_info_cubit.dart';
 import 'package:rmservice/laundry/cubits/order_laundry/order_laundry_cubit.dart';
 import 'package:rmservice/laundry/cubits/save_info_laundry_cubit.dart';
 import 'package:rmservice/login/cubit/user_cubit.dart';
@@ -100,6 +104,22 @@ class _PayScreenState extends State<PayScreen> {
                       context.read<OrderShoppingCubit>().orderShopping(
                             context.read<SaveDataShopping>().state,
                             context.read<SaveAddressShoppingCubit>().state!,
+                            context.read<UserCubit>().state.code!,
+                          );
+                    } else if (widget.service == 'CLEAN_LONG_TERM') {
+                      context
+                          .read<OrderCleaningLongtermCubit>()
+                          .orderCleaningLongTerm(
+                            context.read<SaveInfoCleaningLongTermCubit>().state,
+                            context.read<SaveAddressCubit>().state!,
+                            context.read<UserCubit>().state.code!,
+                          );
+                    } else if (widget.service == 'AIR_CONDITIONING') {
+                      context.read<OrderAirCondCubit>().orderAirCond(
+                            context
+                                .read<SaveInfoAirConditioningCleaningCubit>()
+                                .state,
+                            context.read<SaveAddressCubit>().state!,
                             context.read<UserCubit>().state.code!,
                           );
                     }
