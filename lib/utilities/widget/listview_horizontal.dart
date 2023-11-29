@@ -7,6 +7,7 @@ import 'package:rmservice/air_conditioning_cleaning/views/air_conditioning_clean
 import 'package:rmservice/cleaning_hourly/cubits/get_price_cleaning_hourly/get_price_cleaning_hourly_cubit.dart';
 import 'package:rmservice/cleaning_hourly/views/cleaning_hourly_step1.dart';
 import 'package:rmservice/cleaning_longterm/cleaning_longterm.dart';
+import 'package:rmservice/cleaning_longterm/cubit/get_price/get_price_cleaning_longterm_cubit.dart';
 import 'package:rmservice/cooking/cooking.dart';
 import 'package:rmservice/cooking/cubit/get_price_cooking/get_price_cooking_cubit.dart';
 import 'package:rmservice/laundry/cubits/get_price_laundry/get_price_laundry_cubit.dart';
@@ -63,6 +64,9 @@ class _HorizontalListViewWithIndicatorState
                   type: PageTransitionType.rightToLeftWithFade,
                   child: CleaningLongTermPage(),
                   childCurrent: MainPage()));
+          context
+              .read<GetPriceCleaningLongtermCubit>()
+              .getPriceCleaningLongTerm();
         },
       ),
       ServiceCard(

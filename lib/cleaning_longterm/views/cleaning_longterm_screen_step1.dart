@@ -1,13 +1,20 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
 import 'package:page_transition/page_transition.dart';
+import 'package:rmservice/cleaning_longterm/cubit/get_price/get_price_cleaning_longterm_cubit.dart';
 import 'package:rmservice/cleaning_longterm/cubit/save_info_cubit.dart';
 import 'package:rmservice/utilities/constants/variable.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../cleaning_hourly/cubits/save_info/save_address.dart';
 import '../../cleaning_hourly/views/maps.dart';
 import '../../cleaning_hourly/widgets/button_app_bar.dart';
 import '../../utilities/components/text_label.dart';
+import '../../utilities/components/text_sub_label.dart';
+import '../cubit/price_cleaning_longterm_cubit.dart';
 import '../widgets/button_next_step1.dart';
 import '../widgets/duration_choices.dart';
 import '../widgets/month_choice.dart';
@@ -31,12 +38,15 @@ class _CleaningLongTermStep1State extends State<CleaningLongTermStep1> {
         'Start data: ${context.read<SaveInfoCleaningLongTermCubit>().state.toJson().toString()}');
   }
 
+  NumberFormat numberFormat = NumberFormat.simpleCurrency(locale: 'vi-VN');
+
   @override
   Widget build(BuildContext context) {
     var brightness = MediaQuery.of(context).platformBrightness;
     bool isDarkMode = brightness == Brightness.dark;
     final TextEditingController numberOfMaid = TextEditingController();
     List<bool> values = List.filled(7, false);
+    var priceCleaningLongTermCubit = context.read<PriceCleaningLongTermCubit>();
     return Scaffold(
       appBar: AppBar(
         titleSpacing: 0,
@@ -70,54 +80,92 @@ class _CleaningLongTermStep1State extends State<CleaningLongTermStep1> {
           child: const Icon(Icons.arrow_back),
         ),
       ),
-      body: Padding(
-        padding: const EdgeInsets.only(left: 20, right: 20, bottom: 90),
-        child: ListView(
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(top: padding.paddingMedium),
-              child: TextLabel(
-                label: "Ngày",
-                isDarkMode: isDarkMode,
+      body: BlocBuilder<GetPriceCleaningLongtermCubit,
+          GetPriceCleaningLongtermState>(
+        builder: (context, state) {
+          if (state is GetPriceCleaningLongtermLoading) {
+            return Center(
+              child:
+                  CircularProgressIndicator(color: colorProject.primaryColor),
+            );
+          }
+          if (state is GetPriceCleaningLongtermSuccess) {
+            priceCleaningLongTermCubit
+                .setPriceCleaningLongTerm(state.cleaningLongTermPrice);
+            print(jsonEncode(priceCleaningLongTermCubit.state));
+            return Padding(
+              padding: const EdgeInsets.only(left: 20, right: 20, bottom: 90),
+              child: ListView(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(top: padding.paddingMedium),
+                    child: TextLabel(
+                      label: "Ngày",
+                      isDarkMode: isDarkMode,
+                    ),
+                  ),
+                  sizedBox.smallHeight(),
+                  TimeChoice(isDarkMode: isDarkMode),
+                  sizedBox.mediumHeight(),
+                  TextLabel(
+                    label: "Giờ bắt đầu",
+                    isDarkMode: isDarkMode,
+                  ),
+                  PickTimeWork(
+                    isDarkMode: isDarkMode,
+                  ),
+                  sizedBox.mediumHeight(),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 17),
+                    child: TextLabel(
+                      label: AppLocalizations.of(context)!.durationLabel,
+                      isDarkMode: isDarkMode,
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 5),
+                    child: TextSubLabel(
+                      label: AppLocalizations.of(context)!.durationSub +
+                          "\nĐơn giá: " +
+                          numberFormat
+                              .format(state.cleaningLongTermPrice.unitPrice) +
+                          "/giờ",
+                      isDarkMode: isDarkMode,
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 10),
+                    child: DurationChoice(
+                      isDarkMode: isDarkMode,
+                    ),
+                  ),
+                  sizedBox.mediumHeight(),
+                  TextLabel(
+                    label: "Số tháng cần thuê",
+                    isDarkMode: isDarkMode,
+                  ),
+                  MonthChoice(isDarkMode: isDarkMode),
+                  sizedBox.mediumHeight(),
+                  TextLabel(
+                    label:
+                        "Ghi chú cho người làm để người làm dọn dẹp tốt hơn.",
+                    isDarkMode: isDarkMode,
+                  ),
+                  NoteForMaid(
+                    isDarkMode: isDarkMode,
+                  )
+                ],
               ),
-            ),
-            sizedBox.smallHeight(),
-            TimeChoice(isDarkMode: isDarkMode),
-            sizedBox.mediumHeight(),
-            TextLabel(
-              label: "Giờ bắt đầu",
-              isDarkMode: isDarkMode,
-            ),
-            PickTimeWork(
-              isDarkMode: isDarkMode,
-            ),
-            sizedBox.mediumHeight(),
-            TextLabel(
-              label: "Thời lượng công việc",
-              isDarkMode: isDarkMode,
-            ),
-            Padding(
-              padding: const EdgeInsets.only(top: 10),
-              child: DurationChoice(
-                isDarkMode: isDarkMode,
-              ),
-            ),
-            sizedBox.mediumHeight(),
-            TextLabel(
-              label: "Số tháng cần thuê",
-              isDarkMode: isDarkMode,
-            ),
-            MonthChoice(isDarkMode: isDarkMode),
-            sizedBox.mediumHeight(),
-            TextLabel(
-              label: "Ghi chú cho người làm để người làm dọn dẹp tốt hơn.",
-              isDarkMode: isDarkMode,
-            ),
-            NoteForMaid(
-              isDarkMode: isDarkMode,
-            )
-          ],
-        ),
+            );
+          }
+          if (state is GetPriceCleaningLongtermFailed) {
+            return Center(
+              child: Text(state.message),
+            );
+          } else {
+            return Container();
+          }
+        },
       ),
       floatingActionButton: const ButtonNextStep1(),
       floatingActionButtonLocation:

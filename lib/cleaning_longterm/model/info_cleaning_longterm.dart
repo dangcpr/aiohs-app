@@ -5,11 +5,11 @@ class InfoCleaningLongTerm {
   //late String? phone;
   late String? shortAddress;
   late String? address;
-  late int? duration;
-  late int? realDuration;
+  late int duration;
+  late int realDuration;
   late List<DateTime> days;
   late DateTime? time;
-  late int? month;
+  late int month;
   late String? note;
   late int? price;
   late String? paymentMethod;
@@ -28,7 +28,7 @@ class InfoCleaningLongTerm {
     this.month = 1,
     this.note = "",
     this.price,
-    this.paymentMethod = "cash",
+    this.paymentMethod = "PAYMENT_METHOD_CASH",
   });
 
   InfoCleaningLongTerm.fromJson(Map<String, dynamic> json) {
