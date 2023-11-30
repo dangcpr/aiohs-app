@@ -59,11 +59,13 @@ class AirCondRepo {
         "order_amount": info.price,
         "payment_method": info.paymentMethod,
         "working_date":
-            '${info.date!.year}-${info.date!.month}-${info.date!.day}',
+            '${info.date!.year.toString().padLeft(4, '0')}-${info.date!.month.toString().padLeft(2, '0')}-${info.date!.day.toString().padLeft(2, '0')}',
         "working_hour":
             '${info.time!.hour.toString().padLeft(2, '0')}:${info.time!.minute.toString().padLeft(2, '0')}:00',
         "working_address": '${address.shortAddress!}-${address.address!}',
         "note": info.note,
+        "latitude": 0,
+        "longitude": 0,
         "wall": {
           "number_bellow_2hp": info.details[0].amount,
           "number_above_2hp": info.details[1].amount,
