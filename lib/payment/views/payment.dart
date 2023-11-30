@@ -13,6 +13,8 @@ import 'package:rmservice/cleaning_hourly/cubits/save_info/save_address.dart';
 import 'package:rmservice/cleaning_hourly/cubits/save_info/save_info.dart';
 import 'package:rmservice/cleaning_longterm/cubit/order_cleaning_longterm/order_cleaning_longterm_cubit.dart';
 import 'package:rmservice/cleaning_longterm/cubit/save_info_cubit.dart';
+import 'package:rmservice/cooking/cubit/order_cooking/order_cooking_cubit.dart';
+import 'package:rmservice/cooking/cubit/save_info_cooking.dart';
 import 'package:rmservice/laundry/cubits/order_laundry/order_laundry_cubit.dart';
 import 'package:rmservice/laundry/cubits/save_info_laundry_cubit.dart';
 import 'package:rmservice/login/cubit/user_cubit.dart';
@@ -119,6 +121,12 @@ class _PayScreenState extends State<PayScreen> {
                             context
                                 .read<SaveInfoAirConditioningCleaningCubit>()
                                 .state,
+                            context.read<SaveAddressCubit>().state!,
+                            context.read<UserCubit>().state.code!,
+                          );
+                    } else if (widget.service == 'HOME_COOKING') {
+                      context.read<OrderCookingCubit>().orderCooking(
+                            context.read<SaveInfoCookingCubit>().state,
                             context.read<SaveAddressCubit>().state!,
                             context.read<UserCubit>().state.code!,
                           );

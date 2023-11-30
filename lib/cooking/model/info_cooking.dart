@@ -15,7 +15,7 @@ class InfoCooking {
   late DateTime? date;
   late DateTime? time;
   late String? note;
-  late int? price;
+  late int price;
   late String? paymentMethod;
   late String food1;
   late String food2;
@@ -43,8 +43,8 @@ class InfoCooking {
     this.food2 = "",
     this.food3 = "",
     this.food4 = "",
-    this.price,
-    this.paymentMethod = "cash",
+    this.price = 0,
+    this.paymentMethod = "PAYMENT_METHOD_CASH",
   });
 
   InfoCooking.fromJson(Map<String, dynamic> json) {
