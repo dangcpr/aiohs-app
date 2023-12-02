@@ -78,11 +78,13 @@ class _HorizontalListViewWithIndicatorState
           debugPrint('On pressed');
           //Route
           Navigator.push(
-              context,
-              PageTransition(
-                  type: PageTransitionType.rightToLeftWithFade,
-                  child: AirConditioningCleaningPage(),
-                  childCurrent: MainPage()));
+            context,
+            PageTransition(
+              type: PageTransitionType.rightToLeftWithFade,
+              child: AirConditioningCleaningPage(),
+              childCurrent: MainPage(),
+            ),
+          );
           context.read<GetPriceAirCondCubit>().getPriceAirCond();
         },
       ),
@@ -147,7 +149,7 @@ class _HorizontalListViewWithIndicatorState
     return Wrap(
       spacing: 60,
       runSpacing: 12,
-      alignment: WrapAlignment.spaceBetween,
+      //alignment: WrapAlignment.spaceBetween,
       children: <Widget>[
         items[0],
         items[1],
