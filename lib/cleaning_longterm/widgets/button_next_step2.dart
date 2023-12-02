@@ -9,7 +9,9 @@ import 'package:rmservice/cleaning_hourly/cubits/total_price_CH.dart';
 import 'package:rmservice/cleaning_hourly/views/cleaning_hourly_step2.dart';
 import 'package:rmservice/cleaning_hourly/views/cleaning_hourly_step3.dart';
 import 'package:rmservice/cleaning_longterm/cubit/order_cleaning_longterm/order_cleaning_longterm_cubit.dart';
+import 'package:rmservice/cleaning_longterm/cubit/price_cleaning_longterm_cubit.dart';
 import 'package:rmservice/cleaning_longterm/cubit/save_info_cubit.dart';
+import 'package:rmservice/cleaning_longterm/model/price_cleaning_longterm.dart';
 import 'package:rmservice/utilities/components/dialog_wrong.dart';
 import 'package:rmservice/utilities/components/button_green.dart';
 import 'package:rmservice/utilities/constants/variable.dart';
@@ -35,6 +37,11 @@ class _ButtonNextStep2State extends State<ButtonNextStep2> {
     var addressCubit = context.watch<SaveAddressCubit>();
 
     final formatter = NumberFormat.simpleCurrency(locale: "vi-VN");
+    var cleaningLongTermPrice =
+        context.read<PriceCleaningLongTermCubit>().state;
+
+    var totalPrice = infoCubit.totalPrice(cleaningLongTermPrice);
+
     return Padding(
       padding: const EdgeInsets.only(
         left: 20,
@@ -45,7 +52,7 @@ class _ButtonNextStep2State extends State<ButtonNextStep2> {
         children: [
           Expanded(
             child: Text(
-              formatter.format(infoCubit.state.price) +
+              formatter.format(totalPrice) +
                   ' - ' +
                   '${infoCubit.state.days.length * infoCubit.state.month * 4} Buổi',
               style: TextStyle(

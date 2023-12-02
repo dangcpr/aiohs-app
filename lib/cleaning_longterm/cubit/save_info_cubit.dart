@@ -52,13 +52,19 @@ class SaveInfoCleaningLongTermCubit extends Cubit<InfoCleaningLongTerm> {
     emit(infoCleaningLongTermNew);
   }
 
-  void totalPrice(CleaningLongTermPrice cleaningLongTermPrice) {
-    state.price = cleaningLongTermPrice.unitPrice *
+  int totalPrice(CleaningLongTermPrice cleaningLongTermPrice) {
+    int totalPrice = 0;
+    totalPrice += cleaningLongTermPrice.unitPrice *
         state.duration *
         state.days.length *
         state.month *
         4;
     emit(state);
+    print('Total Price is: $totalPrice}');
+    state.price = totalPrice;
+    print('Total Price from model is: ${state.price}');
+    emit(state);
+    return totalPrice;
   }
 
   void updatePaymentMethod(String paymentMethod) {
