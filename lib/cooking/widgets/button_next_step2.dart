@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:rmservice/cleaning_hourly/cubits/save_info/save_info.dart';
 import 'package:rmservice/cleaning_hourly/views/cleaning_hourly_step2.dart';
@@ -14,6 +15,7 @@ import 'package:rmservice/utilities/constants/variable.dart';
 import 'package:datetime_setting/datetime_setting.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+import '../cubit/price_cooking_cubit.dart';
 import '../views/cooking_screen_step2.dart';
 
 class ButtonNextStep2 extends StatefulWidget {
@@ -45,6 +47,14 @@ class _ButtonNextStep2State extends State<ButtonNextStep2> {
 
     debugPrint(timeToInt.toString() + ' ' + timeEnd.toString());
 
+    var infoCubit = context.watch<SaveInfoCookingCubit>();
+
+    var cleaningLongTermPrice = context.read<CookingPriceCubit>().state;
+
+    var totalPrice = infoCubit.totalPrice(cleaningLongTermPrice);
+
+    final formatter = NumberFormat.simpleCurrency(locale: "vi-VN");
+
     return Container(
       width: double.infinity,
       padding: EdgeInsets.only(
@@ -56,14 +66,9 @@ class _ButtonNextStep2State extends State<ButtonNextStep2> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(
-            "200.000" +
-                " VNĐ - " +
-                context
-                    .read<SaveInfoCookingCubit>()
-                    .state
-                    .realDuration
-                    .toString() +
-                " giờ",
+            formatter.format(infoCubit.state.price) +
+                ' - ' +
+                '${infoCubit.state.duration} Giờ',
             style: TextStyle(
                 fontFamily: fontBoldApp,
                 fontSize: fontSize.mediumLarger + 1,

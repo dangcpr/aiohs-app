@@ -11,7 +11,7 @@ class InfoCleaningLongTerm {
   late DateTime? time;
   late int month;
   late String? note;
-  late int? price;
+  late int price;
   late String? paymentMethod;
   late DateTime? startDay;
 
@@ -27,7 +27,7 @@ class InfoCleaningLongTerm {
     this.startDay,
     this.month = 1,
     this.note = "",
-    this.price,
+    this.price = 0,
     this.paymentMethod = "PAYMENT_METHOD_CASH",
   });
 
