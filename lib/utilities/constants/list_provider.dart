@@ -11,6 +11,7 @@ import 'package:rmservice/cleaning_hourly/cubits/save_info/save_address.dart';
 import 'package:rmservice/cleaning_longterm/cubit/get_price/get_price_cleaning_longterm_cubit.dart';
 import 'package:rmservice/cleaning_longterm/cubit/order_cleaning_longterm/order_cleaning_longterm_cubit.dart';
 import 'package:rmservice/cooking/cubit/get_price_cooking/get_price_cooking_cubit.dart';
+import 'package:rmservice/cooking/cubit/order_cooking/order_cooking_cubit.dart';
 import 'package:rmservice/cooking/cubit/save_info_cooking.dart';
 import 'package:rmservice/cleaning_hourly/cubits/total_price_CH.dart';
 import 'package:rmservice/get_product/cubits/get_product/get_product_cubit.dart';
@@ -144,6 +145,9 @@ final listProvider = [
   ),
   BlocProvider<CookingPriceCubit>(
     create: (_) => CookingPriceCubit(),
+  ),
+  BlocProvider<OrderCookingCubit>(
+    create: (_) => OrderCookingCubit(),
   ),
 
   BlocProvider<WorkerCubit>(
