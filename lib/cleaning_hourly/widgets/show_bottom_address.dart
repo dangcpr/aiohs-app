@@ -9,9 +9,11 @@ import 'package:rmservice/utilities/components/button_green.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class BottomSheetAddress extends StatefulWidget {
-  const BottomSheetAddress({super.key, required this.isDarkMode});
+  const BottomSheetAddress({super.key, required this.isDarkMode, required this.lat, required this.lng});
 
   final bool isDarkMode;
+  final double lat;
+  final double lng;
 
   @override
   State<BottomSheetAddress> createState() => _BottomSheetAddressState();
@@ -139,6 +141,8 @@ class _BottomSheetAddressState extends State<BottomSheetAddress> {
                             address:
                                 context.read<SaveAddressCubit>().state!.address,
                             shortAddress: shortAddressController.text,
+                            latitude: widget.lat,
+                            longitude: widget.lng,
                           ),
                         );
 

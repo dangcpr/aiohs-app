@@ -79,7 +79,7 @@ class _ChooseLocationScreenState extends State<ChooseLocationScreen> {
                   context: context,
                   isScrollControlled: true,
                   builder: (builder) {
-                    return BottomSheetAddress(isDarkMode: isDarkMode);
+                    return BottomSheetAddress(isDarkMode: isDarkMode, lat: latCurrent, lng: lngCurrent);
                     
                   },
                 );
