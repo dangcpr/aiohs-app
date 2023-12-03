@@ -60,15 +60,60 @@ class CleaningHourlyController {
           "working_hour":
               '${info.time!.hour.toString().padLeft(2, '0')}:${info.time!.minute.toString().padLeft(2, '0')}:00',
           "working_address": '${address.shortAddress!}-${address.address!}',
+          "latitude": address.latitude,
+          "longitude": address.longitude,
           "duration": info.realDuration,
           "house_with_pet": info.hasPet,
           "with_home_cooking": info.cooking,
           "with_laundry": info.iron,
+          "bring_tools": info.bringTool,
           "note": info.note,
         },
       );
       if (response.data['code'] == 0) {
         return;
+      } else {
+        String message = jsonEncode(response.data['message']);
+        throw message;
+      }
+    } on DioException catch (e) {
+      debugPrint(e.type.toString());
+      if (e.type == DioExceptionType.receiveTimeout ||
+          e.type == DioExceptionType.connectionTimeout) {
+        throw 'Connection Timeout';
+      }
+
+      if (e.type == DioExceptionType.unknown ||
+          e.type == DioExceptionType.connectionError) {
+        throw 'Internet Error or Server Error';
+      }
+      debugPrint(e.type.toString());
+      throw 'Server Error';
+    }
+  }
+
+  Future<int> caculatePrice(InfoCleaningHourly info) async {
+    try {
+      final response = await dio.post(
+        '/user/orders/clean-demand/prices/calculate',
+        data: {
+          "working_date":
+              '${info.date!.year.toString().padLeft(4, '0')}-${info.date!.month.toString().padLeft(2, '0')}-${info.date!.day.toString().padLeft(2, '0')}',
+          "working_hour":
+              '${info.time!.hour.toString().padLeft(2, '0')}:${info.time!.minute.toString().padLeft(2, '0')}:00',
+          "duration": info.realDuration,
+          "with_home_cooking": info.cooking,
+          "with_laundry": info.iron,
+          "bring_tools": info.bringTool,
+        },
+      );
+
+      await Future.delayed(const Duration(milliseconds: 800));
+
+      if (response.statusCode == 200) {
+        int price = response.data['price'];
+        debugPrint(price.toString());
+        return price;
       } else {
         String message = jsonEncode(response.data['message']);
         throw message;

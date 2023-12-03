@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:intl/intl.dart';
 import 'package:page_transition/page_transition.dart';
+import 'package:rmservice/cleaning_hourly/cubits/caculate_price/caculate_price_cubit.dart';
 import 'package:rmservice/cleaning_hourly/cubits/get_price_cleaning_hourly/get_price_cleaning_hourly_cubit.dart';
 import 'package:rmservice/cleaning_hourly/cubits/get_price_cleaning_hourly/get_price_cleaning_hourly_state.dart';
 import 'package:rmservice/cleaning_hourly/cubits/price_cleaning_hourly_cubit.dart';
@@ -37,13 +38,15 @@ class _CleaningHourlyStep1ScreenState extends State<CleaningHourlyStep1Screen> {
     bool isDarkMode = brightness == Brightness.dark;
     var priceCleaningHourlyCubit = context.read<PriceCleaningHourlyCubit>();
     var infoCleaningHourly = context.read<SaveInfoCleaningHourlyCubit>().state;
+    var caculateCHPriceCubit = context.read<CaculatePriceCleaningHourlyCubit>();
 
     @override
     void initState() {
       super.initState();
-      context.read<SaveInfoCleaningHourlyCubit>().updatePrice(priceCleaningHourlyCubit.state);
     }
 
+    caculateCHPriceCubit.caculatePrice(infoCleaningHourly);
+    
     return Scaffold(
       appBar: AppBar(
         titleSpacing: 0,
@@ -81,8 +84,9 @@ class _CleaningHourlyStep1ScreenState extends State<CleaningHourlyStep1Screen> {
           }
 
           if (state is GetPriceCleaningHourlySuccess) {
-            priceCleaningHourlyCubit.setPriceCleaningHourly(state.cleaningHourlyPrice);
-            
+            priceCleaningHourlyCubit
+                .setPriceCleaningHourly(state.cleaningHourlyPrice);
+
             debugPrint(jsonEncode(priceCleaningHourlyCubit.state));
             return Padding(
               padding: const EdgeInsets.only(left: 20, right: 20, bottom: 90),
@@ -98,7 +102,11 @@ class _CleaningHourlyStep1ScreenState extends State<CleaningHourlyStep1Screen> {
                   Padding(
                     padding: const EdgeInsets.only(top: 5),
                     child: TextSubLabel(
-                      label: AppLocalizations.of(context)!.durationSub + "\nĐơn giá: " + numberFormat.format(state.cleaningHourlyPrice.unitPrice) + "/giờ",
+                      label: AppLocalizations.of(context)!.durationSub +
+                          "\nĐơn giá: " +
+                          numberFormat
+                              .format(state.cleaningHourlyPrice.unitPrice) +
+                          "/giờ",
                       isDarkMode: isDarkMode,
                     ),
                   ),

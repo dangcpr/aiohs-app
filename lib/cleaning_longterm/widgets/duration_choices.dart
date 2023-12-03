@@ -72,7 +72,7 @@ class _DurationChoiceState extends State<DurationChoice> {
                   _value = selected ? index : 0;
                 });
                 context.read<SaveInfoCleaningLongTermCubit>().state.duration =
-                    listDuration[_value].duration;
+                    listDuration[_value].duration!;
                 print(context
                     .read<SaveInfoCleaningLongTermCubit>()
                     .state

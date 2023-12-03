@@ -195,7 +195,7 @@ class _ChooseLocationScreenState extends State<ChooseLocationScreen> {
                             CameraPosition(
                               zoom: 15.0,
                               target: LatLng(
-                                jsonDecode(detailAddress!)['geometry']
+                                jsonDecode(detailAddress)['geometry']
                                     ['location']['lat'],
                                 jsonDecode(detailAddress)['geometry']
                                     ['location']['lng'],
