@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
+import 'package:rmservice/shopping/cubits/caculate_price/caculate_price_cubit.dart';
 import 'package:rmservice/shopping/cubits/save_data.dart';
+import 'package:rmservice/shopping/cubits/save_price_shopping.dart';
 import 'package:rmservice/utilities/constants/variable.dart';
 
 class PickDateWork extends StatefulWidget {
@@ -14,10 +16,9 @@ class PickDateWork extends StatefulWidget {
 }
 
 class _PickDateWorkState extends State<PickDateWork> {
-  final items =
-      List<DateTime>.generate(7, (i) => DateTime.now().add(Duration(days: i + 1)));
+  final items = List<DateTime>.generate(
+      7, (i) => DateTime.now().add(Duration(days: i + 1)));
   int value = 0;
-  
 
   @override
   Widget build(BuildContext context) {
@@ -46,6 +47,9 @@ class _PickDateWorkState extends State<PickDateWork> {
                       value = selected ? index : 0;
                     });
                     context.read<SaveDataShopping>().state.date = items[index];
+                    context.read<CalculatePriceShoppingCubit>().calculatePrice(
+                        context.read<SaveDataShopping>().state,
+                        context.read<SavePriceShopping>().state);
                     debugPrint("Selected ${index}: ${items[index].toString()}");
                   },
                   label: Column(

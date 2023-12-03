@@ -4,6 +4,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:rmservice/shopping/cubits/add_items.dart';
+import 'package:rmservice/shopping/cubits/caculate_price/caculate_price_cubit.dart';
+import 'package:rmservice/shopping/cubits/caculate_price/caculate_price_state.dart';
 import 'package:rmservice/shopping/cubits/save_data.dart';
 import 'package:rmservice/shopping/cubits/save_price_shopping.dart';
 import 'package:rmservice/shopping/views/shopping_step3_M1.dart';
@@ -24,6 +26,8 @@ class FloatingStep3 extends StatefulWidget {
 class _FloatingStep3State extends State<FloatingStep3> {
   @override
   Widget build(BuildContext context) {
+    var caculateSPriceCubit = context.watch<CalculatePriceShoppingCubit>();
+
     return Container(
       padding: EdgeInsets.only(top: 15, left: 15, right: 15, bottom: 10),
       child: Column(
@@ -125,25 +129,40 @@ class _FloatingStep3State extends State<FloatingStep3> {
               context.watch<SavePriceShopping>().state != 0)
             Container(
               width: double.infinity,
-              child: ButtonGreenApp(
-                label: AppLocalizations.of(context)!.nextLabel,
-                onPressed: () {
-                  context.read<SaveDataShopping>().state.price =
-                      context.read<SavePriceShopping>().state;
-                  debugPrint(context.read<SaveDataShopping>().state.toString());
-                  context.read<SaveDataShopping>().setItems(context.read<AddItemCubit>().state);
-                  debugPrint("Lưu data");
-                  Navigator.push(
-                    context,
-                    PageTransition(
-                      duration: Duration(milliseconds: 400),
-                      type: PageTransitionType.rightToLeftWithFade,
-                      child: ShoppingStep4Screen(),
-                      childCurrent: ShoppingStep3Method1Screen(),
-                    ),
-                  );
-                },
-              ),
+              child: caculateSPriceCubit.state is CalculatePriceShoppingLoading?
+                  ? const ElevatedButton(
+                      onPressed: null,
+                      child: SizedBox(
+                          height: 20,
+                          width: 20,
+                          child: CircularProgressIndicator(color: Colors.grey)))
+                  : caculateSPriceCubit.state is CalculatePriceShoppingError
+                      ? const ElevatedButton(
+                          onPressed: null,
+                          child: Text("Đã có lỗi xảy ra"),
+                        )
+                      : ButtonGreenApp(
+                          label: AppLocalizations.of(context)!.nextLabel,
+                          onPressed: () {
+                            debugPrint(context
+                                .read<SaveDataShopping>()
+                                .state
+                                .toString());
+                            context
+                                .read<SaveDataShopping>()
+                                .setItems(context.read<AddItemCubit>().state);
+                            debugPrint("Lưu data");
+                            Navigator.push(
+                              context,
+                              PageTransition(
+                                duration: Duration(milliseconds: 400),
+                                type: PageTransitionType.rightToLeftWithFade,
+                                child: ShoppingStep4Screen(),
+                                childCurrent: ShoppingStep3Method1Screen(),
+                              ),
+                            );
+                          },
+                        ),
             ),
         ],
       ),

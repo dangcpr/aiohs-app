@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
+import 'package:rmservice/shopping/cubits/caculate_price/caculate_price_cubit.dart';
 import 'package:rmservice/shopping/cubits/save_data.dart';
+import 'package:rmservice/shopping/cubits/save_price_shopping.dart';
 import 'package:rmservice/utilities/constants/variable.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -15,10 +17,10 @@ class PickTimeWork extends StatefulWidget {
 }
 
 class _PickTimeWorkState extends State<PickTimeWork> {
-
   @override
   Widget build(BuildContext context) {
-    TimeOfDay? time = TimeOfDay.fromDateTime(context.read<SaveDataShopping>().state.time!);
+    TimeOfDay? time =
+        TimeOfDay.fromDateTime(context.read<SaveDataShopping>().state.time!);
     DateTime timeChoose = DateTime(1969, 1, 1, time.hour, time.minute);
 
     return Row(
@@ -61,13 +63,13 @@ class _PickTimeWorkState extends State<PickTimeWork> {
                 time = newTime;
                 timeChoose = DateTime(1969, 1, 1, time!.hour, time!.minute);
               });
-              context.read<SaveDataShopping>().state.time =
-                  timeChoose;
-              debugPrint(context
-                  .read<SaveDataShopping>()
-                  .state
-                  .toJson()
-                  .toString());
+              context.read<SaveDataShopping>().state.time = timeChoose;
+              context.read<CalculatePriceShoppingCubit>().calculatePrice(
+                  context.read<SaveDataShopping>().state,
+                  context.read<SavePriceShopping>().state);
+
+              debugPrint(
+                  context.read<SaveDataShopping>().state.toJson().toString());
             }
           },
           child: Ink(

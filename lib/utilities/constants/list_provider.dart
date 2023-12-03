@@ -23,6 +23,7 @@ import 'package:rmservice/laundry/cubits/update_price_laundry_cubit.dart';
 import 'package:rmservice/login/cubit/login_cubit.dart';
 import 'package:rmservice/login/cubit/user_cubit.dart';
 import 'package:rmservice/shopping/cubits/add_items.dart';
+import 'package:rmservice/shopping/cubits/caculate_price/caculate_price_cubit.dart';
 import 'package:rmservice/shopping/cubits/get_shopping_price/get_shopping_price_cubit.dart';
 import 'package:rmservice/shopping/cubits/order_shopping/order_shopping_cubit.dart';
 import 'package:rmservice/shopping/cubits/save_address.dart';
@@ -101,6 +102,9 @@ final listProvider = [
   ),
   BlocProvider<OrderShoppingCubit>(
     create: (_) => OrderShoppingCubit(),
+  ),
+  BlocProvider<CalculatePriceShoppingCubit>(
+    create: (_) => CalculatePriceShoppingCubit(),
   ),
 
   // cleaning long-term

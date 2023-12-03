@@ -12,6 +12,7 @@ import 'package:rmservice/cleaning_hourly/cubits/save_info/save_info.dart';
 import 'package:rmservice/laundry/cubits/order_laundry/order_laundry_cubit.dart';
 import 'package:rmservice/laundry/cubits/save_info_laundry_cubit.dart';
 import 'package:rmservice/login/cubit/user_cubit.dart';
+import 'package:rmservice/shopping/cubits/caculate_price/caculate_price_cubit.dart';
 import 'package:rmservice/shopping/cubits/save_address.dart';
 import 'package:rmservice/shopping/cubits/save_data.dart';
 import 'package:rmservice/shopping/widgets/dialog_wrong.dart';
@@ -97,6 +98,7 @@ class _PayScreenState extends State<PayScreen> {
                             context.read<UserCubit>().state.code!,
                           );
                     } else if (widget.service == 'GROCERY_ASSISTANT') {
+                      context.read<SaveDataShopping>().state.price = context.read<CalculatePriceShoppingCubit>().priceTotal;
                       context.read<OrderShoppingCubit>().orderShopping(
                             context.read<SaveDataShopping>().state,
                             context.read<SaveAddressShoppingCubit>().state!,
