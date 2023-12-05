@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rmservice/shopping/cubits/add_items.dart';
+import 'package:rmservice/shopping/cubits/save_data.dart';
 import 'package:rmservice/utilities/constants/app_assets.dart';
 import 'package:rmservice/utilities/constants/variable.dart';
 
@@ -40,6 +41,7 @@ class _EveryProductState extends State<EveryProduct> {
             borderRadius: BorderRadius.circular(10),
             onTap: () {
               context.read<AddItemCubit>().removeItem(widget.product);
+              context.read<SaveDataShopping>().setItems(context.read<AddItemCubit>().state);
             },
             child: Image.asset(AppAssets.trashImage),
           )

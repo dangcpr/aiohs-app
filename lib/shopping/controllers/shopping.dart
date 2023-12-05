@@ -62,7 +62,9 @@ class ShoppingController {
         "items": info.listItems,
         "amount": info.price!,
         "purchase_fee": info.purchaseFee!,
-        "note": info.note
+        "note": info.note,
+        "agent_name": address.yourName,
+        "agent_phone": address.phoneNum,
       });
       if (response.data['code'] == 0) {
         return;
@@ -95,6 +97,7 @@ class ShoppingController {
         "working_hour":
             '${info.time!.hour.toString().padLeft(2, '0')}:${info.time!.minute.toString().padLeft(2, '0')}:00',
         "amount": info.price! + info.purchaseFee!,
+        "number_items": info.listItems!.length,
       });
 
       await Future.delayed(const Duration(milliseconds: 800));
