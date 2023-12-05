@@ -3,8 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:page_transition/page_transition.dart';
+import 'package:rmservice/laundry/cubits/calculate_laundry/calculate_laundry_cubit.dart';
+import 'package:rmservice/laundry/cubits/calculate_laundry/calculate_laundry_state.dart';
 import 'package:rmservice/laundry/cubits/save_info_laundry_cubit.dart';
-import 'package:rmservice/laundry/cubits/update_price_laundry_cubit.dart';
 import 'package:rmservice/laundry/views/laundry_step3.dart';
 import 'package:rmservice/utilities/components/button_green.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -22,7 +23,7 @@ class _ButtonNextStep2LaundryState extends State<ButtonNextStep2Laundry> {
   @override
   Widget build(BuildContext context) {
     var infoLaundryCubit = context.watch<SaveInfoLaundryCubit>();
-    bool isDarkMode = Theme.of(context).brightness == Brightness.dark;
+    var calculateLaundry = context.watch<CalculateLaundryCubit>();
     int time7Hours = 7 * 60;
     int time22Hours = 22 * 60;
 
@@ -37,7 +38,7 @@ class _ButtonNextStep2LaundryState extends State<ButtonNextStep2Laundry> {
         children: [
           Expanded(
             child: Text(
-              formatter.format(context.watch<UpdatePriceLaundryCubit>().state),
+              formatter.format(calculateLaundry.totalPrice),
               style: TextStyle(
                 fontSize: 20,
                 fontFamily: fontBoldApp,
@@ -45,7 +46,11 @@ class _ButtonNextStep2LaundryState extends State<ButtonNextStep2Laundry> {
               ),
             ),
           ),
-          ButtonGreenApp(
+          calculateLaundry.state is CalculateLaundryLoading
+          ? const ElevatedButton(onPressed: null, child: SizedBox(height: 20, width: 20, child: CircularProgressIndicator(color: Colors.grey)))
+          : calculateLaundry.state is CalculateLaundryError
+              ? const ElevatedButton(onPressed: null, child: Text("Đã có lỗi"))
+              : ButtonGreenApp(
             label: AppLocalizations.of(context)!.nextLabel,
             onPressed: () async {
               if (await DatetimeSetting.timeIsAuto() == false ||
@@ -129,6 +134,7 @@ class _ButtonNextStep2LaundryState extends State<ButtonNextStep2Laundry> {
                     });
                 return;
               }
+              context.read<SaveInfoLaundryCubit>().updateTotalPrice(calculateLaundry.totalPrice);
               Navigator.push(
                 context,
                 PageTransition(

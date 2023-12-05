@@ -61,6 +61,8 @@ class LaundryController {
             '${infoLaundry.sendTime!.hour.toString().padLeft(2, '0')}:${infoLaundry.sendTime!.minute.toString().padLeft(2, '0')}:00',
         "working_address": '${address.shortAddress!}-${address.address}',
         "note": infoLaundry.note,
+        "agent_name": address.name,
+        "agent_phone": address.phone,
         "normal_clothes": {
           "clothes": infoLaundry.clothes,
           "blanket": infoLaundry.blanket,
@@ -75,11 +77,62 @@ class LaundryController {
           "vietnam_dress": infoLaundry.vietnamDress,
           "wedding_dress": infoLaundry.weedingDress,
           "bleaching": infoLaundry.bleaching
-        }
+        },
+        "received_date":
+            '${infoLaundry.sendDate!.year.toString().padLeft(4, '0')}-${infoLaundry.sendDate!.month.toString().padLeft(2, '0')}-${infoLaundry.sendDate!.day.toString().padLeft(2, '0')}',
       });
       await Future.delayed(const Duration(seconds: 1));
       if (response.data['code'] == 0) {
         return;
+      } else {
+        String message = jsonEncode(response.data['message']);
+        throw message;
+      }
+    } on DioException catch (e) {
+      debugPrint(e.type.toString());
+      if (e.type == DioExceptionType.receiveTimeout ||
+          e.type == DioExceptionType.connectionTimeout) {
+        throw 'Connection Timeout';
+      }
+
+      if (e.type == DioExceptionType.unknown ||
+          e.type == DioExceptionType.connectionError) {
+        throw 'Internet Error or Server Error';
+      }
+      debugPrint(e.type.toString());
+      throw 'Server Error';
+    }
+  }
+
+  Future<int> calculateLaundry(InfoLaundry infoLaundry) async {
+    try {
+      final response =
+          await dio.post('/user/orders/laundry/prices/calculate', data: {
+        "working_date":
+            '${infoLaundry.sendDate!.year.toString().padLeft(4, '0')}-${infoLaundry.sendDate!.month.toString().padLeft(2, '0')}-${infoLaundry.sendDate!.day.toString().padLeft(2, '0')}',
+        "working_hour":
+            '${infoLaundry.sendTime!.hour.toString().padLeft(2, '0')}:${infoLaundry.sendTime!.minute.toString().padLeft(2, '0')}:00',
+        "normal_clothes": {
+          "clothes": infoLaundry.clothes,
+          "blanket": infoLaundry.blanket,
+          "mosquito": infoLaundry.mosquito,
+          "net": infoLaundry.net,
+          "drap": infoLaundry.drap,
+          "topper": infoLaundry.topper,
+          "pillow": infoLaundry.pillow,
+        },
+        "others_clothes": {
+          "comple": infoLaundry.comple,
+          "vietnam_dress": infoLaundry.vietnamDress,
+          "wedding_dress": infoLaundry.weedingDress,
+          "bleaching": infoLaundry.bleaching,
+        }
+      });
+      await Future.delayed(const Duration(milliseconds: 500));
+      if (response.statusCode == 200) {
+        int price = response.data['price'];
+        debugPrint(price.toString());
+        return price;
       } else {
         String message = jsonEncode(response.data['message']);
         throw message;

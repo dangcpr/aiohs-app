@@ -4,9 +4,6 @@ import 'package:page_transition/page_transition.dart';
 import 'package:rmservice/cleaning_hourly/cubits/save_info/save_address.dart';
 import 'package:rmservice/cleaning_hourly/views/maps.dart';
 import 'package:rmservice/cleaning_hourly/widgets/button_app_bar.dart';
-import 'package:rmservice/get_product/cubits/get_product/get_product_cubit.dart';
-import 'package:rmservice/get_product/cubits/get_product/get_product_state.dart';
-import 'package:rmservice/get_product/models/product.dart';
 import 'package:rmservice/laundry/cubits/get_price_laundry/get_price_laundry_cubit.dart';
 import 'package:rmservice/laundry/cubits/get_price_laundry/get_price_laundry_state.dart';
 import 'package:rmservice/laundry/helpers/set_price_laundry.dart';
@@ -29,7 +26,6 @@ class _LaundryStep1ScreenState extends State<LaundryStep1Screen> {
   Widget build(BuildContext context) {
     bool isDarkMode =
         MediaQuery.of(context).platformBrightness == Brightness.dark;
-    Product product;
 
     return Scaffold(
       appBar: AppBar(
