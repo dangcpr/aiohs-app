@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rmservice/cleaning_hourly/constants/cleaning_hourly_const.dart';
-import 'package:rmservice/cleaning_hourly/cubits/price_cleaning_hourly_cubit.dart';
+import 'package:rmservice/cleaning_hourly/cubits/caculate_price/caculate_price_cubit.dart';
 import 'package:rmservice/cleaning_hourly/cubits/save_info/save_info.dart';
-import 'package:rmservice/cleaning_hourly/models/cleaning_hourly_price.dart';
 import 'package:rmservice/utilities/constants/variable.dart';
 
 class AddServiceChoice extends StatefulWidget {
@@ -25,8 +24,6 @@ class _AddServiceChoiceState extends State<AddServiceChoice> {
       infoCleaningHourlyCubit.state.bringTool!
     ];
     List<AddServiceClass> listAddService = getListAddService(context);
-    CleaningHourlyPrice cleaningHourlyPrice =
-        context.read<PriceCleaningHourlyCubit>().state;
 
     return Wrap(
       runSpacing: 14,
@@ -62,8 +59,8 @@ class _AddServiceChoiceState extends State<AddServiceChoice> {
                 },
               );
               context
-                  .read<SaveInfoCleaningHourlyCubit>()
-                  .updatePrice(cleaningHourlyPrice);
+                  .read<CaculatePriceCleaningHourlyCubit>()
+                  .caculatePrice(context.read<SaveInfoCleaningHourlyCubit>().state);
               debugPrint("Selected ${index}: ${isCheck[index]}");
 
               debugPrint(context

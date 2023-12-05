@@ -1,5 +1,4 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:rmservice/cleaning_hourly/models/cleaning_hourly_price.dart';
 import 'package:rmservice/cleaning_hourly/models/info_cleaning_hourly.dart';
 
 class SaveInfoCleaningHourlyCubit extends Cubit<InfoCleaningHourly> {
@@ -66,11 +65,10 @@ class SaveInfoCleaningHourlyCubit extends Cubit<InfoCleaningHourly> {
     emit(infoCleaningHourly);
   }
 
-  void updatePrice(CleaningHourlyPrice cleanPrice) {
+  void updatePrice(int price) {
     InfoCleaningHourly infoCleaningHourly = state;
-    infoCleaningHourly.price =
-        infoCleaningHourly.realDuration! * cleanPrice.unitPrice +
-            (infoCleaningHourly.bringTool == true ? cleanPrice.bringTools : 0);
+    infoCleaningHourly.price = price;
+    emit(infoCleaningHourly);
   }
 
   void updatePaymentMethod(String paymentMethod) {

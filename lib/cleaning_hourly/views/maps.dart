@@ -79,7 +79,7 @@ class _ChooseLocationScreenState extends State<ChooseLocationScreen> {
                   context: context,
                   isScrollControlled: true,
                   builder: (builder) {
-                    return BottomSheetAddress(isDarkMode: isDarkMode);
+                    return BottomSheetAddress(isDarkMode: isDarkMode, lat: latCurrent, lng: lngCurrent);
                     
                   },
                 );
@@ -195,7 +195,7 @@ class _ChooseLocationScreenState extends State<ChooseLocationScreen> {
                             CameraPosition(
                               zoom: 15.0,
                               target: LatLng(
-                                jsonDecode(detailAddress!)['geometry']
+                                jsonDecode(detailAddress)['geometry']
                                     ['location']['lat'],
                                 jsonDecode(detailAddress)['geometry']
                                     ['location']['lng'],

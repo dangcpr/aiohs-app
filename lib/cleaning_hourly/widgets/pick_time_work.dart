@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
+import 'package:rmservice/cleaning_hourly/cubits/caculate_price/caculate_price_cubit.dart';
 import 'package:rmservice/cleaning_hourly/cubits/save_info/save_info.dart';
 import 'package:rmservice/utilities/constants/variable.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -17,8 +18,8 @@ class PickTimeWork extends StatefulWidget {
 class _PickTimeWorkState extends State<PickTimeWork> {
   @override
   Widget build(BuildContext context) {
-    TimeOfDay? time =
-        TimeOfDay.fromDateTime(context.read<SaveInfoCleaningHourlyCubit>().state.time!);
+    TimeOfDay? time = TimeOfDay.fromDateTime(
+        context.read<SaveInfoCleaningHourlyCubit>().state.time!);
 
     DateTime timeChoose = DateTime(1969, 1, 1, time.hour, time.minute);
 
@@ -64,6 +65,9 @@ class _PickTimeWorkState extends State<PickTimeWork> {
               });
               context.read<SaveInfoCleaningHourlyCubit>().state.time =
                   timeChoose;
+              context.read<CaculatePriceCleaningHourlyCubit>().caculatePrice(
+                  context.read<SaveInfoCleaningHourlyCubit>().state);
+
               debugPrint(context
                   .read<SaveInfoCleaningHourlyCubit>()
                   .state
