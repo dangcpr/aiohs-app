@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
+import 'package:rmservice/laundry/cubits/calculate_laundry/calculate_laundry_cubit.dart';
 import 'package:rmservice/laundry/cubits/save_info_laundry_cubit.dart';
 import 'package:rmservice/utilities/constants/variable.dart';
 
@@ -16,8 +17,8 @@ class PickSendTime extends StatefulWidget {
 class _PickSendTimeState extends State<PickSendTime> {
   @override
   Widget build(BuildContext context) {
-    TimeOfDay? time =
-        TimeOfDay.fromDateTime(context.read<SaveInfoLaundryCubit>().state.sendTime ?? DateTime.now());
+    TimeOfDay? time = TimeOfDay.fromDateTime(
+        context.read<SaveInfoLaundryCubit>().state.sendTime ?? DateTime.now());
 
     DateTime timeChoose = DateTime(1969, 1, 1, time.hour, time.minute);
 
@@ -62,10 +63,15 @@ class _PickSendTimeState extends State<PickSendTime> {
                 timeChoose = DateTime(1969, 1, 1, time!.hour, time!.minute);
               });
               context.read<SaveInfoLaundryCubit>().updateSendTime(timeChoose);
+              context
+                  .read<CalculateLaundryCubit>()
+                  .calculateLaundry(context.read<SaveInfoLaundryCubit>().state);
+
               debugPrint(context
                   .read<SaveInfoLaundryCubit>()
                   .state
-                  .sendTime.toString());
+                  .sendTime
+                  .toString());
             }
           },
           child: Ink(

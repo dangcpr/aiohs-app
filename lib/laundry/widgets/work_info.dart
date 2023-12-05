@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:rmservice/laundry/cubits/save_info_laundry_cubit.dart';
 import 'package:rmservice/utilities/constants/variable.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+// import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class WorkInfoLaundry extends StatefulWidget {
   const WorkInfoLaundry({super.key, required this.isDarkMode});

@@ -3,9 +3,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:rmservice/cleaning_hourly/cubits/save_info/save_address.dart';
+import 'package:rmservice/laundry/cubits/calculate_laundry/calculate_laundry_cubit.dart';
+import 'package:rmservice/laundry/cubits/calculate_laundry/calculate_laundry_state.dart';
 import 'package:rmservice/laundry/cubits/order_laundry/order_laundry_cubit.dart';
 import 'package:rmservice/laundry/cubits/save_info_laundry_cubit.dart';
-import 'package:rmservice/laundry/cubits/update_price_laundry_cubit.dart';
 import 'package:rmservice/login/cubit/user_cubit.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:rmservice/payment/views/payment.dart';
@@ -25,9 +26,8 @@ class _ButtonNextStep3LaundryState extends State<ButtonNextStep3Laundry> {
     var infoLaundryCubit = context.watch<SaveInfoLaundryCubit>();
     var userCubit = context.watch<UserCubit>();
     var addressCubit = context.watch<SaveAddressCubit>();
-    
-    bool isDarkMode = Theme.of(context).brightness == Brightness.dark;
-    
+    var calculateLaundry = context.watch<CalculateLaundryCubit>();
+
     final formatter = NumberFormat.simpleCurrency(locale: "vi-VN");
     return Padding(
       padding: const EdgeInsets.only(
@@ -39,7 +39,7 @@ class _ButtonNextStep3LaundryState extends State<ButtonNextStep3Laundry> {
         children: [
           Expanded(
             child: Text(
-              formatter.format(context.watch<UpdatePriceLaundryCubit>().state),
+              formatter.format(calculateLaundry.totalPrice),
               style: TextStyle(
                 fontSize: 20,
                 fontFamily: fontBoldApp,
@@ -47,31 +47,43 @@ class _ButtonNextStep3LaundryState extends State<ButtonNextStep3Laundry> {
               ),
             ),
           ),
-          ButtonGreenApp(
-            label: AppLocalizations.of(context)!.nextLabel,
-            onPressed: () {
-              if(infoLaundryCubit.state.paymentMethod == 'PAYMENT_METHOD_CASH') {
-                context.read<OrderLaundryCubit>().orderLaundry(
-                  infoLaundryCubit.state,
-                  addressCubit.state!,
-                  userCubit.state.code!,
-                );
-              }
-              else {
-                Navigator.push(
-                  context,
-                  PageTransition(
-                    duration: Duration(milliseconds: 400),
-                    type: PageTransitionType.rightToLeftWithFade,
-                    child: PayScreen(
-                      money: infoLaundryCubit.state.totalPrice.toString(),
-                      service: 'LAUNDRY',
-                    )
-                  )
-                );
-              }
-            },
-          ),
+          calculateLaundry.state is CalculateLaundryLoading
+              ? const ElevatedButton(
+                  onPressed: null,
+                  child: SizedBox(
+                      height: 20,
+                      width: 20,
+                      child: CircularProgressIndicator(color: Colors.grey)))
+              : calculateLaundry.state is CalculateLaundryError
+                  ? const ElevatedButton(
+                      onPressed: null, child: Text("Đã có lỗi"))
+                  : ButtonGreenApp(
+                      label: AppLocalizations.of(context)!.nextLabel,
+                      onPressed: () {
+                        if (infoLaundryCubit.state.paymentMethod ==
+                            'PAYMENT_METHOD_CASH') {
+                          infoLaundryCubit.updateTotalPrice(context.read<CalculateLaundryCubit>().totalPrice);
+                          context.read<OrderLaundryCubit>().orderLaundry(
+                                infoLaundryCubit.state,
+                                addressCubit.state!,
+                                userCubit.state.code!,
+                              );
+                        } else {
+                          Navigator.push(
+                            context,
+                            PageTransition(
+                              duration: Duration(milliseconds: 400),
+                              type: PageTransitionType.rightToLeftWithFade,
+                              child: PayScreen(
+                                money: infoLaundryCubit.state.totalPrice
+                                    .toString(),
+                                service: 'LAUNDRY',
+                              ),
+                            ),
+                          );
+                        }
+                      },
+                    ),
         ],
       ),
     );

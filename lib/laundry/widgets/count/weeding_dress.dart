@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:rmservice/laundry/cubits/price_laundry_cubit.dart';
+import 'package:rmservice/laundry/cubits/calculate_laundry/calculate_laundry_cubit.dart';
 import 'package:rmservice/laundry/cubits/save_info_laundry_cubit.dart';
-import 'package:rmservice/laundry/cubits/update_price_laundry_cubit.dart';
 import 'package:rmservice/utilities/constants/variable.dart';
 
 class WeedingDressCount extends StatefulWidget {
@@ -39,13 +38,13 @@ class _WeedingDressCountState extends State<WeedingDressCount> {
                     if (infoLaundryCubit.state.weedingDress >= 1) {
                       infoLaundryCubit.updateWeedingDress(
                           infoLaundryCubit.state.weedingDress - 1);
-                      infoLaundryCubit.updateTotalPrice(
-                          context.read<PriceLaundryCubit>().state);
+
+                      context
+                          .read<CalculateLaundryCubit>()
+                          .calculateLaundry(infoLaundryCubit.state);
                       debugPrint(infoLaundryCubit.state.totalPrice.toString());
                     }
                   });
-                  context.read<UpdatePriceLaundryCubit>().updatePriceLaundry(
-                      context.read<SaveInfoLaundryCubit>().state.totalPrice);
                 },
                 child: Icon(Icons.remove),
               ),
@@ -64,12 +63,12 @@ class _WeedingDressCountState extends State<WeedingDressCount> {
                   setState(() {
                     infoLaundryCubit.updateWeedingDress(
                         infoLaundryCubit.state.weedingDress + 1);
-                    infoLaundryCubit.updateTotalPrice(
-                        context.read<PriceLaundryCubit>().state);
+
                     debugPrint(infoLaundryCubit.state.totalPrice.toString());
                   });
-                  context.read<UpdatePriceLaundryCubit>().updatePriceLaundry(
-                      context.read<SaveInfoLaundryCubit>().state.totalPrice);
+                  context
+                      .read<CalculateLaundryCubit>()
+                      .calculateLaundry(infoLaundryCubit.state);
                 },
                 child: Icon(Icons.add),
               ),

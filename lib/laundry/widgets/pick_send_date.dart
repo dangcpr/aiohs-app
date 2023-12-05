@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
+import 'package:rmservice/laundry/cubits/calculate_laundry/calculate_laundry_cubit.dart';
 import 'package:rmservice/laundry/cubits/save_info_laundry_cubit.dart';
 import 'package:rmservice/utilities/constants/variable.dart';
 
@@ -45,6 +46,7 @@ class _PickSendDateState extends State<PickSendDate> {
                       value = selected ? index : 0;
                     });
                     context.read<SaveInfoLaundryCubit>().updateSendDate(items[index]);
+                    context.read<CalculateLaundryCubit>().calculateLaundry(context.read<SaveInfoLaundryCubit>().state);
                     debugPrint(context.read<SaveInfoLaundryCubit>().state.sendDate.toString());
                   },
                   label: Column(

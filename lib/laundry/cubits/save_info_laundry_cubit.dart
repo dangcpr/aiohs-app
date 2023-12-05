@@ -1,6 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rmservice/laundry/models/info_laundry.dart';
-import 'package:rmservice/laundry/models/price_laundry.dart';
 
 class SaveInfoLaundryCubit extends Cubit<InfoLaundry> {
   SaveInfoLaundryCubit()
@@ -81,19 +80,9 @@ class SaveInfoLaundryCubit extends Cubit<InfoLaundry> {
     emit(infoLaundry);
   }
 
-  void updateTotalPrice(PriceLaundry priceLaundry) {
+  void updateTotalPrice(int price) {
     InfoLaundry infoLaundry = state;
-    infoLaundry.totalPrice = infoLaundry.clothes * (priceLaundry.clothes ?? 0) +
-        infoLaundry.blanket * (priceLaundry.blanket ?? 0) +
-        infoLaundry.mosquito * (priceLaundry.mosquito ?? 0) +
-        infoLaundry.net * (priceLaundry.net ?? 0) +
-        infoLaundry.drap * (priceLaundry.drap ?? 0) +
-        infoLaundry.topper * (priceLaundry.topper ?? 0) +
-        infoLaundry.pillow * (priceLaundry.pillow ?? 0) +
-        infoLaundry.comple * (priceLaundry.comple ?? 0) +
-        infoLaundry.vietnamDress * (priceLaundry.vietnamDress ?? 0) +
-        infoLaundry.weedingDress * (priceLaundry.weedingDress ?? 0) +
-        infoLaundry.bleaching * (priceLaundry.bleaching ?? 0);
+    infoLaundry.totalPrice = price;
     emit(infoLaundry);
   }
 
