@@ -60,6 +60,8 @@ class CleaningHourlyController {
           "working_hour":
               '${info.time!.hour.toString().padLeft(2, '0')}:${info.time!.minute.toString().padLeft(2, '0')}:00',
           "working_address": '${address.shortAddress!}-${address.address!}',
+          "agent_name": address.name,
+          "agent_phone": address.phone,
           "latitude": address.latitude,
           "longitude": address.longitude,
           "duration": info.realDuration,
