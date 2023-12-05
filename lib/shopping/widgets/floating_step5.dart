@@ -4,6 +4,7 @@ import 'package:intl/intl.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:rmservice/login/cubit/user_cubit.dart';
 import 'package:rmservice/payment/views/payment.dart';
+import 'package:rmservice/shopping/cubits/caculate_price/caculate_price_cubit.dart';
 import 'package:rmservice/shopping/cubits/order_shopping/order_shopping_cubit.dart';
 import 'package:rmservice/shopping/cubits/save_address.dart';
 import 'package:rmservice/shopping/cubits/save_data.dart';
@@ -26,6 +27,7 @@ class _FloatingStep5State extends State<FloatingStep5> {
     final saveDataShopping = context.read<SaveDataShopping>().state;
     final addressShopping = context.read<SaveAddressShoppingCubit>().state;
     final userCode = context.read<UserCubit>().state.code;
+    var caculateSPriceCubit = context.watch<CalculatePriceShoppingCubit>();
 
     return Container(
       width: double.infinity,
@@ -40,7 +42,7 @@ class _FloatingStep5State extends State<FloatingStep5> {
           Text(
             NumberFormat.simpleCurrency(locale: 'vi-VN', decimalDigits: 0)
                 .format(
-                    saveDataShopping.price! + saveDataShopping.purchaseFee!),
+                    caculateSPriceCubit.priceTotal),
             style: TextStyle(
               fontFamily: fontBoldApp,
               fontSize: fontSize.mediumLarger + 1,
@@ -51,6 +53,7 @@ class _FloatingStep5State extends State<FloatingStep5> {
             label: AppLocalizations.of(context)!.nextLabel,
             onPressed: () async {
               if (saveDataShopping.paymentMethod == 'PAYMENT_METHOD_CASH') {
+                saveDataShopping.price = caculateSPriceCubit.priceTotal;
                 context.read<OrderShoppingCubit>().orderShopping(
                     saveDataShopping, addressShopping!, userCode!);
               } else {
@@ -60,8 +63,7 @@ class _FloatingStep5State extends State<FloatingStep5> {
                     duration: Duration(milliseconds: 400),
                     type: PageTransitionType.rightToLeftWithFade,
                     child: PayScreen(
-                      money: (saveDataShopping.price! +
-                              saveDataShopping.purchaseFee!)
+                      money: (caculateSPriceCubit.priceTotal)
                           .toString(),
                       service: 'GROCERY_ASSISTANT',
                     ),

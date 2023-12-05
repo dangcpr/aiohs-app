@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rmservice/shopping/cubits/add_items.dart';
+import 'package:rmservice/shopping/cubits/save_data.dart';
 import 'package:rmservice/utilities/constants/variable.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -47,10 +48,14 @@ class _TextFieldProductState extends State<TextFieldProduct> {
               color: colorProject.primaryColor,
             ),
             onPressed: () {
-              if(controller.text.isEmpty) {
+              if (controller.text.isEmpty) {
                 return;
               }
               context.read<AddItemCubit>().addItem(controller.text);
+              context
+                  .read<SaveDataShopping>()
+                  .setItems(context.read<AddItemCubit>().state);
+
               controller.text = "";
               debugPrint("Press add item");
             },

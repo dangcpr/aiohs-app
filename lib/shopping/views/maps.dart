@@ -82,7 +82,11 @@ class _ChooseLocationScreenState extends State<ChooseLocationScreen> {
                   context: context,
                   isScrollControlled: true,
                   builder: (builder) {
-                    return BottomSheetAddress(isDarkMode: isDarkMode);
+                    return BottomSheetAddress(
+                      isDarkMode: isDarkMode,
+                      lat: latCurrent,
+                      long: lngCurrent,
+                    );
                   },
                 );
               } else
@@ -129,6 +133,7 @@ class _ChooseLocationScreenState extends State<ChooseLocationScreen> {
                 );
                 FocusManager.instance.primaryFocus?.unfocus();
               });
+              debugPrint(latCurrent.toString() + ' ' + lngCurrent.toString());
             },
             onCameraIdle: () async {
               if (!isOnCameraMove) return;
@@ -144,6 +149,8 @@ class _ChooseLocationScreenState extends State<ChooseLocationScreen> {
                         ['long_name'] +
                     ' ' +
                     jsonDecode(address)['address_components'][1]['long_name'],
+                latCurrent: latCurrent,
+                lngCurrent: lngCurrent,
               );
 
               // debugPrint(await MapController()
@@ -210,6 +217,10 @@ class _ChooseLocationScreenState extends State<ChooseLocationScreen> {
                           fullAddress:
                               jsonDecode(detailAddress)['formatted_address'],
                           nameAddress: jsonDecode(detailAddress)['name'],
+                          latCurrent: jsonDecode(detailAddress)['geometry']
+                              ['location']['lat'],
+                          lngCurrent: jsonDecode(detailAddress)['geometry']
+                              ['location']['lng'],
                         );
 
                         setState(() {
