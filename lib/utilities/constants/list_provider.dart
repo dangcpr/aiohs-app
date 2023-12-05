@@ -33,6 +33,7 @@ import 'package:rmservice/shopping/cubits/save_data.dart';
 import 'package:rmservice/shopping/cubits/save_price_shopping.dart';
 import 'package:rmservice/shopping/cubits/shopping_price_cubit.dart';
 import 'package:rmservice/sign_up/cubits/signup_cubit.dart';
+import 'package:rmservice/user_address/cubits/get_user_address/get_user_address.dart';
 import 'package:rmservice/worker_register/cubits/worker_cubit.dart';
 import 'package:rmservice/worker_register/cubits/worker_register/worker_register_cubit.dart';
 
@@ -183,5 +184,8 @@ final listProvider = [
   //Update profile
   BlocProvider<UpdateProfileCubit>(
     create: (_) => UpdateProfileCubit(),
+  //User Addrss
+  BlocProvider<GetUserAddressCubit>(
+    create: (_) => GetUserAddressCubit(),
   )
 ];

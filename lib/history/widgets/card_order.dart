@@ -49,11 +49,11 @@ class _CardHistoryOrderState extends State<CardHistoryOrder> {
           onTap: () async {
             showDialog(
               context: context,
-              barrierDismissible: false,
+              barrierDismissible: true,
               builder: (context) {
                 //circle indicator
                 return const PopScope(
-                  canPop: false,
+                  canPop: true,
                   child: Center(
                     child: CircularProgressIndicator(
                       color: colorProject.primaryColor,
@@ -63,10 +63,16 @@ class _CardHistoryOrderState extends State<CardHistoryOrder> {
               },
             );
             try {
+              debugPrint(jsonEncode(widget.order.toJson()));
               switch (widget.order.product_code) {
                 case 'CLEAN_ON_DEMAND':
                   getCleaningHourlyDetail(context, userCubit, widget.order);
-                  debugPrint(jsonEncode(widget.order.toJson()));
+                  break;
+                case 'LAUNDRY':
+                  getLaundryDetail(context, userCubit, widget.order);
+                  break;
+                case 'GROCERY_ASSISTANT':
+                  getShoppingDetail(context, userCubit, widget.order);
                   break;
                 default:
                   Navigator.pop(context);
@@ -76,7 +82,7 @@ class _CardHistoryOrderState extends State<CardHistoryOrder> {
               // ignore: use_build_context_synchronously
               Navigator.pop(context);
               // ignore: use_build_context_synchronously
-              await showDialog(
+              showDialog(
                 context: context,
                 builder: (context) {
                   return DialogWrong(
