@@ -61,6 +61,8 @@ class LaundryController {
             '${infoLaundry.sendTime!.hour.toString().padLeft(2, '0')}:${infoLaundry.sendTime!.minute.toString().padLeft(2, '0')}:00',
         "working_address": '${address.shortAddress!}-${address.address}',
         "note": infoLaundry.note,
+        "agent_name": address.name,
+        "agent_phone": address.phone,
         "normal_clothes": {
           "clothes": infoLaundry.clothes,
           "blanket": infoLaundry.blanket,
@@ -76,7 +78,8 @@ class LaundryController {
           "wedding_dress": infoLaundry.weedingDress,
           "bleaching": infoLaundry.bleaching
         },
-        "received_date": '${infoLaundry.sendDate!.year.toString().padLeft(4, '0')}-${infoLaundry.sendDate!.month.toString().padLeft(2, '0')}-${infoLaundry.sendDate!.day.toString().padLeft(2, '0')}',
+        "received_date":
+            '${infoLaundry.sendDate!.year.toString().padLeft(4, '0')}-${infoLaundry.sendDate!.month.toString().padLeft(2, '0')}-${infoLaundry.sendDate!.day.toString().padLeft(2, '0')}',
       });
       await Future.delayed(const Duration(seconds: 1));
       if (response.data['code'] == 0) {
@@ -103,7 +106,8 @@ class LaundryController {
 
   Future<int> calculateLaundry(InfoLaundry infoLaundry) async {
     try {
-      final response = await dio.post('/user/orders/laundry/prices/calculate', data: {
+      final response =
+          await dio.post('/user/orders/laundry/prices/calculate', data: {
         "working_date":
             '${infoLaundry.sendDate!.year.toString().padLeft(4, '0')}-${infoLaundry.sendDate!.month.toString().padLeft(2, '0')}-${infoLaundry.sendDate!.day.toString().padLeft(2, '0')}',
         "working_hour":

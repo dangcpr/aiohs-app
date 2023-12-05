@@ -62,7 +62,7 @@ class _ButtonNextStep1LaundryState extends State<ButtonNextStep1Laundry> {
                 return;
               }
 
-              if (infoLaundryCubit.state.totalPrice == 0) {
+              if (calculateLaundry.totalPrice == 0) {
                 showDialog(
                     context: context,
                     builder: (context) {
