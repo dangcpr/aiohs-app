@@ -40,6 +40,7 @@ import '../../cleaning_hourly/cubits/save_info/save_info.dart';
 import '../../cleaning_longterm/cubit/price_cleaning_longterm_cubit.dart';
 import '../../cleaning_longterm/cubit/save_info_cubit.dart';
 import '../../cooking/cubit/price_cooking_cubit.dart';
+import '../../profile/cubit/update_profile_cubit.dart';
 
 final listProvider = [
   BlocProvider<SetFirstTimeCubit>(
@@ -177,5 +178,10 @@ final listProvider = [
   //History
   BlocProvider<GetHistoryOrderCubit>(
     create: (_) => GetHistoryOrderCubit(),
+  ),
+
+  //Update profile
+  BlocProvider<UpdateProfileCubit>(
+    create: (_) => UpdateProfileCubit(),
   )
 ];

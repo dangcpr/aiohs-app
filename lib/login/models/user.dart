@@ -1,8 +1,8 @@
 class User {
   String? code;
-  String? full_name;
-  String? email;
-  String? phone_number;
+  String full_name;
+  String email;
+  String phone_number;
   String? role;
   String? default_address;
   String? status;
@@ -12,9 +12,9 @@ class User {
 
   User({
     this.code,
-    this.full_name,
-    this.email,
-    this.phone_number,
+    this.full_name = "",
+    this.email = "",
+    this.phone_number = "",
     this.role,
     this.default_address,
     this.status,
