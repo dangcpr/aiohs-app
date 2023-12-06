@@ -9,6 +9,7 @@ import 'package:rmservice/cleaning_hourly/cubits/get_price_cleaning_hourly/get_p
 import 'package:rmservice/cleaning_hourly/cubits/order_cleaning_hourly/order_cleaning_hourly_cubit.dart';
 import 'package:rmservice/cleaning_hourly/cubits/price_cleaning_hourly_cubit.dart';
 import 'package:rmservice/cleaning_hourly/cubits/save_info/save_address.dart';
+import 'package:rmservice/cleaning_hourly/cubits/total_price_CH.dart';
 import 'package:rmservice/cleaning_longterm/cubit/get_price/get_price_cleaning_longterm_cubit.dart';
 import 'package:rmservice/cleaning_longterm/cubit/order_cleaning_longterm/order_cleaning_longterm_cubit.dart';
 import 'package:rmservice/cooking/cubit/get_price_cooking/get_price_cooking_cubit.dart';
@@ -85,6 +86,9 @@ final listProvider = [
   ),
   BlocProvider<CaculatePriceCleaningHourlyCubit>(
     create: (_) => CaculatePriceCleaningHourlyCubit(),
+  ),
+  BlocProvider<TotalPriceCHCubit>(
+    create: (_) => TotalPriceCHCubit(),
   ),
 
   //Shopping
@@ -188,6 +192,7 @@ final listProvider = [
   //Update profile
   BlocProvider<UpdateProfileCubit>(
     create: (_) => UpdateProfileCubit(),
+  ),
   //User Addrss
   BlocProvider<GetUserAddressCubit>(
     create: (_) => GetUserAddressCubit(),

@@ -25,6 +25,8 @@ class BottomSheetAddressUser extends StatefulWidget {
 
 class _BottomSheetAddressUserState extends State<BottomSheetAddressUser> {
   final nameAddress = TextEditingController();
+  final agentName = TextEditingController();
+  final phoneNumber = TextEditingController();
   final _formKey = GlobalKey<FormState>();
   bool isDefault = false;
   String _value = chooseTypeOfAddress[0].value;
@@ -33,6 +35,8 @@ class _BottomSheetAddressUserState extends State<BottomSheetAddressUser> {
   void initState() {
     super.initState();
     nameAddress.text = context.read<SaveAddressCubit>().state!.shortAddress!;
+    agentName.text = context.read<UserCubit>().state.full_name;
+    phoneNumber.text = context.read<UserCubit>().state.phone_number;
 
     isDefault =
         context.read<GetUserAddressCubit>().state.isEmpty ? true : false;
@@ -62,6 +66,44 @@ class _BottomSheetAddressUserState extends State<BottomSheetAddressUser> {
             TextLabel(
               label: "Hoàn thành thông tin bên dưới để xác nhận địa chỉ",
               isDarkMode: widget.isDarkMode,
+            ),
+            SizedBox(height: 10),
+            TextFieldBasic(
+              controller: agentName,
+              isDarkMode: isDarkMode,
+              hintText: "Họ và tên",
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return AppLocalizations.of(context)!.signupEmptyError;
+                } else {
+                  return null;
+                }
+              },
+            ),
+            SizedBox(height: 10),
+            Padding(
+              padding: EdgeInsets.only(bottom: 10),
+              child: TextFieldBasic(
+                controller: phoneNumber,
+                isDarkMode: widget.isDarkMode,
+                hintText: "Số điện thoại",
+                onChanged: (value) {
+                  debugPrint(value);
+                },
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    //debugPrint("Lỗi họ và tên");
+                    return AppLocalizations.of(context)!.signupEmptyError;
+                  }
+                  // if (value.length != 10) {
+                  //   return AppLocalizations.of(context)!.signupPhone10Chacs;
+                  // }
+                  if (value.substring(0, 1) != "0" && value.substring(0, 1) != "+") {
+                    return "Ký tự bắt đầu phải là 0 hoặc +";
+                  }
+                  return null;
+                },
+              ),
             ),
             SizedBox(height: 10),
             TextFieldBasic(
@@ -163,6 +205,8 @@ class _BottomSheetAddressUserState extends State<BottomSheetAddressUser> {
                   }
                   addressCubit.state!.typeOfAddress = _value;
                   addressCubit.state!.shortAddress = nameAddress.text;
+                  addressCubit.state!.name = agentName.text;
+                  addressCubit.state!.phone = phoneNumber.text;
                   debugPrint("Xác nhận địa chỉ");
                   debugPrint(addressCubit.state!.toJson().toString() +
                       ' ' +

@@ -16,52 +16,58 @@ class AddressCard extends StatefulWidget {
 class _AddressCardState extends State<AddressCard> {
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return Stack(
+      alignment: Alignment.topRight,
       children: [
-        ListTile(
-          focusColor: Colors.grey,
-          onTap: () {
-            Navigator.push(
-              context,
-              PageTransition(
-                duration: Duration(milliseconds: 400),
-                type: PageTransitionType.rightToLeftWithFade,
-                child: ShowAddressUser(
-                  address: widget.address,
-                )
-              )
-            );
-          },
-          leading: Icon(
-            widget.address.type == "home"
-                ? Icons.home
-                : (widget.address.type == "office"
-                    ? Icons.work
-                    : Icons.apartment),
-            color: colorProject.primaryColor,
-          ),
-          trailing: Icon(
-            Icons.chevron_right,
-            color: colorProject.primaryColor,
-          ),
-          title: Text(
-            widget.address.detail,
-            style: TextStyle(
-                fontFamily: fontBoldApp,
-                fontSize: fontSize.mediumLarger,
-                color: colorProject.primaryColor),
-          ),
-          subtitle: Text(
-            widget.address.street_name,
-            style: TextStyle(
-                fontFamily: fontApp,
-                fontSize: fontSize.medium,
-                color: colorProject.subColor),
-          ),
-          
+        Column(
+          children: [
+            ListTile(
+              focusColor: Colors.grey,
+              onTap: () {
+                Navigator.push(
+                  context,
+                  PageTransition(
+                    duration: Duration(milliseconds: 400),
+                    type: PageTransitionType.rightToLeftWithFade,
+                    child: ShowAddressUser(
+                      address: widget.address,
+                    ),
+                  ),
+                );
+              },
+              leading: Icon(
+                widget.address.type == "home"
+                    ? Icons.home
+                    : (widget.address.type == "office"
+                        ? Icons.work
+                        : Icons.apartment),
+                color: colorProject.primaryColor,
+              ),
+              trailing: Icon(
+                Icons.chevron_right,
+                color: colorProject.primaryColor,
+              ),
+              title: Text(
+                widget.address.detail,
+                style: TextStyle(
+                    fontFamily: fontBoldApp,
+                    fontSize: fontSize.mediumLarger,
+                    color: colorProject.primaryColor),
+              ),
+              subtitle: Text(
+                widget.address.street_name,
+                style: TextStyle(
+                    fontFamily: fontApp,
+                    fontSize: fontSize.medium,
+                    color: colorProject.subColor),
+              ),
+            ),
+            SizedBox(height: 5),
+            Divider(height: 0),
+          ],
         ),
-        SizedBox(height: 5),
-        Divider(height: 0),
+        if(widget.address.is_default == true) 
+          Icon(Icons.check_circle, color: colorProject.primaryColor, size: 30),
       ],
     );
   }

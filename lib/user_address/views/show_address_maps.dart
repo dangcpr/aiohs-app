@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:rmservice/user_address/models/address_response.dart';
 import 'package:rmservice/user_address/views/show_bottom_address.dart';
+import 'package:rmservice/user_address/views/show_info.dart';
 import 'package:rmservice/utilities/constants/mapsController.dart';
 import 'package:rmservice/cleaning_hourly/models/address.dart';
 import 'package:rmservice/utilities/constants/variable.dart';
@@ -124,6 +125,14 @@ class _ShowAddressUserState extends State<ShowAddressUser> {
           ),
         ],
       ),
+      floatingActionButton: FloatingActionButton.extended(
+          onPressed: () {
+            showModalBottomSheet(context: context, builder: (context) {
+              return ShowInfoAddress(address: widget.address);
+            });
+          },
+          label: Text("Thông tin địa điểm")),
+      floatingActionButtonLocation: FloatingActionButtonLocation.startFloat,
     );
   }
 }

@@ -1,6 +1,8 @@
 class AddressResponse {
   String type;
   String city;
+  String agent_name;
+  String agent_phone;
   String district;
   String ward;
   String street_name;
@@ -13,6 +15,8 @@ class AddressResponse {
   AddressResponse({
     required this.type,
     required this.city,
+    required this.agent_name,
+    required this.agent_phone,
     required this.district,
     required this.ward,
     required this.street_name,
@@ -27,6 +31,8 @@ class AddressResponse {
     return AddressResponse(
       type: json['type'],
       city: json['city'],
+      agent_name: json['agent_name'],
+      agent_phone: json['agent_phone'],
       district: json['district'],
       ward: json['ward'],
       street_name: json['street_name'],
@@ -41,6 +47,8 @@ class AddressResponse {
   Map<String, dynamic> toJson() => {
     'type': type,
     'city': city,
+    'agent_name': agent_name,
+    'agent_phone': agent_phone,
     'district': district,
     'ward': ward,
     'street_name': street_name,

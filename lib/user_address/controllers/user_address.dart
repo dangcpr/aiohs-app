@@ -24,11 +24,15 @@ class UserAddressController {
       await Future.delayed(const Duration(milliseconds: 800));
       if (response.data['code'] == 0) {
         List<AddressResponse> address = [];
+        debugPrint(response.data['results'].toString());
         address = (response.data['results'] as List)
             .map((e) => AddressResponse.fromJson(e))
             .toList();
         return address;
       } else {
+        if (response.data['code'] == 3) {
+          return [];
+        }
         String message = response.data['message'];
         throw message;
       }
@@ -60,7 +64,9 @@ class UserAddressController {
         "latitude": address.latitude,
         "longitude": address.longitude,
         "detail": address.shortAddress,
-        "is_default": false,
+        "agent_name": address.name,
+        "agent_phone": address.phone,
+        "is_default": isDefault,
       });
       await Future.delayed(const Duration(milliseconds: 800));
       debugPrint(jsonEncode(response.data));
