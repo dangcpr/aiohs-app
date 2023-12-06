@@ -11,7 +11,24 @@ class LoginController {
     );
 
     try {
-      return await googleSignIn.signIn();
+      GoogleSignInAccount? account = await googleSignIn.signIn();
+      debugPrint(account!.email);
+      return account;
+    } catch(e) {
+      debugPrint(e.toString());
+      return null;
+    }
+  }
+
+  Future<void> handleSignOut() async {
+    GoogleSignIn googleSignIn = GoogleSignIn(
+      scopes: [
+        'email',
+        'https://www.googleapis.com/auth/contacts.readonly',
+      ]
+    );
+    try {
+      await googleSignIn.signOut();
     } catch(e) {
       debugPrint(e.toString());
       return null;

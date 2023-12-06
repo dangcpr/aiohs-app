@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:rmservice/home_page/home_page.dart';
+import 'package:rmservice/login/controllers/login.dart';
 import 'package:rmservice/login/cubit/login_cubit.dart';
 import 'package:rmservice/login/cubit/user_cubit.dart';
 import 'package:rmservice/sign_up/views/signup_screen.dart';
@@ -191,9 +192,12 @@ class _LoginScreenState extends State<LoginScreen> with InputValidationMixin {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          socialButton(assetString: AppAssets.google),
+                          socialButton(assetString: AppAssets.google, onTap: () async {
+                            await LoginController().handleGoogleSignIn();
+                            await LoginController().handleSignOut();
+                          }),
                           const SizedBox(width: 15),
-                          socialButton(assetString: AppAssets.facebook),
+                          socialButton(assetString: AppAssets.facebook, onTap: null),
                         ],
                       ),
                       const SizedBox(height: 14),
@@ -236,10 +240,10 @@ class _LoginScreenState extends State<LoginScreen> with InputValidationMixin {
     );
   }
 
-  Ink socialButton({required String assetString}) {
+  Ink socialButton({required String assetString, required VoidCallback? onTap}) {
     return Ink(
       child: InkWell(
-        onTap: () {},
+        onTap: onTap,
         child: Image.asset(
           assetString,
           height: 35,
