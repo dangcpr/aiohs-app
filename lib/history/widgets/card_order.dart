@@ -74,6 +74,18 @@ class _CardHistoryOrderState extends State<CardHistoryOrder> {
                 case 'GROCERY_ASSISTANT':
                   getShoppingDetail(context, userCubit, widget.order);
                   break;
+                case 'CLEAN_SUBSCRIPTION':
+                  getCleaningLongTermDetail(context, userCubit, widget.order);
+                  debugPrint(jsonEncode(widget.order.toJson()));
+                  break;
+                case 'AIR_CONDITIONING_CLEAN':
+                  getCleaningAirCondDetail(context, userCubit, widget.order);
+                  debugPrint(jsonEncode(widget.order.toJson()));
+                  break;
+                case 'HOME_COOKING':
+                  getCookingDetail(context, userCubit, widget.order);
+                  debugPrint(jsonEncode(widget.order.toJson()));
+                  break;
                 default:
                   Navigator.pop(context);
                   break;

@@ -64,25 +64,36 @@ class AirCondRepo {
             '${info.time!.hour.toString().padLeft(2, '0')}:${info.time!.minute.toString().padLeft(2, '0')}:00',
         "working_address": '${address.shortAddress!}-${address.address!}',
         "note": info.note,
-        "latitude": 0,
-        "longitude": 0,
+        "latitude": address.latitude,
+        "longitude": address.longitude,
+        "agent_name": address.name,
+        "agent_phone": address.phone,
         "wall": {
           "number_bellow_2hp": info.details[0].amount,
           "number_above_2hp": info.details[1].amount,
-          "gas_refill": true
+          "gas_refill_bellow_2hp": info.details[0].hasGasAmount,
+          "gas_refill_above_2hp": info.details[1].hasGasAmount
         },
-        "portable": {"number_ac": info.details[2].amount, "gas_refill": true},
+        "portable": {
+          "number_ac": info.details[2].amount,
+          "gas_refill": info.details[2].hasGasAmount
+        },
         "cassette": {
           "number_bellow_3hp": info.details[3].amount,
           "number_above_3hp": info.details[4].amount,
-          "gas_refill": true
+          "gas_refill_bellow_3hp": info.details[3].hasGasAmount,
+          "gas_refill_above_3hp": info.details[4].hasGasAmount
         },
         "floor": {
           "number_bellow_5hp": info.details[5].amount,
           "number_above_5hp": info.details[6].amount,
-          "gas_refill": true
+          "gas_refill_bellow_5hp": info.details[5].hasGasAmount,
+          "gas_refill_above_5hp": info.details[6].hasGasAmount
         },
-        "built_in": {"number_ac": info.details[7].amount, "gas_refill": true}
+        "built_in": {
+          "number_ac": info.details[7].amount,
+          "gas_refill": info.details[7].hasGasAmount
+        }
       });
       print(
           "-------------------------------------------------------------------------------");

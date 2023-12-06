@@ -58,7 +58,11 @@ class CleaningLongTermRepo {
           "working_hour":
               '${info.time!.hour.toString().padLeft(2, '0')}:${info.time!.minute.toString().padLeft(2, '0')}:00',
           "working_address": '${address.shortAddress!}-${address.address!}',
+          "agent_name": address.name,
+          "agent_phone": address.phone,
           "note": info.note,
+          "latitude": address.latitude,
+          "longitude": address.longitude,
           "working_dates": [info.days.toString()],
           "duration_per_day": info.duration,
           "number_of_month": info.month,
@@ -71,7 +75,7 @@ class CleaningLongTermRepo {
         throw message;
       }
     } on DioException catch (e) {
-      debugPrint(e.type.toString());
+      debugPrint('${e.type.toString()} + 123');
       if (e.type == DioExceptionType.receiveTimeout ||
           e.type == DioExceptionType.connectionTimeout) {
         throw 'Connection Timeout';

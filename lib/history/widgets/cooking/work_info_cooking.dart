@@ -1,30 +1,31 @@
 import 'package:flutter/material.dart';
-
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
-import 'package:rmservice/cooking/cubit/save_info_cooking.dart';
+import 'package:rmservice/history/models/cleaning_hourly_history.dart';
+import 'package:rmservice/history/models/cooking_history.dart';
 import 'package:rmservice/utilities/constants/variable.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-class WorkInfoCooking extends StatefulWidget {
-  const WorkInfoCooking({super.key, required this.isDarkMode});
+import '../../models/cleaning_longterm_history.dart';
+
+class HistoryInfoCooking extends StatefulWidget {
+  const HistoryInfoCooking(
+      {super.key, required this.isDarkMode, required this.order});
 
   final bool isDarkMode;
+  final CookingHistory order;
 
   @override
-  State<WorkInfoCooking> createState() => _WorkInfoCookingState();
+  State<HistoryInfoCooking> createState() => _HistoryInfoCookingState();
 }
 
-class _WorkInfoCookingState extends State<WorkInfoCooking> {
+class _HistoryInfoCookingState extends State<HistoryInfoCooking> {
   @override
   Widget build(BuildContext context) {
     String locale = Localizations.localeOf(context).languageCode;
-    final infoCooking = context.read<SaveInfoCookingCubit>().state;
-    late int temp = 0;
-
-    if (infoCooking.realDuration > 2) {
-      temp = 30;
-    }
+    DateTime orderDate = new DateFormat("yyyy-MM-dd HH:mm:ss")
+        .parse(widget.order.orderCooking.workingDate);
+    DateTime orderHour =
+        new DateFormat("HH:mm:ss").parse(widget.order.orderCooking.workingHour);
 
     return Container(
       decoration: BoxDecoration(
@@ -56,7 +57,7 @@ class _WorkInfoCookingState extends State<WorkInfoCooking> {
                 SizedBox(width: 8),
                 Flexible(
                   child: Text(
-                    '${DateFormat.yMMMMEEEEd(locale).format(infoCooking.date!)}, ${DateFormat.Hm(locale).format(infoCooking.time!)}',
+                    '${DateFormat.yMMMMEEEEd(locale).format(orderDate)}, ${DateFormat.Hm(locale).format(orderHour)}',
                     style: TextStyle(
                       fontSize: fontSize.medium,
                       fontFamily: fontApp,
@@ -77,14 +78,7 @@ class _WorkInfoCookingState extends State<WorkInfoCooking> {
                 SizedBox(width: 8),
                 Flexible(
                   child: Text(
-                    '${infoCooking.realDuration} ${AppLocalizations.of(context)!.hourLabel},'
-                    ' ${AppLocalizations.of(context)!.fromLabel} '
-                    '${DateFormat.Hm(locale).format(infoCooking.time!)}'
-                    ' ${AppLocalizations.of(context)!.toLabel} ${DateFormat.Hm(locale).format(
-                      infoCooking.time!.add(
-                        Duration(hours: infoCooking.duration, minutes: temp),
-                      ),
-                    )}',
+                    '${AppLocalizations.of(context)!.fromLabel} ${DateFormat.Hm(locale).format(orderHour)}',
                     style: TextStyle(
                       fontSize: fontSize.medium,
                       fontFamily: fontApp,
@@ -108,7 +102,7 @@ class _WorkInfoCookingState extends State<WorkInfoCooking> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text('Số người ăn'),
-                Text('${infoCooking.numberOfPeople}')
+                Text('${widget.order.detail.orderHomeCooking.numberOfPeople}'),
               ],
             ),
             SizedBox(height: 5),
@@ -116,80 +110,21 @@ class _WorkInfoCookingState extends State<WorkInfoCooking> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('Danh sách\nmón ăn'),
+                Text('Danh sách món ăn'),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
-                    infoCooking.food1 != ""
-                        ? Text('${infoCooking.food1}')
-                        : SizedBox(),
-                    infoCooking.food2 != ""
-                        ? Text('${infoCooking.food2}')
-                        : SizedBox(),
-                    infoCooking.food3 != ""
-                        ? Text('${infoCooking.food3}')
-                        : SizedBox(),
-                    infoCooking.food4 != ""
-                        ? Text('${infoCooking.food4}')
-                        : SizedBox(),
+                    for (int i = 0;
+                        i < widget.order.detail.orderHomeCooking.courses.length;
+                        i++)
+                      Text(widget.order.detail.orderHomeCooking.courses[i])
                   ],
                 ),
               ],
             ),
-            SizedBox(height: 5),
-            infoCooking.fruit
-                ? Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text('Trái cây'),
-                      Text('Có'),
-                    ],
-                  )
-                : SizedBox(),
-            SizedBox(height: 5),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text('Khẩu vị'),
-                Text('${infoCooking.taste}'),
-              ],
-            ),
-            SizedBox(height: 5),
-            infoCooking.bonusService != 0
-                ? Column(
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text('Người làm đi chợ'),
-                          Text('Có'),
-                        ],
-                      ),
-                      SizedBox(height: 5),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text('Chi phí đi chợ'),
-                          Text(
-                              '${NumberFormat.simpleCurrency(locale: 'vi-VN', decimalDigits: 0).format(infoCooking.bonusService)}'),
-                        ],
-                      ),
-                    ],
-                  )
-                : SizedBox(),
-            SizedBox(height: 5),
-            infoCooking.hasPet
-                ? Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text('Nhà có thú cưng'),
-                      Text('Có'),
-                    ],
-                  )
-                : SizedBox(),
-            if (context.read<SaveInfoCookingCubit>().state.note!.isNotEmpty)
+            if (widget.order.detail.orderHomeCooking.note.isNotEmpty)
               SizedBox(height: 5),
-            if (context.read<SaveInfoCookingCubit>().state.note!.isNotEmpty)
+            if (widget.order.detail.orderHomeCooking.note.isNotEmpty)
               Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -200,7 +135,7 @@ class _WorkInfoCookingState extends State<WorkInfoCooking> {
                   SizedBox(width: 8),
                   Flexible(
                     child: Text(
-                      context.read<SaveInfoCookingCubit>().state.note!,
+                      widget.order.detail.orderHomeCooking.note,
                       style: TextStyle(
                         fontSize: fontSize.medium,
                         fontFamily: fontApp,

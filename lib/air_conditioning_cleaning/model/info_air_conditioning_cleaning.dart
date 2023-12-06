@@ -60,18 +60,18 @@ class Details {
     required this.type,
     required this.detail,
     this.amount = 1,
-    this.hasGas = false,
+    this.hasGasAmount = 0,
   });
   late final String type;
   late final String detail;
   late int amount;
-  late bool hasGas;
+  late int hasGasAmount;
 
   Details.fromJson(Map<String, dynamic> json) {
     type = json['type'];
     detail = json['detail'];
     amount = json['amount'];
-    hasGas = json['hasGas'];
+    hasGasAmount = json['hasGasAmount'];
   }
 
   Map<String, dynamic> toJson() {
@@ -79,7 +79,7 @@ class Details {
     _data['type'] = type;
     _data['detail'] = detail;
     _data['amount'] = amount;
-    _data['hasGas'] = hasGas;
+    _data['hasGasAmount'] = hasGasAmount;
     return _data;
   }
 }

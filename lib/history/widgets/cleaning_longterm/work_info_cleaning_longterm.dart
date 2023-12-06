@@ -1,38 +1,33 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:intl/intl.dart';
-import 'package:rmservice/cleaning_longterm/cubit/save_info_cubit.dart';
+import 'package:rmservice/history/models/cleaning_hourly_history.dart';
+import 'package:rmservice/utilities/constants/variable.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-import '../../cleaning_hourly/constants/cleaning_hourly_const.dart';
-import '../../utilities/constants/variable.dart';
+import '../../models/cleaning_longterm_history.dart';
 
-class WorkInfoCleaningLongTerm extends StatefulWidget {
-  const WorkInfoCleaningLongTerm({super.key, required this.isDarkMode});
+class HistoryInfoCleaningLongTerm extends StatefulWidget {
+  const HistoryInfoCleaningLongTerm(
+      {super.key, required this.isDarkMode, required this.order});
 
   final bool isDarkMode;
+  final CleaningLongTermHistory order;
 
   @override
-  State<WorkInfoCleaningLongTerm> createState() =>
-      _WorkInfoCleaningLongTermState();
+  State<HistoryInfoCleaningLongTerm> createState() =>
+      _HistoryInfoCleaningLongTermState();
 }
 
-class _WorkInfoCleaningLongTermState extends State<WorkInfoCleaningLongTerm> {
+class _HistoryInfoCleaningLongTermState
+    extends State<HistoryInfoCleaningLongTerm> {
   @override
   Widget build(BuildContext context) {
     String locale = Localizations.localeOf(context).languageCode;
+    DateTime orderDate = new DateFormat("yyyy-MM-dd HH:mm:ss")
+        .parse(widget.order.orderCleaningLongTerm.workingDate);
+    DateTime orderHour = new DateFormat("HH:mm:ss")
+        .parse(widget.order.orderCleaningLongTerm.workingHour);
 
-    final infoCleaningLongTerm =
-        context.read<SaveInfoCleaningLongTermCubit>().state;
-
-    final numberOfDaysOfWeek = infoCleaningLongTerm.days.length;
-
-    final startDay = infoCleaningLongTerm.startDay;
-    var daysToWork = infoCleaningLongTerm.month * 30;
-    final endDay = startDay!.add(Duration(days: daysToWork));
-
-    DurationClass duration = listDuration.firstWhere((durationClass) =>
-        durationClass.duration == infoCleaningLongTerm.duration);
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
@@ -63,8 +58,7 @@ class _WorkInfoCleaningLongTermState extends State<WorkInfoCleaningLongTerm> {
                 SizedBox(width: 8),
                 Flexible(
                   child: Text(
-                    "${DateFormat.yMMMMEEEEd(locale).format(infoCleaningLongTerm.startDay!)}, ${DateFormat.Hm(locale).format(infoCleaningLongTerm.time!)}, "
-                    "Kết thúc vào ${DateFormat.yMMMMEEEEd(locale).format(endDay)}, ${DateFormat.Hm(locale).format(infoCleaningLongTerm.time!)}",
+                    '${DateFormat.yMMMMEEEEd(locale).format(orderDate)}, ${DateFormat.Hm(locale).format(orderHour)}',
                     style: TextStyle(
                       fontSize: fontSize.medium,
                       fontFamily: fontApp,
@@ -85,11 +79,14 @@ class _WorkInfoCleaningLongTermState extends State<WorkInfoCleaningLongTerm> {
                 SizedBox(width: 8),
                 Flexible(
                   child: Text(
-                    '${infoCleaningLongTerm.duration!} ${AppLocalizations.of(context)!.hourLabel}, ${AppLocalizations.of(context)!.fromLabel} ${DateFormat.Hm(locale).format(infoCleaningLongTerm.time!)} ${AppLocalizations.of(context)!.toLabel} ${DateFormat.Hm(locale).format(
-                      infoCleaningLongTerm.time!.add(
-                        Duration(hours: infoCleaningLongTerm.duration!),
+                    '${widget.order.detail.orderCleaningSubscription.durationPerDay} ${AppLocalizations.of(context)!.hourLabel}, ${AppLocalizations.of(context)!.fromLabel} ${DateFormat.Hm(locale).format(orderHour)} ${AppLocalizations.of(context)!.toLabel} ${DateFormat.Hm(locale).format(
+                      orderHour.add(
+                        Duration(
+                            hours: widget.order.detail.orderCleaningSubscription
+                                .durationPerDay),
                       ),
-                    )}, ${numberOfDaysOfWeek} buổi trong tuần',
+                    )}, thời gian làm việc ${widget.order.detail.orderCleaningSubscription.numberOfMonth} tháng, '
+                    '${widget.order.detail.orderCleaningSubscription.dates.length} ngày/tuần ',
                     style: TextStyle(
                       fontSize: fontSize.medium,
                       fontFamily: fontApp,
@@ -119,7 +116,9 @@ class _WorkInfoCleaningLongTermState extends State<WorkInfoCleaningLongTerm> {
                 SizedBox(width: 8),
                 Flexible(
                   child: Text(
-                    "${duration.area} m\u00B2 - ${duration.numOfRoom} ${AppLocalizations.of(context)!.roomLabel}",
+                    "${widget.order.detail.orderCleaningSubscription.durationPerDay == 2 ? 55 : (widget.order.detail.orderCleaningSubscription.durationPerDay == 3 ? 85 : 105)} "
+                    "m\u00B2 - ${widget.order.detail.orderCleaningSubscription.durationPerDay}"
+                    " ${AppLocalizations.of(context)!.roomLabel}",
                     style: TextStyle(
                       fontSize: fontSize.medium,
                       fontFamily: fontApp,
@@ -129,17 +128,10 @@ class _WorkInfoCleaningLongTermState extends State<WorkInfoCleaningLongTerm> {
                 )
               ],
             ),
-            if (context
-                .read<SaveInfoCleaningLongTermCubit>()
-                .state
-                .note!
-                .isNotEmpty)
+            SizedBox(height: 5),
+            if (widget.order.detail.orderCleaningSubscription.note.isNotEmpty)
               SizedBox(height: 5),
-            if (context
-                .read<SaveInfoCleaningLongTermCubit>()
-                .state
-                .note!
-                .isNotEmpty)
+            if (widget.order.detail.orderCleaningSubscription.note.isNotEmpty)
               Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -150,7 +142,7 @@ class _WorkInfoCleaningLongTermState extends State<WorkInfoCleaningLongTerm> {
                   SizedBox(width: 8),
                   Flexible(
                     child: Text(
-                      context.read<SaveInfoCleaningLongTermCubit>().state.note!,
+                      widget.order.detail.orderCleaningSubscription.note,
                       style: TextStyle(
                         fontSize: fontSize.medium,
                         fontFamily: fontApp,

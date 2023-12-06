@@ -31,7 +31,7 @@ class SaveInfoAirConditioningCleaningCubit
       print(state.details[i].type);
       print(state.details[i].detail);
       print(state.details[i].amount);
-      print(state.details[i].hasGas);
+      print(state.details[i].hasGasAmount);
       print('------- End Item $i -------');
     }
   }
@@ -42,7 +42,7 @@ class SaveInfoAirConditioningCleaningCubit
       print(details[i].type);
       print(details[i].detail);
       print(details[i].amount);
-      print(details[i].hasGas);
+      print(details[i].hasGasAmount);
       print('------- End Item $i -------');
     }
   }
@@ -114,7 +114,7 @@ class SaveInfoAirConditioningCleaningCubit
       totalAmount += infoDetailsIndex.amount;
       if (infoDetails[i].type == 'Build_in') {
         totalPrice += price!.builtIn.builtIn * infoDetailsIndex.amount;
-        if (infoDetailsIndex.hasGas == true) {
+        if (infoDetailsIndex.hasGasAmount == true) {
           totalPrice += price.builtIn.gasRefill;
         }
       }
@@ -125,7 +125,7 @@ class SaveInfoAirConditioningCleaningCubit
         if (infoDetailsIndex.detail == 'Below 2HP') {
           totalPrice += price!.wall.bellow2HP * infoDetailsIndex.amount;
         }
-        if (infoDetailsIndex.hasGas == true) {
+        if (infoDetailsIndex.hasGasAmount == true) {
           totalPrice += price!.wall.gasRefill;
         }
       }
@@ -137,14 +137,14 @@ class SaveInfoAirConditioningCleaningCubit
         if (infoDetailsIndex.detail == 'Below 2HP') {
           totalPrice += price!.floor.bellow5HP * infoDetailsIndex.amount;
         }
-        if (infoDetailsIndex.hasGas == true) {
+        if (infoDetailsIndex.hasGasAmount == true) {
           totalPrice += price!.floor.gasRefill;
         }
       }
 
       if (infoDetails[i].type == 'Portable') {
         totalPrice += price!.portable.portable * infoDetailsIndex.amount;
-        if (infoDetailsIndex.hasGas == true) {
+        if (infoDetailsIndex.hasGasAmount == true) {
           totalPrice += price.portable.gasRefill;
         }
       }
@@ -156,7 +156,7 @@ class SaveInfoAirConditioningCleaningCubit
         if (infoDetailsIndex.detail == 'Below 3HP') {
           totalPrice += price!.cassette.bellow3HP * infoDetailsIndex.amount;
         }
-        if (infoDetailsIndex.hasGas == true) {
+        if (infoDetailsIndex.hasGasAmount == true) {
           totalPrice += price!.cassette.gasRefill;
         }
       }
@@ -185,40 +185,40 @@ class SaveInfoAirConditioningCleaningCubit
       if (detailIndex.type == "Wall") {
         if (detailIndex.detail == "Below 2HP") {
           detailesTemp[0].amount = detailIndex.amount;
-          detailesTemp[0].hasGas = detailIndex.hasGas;
+          detailesTemp[0].hasGasAmount = detailIndex.hasGasAmount;
         }
         if (detailIndex.detail == "Above 2HP") {
           detailesTemp[1].amount = detailIndex.amount;
-          detailesTemp[1].hasGas = detailIndex.hasGas;
+          detailesTemp[1].hasGasAmount = detailIndex.hasGasAmount;
         }
       }
       if (detailIndex.detail == "Portable") {
         detailesTemp[2].amount = detailIndex.amount;
-        detailesTemp[2].hasGas = detailIndex.hasGas;
+        detailesTemp[2].hasGasAmount = detailIndex.hasGasAmount;
       }
       if (detailIndex.type == "Cassette") {
         if (detailIndex.detail == "Below 3HP") {
           detailesTemp[3].amount = detailIndex.amount;
-          detailesTemp[3].hasGas = detailIndex.hasGas;
+          detailesTemp[3].hasGasAmount = detailIndex.hasGasAmount;
         }
         if (detailIndex.detail == "Above 3HP") {
           detailesTemp[4].amount = detailIndex.amount;
-          detailesTemp[4].hasGas = detailIndex.hasGas;
+          detailesTemp[4].hasGasAmount = detailIndex.hasGasAmount;
         }
       }
       if (detailIndex.type == "Floor") {
         if (detailIndex.detail == "Below 5HP") {
           detailesTemp[5].amount = detailIndex.amount;
-          detailesTemp[5].hasGas = detailIndex.hasGas;
+          detailesTemp[5].hasGasAmount = detailIndex.hasGasAmount;
         }
         if (detailIndex.detail == "Above 5HP") {
           detailesTemp[6].amount = detailIndex.amount;
-          detailesTemp[6].hasGas = detailIndex.hasGas;
+          detailesTemp[6].hasGasAmount = detailIndex.hasGasAmount;
         }
       }
       if (detailIndex.detail == "Built_in") {
         detailesTemp[7].amount = detailIndex.amount;
-        detailesTemp[7].hasGas = detailIndex.hasGas;
+        detailesTemp[7].hasGasAmount = detailIndex.hasGasAmount;
       }
     }
     state.details = detailesTemp;
