@@ -27,72 +27,56 @@ class _LocationInfoLaundryHistoryState extends State<LocationInfoLaundryHistory>
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Text(
-            //   context.watch<SaveAddressCubit>().state!.shortAddress!,
-            //   style: TextStyle(
-            //     fontSize: fontSize.mediumLarger,
-            //     fontFamily: fontBoldApp,
-            //     color: colorProject.primaryColor,
-            //   ),
-            // ),
-            // Text(
-            //   "Nhà riêng",
-            //   style: TextStyle(
-            //     fontSize: fontSize.medium,
-            //     fontFamily: fontApp,
-            //     color: widget.isDarkMode ? Colors.white : Colors.black,
-            //   ),
-            // ),
             Text(
-              AppLocalizations.of(context)!.locationDetailLabel,
+              "Thông tin người thuê",
               style: TextStyle(
                 fontSize: fontSize.medium,
                 fontFamily: fontBoldApp,
                 color: widget.isDarkMode ? Colors.white : Colors.black,
               ),
             ),
-            // SizedBox(height: 5),
-            // Row(
-            //   crossAxisAlignment: CrossAxisAlignment.start,
-            //   children: [
-            //     Icon(
-            //       Icons.person,
-            //       color: colorProject.primaryColor,
-            //     ),
-            //     SizedBox(width: 8),
-            //     Flexible(
-            //       child: Text(
-            //         context.watch<SaveAddressCubit>().state!.name!,
-            //         style: TextStyle(
-            //           fontSize: fontSize.medium,
-            //           fontFamily: fontApp,
-            //           color: widget.isDarkMode ? Colors.white : Colors.black,
-            //         ),
-            //       ),
-            //     ),
-            //   ],
-            // ),
-            // SizedBox(height: 5),
-            // Row(
-            //   crossAxisAlignment: CrossAxisAlignment.start,
-            //   children: [
-            //     Icon(
-            //       Icons.phone,
-            //       color: colorProject.primaryColor,
-            //     ),
-            //     SizedBox(width: 8),
-            //     Flexible(
-            //       child: Text(
-            //         context.watch<SaveAddressCubit>().state!.phone!,
-            //         style: TextStyle(
-            //           fontSize: fontSize.medium,
-            //           fontFamily: fontApp,
-            //           color: widget.isDarkMode ? Colors.white : Colors.black,
-            //         ),
-            //       ),
-            //     ),
-            //   ],
-            // ),
+            SizedBox(height: 5),
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Icon(
+                  Icons.person,
+                  color: colorProject.primaryColor,
+                ),
+                SizedBox(width: 8),
+                Flexible(
+                  child: Text(
+                    widget.order.agent_name == "" ? widget.order.renter_name : widget.order.agent_name,
+                    style: TextStyle(
+                      fontSize: fontSize.medium,
+                      fontFamily: fontApp,
+                      color: widget.isDarkMode ? Colors.white : Colors.black,
+                    ),
+                  ),
+                )
+              ],
+            ),
+            SizedBox(height: 5),
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Icon(
+                  Icons.phone,
+                  color: colorProject.primaryColor,
+                ),
+                SizedBox(width: 8),
+                Flexible(
+                  child: Text(
+                    widget.order.agent_phone,
+                    style: TextStyle(
+                      fontSize: fontSize.medium,
+                      fontFamily: fontApp,
+                      color: widget.isDarkMode ? Colors.white : Colors.black,
+                    ),
+                  ),
+                )
+              ],
+            ),
             SizedBox(height: 5),
             Row(
               crossAxisAlignment: CrossAxisAlignment.start,

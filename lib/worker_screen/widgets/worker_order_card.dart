@@ -68,12 +68,12 @@ class _WorkerOrderCardState extends State<WorkerOrderCard> {
                 case 'CLEAN_ON_DEMAND':
                   WorkerHelper().getCleaningHourlyDetail(context, userCubit, widget.order);
                   break;
-                // case 'LAUNDRY':
-                //   getLaundryDetail(context, userCubit, widget.order);
-                //   break;
-                // case 'GROCERY_ASSISTANT':
-                //   getShoppingDetail(context, userCubit, widget.order);
-                //   break;
+                case 'LAUNDRY':
+                  WorkerHelper().getLaundryDetail(context, userCubit, widget.order);
+                  break;
+                case 'GROCERY_ASSISTANT':
+                  WorkerHelper().getShoppingDetail(context, userCubit, widget.order);
+                  break;
                 default:
                   Navigator.pop(context);
                   break;

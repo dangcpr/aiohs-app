@@ -5,9 +5,9 @@ import 'package:rmservice/history/models/cleaning_hourly_history.dart';
 import 'package:rmservice/history/models/laundry.dart';
 import 'package:rmservice/history/models/order.dart';
 import 'package:rmservice/history/models/shopping.dart';
-import 'package:rmservice/history/views/detail/laundry.dart';
-import 'package:rmservice/history/views/detail/shopping.dart';
 import 'package:rmservice/worker_screen/views/detail/worker_cleaning_hourly.dart';
+import 'package:rmservice/worker_screen/views/detail/worker_laundry.dart';
+import 'package:rmservice/worker_screen/views/detail/worker_shopping.dart';
 
 class WorkerHelper {
   void getCleaningHourlyDetail(
@@ -40,7 +40,7 @@ class WorkerHelper {
       PageTransition(
         duration: Duration(milliseconds: 400),
         type: PageTransitionType.rightToLeftWithFade,
-        child: LaundryHistoryDetail(
+        child: WorkerLaundry(
           order: laundryHistory,
         ),
       ),
@@ -58,7 +58,7 @@ class WorkerHelper {
       PageTransition(
         duration: Duration(milliseconds: 400),
         type: PageTransitionType.rightToLeftWithFade,
-        child: ShoppingHistoryDetail(
+        child: WorkerShopping(
           order: laundryHistory,
         ),
       ),

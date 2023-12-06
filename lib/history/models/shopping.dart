@@ -5,6 +5,8 @@ class ShoppingHistory {
   late String renter_name;
   late String maid_code;
   late String maid_name;
+  late String agent_name;
+  late String agent_phone;
   late String product_code;
   late String product_name;
   late int order_amount;
@@ -29,6 +31,8 @@ class ShoppingHistory {
     required this.renter_name,
     required this.maid_code,
     required this.maid_name,
+    required this.agent_name,
+    required this.agent_phone,
     required this.product_code,
     required this.product_name,
     required this.order_amount,
@@ -54,6 +58,8 @@ class ShoppingHistory {
     renter_name = json['order']['renter_name'];
     maid_code = json['order']['maid_code'];
     maid_name = json['order']['maid_name'];
+    agent_name = json['order']['agent_name'];
+    agent_phone = json['order']['agent_phone'];
     product_code = json['order']['product_code'];
     product_name = json['order']['product_name'];
     order_amount = json['order']['order_amount'];
@@ -79,6 +85,8 @@ class ShoppingHistory {
     'renter_name': renter_name,
     'maid_code': maid_code,
     'maid_name': maid_name,
+    'agent_name': agent_name,
+    'agent_phone': agent_phone,
     'product_code': product_code,
     'product_name': product_name,
     'order_amount': order_amount,

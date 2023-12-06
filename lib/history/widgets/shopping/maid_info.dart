@@ -1,19 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:rmservice/history/models/shopping.dart';
 import 'package:rmservice/utilities/constants/variable.dart';
 
-class LocationInfoShoppingHistory extends StatefulWidget {
-  const LocationInfoShoppingHistory({super.key, required this.isDarkMode, required this.order});
+class HistoryMaidInfoShopping extends StatefulWidget {
+  const HistoryMaidInfoShopping({super.key, required this.isDarkMode, required this.order});
 
   final bool isDarkMode;
   final ShoppingHistory order;
 
   @override
-  State<LocationInfoShoppingHistory> createState() => _LocationInfoShoppingHistoryState();
+  State<HistoryMaidInfoShopping> createState() => _HistoryMaidInfoShoppingState();
 }
 
-class _LocationInfoShoppingHistoryState extends State<LocationInfoShoppingHistory> {
+class _HistoryMaidInfoShoppingState extends State<HistoryMaidInfoShopping> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -28,7 +27,7 @@ class _LocationInfoShoppingHistoryState extends State<LocationInfoShoppingHistor
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              "Thông tin người thuê",
+              "Thông tin người giúp việc",
               style: TextStyle(
                 fontSize: fontSize.medium,
                 fontFamily: fontBoldApp,
@@ -46,7 +45,7 @@ class _LocationInfoShoppingHistoryState extends State<LocationInfoShoppingHistor
                 SizedBox(width: 8),
                 Flexible(
                   child: Text(
-                    widget.order.agent_name == "" ? widget.order.renter_name : widget.order.agent_name,
+                    widget.order.maid_name,
                     style: TextStyle(
                       fontSize: fontSize.medium,
                       fontFamily: fontApp,
@@ -61,13 +60,13 @@ class _LocationInfoShoppingHistoryState extends State<LocationInfoShoppingHistor
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Icon(
-                  Icons.phone,
+                  Icons.code,
                   color: colorProject.primaryColor,
                 ),
                 SizedBox(width: 8),
                 Flexible(
                   child: Text(
-                    widget.order.agent_phone,
+                    widget.order.maid_code,
                     style: TextStyle(
                       fontSize: fontSize.medium,
                       fontFamily: fontApp,
@@ -78,26 +77,6 @@ class _LocationInfoShoppingHistoryState extends State<LocationInfoShoppingHistor
               ],
             ),
             SizedBox(height: 5),
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Icon(
-                  Icons.location_on,
-                  color: colorProject.primaryColor,
-                ),
-                SizedBox(width: 8),
-                Flexible(
-                  child: Text(
-                    widget.order.working_address,
-                    style: TextStyle(
-                      fontSize: fontSize.medium,
-                      fontFamily: fontApp,
-                      color: widget.isDarkMode ? Colors.white : Colors.black,
-                    ),
-                  ),
-                )
-              ],
-            ),
           ],
         ),
       ),

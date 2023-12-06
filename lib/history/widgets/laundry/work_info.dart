@@ -7,7 +7,8 @@ import 'package:rmservice/utilities/constants/variable.dart';
 //import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class WorkInfoLaundryHistory extends StatefulWidget {
-  const WorkInfoLaundryHistory({super.key, required this.isDarkMode, required this.order});
+  const WorkInfoLaundryHistory(
+      {super.key, required this.isDarkMode, required this.order});
 
   final bool isDarkMode;
   final LaundryHistory order;
@@ -24,6 +25,8 @@ class _WorkInfoLaundryHistoryState extends State<WorkInfoLaundryHistory> {
         new DateFormat("yyyy-MM-dd HH:mm:ss").parse(widget.order.working_date);
     DateTime orderHour =
         new DateFormat("HH:mm:ss").parse(widget.order.working_hour);
+    DateTime receiveDate =
+        new DateFormat("yyyy-MM-dd").parse(widget.order.receive_date);
 
     return Container(
       decoration: BoxDecoration(
@@ -89,7 +92,7 @@ class _WorkInfoLaundryHistoryState extends State<WorkInfoLaundryHistory> {
                 Flexible(
                   child: Text(
                     //context.watch<SaveAddressShoppingCubit>().state!.yourName!,
-                    '',
+                    '${DateFormat.yMMMMEEEEd(locale).format(receiveDate)}',
                     //'${DateFormat.yMMMMEEEEd(locale).format(widget.order.receiveDate!)}, giao trong khoảng từ ${DateFormat.Hm(locale).format(widget.order.receiveTime!.add(Duration(hours: -1)))} tới ${DateFormat.Hm(locale).format(widget.order.receiveTime!)}',
                     style: TextStyle(
                       fontSize: fontSize.medium,
