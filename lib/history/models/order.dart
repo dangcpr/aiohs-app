@@ -3,6 +3,8 @@ class Order {
   late String code;
   late String renter_code;
   late String renter_name;
+  late String agent_name;
+  late String agent_phone;
   late String maid_code;
   late String maid_name;
   late String product_code;
@@ -23,6 +25,8 @@ class Order {
     required this.code,
     required this.renter_code,
     required this.renter_name,
+    required this.agent_name,
+    required this.agent_phone,
     required this.maid_code,
     required this.maid_name,
     required this.product_code,
@@ -44,6 +48,8 @@ class Order {
     code = json['code'];
     renter_code = json['renter_code'];
     renter_name = json['renter_name'];
+    agent_name = json['agent_name'];
+    agent_phone = json['agent_phone'];
     maid_code = json['maid_code'];
     maid_name = json['maid_name'];
     product_code = json['product_code'];
@@ -67,6 +73,8 @@ class Order {
     'renter_name': renter_name,
     'maid_code': maid_code,
     'maid_name': maid_name,
+    'agent_name': agent_name,
+    'agent_phone': agent_phone,
     'product_code': product_code,
     'product_name': product_name,
     'order_amount': order_amount,

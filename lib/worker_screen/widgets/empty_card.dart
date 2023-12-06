@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:rmservice/utilities/constants/variable.dart';
 
-class EmptyAddress extends StatefulWidget {
-  const EmptyAddress({super.key});
+class WorkerEmptyOrder extends StatefulWidget {
+  const WorkerEmptyOrder({super.key});
 
   @override
-  State<EmptyAddress> createState() => _EmptyAddressState();
+  State<WorkerEmptyOrder> createState() => _WorkerEmptyOrderState();
 }
 
-class _EmptyAddressState extends State<EmptyAddress> {
+class _WorkerEmptyOrderState extends State<WorkerEmptyOrder> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -18,7 +18,7 @@ class _EmptyAddressState extends State<EmptyAddress> {
             'assets/images/Empty-bro.png',
           ),
           Text(
-            "Không có địa chỉ đã lưu",
+            "Không có đơn",
             style: TextStyle(
               fontFamily: fontBoldApp,
               fontSize: fontSize.large,
@@ -27,7 +27,7 @@ class _EmptyAddressState extends State<EmptyAddress> {
           ),
           SizedBox(height: 10),
           Text(
-            "Không tồn tại địa chỉ đã lưu của bạn. Vui lòng thêm địa chỉ mới bên dưới.",
+            "Không tồn tại đơn",
             textAlign: TextAlign.center,
             style: TextStyle(
               fontFamily: fontApp,

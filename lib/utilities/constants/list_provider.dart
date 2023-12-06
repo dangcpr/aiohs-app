@@ -16,6 +16,7 @@ import 'package:rmservice/cooking/cubit/get_price_cooking/get_price_cooking_cubi
 import 'package:rmservice/cooking/cubit/order_cooking/order_cooking_cubit.dart';
 import 'package:rmservice/cooking/cubit/save_info_cooking.dart';
 import 'package:rmservice/get_product/cubits/get_product/get_product_cubit.dart';
+import 'package:rmservice/history/cubits/get_history_accepted/get_history_accepted_cubit.dart';
 import 'package:rmservice/history/cubits/get_history_order.dart/get_history_order_cubit.dart';
 import 'package:rmservice/home_route/cubits/get_first_time/get_first_time_cubit.dart';
 import 'package:rmservice/home_route/cubits/set_first_time/set_first_time_cubit.dart';
@@ -38,6 +39,7 @@ import 'package:rmservice/sign_up/cubits/signup_cubit.dart';
 import 'package:rmservice/user_address/cubits/get_user_address/get_user_address.dart';
 import 'package:rmservice/worker_register/cubits/worker_cubit.dart';
 import 'package:rmservice/worker_register/cubits/worker_register/worker_register_cubit.dart';
+import 'package:rmservice/worker_screen/cubits/get_order_all/get_order_all_cubit.dart';
 
 import '../../cleaning_hourly/cubits/save_info/save_info.dart';
 import '../../cleaning_longterm/cubit/price_cleaning_longterm_cubit.dart';
@@ -188,6 +190,9 @@ final listProvider = [
   BlocProvider<GetHistoryOrderCubit>(
     create: (_) => GetHistoryOrderCubit(),
   ),
+  BlocProvider<GetHistoryAcceptedCubit>(
+    create: (_) => GetHistoryAcceptedCubit(),
+  ),
 
   //Update profile
   BlocProvider<UpdateProfileCubit>(
@@ -196,5 +201,10 @@ final listProvider = [
   //User Addrss
   BlocProvider<GetUserAddressCubit>(
     create: (_) => GetUserAddressCubit(),
+  ),
+
+  //Worker
+  BlocProvider<WorkerGetOrderAllCubit>(
+    create: (_) => WorkerGetOrderAllCubit(),
   )
 ];

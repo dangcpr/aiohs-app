@@ -5,6 +5,8 @@ class CleaningHourlyHistory {
   late String renter_name;
   late String maid_code;
   late String maid_name;
+  late String agent_name;
+  late String agent_phone;
   late String product_code;
   late String product_name;
   late int order_amount;
@@ -19,6 +21,7 @@ class CleaningHourlyHistory {
   late String updated_at;
   late int duration;
   late bool house_with_pet;
+  late bool bring_tools;
   late bool with_home_cooking;
   late bool with_laundry;
   late String note;
@@ -28,6 +31,8 @@ class CleaningHourlyHistory {
     required this.code,
     required this.renter_code,
     required this.renter_name,
+    required this.agent_name,
+    required this.agent_phone,
     required this.maid_code,
     required this.maid_name,
     required this.product_code,
@@ -44,6 +49,7 @@ class CleaningHourlyHistory {
     required this.updated_at,
     required this.duration,
     required this.house_with_pet,
+    required this.bring_tools,
     required this.with_home_cooking,
     required this.with_laundry,
     required this.note
@@ -54,6 +60,8 @@ class CleaningHourlyHistory {
     code = json['order']['code'];
     renter_code = json['order']['renter_code'];
     renter_name = json['order']['renter_name'];
+    agent_name = json['order']['agent_name'];
+    agent_phone = json['order']['agent_phone'];
     maid_code = json['order']['maid_code'];
     maid_name = json['order']['maid_name'];
     product_code = json['order']['product_code'];
@@ -69,6 +77,7 @@ class CleaningHourlyHistory {
     created_at = json['order']['created_at'];
     updated_at = json['order']['updated_at'];
     duration = json['detail']['order_cleaning_demand']['duration'];
+    bring_tools = json['detail']['order_cleaning_demand']['bring_tools'];
     house_with_pet = json['detail']['order_cleaning_demand']['house_with_pet'];
     with_home_cooking = json['detail']['order_cleaning_demand']['with_home_cooking'];
     with_laundry = json['detail']['order_cleaning_demand']['with_laundry'];
@@ -80,6 +89,8 @@ class CleaningHourlyHistory {
     'code': code,
     'renter_code': renter_code,
     'renter_name': renter_name,
+    'agent_name': agent_name,
+    'agent_phone': agent_phone,
     'maid_code': maid_code,
     'maid_name': maid_name,
     'product_code': product_code,
@@ -96,6 +107,7 @@ class CleaningHourlyHistory {
     'updated_at': updated_at,
     'duration': duration,
     'house_with_pet': house_with_pet,
+    'bring_tools': bring_tools,
     'with_home_cooking': with_home_cooking,
     'with_laundry': with_laundry,
     'note': note

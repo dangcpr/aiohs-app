@@ -60,6 +60,8 @@ class LaundryController {
         "working_hour":
             '${infoLaundry.sendTime!.hour.toString().padLeft(2, '0')}:${infoLaundry.sendTime!.minute.toString().padLeft(2, '0')}:00',
         "working_address": '${address.shortAddress!}-${address.address}',
+        "latitude": address.latitude,
+        "longitude": address.longitude,
         "note": infoLaundry.note,
         "agent_name": address.name,
         "agent_phone": address.phone,

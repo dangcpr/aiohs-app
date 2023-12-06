@@ -1,21 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:rmservice/history/models/cleaning_hourly_history.dart';
 import 'package:rmservice/utilities/constants/variable.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-class HistoryLocationInfoCleaningHourly extends StatefulWidget {
-  const HistoryLocationInfoCleaningHourly({super.key, required this.isDarkMode, required this.order});
+class HistoryMaidInfoCleaningHourly extends StatefulWidget {
+  const HistoryMaidInfoCleaningHourly(
+      {super.key, required this.isDarkMode, required this.order});
 
   final bool isDarkMode;
   final CleaningHourlyHistory order;
 
   @override
-  State<HistoryLocationInfoCleaningHourly> createState() =>
-      _HistoryLocationInfoCleaningHourlyState();
+  State<HistoryMaidInfoCleaningHourly> createState() =>
+      _HistoryMaidInfoCleaningHourlyState();
 }
 
-class _HistoryLocationInfoCleaningHourlyState
-    extends State<HistoryLocationInfoCleaningHourly> {
+class _HistoryMaidInfoCleaningHourlyState
+    extends State<HistoryMaidInfoCleaningHourly> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -30,7 +30,7 @@ class _HistoryLocationInfoCleaningHourlyState
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              "Thông tin người thuê",
+              "Thông tin người giúp việc",
               style: TextStyle(
                 fontSize: fontSize.medium,
                 fontFamily: fontBoldApp,
@@ -48,7 +48,7 @@ class _HistoryLocationInfoCleaningHourlyState
                 SizedBox(width: 8),
                 Flexible(
                   child: Text(
-                    widget.order.agent_name == "" ? widget.order.renter_name : widget.order.agent_name,
+                    widget.order.maid_name,
                     style: TextStyle(
                       fontSize: fontSize.medium,
                       fontFamily: fontApp,
@@ -63,13 +63,13 @@ class _HistoryLocationInfoCleaningHourlyState
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Icon(
-                  Icons.phone,
+                  Icons.code,
                   color: colorProject.primaryColor,
                 ),
                 SizedBox(width: 8),
                 Flexible(
                   child: Text(
-                    widget.order.agent_phone,
+                    widget.order.maid_code,
                     style: TextStyle(
                       fontSize: fontSize.medium,
                       fontFamily: fontApp,
@@ -80,29 +80,10 @@ class _HistoryLocationInfoCleaningHourlyState
               ],
             ),
             SizedBox(height: 5),
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Icon(
-                  Icons.location_on,
-                  color: colorProject.primaryColor,
-                ),
-                SizedBox(width: 8),
-                Flexible(
-                  child: Text(
-                    widget.order.working_address,
-                    style: TextStyle(
-                      fontSize: fontSize.medium,
-                      fontFamily: fontApp,
-                      color: widget.isDarkMode ? Colors.white : Colors.black,
-                    ),
-                  ),
-                )
-              ],
-            ),
           ],
         ),
       ),
     );
+    ;
   }
 }

@@ -1,25 +1,27 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rmservice/history/models/cleaning_hourly_history.dart';
 import 'package:rmservice/history/widgets/cleaning_hourly/location_info.dart';
 import 'package:rmservice/history/widgets/cleaning_hourly/maid_info.dart';
 import 'package:rmservice/history/widgets/cleaning_hourly/work_info.dart';
+import 'package:rmservice/login/cubit/user_cubit.dart';
 import 'package:rmservice/utilities/components/button_green.dart';
 import 'package:rmservice/utilities/components/text_label.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:rmservice/utilities/constants/variable.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:rmservice/utilities/dialog/dialog.dart';
+import 'package:rmservice/worker_screen/controllers/worker.dart';
 
-class CleaningHourlyHistoryDetail extends StatefulWidget {
-  const CleaningHourlyHistoryDetail({super.key, required this.order});
+class WorkerCleaingHourly extends StatefulWidget {
+  const WorkerCleaingHourly({super.key, required this.order});
 
   final CleaningHourlyHistory order;
 
   @override
-  State<CleaningHourlyHistoryDetail> createState() =>
-      _CleaningHourlyHistoryDetailState();
+  State<WorkerCleaingHourly> createState() => _WorkerCleaingHourlyState();
 }
 
-class _CleaningHourlyHistoryDetailState
-    extends State<CleaningHourlyHistoryDetail> {
+class _WorkerCleaingHourlyState extends State<WorkerCleaingHourly> {
   @override
   Widget build(BuildContext context) {
     bool isDarkMode = Theme.of(context).brightness == Brightness.dark;
@@ -44,7 +46,7 @@ class _CleaningHourlyHistoryDetailState
                 children: [
                   Expanded(
                     child: TextLabel(
-                      label: AppLocalizations.of(context)!.locationLabel,
+                      label: "Thông tin chung",
                       isDarkMode: isDarkMode,
                     ),
                   ),
@@ -78,7 +80,7 @@ class _CleaningHourlyHistoryDetailState
                   isDarkMode: isDarkMode,
                 ),
               ),
-            if (widget.order.maid_name != "")
+            if (widget.order.maid_code != "")
               Padding(
                 padding: const EdgeInsets.only(top: 17),
                 child: HistoryMaidInfoCleaningHourly(
@@ -86,9 +88,37 @@ class _CleaningHourlyHistoryDetailState
                   order: widget.order,
                 ),
               ),
-            if (widget.order.maid_name != "") SizedBox(height: 15),
-
-            ButtonGreenApp(label: "Hủy đơn này", onPressed: null),
+            if (widget.order.maid_code == "") SizedBox(height: 15),
+            if (widget.order.maid_code == "") ButtonGreenApp(
+                label: "Nhận đơn này",
+                onPressed: () async {
+                  showDialog(
+                      context: context,
+                      builder: (context) {
+                        return const Center(
+                          child: CircularProgressIndicator(),
+                        );
+                      });
+                  try {
+                    await WorkerController().acceptedOrder(widget.order.code,
+                        context.read<UserCubit>().state.code!);
+                    Navigator.pop(context);
+                    showCustomDialog(
+                        context: context,
+                        dialogType: CustomDialogType.SUCCESS,
+                        msg: "Bạn đã nhận đơn này",
+                        isMultipleButton: false);
+                  } catch (e) {
+                    Navigator.pop(context);
+                    showCustomDialog(
+                        context: context,
+                        dialogType: CustomDialogType.FAILURE,
+                        msg: e.toString(),
+                        isMultipleButton: false);
+                  }
+                }),
+            if (widget.order.maid_code == context.read<UserCubit>().state.code) ButtonGreenApp(label: "Hủy đơn này", onPressed: null),
+            if (widget.order.maid_code == context.read<UserCubit>().state.code) SizedBox(height: 15),
 
             // Padding(
             //   padding: const EdgeInsets.only(top: 17),
@@ -103,7 +133,6 @@ class _CleaningHourlyHistoryDetailState
             //     isDarkMode: isDarkMode,
             //   ),
             // ),
-            SizedBox(height: 8),
           ],
         ),
       ),

@@ -12,27 +12,28 @@ class HistoryInfoCleaningHourly extends StatefulWidget {
   final CleaningHourlyHistory order;
 
   @override
-  State<HistoryInfoCleaningHourly> createState() => _HistoryInfoCleaningHourlyState();
+  State<HistoryInfoCleaningHourly> createState() =>
+      _HistoryInfoCleaningHourlyState();
 }
 
 class _HistoryInfoCleaningHourlyState extends State<HistoryInfoCleaningHourly> {
   @override
   Widget build(BuildContext context) {
-    String addService =
-        (widget.order.with_home_cooking
-                ? "${AppLocalizations.of(context)!.cookingLabel}, "
-                : "") +
-            (widget.order.with_laundry
-                ? "${AppLocalizations.of(context)!.ironLabel}, "
-                : ""); 
-            //     +
-            // (widget.order.with_bring_tools
-            //     ? "${AppLocalizations.of(context)!.bringToolLabel}, "
-            //     : "") +
-            // (context.read<SaveInfoCleaningHourlyCubit>().state.bringVaccum!
-            //     ? "${AppLocalizations.of(context)!.bringVaccumLabel}, "
-            //     : "");
-    addService = addService.isNotEmpty ? addService.substring(0, addService.length - 2) : addService;
+    String addService = (widget.order.with_home_cooking
+            ? "${AppLocalizations.of(context)!.cookingLabel}, "
+            : "") +
+        (widget.order.with_laundry
+            ? "${AppLocalizations.of(context)!.ironLabel}, "
+            : "") +
+        (widget.order.bring_tools
+            ? "${AppLocalizations.of(context)!.bringToolLabel}, "
+            : "");
+    // (context.read<SaveInfoCleaningHourlyCubit>().state.bringVaccum!
+    //     ? "${AppLocalizations.of(context)!.bringVaccumLabel}, "
+    //     : "");
+    addService = addService.isNotEmpty
+        ? addService.substring(0, addService.length - 2)
+        : addService;
 
     String locale = Localizations.localeOf(context).languageCode;
     DateTime orderDate =

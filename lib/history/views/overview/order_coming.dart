@@ -14,47 +14,61 @@ class HistoryOrderComming extends StatefulWidget {
 }
 
 class _HistoryOrderCommingState extends State<HistoryOrderComming> {
+  final ScrollController _scrollController = ScrollController();
   @override
   void initState() {
     super.initState();
-    final cubit = context.read<GetHistoryOrderCubit>();
-    cubit.getHistory(context.read<UserCubit>().state.code!);
+    context
+        .read<GetHistoryOrderCubit>()
+        .getHistory(context.read<UserCubit>().state.code!, 'ORDER_STATUS_NEW');
+    _scrollController.addListener(() {
+      if (_scrollController.position.maxScrollExtent ==
+          _scrollController.offset) {
+        //the bottom of the scrollbar is reached
+        //adding more widgets
+        context.read<GetHistoryOrderCubit>().getHistory(
+            context.read<UserCubit>().state.code!, 'ORDER_STATUS_NEW');
+      }
+    });
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(body:
-        BlocBuilder<GetHistoryOrderCubit, GetHistoryOrderState>(
-            builder: (context, state) {
-      if (state is GetHistoryOrderLoading) {
-        return const Center(
-          child: CircularProgressIndicator(color: colorProject.primaryColor),
-        );
-      }
-
-      if (state is GetHistoryOrderLoaded) {
-        return RefreshIndicator(
-          onRefresh: () async {
-            await context
-                .read<GetHistoryOrderCubit>()
-                .getHistory(context.read<UserCubit>().state.code!);
-          },
-          child: ListView.builder(
-            itemCount: state.orders.length,
-            itemBuilder: (context, index) {
-              return CardHistoryOrder(order: state.orders[index]);
-            },
-          ),
-        );
-      }
-
-      if (state is GetHistoryOrderError) {
-        return Text(
-          state.message,
-        );
-      } else {
-        return Container();
-      }
-    }));
+    var getHistory = context.watch<GetHistoryOrderCubit>();
+    return RefreshIndicator(
+      onRefresh: () async {
+        getHistory.setInitial();
+        getHistory.getHistory(
+            context.read<UserCubit>().state.code!, 'ORDER_STATUS_NEW');
+      },
+      child: SingleChildScrollView(
+        controller: _scrollController,
+        physics: AlwaysScrollableScrollPhysics(),
+        scrollDirection: Axis.vertical,
+        child: Container(
+          child: getHistory is GetHistoryOrderError
+              ? Center(child: Text("Đã có lỗi xảy ra"))
+              : Column(
+                  children: [
+                    for (int i = 0; i < getHistory.orders.length; i++)
+                      CardHistoryOrder(order: getHistory.orders[i]),
+                    //loading
+                    BlocBuilder<GetHistoryOrderCubit, GetHistoryOrderState>(
+                        builder: (context, state) {
+                      if (state is GetHistoryOrderLoading) {
+                        return Align(
+                          alignment: FractionalOffset.topCenter,
+                          child: CircularProgressIndicator(
+                            color: colorProject.primaryColor,
+                          ),
+                        );
+                      }
+                      return Container();
+                    }),
+                  ],
+                ),
+        ),
+      ),
+    );
   }
 }

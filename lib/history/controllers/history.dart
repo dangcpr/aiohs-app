@@ -7,6 +7,7 @@ import 'package:rmservice/history/models/laundry.dart';
 import 'package:rmservice/history/models/order.dart';
 import 'package:rmservice/history/models/shopping.dart';
 import 'package:rmservice/utilities/constants/variable.dart';
+import 'package:rmservice/worker_screen/models/order_result.dart';
 
 final dio = Dio(
   BaseOptions(
@@ -20,20 +21,29 @@ final dio = Dio(
 );
 
 class HistoryController {
-  Future<List<Order>> getOrders(String userCode) async {
+  Future<OrderResult> getOrders(String userCode, String status, int next) async {
     try {
       final response = await dio.get(
         '/user/$userCode/orders',
-        queryParameters: {'limit': 100, 'next': 0},
+        queryParameters: {'limit': 7, 'next': next, 'status': status},
       );
-      //await Future.delayed(const Duration(milliseconds: 700));
+      await Future.delayed(const Duration(milliseconds: 700));
 
       if (response.data['code'] == 0) {
         List<Order> orders = [];
         orders = (response.data['orders'] as List)
             .map((e) => Order.fromJson(e))
             .toList();
-        return orders;
+
+        debugPrint(orders.length.toString());
+
+        print(
+            "-------------------------------------------------------------------------------");
+        print('data reponse: ${response.data}');
+        print(
+            "-------------------------------------------------------------------------------");
+
+        return OrderResult(orders, int.tryParse(response.data['next'])!);
       } else {
         throw response.data['message'];
       }

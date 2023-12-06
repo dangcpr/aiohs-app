@@ -1,32 +1,29 @@
 import 'package:flutter/material.dart';
-import 'package:rmservice/history/models/cleaning_hourly_history.dart';
-import 'package:rmservice/history/widgets/cleaning_hourly/location_info.dart';
-import 'package:rmservice/history/widgets/cleaning_hourly/maid_info.dart';
-import 'package:rmservice/history/widgets/cleaning_hourly/work_info.dart';
+import 'package:rmservice/history/models/laundry.dart';
+import 'package:rmservice/history/widgets/laundry/location_info.dart';
+import 'package:rmservice/history/widgets/laundry/work_info.dart';
 import 'package:rmservice/utilities/components/button_green.dart';
 import 'package:rmservice/utilities/components/text_label.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:rmservice/utilities/constants/variable.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-class CleaningHourlyHistoryDetail extends StatefulWidget {
-  const CleaningHourlyHistoryDetail({super.key, required this.order});
+class WorkerLaundry extends StatefulWidget {
+  const WorkerLaundry({super.key, required this.order});
 
-  final CleaningHourlyHistory order;
+  final LaundryHistory order;
 
   @override
-  State<CleaningHourlyHistoryDetail> createState() =>
-      _CleaningHourlyHistoryDetailState();
+  State<WorkerLaundry> createState() => _WorkerLaundryState();
 }
 
-class _CleaningHourlyHistoryDetailState
-    extends State<CleaningHourlyHistoryDetail> {
+class _WorkerLaundryState extends State<WorkerLaundry> {
   @override
   Widget build(BuildContext context) {
     bool isDarkMode = Theme.of(context).brightness == Brightness.dark;
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          "Chi tiết đơn - Giúp việc theo giờ",
+          "Chi tiết đơn - Giặt ủi",
           style: TextStyle(
             fontFamily: fontBoldApp,
             fontSize: fontSize.mediumLarger,
@@ -34,7 +31,7 @@ class _CleaningHourlyHistoryDetailState
         ),
       ),
       body: Padding(
-        padding: const EdgeInsets.only(left: 20, right: 20),
+        padding: const EdgeInsets.only(left: 20, right: 20, bottom: 90),
         child: ListView(
           children: [
             Padding(
@@ -52,7 +49,7 @@ class _CleaningHourlyHistoryDetailState
               ),
             ),
             SizedBox(height: 10),
-            HistoryLocationInfoCleaningHourly(
+            LocationInfoLaundryHistory(
               isDarkMode: isDarkMode,
               order: widget.order,
             ),
@@ -65,31 +62,11 @@ class _CleaningHourlyHistoryDetailState
             ),
             Padding(
               padding: const EdgeInsets.only(top: 17),
-              child: HistoryInfoCleaningHourly(
+              child: WorkInfoLaundryHistory(
                 isDarkMode: isDarkMode,
                 order: widget.order,
               ),
             ),
-            if (widget.order.maid_name != "")
-              Padding(
-                padding: const EdgeInsets.only(top: 17),
-                child: TextLabel(
-                  label: "Thông tin người giúp việc",
-                  isDarkMode: isDarkMode,
-                ),
-              ),
-            if (widget.order.maid_name != "")
-              Padding(
-                padding: const EdgeInsets.only(top: 17),
-                child: HistoryMaidInfoCleaningHourly(
-                  isDarkMode: isDarkMode,
-                  order: widget.order,
-                ),
-              ),
-            if (widget.order.maid_name != "") SizedBox(height: 15),
-
-            ButtonGreenApp(label: "Hủy đơn này", onPressed: null),
-
             // Padding(
             //   padding: const EdgeInsets.only(top: 17),
             //   child: TextLabel(
@@ -97,13 +74,9 @@ class _CleaningHourlyHistoryDetailState
             //     isDarkMode: isDarkMode,
             //   ),
             // ),
-            // Padding(
-            //   padding: const EdgeInsets.only(top: 17),
-            //   child: MethodPaymentCleaningHourly(
-            //     isDarkMode: isDarkMode,
-            //   ),
-            // ),
-            SizedBox(height: 8),
+            SizedBox(height: 15),
+            ButtonGreenApp(label: "Hủy đơn này", onPressed: null),
+            SizedBox(height: 8)
           ],
         ),
       ),
