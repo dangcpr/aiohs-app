@@ -49,6 +49,10 @@ class CleaningLongTermRepo {
 
   Future<void> orderCleaningLongTerm(
       InfoCleaningLongTerm info, Address address, String userCode) async {
+    List<String> listDay = [];
+    for (int i = 0; i < info.days.length; i++) {
+      listDay.add(info.days[i].toString());
+    }
     try {
       final response = await dio.post(
         '/user/$userCode/orders/clean-subscription/create',
@@ -63,7 +67,7 @@ class CleaningLongTermRepo {
           "note": info.note,
           "latitude": address.latitude,
           "longitude": address.longitude,
-          "working_dates": [info.days.toString()],
+          "working_dates": listDay,
           "duration_per_day": info.duration,
           "number_of_month": info.month,
         },
