@@ -16,9 +16,9 @@ class AnimatedContanierApTranCustom extends StatefulWidget {
 
 class _AnimatedContanierApTranCustomState
     extends State<AnimatedContanierApTranCustom> {
-  bool isSwitched = false;
   bool select = false;
   int count = 1;
+  int countHasGas = 0;
   late Details detail;
   late int index;
 
@@ -106,30 +106,64 @@ class _AnimatedContanierApTranCustomState
                   ),
                 ),
                 sizedBox.largeHeight(),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text('Bơm gas'),
-                    SizedBox(
-                      width: 50,
-                      height: 40,
-                      child: FittedBox(
-                        fit: BoxFit.fill,
-                        child: Switch(
-                          activeColor: colorProject.primaryColor,
-                          value: isSwitched,
-                          onChanged: (bool value) {
-                            setState(() {
-                              isSwitched = value;
-                              cubit.state.details[index].hasGas = isSwitched;
-                            });
-                            print(cubit.printListItem);
-                          },
+                Text('Số lượng máy cần bơm gas'),
+                sizedBox.mediumHeight(),
+                Container(
+                  decoration: BoxDecoration(
+                    border: Border.all(color: Colors.orange),
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(padding.paddingSmall),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(8),
+                            border:
+                                Border.all(color: colorProject.primaryColor),
+                          ),
+                          child: InkWell(
+                              onTap: () {
+                                setState(() {
+                                  if (countHasGas > 0) {
+                                    countHasGas--;
+                                  }
+                                });
+                                cubit.state.details[index].hasGasAmount =
+                                    countHasGas;
+                                print(cubit.printListItem);
+                              },
+                              child: Icon(Icons.remove)),
                         ),
-                      ),
+                        Text(
+                          countHasGas.toString(),
+                          style: textStyle.headerStyle(fontSize: 20),
+                        ),
+                        Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(8),
+                            border:
+                                Border.all(color: colorProject.primaryColor),
+                          ),
+                          child: InkWell(
+                            onTap: () {
+                              setState(() {
+                                countHasGas++;
+                                cubit.state.details[index].hasGasAmount =
+                                    countHasGas;
+                              });
+                              print(cubit.printListItem);
+                            },
+                            child: Icon(Icons.add),
+                          ),
+                        ),
+                      ],
                     ),
-                  ],
-                )
+                  ),
+                ),
+                sizedBox.largeHeight(),
               ],
             ),
           ),
@@ -164,7 +198,7 @@ class _AnimatedContanierApTranCustomState
                       cubit.createNewDetail(type: 'Floor', info: widget.text);
                   index = cubit.checkIndex(detail, cubit.state.details);
                   count = cubit.state.details[index].amount;
-                  isSwitched = cubit.state.details[index].hasGas;
+                  countHasGas = cubit.state.details[index].hasGasAmount;
                 });
                 print(cubit.printListItem);
               },

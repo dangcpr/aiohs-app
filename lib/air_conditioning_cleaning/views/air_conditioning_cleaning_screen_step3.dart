@@ -4,6 +4,7 @@ import 'package:rmservice/air_conditioning_cleaning/cubit/order_air_cond/order_a
 import 'package:rmservice/air_conditioning_cleaning/widgets/work_info.dart';
 import 'package:rmservice/utilities/components/text_label.dart';
 
+import '../../cleaning_hourly/cubits/save_info/save_address.dart';
 import '../../cleaning_hourly/widgets/location_info.dart';
 import '../../cleaning_hourly/widgets/method_payment.dart';
 import '../../cleaning_hourly/widgets/show_bottom_edit_name_phone.dart';
@@ -119,13 +120,23 @@ class _AirConditioningCleaningScreenStep3State
                       ),
                       icon: Icon(color: Colors.white, Icons.edit),
                       onPressed: () {
-                        showModalBottomSheet(
-                          isScrollControlled: true,
-                          context: context,
-                          builder: (builder) {
-                            return BottomEditNamePhone(isDarkMode: isDarkMode);
-                          },
-                        );
+                        // showModalBottomSheet(
+                        //   isScrollControlled: true,
+                        //   context: context,
+                        //   builder: (builder) {
+                        //     return BottomEditNamePhone(isDarkMode: isDarkMode);
+                        //   },
+                        // );
+                        print(
+                            context.read<SaveAddressCubit>().state?.longitude);
+                        print(context.read<SaveAddressCubit>().state?.latitude);
+                        print(context.read<SaveAddressCubit>().state?.name);
+                        print(context.read<SaveAddressCubit>().state?.phone);
+                        print(context
+                            .read<SaveAddressCubit>()
+                            .state
+                            ?.shortAddress);
+                        print(context.read<SaveAddressCubit>().state?.address);
                       },
                     )
                   ],

@@ -121,9 +121,9 @@ class _WorkInfoCleaningAirConditioningState
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Text('Công việc:'),
-                                detail.hasGas
+                                detail.hasGasAmount != 0
                                     ? Text(
-                                        'Vệ sinh, Bơm gas: x${detail.amount}')
+                                        'Vệ sinh: x${detail.amount}, Bơm gas: x${detail.hasGasAmount}')
                                     : Text('Vệ sinh: x${detail.amount}'),
                               ],
                             ),
