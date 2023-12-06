@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:rmservice/history/models/laundry.dart';
 import 'package:rmservice/history/widgets/laundry/location_info.dart';
+import 'package:rmservice/history/widgets/laundry/maid_info.dart';
 import 'package:rmservice/history/widgets/laundry/work_info.dart';
 import 'package:rmservice/utilities/components/button_green.dart';
 import 'package:rmservice/utilities/components/text_label.dart';
@@ -74,9 +75,38 @@ class _LaundryHistoryDetailState extends State<LaundryHistoryDetail> {
             //     isDarkMode: isDarkMode,
             //   ),
             // ),
-            SizedBox(height: 15),
+            if (widget.order.maid_name != "")
+              Padding(
+                padding: const EdgeInsets.only(top: 17),
+                child: TextLabel(
+                  label: "Thông tin người giúp việc",
+                  isDarkMode: isDarkMode,
+                ),
+              ),
+            if (widget.order.maid_name != "")
+              Padding(
+                padding: const EdgeInsets.only(top: 17),
+                child: HistoryMaidInfoLaundry(
+                  isDarkMode: isDarkMode,
+                  order: widget.order,
+                ),
+              ),
             ButtonGreenApp(label: "Hủy đơn này", onPressed: null),
-            SizedBox(height: 8)
+
+            // Padding(
+            //   padding: const EdgeInsets.only(top: 17),
+            //   child: TextLabel(
+            //     label: 'Phương thức thanh toán',
+            //     isDarkMode: isDarkMode,
+            //   ),
+            // ),
+            // Padding(
+            //   padding: const EdgeInsets.only(top: 17),
+            //   child: MethodPaymentCleaningHourly(
+            //     isDarkMode: isDarkMode,
+            //   ),
+            // ),
+            SizedBox(height: 8),
           ],
         ),
       ),

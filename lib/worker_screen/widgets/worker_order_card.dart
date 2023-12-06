@@ -66,13 +66,29 @@ class _WorkerOrderCardState extends State<WorkerOrderCard> {
               debugPrint(jsonEncode(widget.order.toJson()));
               switch (widget.order.product_code) {
                 case 'CLEAN_ON_DEMAND':
-                  WorkerHelper().getCleaningHourlyDetail(context, userCubit, widget.order);
+                  WorkerHelper().getCleaningHourlyDetail(
+                      context, userCubit, widget.order);
                   break;
                 case 'LAUNDRY':
-                  WorkerHelper().getLaundryDetail(context, userCubit, widget.order);
+                  WorkerHelper()
+                      .getLaundryDetail(context, userCubit, widget.order);
                   break;
                 case 'GROCERY_ASSISTANT':
-                  WorkerHelper().getShoppingDetail(context, userCubit, widget.order);
+                  WorkerHelper()
+                      .getShoppingDetail(context, userCubit, widget.order);
+                  break;
+                case 'CLEAN_SUBSCRIPTION':
+                  WorkerHelper().getCleaningLongTermDetail(
+                      context, userCubit, widget.order);
+                  debugPrint(jsonEncode(widget.order.toJson()));
+                  break;
+                case 'AIR_CONDITIONING_CLEAN':
+                  WorkerHelper().getCleaningAirCondDetail(context, userCubit, widget.order);
+                  debugPrint(jsonEncode(widget.order.toJson()));
+                  break;
+                case 'HOME_COOKING':
+                  WorkerHelper().getCookingDetail(context, userCubit, widget.order);
+                  debugPrint(jsonEncode(widget.order.toJson()));
                   break;
                 default:
                   Navigator.pop(context);

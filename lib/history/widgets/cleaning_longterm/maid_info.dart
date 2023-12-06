@@ -1,22 +1,21 @@
 import 'package:flutter/material.dart';
-import 'package:rmservice/history/models/air_conditioning_history.dart';
+import 'package:rmservice/history/models/cleaning_longterm_history.dart';
 import 'package:rmservice/utilities/constants/variable.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-class HistoryLocationInfoCleaningAirCond extends StatefulWidget {
-  const HistoryLocationInfoCleaningAirCond(
+class HistoryMaidInfoCleaningLongTerm extends StatefulWidget {
+  const HistoryMaidInfoCleaningLongTerm(
       {super.key, required this.isDarkMode, required this.order});
 
   final bool isDarkMode;
-  final CleaningAirCondHistory order;
+  final CleaningLongTermHistory order;
 
   @override
-  State<HistoryLocationInfoCleaningAirCond> createState() =>
-      _HistoryLocationInfoCleaningAirCondState();
+  State<HistoryMaidInfoCleaningLongTerm> createState() =>
+      _HistoryMaidInfoCleaningLongTermState();
 }
 
-class _HistoryLocationInfoCleaningAirCondState
-    extends State<HistoryLocationInfoCleaningAirCond> {
+class _HistoryMaidInfoCleaningLongTermState
+    extends State<HistoryMaidInfoCleaningLongTerm> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -49,7 +48,7 @@ class _HistoryLocationInfoCleaningAirCondState
                 SizedBox(width: 8),
                 Flexible(
                   child: Text(
-                    widget.order.orderAirCondHistory.agentName,
+                    widget.order.orderCleaningLongTerm.maidName,
                     style: TextStyle(
                       fontSize: fontSize.medium,
                       fontFamily: fontApp,
@@ -70,7 +69,7 @@ class _HistoryLocationInfoCleaningAirCondState
                 SizedBox(width: 8),
                 Flexible(
                   child: Text(
-                    widget.order.orderAirCondHistory.agentPhone,
+                    widget.order.orderCleaningLongTerm.maidCode,
                     style: TextStyle(
                       fontSize: fontSize.medium,
                       fontFamily: fontApp,
@@ -81,26 +80,6 @@ class _HistoryLocationInfoCleaningAirCondState
               ],
             ),
             SizedBox(height: 5),
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Icon(
-                  Icons.location_on,
-                  color: colorProject.primaryColor,
-                ),
-                SizedBox(width: 8),
-                Flexible(
-                  child: Text(
-                    widget.order.orderAirCondHistory.workingAddress,
-                    style: TextStyle(
-                      fontSize: fontSize.medium,
-                      fontFamily: fontApp,
-                      color: widget.isDarkMode ? Colors.white : Colors.black,
-                    ),
-                  ),
-                )
-              ],
-            ),
           ],
         ),
       ),

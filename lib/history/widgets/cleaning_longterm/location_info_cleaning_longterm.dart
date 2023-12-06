@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:rmservice/history/models/cleaning_hourly_history.dart';
 import 'package:rmservice/utilities/constants/variable.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -33,7 +32,7 @@ class _HistoryLocationInfoCleaningLongTermState
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              AppLocalizations.of(context)!.locationDetailLabel,
+              "Thông tin người giúp việc",
               style: TextStyle(
                 fontSize: fontSize.medium,
                 fontFamily: fontBoldApp,
@@ -41,7 +40,6 @@ class _HistoryLocationInfoCleaningLongTermState
               ),
             ),
             SizedBox(height: 5),
-            /*
             Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -52,14 +50,14 @@ class _HistoryLocationInfoCleaningLongTermState
                 SizedBox(width: 8),
                 Flexible(
                   child: Text(
-                    widget.order.renter_name,
+                    widget.order.orderCleaningLongTerm.agentName,
                     style: TextStyle(
                       fontSize: fontSize.medium,
                       fontFamily: fontApp,
                       color: widget.isDarkMode ? Colors.white : Colors.black,
                     ),
                   ),
-                ),
+                )
               ],
             ),
             SizedBox(height: 5),
@@ -67,24 +65,23 @@ class _HistoryLocationInfoCleaningLongTermState
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Icon(
-                  Icons.phone,
+                  Icons.code,
                   color: colorProject.primaryColor,
                 ),
                 SizedBox(width: 8),
                 Flexible(
                   child: Text(
-                    context.watch<SaveAddressCubit>().state!.phone!,
+                    widget.order.orderCleaningLongTerm.agentPhone,
                     style: TextStyle(
                       fontSize: fontSize.medium,
                       fontFamily: fontApp,
                       color: widget.isDarkMode ? Colors.white : Colors.black,
                     ),
                   ),
-                ),
+                )
               ],
             ),
             SizedBox(height: 5),
-            */
             Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [

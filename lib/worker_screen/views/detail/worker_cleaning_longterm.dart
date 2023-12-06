@@ -1,13 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:rmservice/history/models/cleaning_longterm_history.dart';
+import 'package:rmservice/history/widgets/cleaning_longterm/location_info_cleaning_longterm.dart';
 import 'package:rmservice/history/widgets/cleaning_longterm/maid_info.dart';
+import 'package:rmservice/history/widgets/cleaning_longterm/work_info_cleaning_longterm.dart';
+import 'package:rmservice/login/cubit/user_cubit.dart';
 import 'package:rmservice/utilities/components/button_green.dart';
 import 'package:rmservice/utilities/components/text_label.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:rmservice/utilities/constants/variable.dart';
+import 'package:rmservice/utilities/dialog/dialog.dart';
+import 'package:rmservice/worker_screen/controllers/worker.dart';
 
-import '../../models/cleaning_longterm_history.dart';
-import '../../widgets/cleaning_longterm/location_info_cleaning_longterm.dart';
-import '../../widgets/cleaning_longterm/work_info_cleaning_longterm.dart';
+
 
 class CleaningLongTermHistoryDetail extends StatefulWidget {
   const CleaningLongTermHistoryDetail({super.key, required this.order});
@@ -71,7 +76,6 @@ class _CleaningLongTermHistoryDetailState
                 order: widget.order,
               ),
             ),
-            SizedBox(height: 15),
             if (widget.order.orderCleaningLongTerm.maidCode != "")
               Padding(
                 padding: const EdgeInsets.only(top: 17),
@@ -88,22 +92,43 @@ class _CleaningLongTermHistoryDetailState
                   order: widget.order,
                 ),
               ),
-            ButtonGreenApp(label: "Hủy đơn này", onPressed: null),
+            if (widget.order.orderCleaningLongTerm.maidCode == "") SizedBox(height: 15),
+            if (widget.order.orderCleaningLongTerm.maidCode == "")
+              ButtonGreenApp(
+                  label: "Nhận đơn này",
+                  onPressed: () async {
+                    showDialog(
+                        context: context,
+                        builder: (context) {
+                          return const Center(
+                            child: CircularProgressIndicator(),
+                          );
+                        });
+                    try {
+                      await WorkerController().acceptedOrder(widget.order.orderCleaningLongTerm.code,
+                          context.read<UserCubit>().state.code!);
+                      Navigator.pop(context);
+                      showCustomDialog(
+                          context: context,
+                          dialogType: CustomDialogType.SUCCESS,
+                          msg: "Bạn đã nhận đơn này",
+                          isMultipleButton: false);
+                    } catch (e) {
+                      Navigator.pop(context);
+                      showCustomDialog(
+                          context: context,
+                          dialogType: CustomDialogType.FAILURE,
+                          msg: e.toString(),
+                          isMultipleButton: false);
+                    }
+                  }),
+            if (widget.order.orderCleaningLongTerm.maidCode == context.read<UserCubit>().state.code)
+              SizedBox(height: 15),
 
-            // Padding(
-            //   padding: const EdgeInsets.only(top: 17),
-            //   child: TextLabel(
-            //     label: 'Phương thức thanh toán',
-            //     isDarkMode: isDarkMode,
-            //   ),
-            // ),
-            // Padding(
-            //   padding: const EdgeInsets.only(top: 17),
-            //   child: MethodPaymentCleaningHourly(
-            //     isDarkMode: isDarkMode,
-            //   ),
-            // ),
-            SizedBox(height: 8)
+            if (widget.order.orderCleaningLongTerm.maidCode == context.read<UserCubit>().state.code)
+              ButtonGreenApp(label: "Hủy đơn này", onPressed: null),
+            if (widget.order.orderCleaningLongTerm.maidCode == context.read<UserCubit>().state.code)
+              SizedBox(height: 15),
           ],
         ),
       ),

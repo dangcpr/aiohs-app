@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:rmservice/history/models/shopping.dart';
 import 'package:rmservice/history/widgets/shopping/location_info.dart';
+import 'package:rmservice/history/widgets/shopping/maid_info.dart';
 import 'package:rmservice/history/widgets/shopping/work_info.dart';
 import 'package:rmservice/utilities/components/button_green.dart';
 import 'package:rmservice/utilities/components/text_label.dart';
@@ -103,9 +104,39 @@ class _ShoppingHistoryDetailState extends State<ShoppingHistoryDetail> {
               //     isDarkMode: isDarkMode,
               //   ),
               // ),
-              SizedBox(height: 15),
-              ButtonGreenApp(label: "Hủy đơn này", onPressed: null),
-              SizedBox(height: 8)
+              if (widget.order.maid_name != "")
+              Padding(
+                padding: const EdgeInsets.only(top: 17),
+                child: TextLabel(
+                  label: "Thông tin người giúp việc",
+                  isDarkMode: isDarkMode,
+                ),
+              ),
+            if (widget.order.maid_name != "")
+              Padding(
+                padding: const EdgeInsets.only(top: 17),
+                child: HistoryMaidInfoShopping(
+                  isDarkMode: isDarkMode,
+                  order: widget.order,
+                ),
+              ),
+
+            ButtonGreenApp(label: "Hủy đơn này", onPressed: null),
+
+            // Padding(
+            //   padding: const EdgeInsets.only(top: 17),
+            //   child: TextLabel(
+            //     label: 'Phương thức thanh toán',
+            //     isDarkMode: isDarkMode,
+            //   ),
+            // ),
+            // Padding(
+            //   padding: const EdgeInsets.only(top: 17),
+            //   child: MethodPaymentCleaningHourly(
+            //     isDarkMode: isDarkMode,
+            //   ),
+            // ),
+            SizedBox(height: 8),
             ],
           ),
         ),
