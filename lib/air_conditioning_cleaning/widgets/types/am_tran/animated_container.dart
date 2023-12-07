@@ -150,7 +150,9 @@ class _AnimatedContanierCustomAmTranCustomState
                           child: InkWell(
                             onTap: () {
                               setState(() {
-                                countHasGas++;
+                                if (countHasGas < count) {
+                                  countHasGas++;
+                                }
                                 cubit.state.details[index].hasGasAmount =
                                     countHasGas;
                               });
