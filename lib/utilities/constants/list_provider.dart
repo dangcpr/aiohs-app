@@ -48,6 +48,8 @@ import '../../cleaning_hourly/cubits/save_info/save_info.dart';
 import '../../cleaning_longterm/cubit/price_cleaning_longterm_cubit.dart';
 import '../../cleaning_longterm/cubit/save_info_cubit.dart';
 import '../../cooking/cubit/price_cooking_cubit.dart';
+import '../../history/cubits/get_history_cancel/get_history_cancel_cubit.dart';
+import '../../history/cubits/order_cancel/order_cancel_cubit.dart';
 import '../../profile/cubit/update_profile_cubit.dart';
 
 final listProvider = [
@@ -195,6 +197,14 @@ final listProvider = [
   ),
   BlocProvider<GetHistoryAcceptedCubit>(
     create: (_) => GetHistoryAcceptedCubit(),
+  ),
+  //History Cancel
+  BlocProvider<GetHistoryCancelCubit>(
+    create: (_) => GetHistoryCancelCubit(),
+  ),
+  //Order Cancel
+  BlocProvider<OrderCancelCubit>(
+    create: (_) => OrderCancelCubit(),
   ),
 
   //Update profile
