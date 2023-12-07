@@ -27,6 +27,9 @@ import 'package:rmservice/laundry/cubits/price_laundry_cubit.dart';
 import 'package:rmservice/laundry/cubits/save_info_laundry_cubit.dart';
 import 'package:rmservice/login/cubit/login_cubit.dart';
 import 'package:rmservice/login/cubit/user_cubit.dart';
+import 'package:rmservice/place_page/cubits/get_place_public/get_place_public_cubit.dart';
+import 'package:rmservice/place_page/cubits/get_place_user/get_place_user_cubit.dart';
+import 'package:rmservice/place_page/cubits/images_place_cubit.dart';
 import 'package:rmservice/shopping/cubits/add_items.dart';
 import 'package:rmservice/shopping/cubits/caculate_price/caculate_price_cubit.dart';
 import 'package:rmservice/shopping/cubits/get_shopping_price/get_shopping_price_cubit.dart';
@@ -206,5 +209,16 @@ final listProvider = [
   //Worker
   BlocProvider<WorkerGetOrderAllCubit>(
     create: (_) => WorkerGetOrderAllCubit(),
+  ),
+
+  //Place Page
+  BlocProvider<ImagesPlaceCubit>(
+    create: (_) => ImagesPlaceCubit(),
+  ),
+  BlocProvider<GetPlaceUserCubit>(
+    create: (_) => GetPlaceUserCubit(),
+  ),
+  BlocProvider<GetPlacePublicCubit>(
+    create: (_) => GetPlacePublicCubit(),
   )
 ];

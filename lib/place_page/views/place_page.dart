@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:page_transition/page_transition.dart';
-import 'package:rmservice/place_page/views/create_rental_screen.dart';
-import '../widgets/place_card.dart';
-import '../../utilities/constants/variable.dart';
+import 'package:rmservice/place_page/views/place_public.dart';
+import 'package:rmservice/place_page/views/place_user.dart';
+import 'package:rmservice/utilities/constants/variable.dart';
 
 class PlacePage extends StatefulWidget {
   const PlacePage({super.key});
@@ -15,44 +13,40 @@ class PlacePage extends StatefulWidget {
 class _PlacePageState extends State<PlacePage> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      floatingActionButton: FloatingActionButton.extended(
-        backgroundColor: colorProject.primaryColor,
-        label: Text(
-          "Bạn muốn cho thuê?",
-          style: TextStyle(
-            fontFamily: fontBoldApp,
-            fontSize: fontSize.medium,
-            color: Colors.white,
+    return DefaultTabController(
+      length: 2,
+      child: Scaffold(
+        appBar: AppBar(
+          automaticallyImplyLeading: false,
+          titleSpacing: 0,
+          flexibleSpace: Column(
+            children: [
+              TabBar(
+                indicatorColor: colorProject.primaryColor,
+                labelStyle: TextStyle(
+                  color: colorProject.primaryColor,
+                  fontFamily: fontBoldApp,
+                  fontSize: fontSize.medium,
+                ),
+                tabs: [
+                  Tab(
+                    text: 'Thuê chỗ gần đây',
+                  ),
+                  Tab(
+                    text: 'Tin thuê chỗ của bạn',
+                  ),
+                  
+                ],
+              )
+            ],
           ),
         ),
-        onPressed: () {
-          Navigator.push(
-            context,
-            PageTransition(
-              child: CreateRentalScreen(),
-              type: PageTransitionType.rightToLeftWithFade,
-              duration: Duration(milliseconds: 400),
-            ),
-          );
-        },
-      ),
-      body: ListView(
-        //crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Padding(
-            padding: const EdgeInsets.fromLTRB(14, 12, 0, 0),
-            child: Text(
-              AppLocalizations.of(context)!.needRoomForShortTerm,
-              style: const TextStyle(
-                fontFamily: fontBoldApp,
-                fontSize: 20,
-              ),
-            ),
-          ),
-          const SizedBox(height: 10),
-          const LocationCard(),
-        ],
+        body: TabBarView(
+          children: [
+            PlacePublic(),
+            PlaceUser()
+          ],
+        ),
       ),
     );
   }

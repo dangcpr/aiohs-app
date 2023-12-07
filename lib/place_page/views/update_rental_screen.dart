@@ -1,40 +1,57 @@
-// ignore_for_file: use_build_context_synchronously
-
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:rmservice/cleaning_hourly/cubits/save_info/save_address.dart';
+import 'package:rmservice/cleaning_hourly/models/address.dart';
 import 'package:rmservice/login/cubit/user_cubit.dart';
 import 'package:rmservice/place_page/controllers/place_page.dart';
-import 'package:rmservice/place_page/cubits/get_place_user/get_place_user_cubit.dart';
 import 'package:rmservice/place_page/models/rental_place.dart';
+import 'package:rmservice/place_page/models/rental_place_res.dart';
 import 'package:rmservice/place_page/views/maps.dart';
-import 'package:rmservice/utilities/components/text_label.dart';
-import 'package:rmservice/place_page/widgets/image_list_and_button.dart';
+import 'package:rmservice/place_page/widgets/image_list_and_button_update.dart';
 import 'package:rmservice/utilities/components/text_field_basic.dart';
 import 'package:rmservice/utilities/components/text_field_long.dart';
+import 'package:rmservice/utilities/components/text_label.dart';
 import 'package:rmservice/utilities/constants/variable.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-class CreateRentalScreen extends StatefulWidget {
-  const CreateRentalScreen({super.key});
+class UpdateRentalScreen extends StatefulWidget {
+  const UpdateRentalScreen({super.key, required this.rentalPlace});
+
+  final RentalPlaceRes rentalPlace;
 
   @override
-  State<CreateRentalScreen> createState() => _CreateRentalScreenState();
+  State<UpdateRentalScreen> createState() => _UpdateRentalScreenState();
 }
 
-class _CreateRentalScreenState extends State<CreateRentalScreen> {
+class _UpdateRentalScreenState extends State<UpdateRentalScreen> {
   final formKey = GlobalKey<FormState>();
-  TextEditingController nameController = TextEditingController();
-  TextEditingController phoneController = TextEditingController();
   TextEditingController numOfDayController = TextEditingController();
   TextEditingController titleController = TextEditingController();
   TextEditingController areaController = TextEditingController();
   TextEditingController priceController = TextEditingController();
   TextEditingController detailController = TextEditingController();
   TextEditingController addressController = TextEditingController();
-
+  @override
+  void initState() {
+    super.initState();
+    numOfDayController.text = widget.rentalPlace.number_rental_days.toString();
+    titleController.text = widget.rentalPlace.title;
+    areaController.text = widget.rentalPlace.area.toString();
+    priceController.text = widget.rentalPlace.price.toString();
+    detailController.text = widget.rentalPlace.description;
+    addressController.text = widget.rentalPlace.address.split(' - ')[0];
+    context.read<SaveAddressCubit>().setAddress(
+      Address(
+        latitude: widget.rentalPlace.latitude,
+        longitude: widget.rentalPlace.longitude,
+        shortAddress: widget.rentalPlace.address.split(' - ')[0],
+        address: widget.rentalPlace.address.split(' - ')[1],
+        name: context.read<UserCubit>().state.full_name,
+      )
+    );
+  }
   @override
   Widget build(BuildContext context) {
     bool darkMode = Theme.of(context).brightness == Brightness.dark;
@@ -43,7 +60,7 @@ class _CreateRentalScreenState extends State<CreateRentalScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          "Đăng tin cho thuê chỗ",
+          "Cập nhật tin thuê chỗ" ,
           style: TextStyle(
             fontFamily: fontBoldApp,
             fontSize: fontSize.mediumLarger,
@@ -109,7 +126,7 @@ class _CreateRentalScreenState extends State<CreateRentalScreen> {
                     });
                 try {
                   await PlacePageController()
-                      .createPlaceRental(rentalPlace, userCubit.state.code!);
+                      .updateRental(rentalPlace, userCubit.state.code!);
                   Navigator.pop(context);
                   AwesomeDialog(
                     context: context,
@@ -127,7 +144,6 @@ class _CreateRentalScreenState extends State<CreateRentalScreen> {
                       fontSize: fontSize.medium,
                     ),
                   ).show();
-                  context.read<GetPlaceUserCubit>().getPlaceUser(userCubit.state.code!);
                 } catch (e) {
                   Navigator.pop(context);
                   AwesomeDialog(
@@ -162,14 +178,14 @@ class _CreateRentalScreenState extends State<CreateRentalScreen> {
               Padding(
                 padding: EdgeInsets.zero,
                 child: Text(
-                  "Đăng tin cho thuê chỗ",
+                  "Cập nhật tin cho thuê chỗ",
                   style: Theme.of(context).textTheme.titleLarge,
                 ),
               ),
               Padding(
                 padding: const EdgeInsets.only(bottom: 20),
                 child: Text(
-                  "Hoàn thành các thông tin bên dưới để đăng tin thuê chỗ",
+                  "Mã tin: " + widget.rentalPlace.code.toString(),
                   style: Theme.of(context).textTheme.labelMedium,
                 ),
               ),
@@ -265,7 +281,7 @@ class _CreateRentalScreenState extends State<CreateRentalScreen> {
               SizedBox(
                 height: 10,
               ),
-              ImageListAndButton(),
+              ImageListAndButtonUpdate(),
               SizedBox(
                 height: 15,
               ),

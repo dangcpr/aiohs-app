@@ -6,14 +6,14 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rmservice/place_page/cubits/images_place_cubit.dart';
 import 'package:rmservice/utilities/constants/variable.dart';
 
-class ImageListAndButton extends StatefulWidget {
-  const ImageListAndButton({super.key});
+class ImageListAndButtonUpdate extends StatefulWidget {
+  const ImageListAndButtonUpdate({super.key});
 
   @override
-  State<ImageListAndButton> createState() => _ImageListAndButtonState();
+  State<ImageListAndButtonUpdate> createState() => _ImageListAndButtonUpdateState();
 }
 
-class _ImageListAndButtonState extends State<ImageListAndButton> {
+class _ImageListAndButtonUpdateState extends State<ImageListAndButtonUpdate> {
   List<File> files = [];
 
   @override

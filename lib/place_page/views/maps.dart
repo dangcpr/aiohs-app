@@ -4,20 +4,21 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:rmservice/login/cubit/user_cubit.dart';
 import 'package:rmservice/utilities/constants/mapsController.dart';
 import 'package:rmservice/cleaning_hourly/cubits/save_info/save_address.dart';
 import 'package:rmservice/cleaning_hourly/models/address.dart';
-import 'package:rmservice/cleaning_hourly/widgets/show_bottom_address.dart';
 import 'package:rmservice/utilities/constants/variable.dart';
 
-class ChooseLocationScreen extends StatefulWidget {
-  const ChooseLocationScreen({super.key});
+class ChooseLocationScreenPlace extends StatefulWidget {
+  const ChooseLocationScreenPlace({super.key});
 
   @override
-  State<ChooseLocationScreen> createState() => _ChooseLocationScreenState();
+  State<ChooseLocationScreenPlace> createState() =>
+      _ChooseLocationScreenPlaceState();
 }
 
-class _ChooseLocationScreenState extends State<ChooseLocationScreen> {
+class _ChooseLocationScreenPlaceState extends State<ChooseLocationScreenPlace> {
   late GoogleMapController googleMapController;
 
   LatLng _center = LatLng(10.841645, 106.79091);
@@ -47,6 +48,8 @@ class _ChooseLocationScreenState extends State<ChooseLocationScreen> {
         position: _center,
       )
     };
+    latCurrent = _center.latitude;
+    lngCurrent = _center.longitude;
   }
 
   //dispose
@@ -63,28 +66,27 @@ class _ChooseLocationScreenState extends State<ChooseLocationScreen> {
 
   @override
   Widget build(BuildContext context) {
-    var brightness = MediaQuery.of(context).platformBrightness;
-    bool isDarkMode = brightness == Brightness.dark;
-
     return Scaffold(
       appBar: AppBar(
         title: const Text('Choose Location'),
         actions: [
           TextButton(
             onPressed: () {
-              if (isSearch) {
-                context.read<SaveAddressCubit>().state!.address = searchLocationController.text;
-                context.read<SaveAddressCubit>().state!.shortAddress = addressObject.shortAddress;
-                showModalBottomSheet(
-                  context: context,
-                  isScrollControlled: true,
-                  builder: (builder) {
-                    return BottomSheetAddress(isDarkMode: isDarkMode, lat: latCurrent, lng: lngCurrent);
-                    
-                  },
-                );
-              } else
-                null;
+              // if (isSearch) {
+              //   context.read<SaveAddressCubit>().state!.address = searchLocationController.text;
+              //   context.read<SaveAddressCubit>().state!.shortAddress = addressObject.shortAddress;
+              //   showModalBottomSheet(
+              //     context: context,
+              //     isScrollControlled: true,
+              //     builder: (builder) {
+              //       return BottomSheetAddress(isDarkMode: isDarkMode, lat: latCurrent, lng: lngCurrent);
+
+              //     },
+              //   );
+              // } else
+              //   null;
+              context.read<SaveAddressCubit>().setAddress(addressObject);
+              Navigator.pop(context);
             },
             child: Text(
               "Chọn",
@@ -142,6 +144,10 @@ class _ChooseLocationScreenState extends State<ChooseLocationScreen> {
                         ['long_name'] +
                     ' ' +
                     jsonDecode(address)['address_components'][1]['long_name'],
+                latitude: latCurrent,
+                longitude: lngCurrent,
+                name: context.read<UserCubit>().state.full_name,
+                phone: context.read<UserCubit>().state.phone_number,
               );
 
               // debugPrint(await MapController()
@@ -205,9 +211,13 @@ class _ChooseLocationScreenState extends State<ChooseLocationScreen> {
                         );
 
                         addressObject = Address(
-                          address: jsonDecode(detailAddress)['formatted_address'],
-                          shortAddress:
-                              jsonDecode(detailAddress)['name']
+                          address:
+                              jsonDecode(detailAddress)['formatted_address'],
+                          shortAddress: jsonDecode(detailAddress)['name'],
+                          latitude: latCurrent,
+                          longitude: lngCurrent,
+                          name: context.read<UserCubit>().state.full_name,
+                          phone: context.read<UserCubit>().state.phone_number,
                         );
 
                         setState(() {

@@ -1,20 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:page_transition/page_transition.dart';
-import 'package:rmservice/place_page/constants/test_place.dart';
-import 'package:rmservice/place_page/models/rental_place.dart';
+import 'package:rmservice/place_page/models/rental_place_res.dart';
 import 'package:rmservice/place_page/views/place_detail.dart';
 import 'package:rmservice/utilities/constants/variable.dart';
 
 class LocationCard extends StatefulWidget {
-  const LocationCard({super.key});
+  const LocationCard(
+      {super.key, required this.rentalPlace, this.isUser = false});
+
+  final List<RentalPlaceRes> rentalPlace;
+  final bool isUser;
 
   @override
   State<LocationCard> createState() => _LocationCardState();
 }
 
 class _LocationCardState extends State<LocationCard> {
-  List<RentalPlace> testListRentalPlace1 = testListRentalPlace;
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
@@ -23,18 +25,19 @@ class _LocationCardState extends State<LocationCard> {
       child: Column(
         //crossAxisAlignment: CrossAxisAlignment.center,
         children: List<Widget>.generate(
-          testListRentalPlace1.length,
+          widget.rentalPlace.length,
           (index) => Column(
             children: [
               InkWell(
                 borderRadius: BorderRadius.circular(15),
                 onTap: () {
-                  debugPrint("tapped" + testListRentalPlace1[index].titleRent);
+                  debugPrint("tapped" + widget.rentalPlace[index].title);
                   Navigator.push(
                     context,
                     PageTransition(
                       child: PlaceDetailScreen(
-                        rentalPlace: testListRentalPlace1[index],
+                        rentalPlace: widget.rentalPlace[index],
+                        isUser: widget.isUser,
                       ),
                       type: PageTransitionType.rightToLeftWithFade,
                       duration: Duration(milliseconds: 400),
@@ -43,10 +46,10 @@ class _LocationCardState extends State<LocationCard> {
                 },
                 child: Card(
                   size,
-                  testListRentalPlace1[index].titleRent,
-                  testListRentalPlace1[index].address,
-                  testListRentalPlace1[index].images[0],
-                  testListRentalPlace1[index].price,
+                  widget.rentalPlace[index].title,
+                  widget.rentalPlace[index].address,
+                  widget.rentalPlace[index].images[0],
+                  widget.rentalPlace[index].price,
                 ),
               ),
               SizedBox(height: 20),
@@ -71,9 +74,9 @@ class _LocationCardState extends State<LocationCard> {
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Image.asset(
-            'assets/images/location.png',
-            height: size.height / 3.5,
+          Image.network(
+            image,
+            height: size.height / 5,
             width: size.width,
           ),
           Divider(height: 1, indent: 0, endIndent: 0),
@@ -135,7 +138,7 @@ class _LocationCardState extends State<LocationCard> {
               ],
             ),
           ),
-          SizedBox(height: 10),
+          SizedBox(height: 10),        
         ],
       ),
     );
