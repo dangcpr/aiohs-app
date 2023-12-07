@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:page_transition/page_transition.dart';
 import 'package:rmservice/account/helpers/account.dart';
 import 'package:rmservice/account/widgets/info_account.dart';
 import 'package:rmservice/account/widgets/option_card.dart';
+import 'package:rmservice/profile/profile.dart';
 
 class AccountScreen extends StatefulWidget {
   const AccountScreen({super.key});
@@ -17,14 +19,26 @@ class _AccountScreenState extends State<AccountScreen> {
       SizedBox(height: 20),
       InfoAccount(),
       SizedBox(height: 20),
-      OptionCard(text: "Chỉnh sửa thông tin", icon: Icons.change_circle),
       OptionCard(
-        text: "Địa chỉ đã lưu",
-        icon: Icons.location_on,
-        onTap: () async {
-          AccountHelper().getUserAddress(context);
-        }
-      ),
+          text: "Chỉnh sửa thông tin",
+          icon: Icons.change_circle,
+          onTap: () {
+            Navigator.push(
+              context,
+              PageTransition(
+                duration: Duration(milliseconds: 400),
+                type: PageTransitionType.rightToLeftWithFade,
+                child: ProfilePage(),
+              ),
+            );
+          }),
+      OptionCard(
+          text: "Địa chỉ đã lưu",
+          icon: Icons.location_on,
+          onTap: () async {
+            AccountHelper().getUserAddress(context);
+          }),
+      OptionCard(text: "Đăng xuất", icon: Icons.logout),
     ]);
   }
 }
