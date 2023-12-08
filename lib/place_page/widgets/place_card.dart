@@ -21,47 +21,51 @@ class _LocationCardState extends State<LocationCard> {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     return Container(
-      alignment: Alignment.center,
-      child: Column(
-        //crossAxisAlignment: CrossAxisAlignment.center,
-        children: List<Widget>.generate(
-          widget.rentalPlace.length,
-          (index) => Column(
-            children: [
-              InkWell(
-                borderRadius: BorderRadius.circular(15),
-                onTap: () {
-                  debugPrint("tapped" + widget.rentalPlace[index].title);
-                  Navigator.push(
-                    context,
-                    PageTransition(
-                      child: PlaceDetailScreen(
-                        rentalPlace: widget.rentalPlace[index],
-                        isUser: widget.isUser,
+      alignment: Alignment.topCenter,
+      child: SingleChildScrollView(
+        physics: AlwaysScrollableScrollPhysics(),
+        child: Column(
+          //crossAxisAlignment: CrossAxisAlignment.start,
+          children: List<Widget>.generate(
+            widget.rentalPlace.length,
+            (index) => Column(
+              children: [
+                InkWell(
+                  borderRadius: BorderRadius.circular(15),
+                  onTap: () {
+                    debugPrint("tapped" + widget.rentalPlace[index].title);
+                    Navigator.push(
+                      context,
+                      PageTransition(
+                        child: PlaceDetailScreen(
+                          rentalPlace: widget.rentalPlace[index],
+                          isUser: widget.isUser,
+                        ),
+                        type: PageTransitionType.rightToLeftWithFade,
+                        duration: Duration(milliseconds: 400),
                       ),
-                      type: PageTransitionType.rightToLeftWithFade,
-                      duration: Duration(milliseconds: 400),
-                    ),
-                  );
-                },
-                child: Card(
-                  size,
-                  widget.rentalPlace[index].title,
-                  widget.rentalPlace[index].address,
-                  widget.rentalPlace[index].images[0],
-                  widget.rentalPlace[index].price,
+                    );
+                  },
+                  child: Card(
+                    size,
+                    widget.rentalPlace[index].title,
+                    widget.rentalPlace[index].address,
+                    widget.rentalPlace[index].images[0],
+                    widget.rentalPlace[index].price,
+                    widget.rentalPlace[index].type_display,
+                  ),
                 ),
-              ),
-              SizedBox(height: 20),
-            ],
+                SizedBox(height: 20),
+              ],
+            ),
           ),
         ),
       ),
     );
   }
 
-  Container Card(
-      Size size, String title, String address, String image, int price) {
+  Container Card(Size size, String title, String address, String image,
+      int price, String state) {
     return Container(
       width: size.width / 1.2,
       decoration: BoxDecoration(
@@ -138,7 +142,27 @@ class _LocationCardState extends State<LocationCard> {
               ],
             ),
           ),
-          SizedBox(height: 10),        
+          // Padding(
+          //   padding: const EdgeInsets.only(left: 15, right: 15),
+          //   child: Row(
+          //     children: [
+          //       Icon(
+          //         Icons.lock,
+          //         color: colorProject.primaryColor,
+          //       ),
+          //       SizedBox(width: 5),
+          //       Text(
+          //         state,
+          //         style: TextStyle(
+          //           fontFamily: fontApp,
+          //           fontSize: fontSize.medium,
+          //           color: Colors.black,
+          //         ),
+          //       )
+          //     ],
+          //   ),
+          // ),
+          SizedBox(height: 10),
         ],
       ),
     );

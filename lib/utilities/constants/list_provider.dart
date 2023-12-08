@@ -230,5 +230,5 @@ final listProvider = [
   ),
   BlocProvider<GetPlacePublicCubit>(
     create: (_) => GetPlacePublicCubit(),
-  )
+  ),
 ];

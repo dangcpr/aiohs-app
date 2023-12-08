@@ -10,14 +10,21 @@ class ImageListAndButtonUpdate extends StatefulWidget {
   const ImageListAndButtonUpdate({super.key});
 
   @override
-  State<ImageListAndButtonUpdate> createState() => _ImageListAndButtonUpdateState();
+  State<ImageListAndButtonUpdate> createState() =>
+      _ImageListAndButtonUpdateState();
 }
 
 class _ImageListAndButtonUpdateState extends State<ImageListAndButtonUpdate> {
   List<File> files = [];
+  @override
+  void initState() {
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
+    files = context.read<ImagesPlaceCubit>().state;
+
     return Row(
       children: [
         ElevatedButton(

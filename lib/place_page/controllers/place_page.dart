@@ -79,6 +79,40 @@ class PlacePageController {
     }
   }
 
+  Future<List<RentalPlaceRes>> getRentalInactive(String userCode) async {
+    try {
+      var response = await dio.get(
+        '/user/$userCode/area-booking',
+        queryParameters: {
+          'status': 'AREA_BOOKING_STATUS_INACTIVE',
+        }
+      );
+      await Future.delayed(const Duration(milliseconds: 800));
+      if (response.data['code'] == 0) {
+        List<RentalPlaceRes> rentalPlaceRes = (response.data['posts'] as List)
+            .map((e) => RentalPlaceRes.fromJson(e))
+            .toList();
+        return rentalPlaceRes;
+      } else {
+        String message = jsonEncode(response.data['message']);
+        throw message;
+      }
+    } on DioException catch (e) {
+      debugPrint(e.type.toString());
+      if (e.type == DioExceptionType.receiveTimeout ||
+          e.type == DioExceptionType.connectionTimeout) {
+        throw 'Connection Timeout';
+      }
+
+      if (e.type == DioExceptionType.unknown ||
+          e.type == DioExceptionType.connectionError) {
+        throw 'Internet Error or Server Error';
+      }
+      debugPrint(e.type.toString());
+      throw 'Server Error';
+    }
+  }
+
   Future<RentalPlaceResult> getRentalPublic(String userCode, String next, int limit, double distance ) async {
     try {
       var response = await dio.get(
@@ -119,12 +153,40 @@ class PlacePageController {
     }
   }
 
-  Future<void> updateRental(RentalPlace rentalPlace, String userCode) async {
+  Future<void> updateRental(RentalPlace rentalPlace, String code, String userCode) async {
     try {
       var response = await dio.post(
-        '/user/$userCode/area-booking/create',
+        '/user/$userCode/area-booking/$code/update',
         data: jsonEncode(rentalPlace),
       );
+      if (response.data['code'] == 0) {
+        return;
+      } else {
+        String message = jsonEncode(response.data['message']);
+        throw message;
+      }
+    } on DioException catch (e) {
+      debugPrint(e.type.toString());
+      if (e.type == DioExceptionType.receiveTimeout ||
+          e.type == DioExceptionType.connectionTimeout) {
+        throw 'Connection Timeout';
+      }
+
+      if (e.type == DioExceptionType.unknown ||
+          e.type == DioExceptionType.connectionError) {
+        throw 'Internet Error or Server Error';
+      }
+      debugPrint(e.type.toString());
+      throw 'Server Error';
+    }
+  }
+
+  Future<void> cancelRental(RentalPlaceRes rentalPlace, String userCode) async {
+    try  {
+      var response = await dio.get(
+        '/user/$userCode/area-booking/${rentalPlace.code}/close'
+      );
+      await Future.delayed(const Duration(milliseconds: 800));
       if (response.data['code'] == 0) {
         return;
       } else {

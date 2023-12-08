@@ -54,12 +54,13 @@ class _PlacePublicState extends State<PlacePublic> {
             },
             child: ListView(
               //crossAxisAlignment: CrossAxisAlignment.start,
+              physics: AlwaysScrollableScrollPhysics(),
               children: [
                 Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     TextSubLabel(
-                      label: "Bạn muốn tìm việc trong khoảng: ",
+                      label: "Bạn muốn tìm chỗ thuê trong khoảng: ",
                       isDarkMode: isDarkMode,
                     ),
                     Text(
@@ -91,6 +92,7 @@ class _PlacePublicState extends State<PlacePublic> {
                 ),
                 SizedBox(height: 10),
                 LocationCard(rentalPlace: state.rentalPlaceRes, isUser: false),
+                SizedBox(height: 10),
               ],
             ),
           );

@@ -1,3 +1,7 @@
+// ignore_for_file: use_build_context_synchronously
+
+import 'dart:io';
+
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -5,7 +9,9 @@ import 'package:page_transition/page_transition.dart';
 import 'package:rmservice/cleaning_hourly/cubits/save_info/save_address.dart';
 import 'package:rmservice/cleaning_hourly/models/address.dart';
 import 'package:rmservice/login/cubit/user_cubit.dart';
+import 'package:rmservice/place_page/controllers/convert_images_to_file.dart';
 import 'package:rmservice/place_page/controllers/place_page.dart';
+import 'package:rmservice/place_page/cubits/images_place_cubit.dart';
 import 'package:rmservice/place_page/models/rental_place.dart';
 import 'package:rmservice/place_page/models/rental_place_res.dart';
 import 'package:rmservice/place_page/views/maps.dart';
@@ -33,6 +39,7 @@ class _UpdateRentalScreenState extends State<UpdateRentalScreen> {
   TextEditingController priceController = TextEditingController();
   TextEditingController detailController = TextEditingController();
   TextEditingController addressController = TextEditingController();
+  List<File> imageList = [];
   @override
   void initState() {
     super.initState();
@@ -43,15 +50,25 @@ class _UpdateRentalScreenState extends State<UpdateRentalScreen> {
     detailController.text = widget.rentalPlace.description;
     addressController.text = widget.rentalPlace.address.split(' - ')[0];
     context.read<SaveAddressCubit>().setAddress(
-      Address(
-        latitude: widget.rentalPlace.latitude,
-        longitude: widget.rentalPlace.longitude,
-        shortAddress: widget.rentalPlace.address.split(' - ')[0],
-        address: widget.rentalPlace.address.split(' - ')[1],
-        name: context.read<UserCubit>().state.full_name,
-      )
-    );
+          Address(
+            latitude: widget.rentalPlace.latitude,
+            longitude: widget.rentalPlace.longitude,
+            shortAddress: widget.rentalPlace.address.split(' - ')[0],
+            address: widget.rentalPlace.address.split(' - ')[1],
+            name: context.read<UserCubit>().state.full_name,
+          ),
+        );
+
+    for (int i = 0; i < widget.rentalPlace.images.length; i++) {
+      urlToFile(widget.rentalPlace.images[i]).then((value) {
+        imageList.add(value);
+        setState(() {
+          context.read<ImagesPlaceCubit>().setImages(imageList);
+        });
+      });
+    }
   }
+
   @override
   Widget build(BuildContext context) {
     bool darkMode = Theme.of(context).brightness == Brightness.dark;
@@ -60,7 +77,7 @@ class _UpdateRentalScreenState extends State<UpdateRentalScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          "Cập nhật tin thuê chỗ" ,
+          "Cập nhật tin thuê chỗ",
           style: TextStyle(
             fontFamily: fontBoldApp,
             fontSize: fontSize.mediumLarger,
@@ -76,12 +93,14 @@ class _UpdateRentalScreenState extends State<UpdateRentalScreen> {
         ),
         child: FloatingActionButton.extended(
           backgroundColor: colorProject.primaryColor,
-          label: Text("Đăng tin",
-              style: TextStyle(
-                fontFamily: fontBoldApp,
-                fontSize: fontSize.mediumLarger,
-                color: Colors.white,
-              )),
+          label: Text(
+            "Cập nhật tin",
+            style: TextStyle(
+              fontFamily: fontBoldApp,
+              fontSize: fontSize.mediumLarger,
+              color: Colors.white,
+            ),
+          ),
           onPressed: () async {
             if (formKey.currentState!.validate()) {
               debugPrint(context.read<SaveAddressCubit>().state!.address);
@@ -125,24 +144,30 @@ class _UpdateRentalScreenState extends State<UpdateRentalScreen> {
                       ));
                     });
                 try {
-                  await PlacePageController()
-                      .updateRental(rentalPlace, userCubit.state.code!);
+                  await PlacePageController().updateRental(rentalPlace,
+                      widget.rentalPlace.code, userCubit.state.code!);
                   Navigator.pop(context);
                   AwesomeDialog(
+                    dismissOnTouchOutside: false,
+                    dismissOnBackKeyPress: false,
                     context: context,
                     dialogType: DialogType.success,
                     animType: AnimType.topSlide,
-                    title: "Đăng tin thành công",
+                    title: "Cập nhật tin thành công",
                     titleTextStyle: TextStyle(
                       fontFamily: fontBoldApp,
                       fontSize: fontSize.large,
                       color: Colors.green,
                     ),
-                    desc: "Đã đăng tin",
+                    desc: "Cập nhật tin thành công",
                     descTextStyle: TextStyle(
                       fontFamily: fontApp,
                       fontSize: fontSize.medium,
                     ),
+                    btnCancelOnPress: () {
+                      Navigator.pop(context);
+                      Navigator.pop(context);
+                    },
                   ).show();
                 } catch (e) {
                   Navigator.pop(context);
@@ -300,7 +325,7 @@ class _UpdateRentalScreenState extends State<UpdateRentalScreen> {
                   if (value!.isEmpty) {
                     return AppLocalizations.of(context)!.signupEmptyError;
                   }
-                  if(value.contains("-") ){
+                  if (value.contains("-")) {
                     return "Tên địa điểm không được chứa dấu -";
                   }
                   return null;

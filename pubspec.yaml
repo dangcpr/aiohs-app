@@ -49,6 +49,7 @@ dependencies:
   google_maps_flutter: ^2.5.0
   geolocator: ^10.1.0
   http: ^0.13.0
+  path_provider: ^2.1.1
   maps_places_autocomplete: ^0.0.2
   google_sign_in: ^6.1.5
   chips_choice: ^3.0.1

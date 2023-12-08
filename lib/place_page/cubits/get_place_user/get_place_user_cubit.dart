@@ -14,10 +14,20 @@ class GetPlaceUserCubit extends Cubit<GetPlaceUserState> {
   Future<void> getPlaceUser(String userCode) async {
     emit(GetPlaceUserLoading());
     try {
-      if(state is GetPlaceUserLoaded){
-        return;
-      }
-      List<RentalPlaceRes> rentalPlaceRes = await PlacePageController().getRental(userCode);
+      List<RentalPlaceRes> rentalPlaceRes =
+          await PlacePageController().getRental(userCode);
+      debugPrint(jsonEncode(rentalPlaceRes));
+      emit(GetPlaceUserLoaded(rentalPlaceRes));
+    } catch (e) {
+      emit(GetPlaceUserError(e.toString()));
+    }
+  }
+
+  Future<void> getPlaceUserInactive(String userCode) async {
+    emit(GetPlaceUserLoading());
+    try {
+      List<RentalPlaceRes> rentalPlaceRes =
+          await PlacePageController().getRentalInactive(userCode);
       debugPrint(jsonEncode(rentalPlaceRes));
       emit(GetPlaceUserLoaded(rentalPlaceRes));
     } catch (e) {

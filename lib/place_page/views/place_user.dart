@@ -17,6 +17,9 @@ class PlaceUser extends StatefulWidget {
 }
 
 class _PlaceUserState extends State<PlaceUser> {
+  int? _value = 0;
+  List<String> listStatus = ["Tin đang hoạt động", "Tin đã khóa"];
+
   @override
   void initState() {
     super.initState();
@@ -49,38 +52,89 @@ class _PlaceUserState extends State<PlaceUser> {
           );
         },
       ),
-      body: BlocBuilder<GetPlaceUserCubit, GetPlaceUserState>(
-          builder: (context, state) {
-        if (state is GetPlaceUserLoading) {
-          return Center(
-            child: CircularProgressIndicator(color: colorProject.primaryColor),
-          );
-        }
-
-        if (state is GetPlaceUserLoaded) {
-          return RefreshIndicator(
-            onRefresh: () async {
-              context.read<GetPlaceUserCubit>().setInit();
-              context.read<GetPlaceUserCubit>().getPlaceUser(
-                    context.read<UserCubit>().state.code!,
-                  );
-            },
-            child: ListView(
-              //crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                LocationCard(rentalPlace: state.rentalPlaceRes, isUser: true),
-              ],
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Padding(
+            padding: EdgeInsets.only(
+              left: 30,
+              right: 30,
             ),
-          );
-        }
-        if (state is GetPlaceUserError) {
-          return Center(
-            child: Text(state.message),
-          );
-        } else {
-          return SizedBox();
-        }
-      }),
+            child: Wrap(
+              direction: Axis.horizontal,
+              spacing: 5.0,
+              alignment: WrapAlignment.spaceBetween,
+              children: List<Widget>.generate(
+                listStatus.length,
+                (int index) {
+                  return ChoiceChip(
+                    selectedColor: colorProject.primaryColor.withOpacity(0.4),
+                    label: Text(listStatus[index]),
+                    selected: _value == index,
+                    onSelected: (bool selected) {
+                      setState(() {
+                        if (_value == 1) {
+                          _value = 0;
+                          context.read<GetPlaceUserCubit>().getPlaceUser(
+                                context.read<UserCubit>().state.code!,
+                              );
+                        } else {
+                          _value = 1;
+                          context
+                              .read<GetPlaceUserCubit>()
+                              .getPlaceUserInactive(
+                                  context.read<UserCubit>().state.code!);
+                        }
+                      });
+                    },
+                  );
+                },
+              ).toList(),
+            ),
+          ),
+          SizedBox(height: 10),
+          Expanded(
+            child: BlocBuilder<GetPlaceUserCubit, GetPlaceUserState>(
+              builder: (context, state) {
+                if (state is GetPlaceUserLoading) {
+                  return Center(
+                    child: CircularProgressIndicator(
+                        color: colorProject.primaryColor),
+                  );
+                }
+
+                if (state is GetPlaceUserLoaded) {
+                  return RefreshIndicator(
+                    onRefresh: () async {
+                      context.read<GetPlaceUserCubit>().setInit();
+                      _value == 0
+                          ? context.read<GetPlaceUserCubit>().getPlaceUser(
+                                context.read<UserCubit>().state.code!,
+                              )
+                          : context
+                              .read<GetPlaceUserCubit>()
+                              .getPlaceUserInactive(
+                                  context.read<UserCubit>().state.code!);
+                    },
+                    child: LocationCard(
+                      rentalPlace: state.rentalPlaceRes,
+                      isUser: true,
+                    ),
+                  );
+                }
+
+                if (state is GetPlaceUserError) {
+                  return Center(
+                    child: Text(state.message),
+                  );
+                } else {
+                  return SizedBox();
+                }
+              },
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
