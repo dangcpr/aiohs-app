@@ -79,7 +79,7 @@ class _SeeMapPlaceState extends State<SeeMapPlace> {
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-          'Địa điểm đã lưu',
+          'Cho thuê chỗ - Địa điểm',
           style: TextStyle(
             fontFamily: fontBoldApp,
             fontSize: fontSize.mediumLarger,

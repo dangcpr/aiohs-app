@@ -25,6 +25,7 @@ class _WorkerOrderAllState extends State<WorkerOrderAll> {
   @override
   void initState() {
     super.initState();
+    context.read<WorkerGetOrderAllCubit>().reset();
     context
         .read<WorkerGetOrderAllCubit>()
         .getOrderAll(distance, context.read<UserCubit>().state.code!);

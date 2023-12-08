@@ -1,6 +1,7 @@
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:rmservice/history/cubits/get_history_order.dart/get_history_order_cubit.dart';
 import 'package:rmservice/history/models/air_conditioning_history.dart';
 import 'package:rmservice/history/widgets/air_cond/maid_info.dart';
 import 'package:rmservice/utilities/components/button_green.dart';
@@ -148,6 +149,8 @@ class _CleaningLongTermHistoryDetailState
                               context
                                   .read<OrderCancelCubit>()
                                   .orderCancel(userCode!, orderCode);
+                              context.read<GetHistoryOrderCubit>().setInitial();
+                              context.read<GetHistoryOrderCubit>().getHistory(userCode, "ORDER_STATUS_NEW");
                             },
                             btnCancelOnPress: () {
                               Navigator.pop(context);

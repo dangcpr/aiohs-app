@@ -41,6 +41,7 @@ class _HistoryOrderCancelledState extends State<HistoryOrderCancelled> {
                 .getHistoryCancel(context.read<UserCubit>().state.code!);
           },
           child: ListView.builder(
+            physics: AlwaysScrollableScrollPhysics(),
             itemCount: state.orders.length,
             itemBuilder: (context, index) {
               return CardHistoryOrderCancel(order: state.orders[index]);

@@ -18,6 +18,7 @@ class _HistoryOrderCommingState extends State<HistoryOrderComming> {
   @override
   void initState() {
     super.initState();
+    context.read<GetHistoryOrderCubit>().setInitial();
     context
         .read<GetHistoryOrderCubit>()
         .getHistory(context.read<UserCubit>().state.code!, 'ORDER_STATUS_NEW');
