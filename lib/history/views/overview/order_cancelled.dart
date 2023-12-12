@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rmservice/history/cubits/get_history_cancel/get_history_cancel_cubit.dart';
 import 'package:rmservice/utilities/constants/variable.dart';
+import 'package:rmservice/utilities/components/empty_card.dart';
 
 import '../../../login/cubit/user_cubit.dart';
 import '../../widgets/card_cancel.dart';
@@ -19,6 +20,7 @@ class _HistoryOrderCancelledState extends State<HistoryOrderCancelled> {
   void initState() {
     super.initState();
     final cubit = context.read<GetHistoryCancelCubit>();
+    cubit.setInitial();
     cubit.getHistoryCancel(context.read<UserCubit>().state.code!);
   }
 
@@ -40,7 +42,10 @@ class _HistoryOrderCancelledState extends State<HistoryOrderCancelled> {
                 .read<GetHistoryCancelCubit>()
                 .getHistoryCancel(context.read<UserCubit>().state.code!);
           },
-          child: ListView.builder(
+          child: state.orders.isEmpty ? WorkerEmptyOrder(
+                title: "Không có đơn đã hoàn thành",
+                desc: "Không có đơn đã hoàn thành, vui lòng quay lại."
+              ) : ListView.builder(
             itemCount: state.orders.length,
             itemBuilder: (context, index) {
               return CardHistoryOrderCancel(order: state.orders[index]);

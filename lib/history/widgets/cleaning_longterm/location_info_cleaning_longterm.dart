@@ -32,7 +32,7 @@ class _HistoryLocationInfoCleaningLongTermState
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              "Thông tin người giúp việc",
+              "Thông tin người thuê",
               style: TextStyle(
                 fontSize: fontSize.medium,
                 fontFamily: fontBoldApp,

@@ -1,8 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-
-import '../../utilities/constants/variable.dart';
-import '../models/order.dart';
+import 'package:rmservice/utilities/constants/variable.dart';
 
 final dio = Dio(
   BaseOptions(
@@ -15,26 +13,14 @@ final dio = Dio(
   ),
 );
 
-class HistoryCancelled {
-  Future<List<Order>> getOrdersCancelled(String userCode) async {
+class CompletedAndReviewOrder {
+  Future<void> completedOrder(String userCode, String orderCode) async {
     try {
-      final response = await dio.get(
-        '/user/$userCode/orders',
-        queryParameters: {
-          'limit': 100,
-          'next': 0,
-          'status': 'ORDER_STATUS_CANCELED',
-          'search_role_type': 'renter',
-        },
-      );
-      //await Future.delayed(const Duration(milliseconds: 700));
-
-      if (response.data['code'] == 0) {
-        List<Order> orders = [];
-        orders = (response.data['orders'] as List)
-            .map((e) => Order.fromJson(e))
-            .toList();
-        return orders;
+      final response =
+          await dio.get('/user/$userCode/orders/$orderCode/complete');
+      await Future.delayed(const Duration(milliseconds: 500));
+      if (response.data["code"] == 0) {
+        return;
       } else {
         throw response.data['message'];
       }
@@ -54,12 +40,20 @@ class HistoryCancelled {
     }
   }
 
-  Future<void> ordersCancelled(String userCode, String orderCode) async {
+  Future<void> reviewOrder(
+      String userCode, String orderCode, String comment, double star) async {
     try {
       final response =
-          await dio.get('/user/$userCode/orders/$orderCode/cancel');
-
+          await dio.post('/user/$userCode/orders/$orderCode/reviews', data: {
+        "comment": comment,
+        "star": star,
+      });
       await Future.delayed(const Duration(milliseconds: 500));
+      if (response.data["code"] == 0) {
+        return;
+      } else {
+        throw response.data['message'];
+      }
     } on DioException catch (e) {
       debugPrint(e.type.toString());
       if (e.type == DioExceptionType.receiveTimeout ||
