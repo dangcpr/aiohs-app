@@ -197,7 +197,10 @@ class _LoginScreenState extends State<LoginScreen> with InputValidationMixin {
                             await LoginController().handleSignOut();
                           }),
                           const SizedBox(width: 15),
-                          socialButton(assetString: AppAssets.facebook, onTap: null),
+                          socialButton(assetString: AppAssets.facebook, onTap: () async {
+                            await LoginController().handleFacebookSignIn();
+                            await LoginController().handleSignOutFacebook();
+                          }),
                         ],
                       ),
                       const SizedBox(height: 14),

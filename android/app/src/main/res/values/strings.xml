@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="facebook_app_id">299996812745844</string>
+    <string name="facebook_client_token">99ae224c380ca7854eeab5fce14400ad</string>
+    <string name="fb_login_protocol_scheme">fb299996812745844</string>
+    <string name="app_name">AIO Home Services</string>
+</resources>

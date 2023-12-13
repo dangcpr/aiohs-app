@@ -29,7 +29,7 @@ class HistoryController {
     try {
       final response = await dio.get(
         '/user/$userCode/orders',
-        queryParameters: {'limit': 7, 'next': next, 'status': status},
+        queryParameters: {'limit': 7, 'next': next, 'status': status, 'search_role_type': 'renter'},
       );
       await Future.delayed(const Duration(milliseconds: 700));
 

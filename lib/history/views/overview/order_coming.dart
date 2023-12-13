@@ -5,6 +5,7 @@ import 'package:rmservice/history/cubits/get_history_order.dart/get_history_orde
 import 'package:rmservice/history/widgets/card_order.dart';
 import 'package:rmservice/login/cubit/user_cubit.dart';
 import 'package:rmservice/utilities/constants/variable.dart';
+import 'package:rmservice/utilities/components/empty_card.dart';
 
 class HistoryOrderComming extends StatefulWidget {
   const HistoryOrderComming({super.key});
@@ -49,25 +50,31 @@ class _HistoryOrderCommingState extends State<HistoryOrderComming> {
         child: Container(
           child: getHistory is GetHistoryOrderError
               ? Center(child: Text("Đã có lỗi xảy ra"))
-              : Column(
-                  children: [
-                    for (int i = 0; i < getHistory.orders.length; i++)
-                      CardHistoryOrder(order: getHistory.orders[i]),
-                    //loading
-                    BlocBuilder<GetHistoryOrderCubit, GetHistoryOrderState>(
-                        builder: (context, state) {
-                      if (state is GetHistoryOrderLoading) {
-                        return Align(
-                          alignment: FractionalOffset.topCenter,
-                          child: CircularProgressIndicator(
-                            color: colorProject.primaryColor,
-                          ),
-                        );
-                      }
-                      return Container();
-                    }),
-                  ],
-                ),
+              : (getHistory.orders.isEmpty &&
+                      getHistory.state is GetHistoryOrderLoaded)
+                  ? WorkerEmptyOrder(
+                      title: "Không có đơn đang chờ",
+                      desc: "Không có đơn đang chờ, vui lòng đặt đơn.",
+                    )
+                  : Column(
+                      children: [
+                        for (int i = 0; i < getHistory.orders.length; i++)
+                          CardHistoryOrder(order: getHistory.orders[i]),
+                        //loading
+                        BlocBuilder<GetHistoryOrderCubit, GetHistoryOrderState>(
+                            builder: (context, state) {
+                          if (state is GetHistoryOrderLoading) {
+                            return Align(
+                              alignment: FractionalOffset.topCenter,
+                              child: CircularProgressIndicator(
+                                color: colorProject.primaryColor,
+                              ),
+                            );
+                          }
+                          return Container();
+                        }),
+                      ],
+                    ),
         ),
       ),
     );
