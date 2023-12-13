@@ -207,6 +207,8 @@ class _WorkerRegisterStep2ScreenState extends State<WorkerRegisterStep1Screen> {
               title: 'Bạn có muốn rút trích dữ liệu từ CCCD?',
               desc:
                   'Các thông tin sẽ tự động điền ở bước sau và bạn không thể sửa chúng.',
+              btnOkText: "Yes",
+              btnCancelText: "No",
               btnOkOnPress: () async {
                 showDialog(
                     context: context,
