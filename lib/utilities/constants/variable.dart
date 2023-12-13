@@ -2,7 +2,7 @@ import 'package:cloudinary/cloudinary.dart';
 import 'package:flutter/material.dart';
 
 const nameApp = "AIO Home Serives";
-const debugServer = "http://192.168.72.128:9000";
+const debugServer = "http://192.168.84.128:9000";
 const extractIDServer = "https://api.idg.vnpt.vn";
 const extractIDTokenKey = "MFwwDQYJKoZIhvcNAQEBBQADSwAwSAJBAJyeol5Yc2x0bDbmcuDcqKGfiMMjb/e4awSwQF92wBKon8CXvvuMntUCfeAZsm3VISNWOgejojKjDKZj1baQjPECAwEAAQ==";
 const extractIDTokenID = "0c54369a-0a61-750b-e063-63199f0a3881";
