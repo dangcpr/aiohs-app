@@ -42,7 +42,6 @@ import 'package:rmservice/shopping/cubits/shopping_price_cubit.dart';
 import 'package:rmservice/sign_up/cubits/signup_cubit.dart';
 import 'package:rmservice/user_address/cubits/get_user_address/get_user_address.dart';
 import 'package:rmservice/worker_register/cubits/worker_cubit.dart';
-import 'package:rmservice/worker_register/cubits/worker_register/worker_register_cubit.dart';
 import 'package:rmservice/worker_screen/cubits/get_order_accepted/get_order_accepted_cubit.dart';
 import 'package:rmservice/worker_screen/cubits/get_order_all/get_order_all_cubit.dart';
 import 'package:rmservice/worker_screen/cubits/get_order_cancelled/get_order_cancelled_cubit.dart';
@@ -173,11 +172,6 @@ final listProvider = [
   BlocProvider<WorkerCubit>(
     create: (_) => WorkerCubit(),
   ),
-
-  BlocProvider<WorkerRegisterCubit>(
-    create: (_) => WorkerRegisterCubit(),
-  ),
-
   //Laundry
   BlocProvider<SaveInfoLaundryCubit>(
     create: (_) => SaveInfoLaundryCubit(),
