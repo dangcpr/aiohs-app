@@ -20,13 +20,28 @@ class PlacePublic extends StatefulWidget {
 
 class _PlacePublicState extends State<PlacePublic> {
   double distance = 5;
+  final ScrollController _scrollController = ScrollController();
 
   @override
   void initState() {
     super.initState();
+    context.read<GetPlacePublicCubit>().setInit();
     context
         .read<GetPlacePublicCubit>()
-        .getPlacePublic(context.read<UserCubit>().state.code!, 5, 0);
+        .getPlacePublic(context.read<UserCubit>().state.code!, 5, distance);
+    debugPrint(
+        context.read<GetPlacePublicCubit>().rentalPlace.length.toString());
+    _scrollController.addListener(() {
+      if (_scrollController.position.maxScrollExtent ==
+          _scrollController.offset) {
+        //the bottom of the scrollbar is reached
+        //adding more widgets
+        context.read<GetPlacePublicCubit>().setInit();
+        context
+            .read<GetPlacePublicCubit>()
+            .getPlacePublic(context.read<UserCubit>().state.code!, 5, distance);
+      }
+    });
   }
 
   @override
@@ -46,55 +61,59 @@ class _PlacePublicState extends State<PlacePublic> {
           return RefreshIndicator(
             onRefresh: () async {
               context.read<GetPlacePublicCubit>().setInit();
-              context.read<GetPlacePublicCubit>().getPlacePublic(
+              await context.read<GetPlacePublicCubit>().getPlacePublic(
                     context.read<UserCubit>().state.code!,
                     5,
-                    0,
-              );
+                    distance,
+                  );
+              debugPrint(state.rentalPlaceRes.length.toString());
             },
-            child: ListView(
-              //crossAxisAlignment: CrossAxisAlignment.start,
-              physics: AlwaysScrollableScrollPhysics(),
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    TextSubLabel(
-                      label: "Bạn muốn tìm chỗ thuê trong khoảng: ",
-                      isDarkMode: isDarkMode,
-                    ),
-                    Text(
-                      distance.toString() + " km",
-                      style: TextStyle(
-                        fontFamily: fontBoldApp,
-                        fontSize: fontSize.medium,
+            child: Column(
+                //crossAxisAlignment: CrossAxisAlignment.start,
+                //controller: _scrollController,
+                //physics: AlwaysScrollableScrollPhysics(),
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      TextSubLabel(
+                        label: "Bạn muốn tìm chỗ thuê trong khoảng: ",
+                        isDarkMode: isDarkMode,
                       ),
-                    ),
-                    SizedBox(width: 5),
-                    InkWell(
-                      child: Icon(
-                        Icons.filter_list,
-                        color: colorProject.primaryColor,
-                        size: 30,
+                      Text(
+                        distance.toString() + " km",
+                        style: TextStyle(
+                          fontFamily: fontBoldApp,
+                          fontSize: fontSize.medium,
+                        ),
                       ),
-                      onTap: () {
-                        showDialog(
-                          context: context,
-                          builder: (context) {
-                            return AlertDialog(
-                              content: changeDistance(isDarkMode),
-                            );
-                          },
-                        );
-                      },
-                    ),
-                  ],
-                ),
-                SizedBox(height: 10),
-                LocationCard(rentalPlace: state.rentalPlaceRes, isUser: false),
-                SizedBox(height: 10),
-              ],
-            ),
+                      SizedBox(width: 5),
+                      InkWell(
+                        child: Icon(
+                          Icons.filter_list,
+                          color: colorProject.primaryColor,
+                          size: 30,
+                        ),
+                        onTap: () {
+                          showDialog(
+                            context: context,
+                            builder: (context) {
+                              return AlertDialog(
+                                content: changeDistance(isDarkMode),
+                              );
+                            },
+                          );
+                        },
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 10),
+                  Expanded(child: LocationCard(
+                      rentalPlace: state.rentalPlaceRes, isUser: false)),
+                  SizedBox(height: 10),
+                ],
+              ),
+            
           );
         }
         if (state is GetPlacePublicError) {

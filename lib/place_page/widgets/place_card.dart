@@ -18,6 +18,11 @@ class LocationCard extends StatefulWidget {
 
 class _LocationCardState extends State<LocationCard> {
   @override
+  void initState() {
+    super.initState();
+    debugPrint(widget.rentalPlace.length.toString());
+  }
+  @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     return Container(
