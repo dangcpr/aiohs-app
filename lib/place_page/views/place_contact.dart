@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:rmservice/place_page/models/rental_place_res.dart';
-import 'package:rmservice/place_page/views/see_maps.dart';
+import 'package:rmservice/utilities/widget/see_maps.dart';
 import 'package:rmservice/utilities/components/button_green.dart';
 
 class PlaceContact extends StatefulWidget {

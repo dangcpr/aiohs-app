@@ -1,11 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:rmservice/post_job/views/post_job_screen.dart';
 import 'package:rmservice/utilities/constants/variable.dart';
-
-import '../../login/cubit/user_cubit.dart';
-import '../../post_job/cubits/get_post_all/get_post_all_cubit.dart';
 
 class ButtonPostJob extends StatefulWidget {
   const ButtonPostJob({super.key});

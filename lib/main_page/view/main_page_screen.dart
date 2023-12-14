@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:rmservice/login/cubit/user_cubit.dart';
 import 'package:rmservice/main_page/widgets/button_post_job.dart';
+import 'package:rmservice/maid_near/widgets/maid_near.dart';
 import 'package:rmservice/user_address/controllers/user_address.dart';
 import 'package:rmservice/utilities/constants/variable.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -30,8 +31,8 @@ class _MainPageState extends State<MainPage> {
 
   @override
   Widget build(BuildContext context) {
-    final Size size = MediaQuery.of(context).size;
-    bool darkMode = Theme.of(context).brightness == Brightness.dark;
+    // final Size size = MediaQuery.of(context).size;
+    // bool darkMode = Theme.of(context).brightness == Brightness.dark;
     //context.read<GetProductCubit>().getProduct();
 
     return Padding(
@@ -43,9 +44,9 @@ class _MainPageState extends State<MainPage> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               ProfileWidget(
-                  context.read<UserCubit>().state.full_name! == ""
-                      ? context.read<UserCubit>().state.email!
-                      : context.read<UserCubit>().state.full_name!,
+                  context.read<UserCubit>().state.full_name == ""
+                      ? context.read<UserCubit>().state.email
+                      : context.read<UserCubit>().state.full_name,
                   ""),
               const SizedBox(height: 12),
               //Register(),
@@ -64,6 +65,15 @@ class _MainPageState extends State<MainPage> {
               ),
               const SizedBox(height: 12),
               HorizontalListViewWithIndicator(),
+              const SizedBox(height: 15),
+              Text(
+                "Người giúp việc gần đây",
+                style: const TextStyle(
+                  fontFamily: fontBoldApp,
+                  fontSize: 20,
+                ),
+              ),
+              MaidNear(),
               const SizedBox(height: 15),
               ButtonPostJob(),
             ],

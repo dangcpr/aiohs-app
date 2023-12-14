@@ -11,11 +11,13 @@ class SeeMapPlace extends StatefulWidget {
       required this.latitude,
       required this.longtitude,
       required this.title,
+      this.appBarTitle = "Cho thuê chỗ - Địa điểm",
       required this.address});
 
   final double latitude;
   final double longtitude;
   final String title;
+  final String appBarTitle;
   final String address;
 
   @override
@@ -78,8 +80,8 @@ class _SeeMapPlaceState extends State<SeeMapPlace> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          'Cho thuê chỗ - Địa điểm',
+        title: Text(
+          widget.appBarTitle,
           style: TextStyle(
             fontFamily: fontBoldApp,
             fontSize: fontSize.mediumLarger,
