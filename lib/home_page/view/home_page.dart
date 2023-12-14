@@ -85,15 +85,6 @@ class HomePageState extends State<HomePage> {
                 color: colorProject.primaryColor,
               ),
               const SizedBox(width: 20),
-              InkWell(
-                onTap: () => Navigator.push(
-                    context, MaterialPageRoute(builder: (_) => ProfilePage())),
-                child: Icon(
-                  Icons.account_circle_sharp,
-                  color: colorProject.primaryColor,
-                ),
-              ),
-              const SizedBox(width: 20),
             ],
           ),
           bottomNavigationBar: Container(

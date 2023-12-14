@@ -7,7 +7,10 @@ class UpdateProfileInitial extends UpdateProfileState {}
 
 class UpdateProfileLoading extends UpdateProfileState {}
 
-class UpdateProfileSuccess extends UpdateProfileState {}
+class UpdateProfileSuccess extends UpdateProfileState {
+  User user;
+  UpdateProfileSuccess(this.user);
+}
 
 class UpdateProfileFailed extends UpdateProfileState {
   String message;

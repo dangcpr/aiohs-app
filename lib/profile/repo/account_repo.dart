@@ -18,18 +18,21 @@ final dio = Dio(
 );
 
 class AccountRepo {
-  Future<void> updateProfile(User newUser) async {
+  Future<User> updateProfile(
+      String userCode, String fullName, String phone, String email) async {
     try {
       final response = await dio.post(
-        '/user/${newUser.code}/profile/update',
+        '/user/${userCode}/profile/update',
         data: {
-          "full_name": newUser.full_name,
-          "email": newUser.email,
-          "phone_number": newUser.phone_number
+          "full_name": fullName,
+          "email": email,
+          "phone_number": phone,
+          "avatar_url": " "
         },
       );
       if (response.data['code'] == 0) {
-        return;
+        print('test repo update: ${response.data['user']}');
+        return User.fromJson(response.data['user']);
       } else {
         String message = jsonEncode(response.data['message']);
         throw message;

@@ -10,6 +10,7 @@ class TextFieldLong extends StatefulWidget {
     required this.hintText,
     this.onChanged,
     this.validator,
+    this.enabled = true,
     //required this.errorText,
   });
 
@@ -19,6 +20,7 @@ class TextFieldLong extends StatefulWidget {
   final String hintText;
   final Function(String)? onChanged;
   final String? Function(String?)? validator;
+  final bool enabled;
   //final String errorText;
 
   @override
@@ -75,6 +77,7 @@ class _TextFieldLongState extends State<TextFieldLong> {
         ),
         onChanged: widget.onChanged,
         validator: widget.validator,
+        enabled: widget.enabled,
       ),
     );
   }

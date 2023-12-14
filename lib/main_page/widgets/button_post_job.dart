@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:rmservice/post_job/views/post_job_screen.dart';
 import 'package:rmservice/utilities/constants/variable.dart';
+
+import '../../login/cubit/user_cubit.dart';
+import '../../post_job/cubits/get_post_all/get_post_all_cubit.dart';
 
 class ButtonPostJob extends StatefulWidget {
   const ButtonPostJob({super.key});
@@ -24,7 +28,8 @@ class _ButtonPostJobState extends State<ButtonPostJob> {
       child: Column(
         children: [
           Text(
-            'Bạn muốn tìm giúp việc linh hoạt hơn?',
+            'Bạn muốn tìm giúp việc/tìm việc linh hoạt hơn?',
+            textAlign: TextAlign.center,
             style: TextStyle(
               fontSize: fontSize.mediumLarger + 1,
               fontFamily: fontBoldApp,
@@ -35,13 +40,12 @@ class _ButtonPostJobState extends State<ButtonPostJob> {
           InkWell(
             onTap: () {
               Navigator.push(
-                context,
-                PageTransition(
-                  duration: Duration(milliseconds: 400),
-                  type: PageTransitionType.rightToLeftWithFade,
-                  child: PostJobScreen(),
-                )
-              );
+                  context,
+                  PageTransition(
+                    duration: Duration(milliseconds: 400),
+                    type: PageTransitionType.rightToLeftWithFade,
+                    child: PostJobScreen(),
+                  ));
             },
             child: Container(
               padding: EdgeInsets.all(8),
@@ -53,7 +57,7 @@ class _ButtonPostJobState extends State<ButtonPostJob> {
                 borderRadius: BorderRadius.circular(15),
               ),
               child: Text(
-                "Đăng tin tìm giúp việc",
+                "Tin tìm giúp việc",
                 style: TextStyle(
                   fontSize: fontSize.mediumLarger + 1,
                   fontFamily: fontBoldApp,

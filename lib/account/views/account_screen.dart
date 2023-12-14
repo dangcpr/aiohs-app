@@ -23,7 +23,7 @@ class _AccountScreenState extends State<AccountScreen> {
           text: "Chỉnh sửa thông tin",
           icon: Icons.change_circle,
           onTap: () {
-            Navigator.push(
+            Navigator.pushReplacement(
               context,
               PageTransition(
                 duration: Duration(milliseconds: 400),

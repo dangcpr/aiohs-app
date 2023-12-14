@@ -11,6 +11,7 @@ class TextFieldBasic extends StatefulWidget {
     this.isReadOnly,
     this.onChanged,
     this.validator,
+    this.enabled = true,
     //required this.errorText,
   });
 
@@ -21,6 +22,7 @@ class TextFieldBasic extends StatefulWidget {
   final void Function()? onTap;
   final Function(String)? onChanged;
   final String? Function(String?)? validator;
+  final bool enabled;
   //final String errorText;
 
   @override
@@ -74,6 +76,7 @@ class _TextFieldBasicState extends State<TextFieldBasic> {
       onChanged: widget.onChanged,
       onTap: widget.onTap,
       validator: widget.validator,
+      enabled: widget.enabled,
     );
   }
 }

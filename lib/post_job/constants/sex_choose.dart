@@ -1,5 +1,1 @@
-List<String> sexList = [
-  "Nam",
-  "Nữ",
-  "Không yêu cầu"
-];
+List<String> sexList = ["male", "female", "not_requested"];

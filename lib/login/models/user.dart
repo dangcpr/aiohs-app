@@ -7,6 +7,7 @@ class User {
   String? default_address;
   String? status;
   String? status_display;
+  String? avatar_url;
   DateTime? created_at;
   DateTime? updated_at;
 
@@ -19,6 +20,7 @@ class User {
     this.default_address,
     this.status,
     this.status_display,
+    this.avatar_url = "",
     this.created_at,
     this.updated_at,
   });
@@ -33,6 +35,7 @@ class User {
       default_address: json['default_address'],
       status: json['status'],
       status_display: json['status_display'],
+      avatar_url: json['avatar_url'],
       created_at: DateTime.parse(json['created_at']),
       updated_at: DateTime.parse(json['updated_at']),
     );
@@ -48,6 +51,7 @@ class User {
       'default_address': default_address,
       'status': status,
       'status_display': status_display,
+      'avatar_url': avatar_url,
       'created_at': created_at!.toIso8601String(),
       'updated_at': updated_at!.toIso8601String(),
     };

@@ -1,12 +1,15 @@
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:rmservice/home_page/home_page.dart';
 import 'package:rmservice/login/cubit/user_cubit.dart';
 import 'package:rmservice/main_page/main_page.dart';
 import 'package:rmservice/profile/cubit/update_profile_cubit.dart';
 import 'package:rmservice/utilities/constants/app_assets.dart';
 import 'package:rmservice/utilities/constants/variable.dart';
 
+import '../../account/views/account_page.dart';
+import '../../account/views/account_screen.dart';
 import '../../login/models/user.dart';
 import '../widgets/text_field_custom.dart';
 
@@ -42,9 +45,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   @override
   Widget build(BuildContext context) {
-    nameController.text = user.full_name;
+    user.full_name != ""
+        ? nameController.text = user.full_name
+        : nameController.text = 'User Name';
     emailController.text = user.email;
-    phoneController.text = user.phone_number;
+    user.phone_number != ""
+        ? phoneController.text = user.phone_number
+        : phoneController.text = "0123456789";
     return SingleChildScrollView(
       child: Padding(
         padding: const EdgeInsets.all(padding.paddingMedium),
@@ -66,6 +73,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   Widget info() {
     bool darkMode = Theme.of(context).brightness == Brightness.dark;
+    var userCubit = context.read<UserCubit>().state;
     return BlocConsumer<UpdateProfileCubit, UpdateProfileState>(
       listener: (context, state) {
         // TODO: implement listener
@@ -77,13 +85,19 @@ class _ProfileScreenState extends State<ProfileScreen> {
             showCloseIcon: true,
             title: "Success",
             desc: "Update Successfully",
-            btnOkOnPress: () {},
+            btnOkOnPress: () {
+              userCubit.full_name = state.user.full_name;
+              userCubit.phone_number = state.user.phone_number;
+              Navigator.pushReplacement(
+                  context, MaterialPageRoute(builder: (_) => HomePage()));
+            },
           ).show();
         }
         if (state is UpdateProfileFailed) {
           AwesomeDialog(
             context: context,
-            dialogType: DialogType.success,
+            dialogType: DialogType.error,
+            titleTextStyle: TextStyle(color: Colors.red),
             animType: AnimType.topSlide,
             showCloseIcon: true,
             title: "Failed",
@@ -145,15 +159,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       backgroundColor: colorProject.primaryColor),
                   onPressed: () async {
                     if (formKeyProfile.currentState!.validate()) {
-                      User newUser = User(
-                        code: user.code,
-                        full_name: nameController.text,
-                        phone_number: phoneController.text,
-                        email: user.email,
-                      );
+                      var userCode = userCubit.code;
+                      var fullName = nameController.text;
+                      var phone = phoneController.text;
+                      var email = userCubit.email;
                       await context
                           .read<UpdateProfileCubit>()
-                          .updateProfile(newUser);
+                          .updateProfile(userCode!, fullName, phone, email);
                     }
                   },
                   child: Text(

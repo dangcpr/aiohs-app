@@ -31,6 +31,7 @@ import 'package:rmservice/login/cubit/user_cubit.dart';
 import 'package:rmservice/place_page/cubits/get_place_public/get_place_public_cubit.dart';
 import 'package:rmservice/place_page/cubits/get_place_user/get_place_user_cubit.dart';
 import 'package:rmservice/place_page/cubits/images_place_cubit.dart';
+import 'package:rmservice/post_job/cubits/update_post/update_post_cubit.dart';
 import 'package:rmservice/shopping/cubits/add_items.dart';
 import 'package:rmservice/shopping/cubits/caculate_price/caculate_price_cubit.dart';
 import 'package:rmservice/shopping/cubits/get_shopping_price/get_shopping_price_cubit.dart';
@@ -53,6 +54,11 @@ import '../../cleaning_longterm/cubit/save_info_cubit.dart';
 import '../../cooking/cubit/price_cooking_cubit.dart';
 import '../../history/cubits/get_history_cancel/get_history_cancel_cubit.dart';
 import '../../history/cubits/order_cancel/order_cancel_cubit.dart';
+import '../../post_job/cubits/close_post/close_post_cubit.dart';
+import '../../post_job/cubits/get_history_post_cubit/get_history_post_cubit.dart';
+import '../../post_job/cubits/get_post_all/get_post_all_cubit.dart';
+import '../../post_job/cubits/post_job_cubit/post_job_cubit.dart';
+import '../../post_job/cubits/save_info_job_posting.dart';
 import '../../profile/cubit/update_profile_cubit.dart';
 
 final listProvider = [
@@ -242,5 +248,25 @@ final listProvider = [
   ),
   BlocProvider<GetPlacePublicCubit>(
     create: (_) => GetPlacePublicCubit(),
+  ),
+
+  // job-posting
+  BlocProvider<SaveInfoJobPostingCubit>(
+    create: (_) => SaveInfoJobPostingCubit(),
+  ),
+  BlocProvider<PostJobCubit>(
+    create: (_) => PostJobCubit(),
+  ),
+  BlocProvider<GetHistoryPostCubit>(
+    create: (_) => GetHistoryPostCubit(),
+  ),
+  BlocProvider<UpdatePostCubit>(
+    create: (_) => UpdatePostCubit(),
+  ),
+  BlocProvider<GetPostAllCubit>(
+    create: (_) => GetPostAllCubit(),
+  ),
+  BlocProvider<ClosePostCubit>(
+    create: (_) => ClosePostCubit(),
   ),
 ];
