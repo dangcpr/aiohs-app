@@ -60,6 +60,11 @@ class HistoryCancelled {
           await dio.get('/user/$userCode/orders/$orderCode/cancel');
 
       await Future.delayed(const Duration(milliseconds: 500));
+      if (response.data["code"] == 0) {
+        return;
+      } else {
+        throw response.data['message'];
+      }
     } on DioException catch (e) {
       debugPrint(e.type.toString());
       if (e.type == DioExceptionType.receiveTimeout ||

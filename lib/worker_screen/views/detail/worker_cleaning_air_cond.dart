@@ -1,5 +1,9 @@
+// ignore_for_file: use_build_context_synchronously
+
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:rmservice/history/controllers/history_cancelled.dart';
 import 'package:rmservice/history/models/air_conditioning_history.dart';
 import 'package:rmservice/history/widgets/air_cond/location_info_cleaning_air_cond.dart';
 import 'package:rmservice/history/widgets/air_cond/maid_info.dart';
@@ -90,7 +94,8 @@ class _CleaningLongTermHistoryDetailState
                   order: widget.order,
                 ),
               ),
-            if (widget.order.orderAirCondHistory.maidCode == "") SizedBox(height: 15),
+            if (widget.order.orderAirCondHistory.maidCode == "")
+              SizedBox(height: 15),
             if (widget.order.orderAirCondHistory.maidCode == "")
               ButtonGreenApp(
                   label: "Nhận đơn này",
@@ -103,7 +108,8 @@ class _CleaningLongTermHistoryDetailState
                           );
                         });
                     try {
-                      await WorkerController().acceptedOrder(widget.order.orderAirCondHistory.code,
+                      await WorkerController().acceptedOrder(
+                          widget.order.orderAirCondHistory.code,
                           context.read<UserCubit>().state.code!);
                       Navigator.pop(context);
                       showCustomDialog(
@@ -120,13 +126,64 @@ class _CleaningLongTermHistoryDetailState
                           isMultipleButton: false);
                     }
                   }),
-            if (widget.order.orderAirCondHistory.maidCode == context.read<UserCubit>().state.code)
+            if (widget.order.orderAirCondHistory.maidCode ==
+                context.read<UserCubit>().state.code)
               SizedBox(height: 15),
-
-            if (widget.order.orderAirCondHistory.maidCode == context.read<UserCubit>().state.code &&
-            widget.order.orderAirCondHistory.status == "new")
-              ButtonGreenApp(label: "Hủy đơn này", onPressed: null),
-            if (widget.order.orderAirCondHistory.maidCode == context.read<UserCubit>().state.code)
+            if (widget.order.orderAirCondHistory.maidCode ==
+                    context.read<UserCubit>().state.code &&
+                (widget.order.orderAirCondHistory.status == "new" ||
+                    widget.order.orderAirCondHistory.status == 'maid_accepted'))
+              ButtonGreenApp(
+                  label: "Hủy đơn này",
+                  onPressed: () async {
+                    AwesomeDialog(
+                      context: context,
+                      dialogType: DialogType.warning,
+                      animType: AnimType.topSlide,
+                      titleTextStyle: TextStyle(
+                        color: Colors.orange,
+                      ),
+                      showCloseIcon: true,
+                      title: "Cảnh báo",
+                      desc: 'Bạn có chắc muốn hủy đơn?',
+                      btnOkOnPress: () async {
+                        showDialog(
+                          context: context,
+                          builder: (context) {
+                            return const Center(
+                              child: CircularProgressIndicator(color: colorProject.primaryColor),
+                            );
+                          }
+                        );
+                        try {
+                        await HistoryCancelled().ordersCancelled(
+                            context.read<UserCubit>().state.code!,
+                            widget.order.orderAirCondHistory.code);
+                          Navigator.pop(context);
+                          AwesomeDialog(
+                            context: context,
+                            dialogType: DialogType.success,
+                            animType: AnimType.topSlide,
+                            title: "Hủy đơn thành công",
+                          ).show();
+                        } catch (e) {
+                          Navigator.pop(context);
+                          AwesomeDialog(
+                            context: context,
+                            dialogType: DialogType.error,
+                            animType: AnimType.topSlide,
+                            title: "Hủy đơn thất bại",
+                            desc: e.toString(),
+                          ).show();
+                        }
+                      },
+                      btnCancelOnPress: () {
+                        Navigator.pop(context);
+                      },
+                    ).show();
+                  }),
+            if (widget.order.orderAirCondHistory.maidCode ==
+                context.read<UserCubit>().state.code)
               SizedBox(height: 15),
           ],
         ),

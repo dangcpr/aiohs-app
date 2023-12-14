@@ -10,7 +10,7 @@ class OrderCancelCubit extends Cubit<OrderCancelState> {
   Future<void> orderCancel(String userCode, String orderCode) async {
     emit(OrderCancelLoading());
     try {
-      HistoryCancelled().ordersCancelled(userCode, orderCode);
+      await HistoryCancelled().ordersCancelled(userCode, orderCode);
       emit(OrderCancelSuccess());
     } catch (e) {
       emit(OrderCancelFailed(e.toString()));

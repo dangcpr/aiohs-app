@@ -140,7 +140,7 @@ class _LaundryHistoryDetailState extends State<LaundryHistoryDetail> {
                       order: widget.order,
                     ),
                   ),
-                widget.order.status == 'new'
+                widget.order.status == 'new' || widget.order.status == 'maid_accepted'
                     ? ButtonGreenApp(
                         label: "Hủy đơn này",
                         onPressed: () {

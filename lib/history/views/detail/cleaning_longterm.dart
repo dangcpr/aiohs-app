@@ -136,7 +136,7 @@ class _CleaningLongTermHistoryDetailState
                       order: widget.order,
                     ),
                   ),
-                widget.order.orderCleaningLongTerm.status == 'new'
+                widget.order.orderCleaningLongTerm.status == 'new' || widget.order.orderCleaningLongTerm.status == 'maid_accepted'
                     ? ButtonGreenApp(
                         label: "Hủy đơn này",
                         onPressed: () {

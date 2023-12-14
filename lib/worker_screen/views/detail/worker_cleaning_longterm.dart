@@ -1,5 +1,7 @@
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:rmservice/history/controllers/history_cancelled.dart';
 import 'package:rmservice/history/models/cleaning_longterm_history.dart';
 import 'package:rmservice/history/widgets/cleaning_longterm/location_info_cleaning_longterm.dart';
 import 'package:rmservice/history/widgets/cleaning_longterm/maid_info.dart';
@@ -127,8 +129,54 @@ class _CleaningLongTermHistoryDetailState
               SizedBox(height: 15),
             if (widget.order.orderCleaningLongTerm.maidCode ==
                     context.read<UserCubit>().state.code &&
-                widget.order.orderCleaningLongTerm.status == "new")
-              ButtonGreenApp(label: "Hủy đơn này", onPressed: null),
+                (widget.order.orderCleaningLongTerm.status == "new" || widget.order.orderCleaningLongTerm.status == 'maid_accepted'))
+              ButtonGreenApp(label: "Hủy đơn này", onPressed: () async {
+                    AwesomeDialog(
+                      context: context,
+                      dialogType: DialogType.warning,
+                      animType: AnimType.topSlide,
+                      titleTextStyle: TextStyle(
+                        color: Colors.orange,
+                      ),
+                      showCloseIcon: true,
+                      title: "Cảnh báo",
+                      desc: 'Bạn có chắc muốn hủy đơn?',
+                      btnOkOnPress: () async {
+                        showDialog(
+                          context: context,
+                          builder: (context) {
+                            return const Center(
+                              child: CircularProgressIndicator(color: colorProject.primaryColor),
+                            );
+                          }
+                        );
+                        try {
+                        await HistoryCancelled().ordersCancelled(
+                            context.read<UserCubit>().state.code!,
+                            widget.order.orderCleaningLongTerm.code);
+                          Navigator.pop(context);
+                          AwesomeDialog(
+                            context: context,
+                            dialogType: DialogType.success,
+                            animType: AnimType.topSlide,
+                            title: "Hủy đơn thành công",
+                          ).show();
+                        } catch (e) {
+                          Navigator.pop(context);
+                          AwesomeDialog(
+                            context: context,
+                            dialogType: DialogType.error,
+                            animType: AnimType.topSlide,
+                            title: "Hủy đơn thất bại",
+                            desc: e.toString(),
+                          ).show();
+                        }
+                      },
+                      btnCancelOnPress: () {
+                        Navigator.pop(context);
+                      },
+                    ).show();
+                  }),
             if (widget.order.orderCleaningLongTerm.maidCode ==
                 context.read<UserCubit>().state.code)
               SizedBox(height: 15),

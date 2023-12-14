@@ -166,7 +166,7 @@ class _ShoppingHistoryDetailState extends State<ShoppingHistoryDetail> {
                     ),
                   ),
 
-                widget.order.status == 'new'
+                widget.order.status == 'new' || widget.order.status == 'maid_accepted'
                     ? ButtonGreenApp(
                         label: "Hủy đơn này",
                         onPressed: () {

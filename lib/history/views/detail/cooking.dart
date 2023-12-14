@@ -135,7 +135,7 @@ class _CookingHistoryDetailState extends State<CookingHistoryDetail> {
                       order: widget.order,
                     ),
                   ),
-                widget.order.orderCooking.status == 'new'
+                widget.order.orderCooking.status == 'new' || widget.order.orderCooking.status == 'maid_accepted'
                     ? ButtonGreenApp(
                         label: "Hủy đơn này",
                         onPressed: () {
