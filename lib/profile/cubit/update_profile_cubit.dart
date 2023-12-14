@@ -9,12 +9,16 @@ part 'update_profile_state.dart';
 class UpdateProfileCubit extends Cubit<UpdateProfileState> {
   UpdateProfileCubit() : super(UpdateProfileInitial());
 
-  Future<void> updateProfile(User newUser) async {
+  Future<void> updateProfile(
+      String userCode, String fullName, String phone, String email) async {
     emit(UpdateProfileLoading());
     try {
-      await AccountRepo().updateProfile(newUser);
-      emit(UpdateProfileSuccess());
+      var response =
+          await AccountRepo().updateProfile(userCode, fullName, phone, email);
+      print('Test update profile cubit: ${response.toJson().toString()}');
+      emit(UpdateProfileSuccess(response));
     } catch (e) {
+      print('Test update profile cubit: ${e.toString()}');
       emit(UpdateProfileFailed(e.toString()));
     }
   }

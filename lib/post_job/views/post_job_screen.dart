@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:page_transition/page_transition.dart';
+import 'package:rmservice/login/cubit/user_cubit.dart';
 import 'package:rmservice/post_job/views/job_activing.dart';
 import 'package:rmservice/post_job/views/job_closed.dart';
 import 'package:rmservice/post_job/views/job_posted.dart';
 import 'package:rmservice/post_job/views/post_job_register.dart';
 import 'package:rmservice/utilities/constants/variable.dart';
+
+import 'job_posts.dart';
 
 class PostJobScreen extends StatefulWidget {
   const PostJobScreen({super.key});
@@ -14,35 +18,32 @@ class PostJobScreen extends StatefulWidget {
 }
 
 class _PostJobScreenState extends State<PostJobScreen> {
-  List<Tab> tabs = <Tab>[
-    Tab(icon: Icon(Icons.all_inbox), text: "Bạn đã đăng"),
-    Tab(icon: Icon(Icons.directions_transit), text: "Đang nhận"),
-    Tab(icon: Icon(Icons.directions_bike), text: "Đã đóng"),
-  ];
   List<Widget> pages = <Widget>[
+    JobPost(),
     JobPosted(),
-    JobActiving(),
     JobClosed(),
   ];
+
   @override
   Widget build(BuildContext context) {
+    var role = context.read<UserCubit>().state.role;
     return DefaultTabController(
       length: 3,
       child: Scaffold(
         appBar: AppBar(
           title: Text(
-            "Đăng tin giúp việc",
+            "Tin giúp việc",
             style: TextStyle(
               fontSize: fontSize.mediumLarger,
               fontFamily: fontBoldApp,
             ),
           ),
-          bottom: const TabBar(
+          bottom: TabBar(
             labelColor: colorProject.primaryColor,
             indicatorColor: colorProject.primaryColor,
             tabs: [
+              Tab(icon: Icon(Icons.note_alt), text: "Posts"),
               Tab(icon: Icon(Icons.all_inbox), text: "Bạn đã đăng"),
-              Tab(icon: Icon(Icons.access_time), text: "Đang nhận"),
               Tab(icon: Icon(Icons.close), text: "Đã đóng"),
             ],
           ),
@@ -66,7 +67,7 @@ class _PostJobScreenState extends State<PostJobScreen> {
             ),
           ),
           onPressed: () {
-            Navigator.push(
+            Navigator.pushReplacement(
               context,
               PageTransition(
                 duration: Duration(milliseconds: 400),
