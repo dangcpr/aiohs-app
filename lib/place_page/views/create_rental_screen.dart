@@ -8,6 +8,7 @@ import 'package:rmservice/cleaning_hourly/cubits/save_info/save_address.dart';
 import 'package:rmservice/login/cubit/user_cubit.dart';
 import 'package:rmservice/place_page/controllers/place_page.dart';
 import 'package:rmservice/place_page/cubits/get_place_user/get_place_user_cubit.dart';
+import 'package:rmservice/place_page/cubits/images_place_cubit.dart';
 import 'package:rmservice/place_page/models/rental_place.dart';
 import 'package:rmservice/place_page/views/maps.dart';
 import 'package:rmservice/utilities/components/text_label.dart';
@@ -109,7 +110,7 @@ class _CreateRentalScreenState extends State<CreateRentalScreen> {
                     });
                 try {
                   await PlacePageController()
-                      .createPlaceRental(rentalPlace, userCubit.state.code!);
+                      .createPlaceRental(rentalPlace, userCubit.state.code!, context.read<ImagesPlaceCubit>().state);
                   Navigator.pop(context);
                   AwesomeDialog(
                     context: context,

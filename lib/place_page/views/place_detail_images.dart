@@ -27,9 +27,11 @@ class _PlaceDetailImagesState extends State<PlaceDetailImages> {
               child: InkWell(
                 onTap: () => {
                   PopupBanner(
+                    fit: BoxFit.fitWidth,
+                    autoSlide: true,
                     context: context,
+                    fromNetwork: true,
                     images: widget.rentalPlace.images,
-                    fromNetwork: false,
                     onClick: (index) {
                       debugPrint("CLICKED $index");
                     },

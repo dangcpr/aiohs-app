@@ -145,7 +145,7 @@ class _UpdateRentalScreenState extends State<UpdateRentalScreen> {
                     });
                 try {
                   await PlacePageController().updateRental(rentalPlace,
-                      widget.rentalPlace.code, userCubit.state.code!);
+                      widget.rentalPlace.code, userCubit.state.code!, context.read<ImagesPlaceCubit>().state);
                   Navigator.pop(context);
                   AwesomeDialog(
                     dismissOnTouchOutside: false,

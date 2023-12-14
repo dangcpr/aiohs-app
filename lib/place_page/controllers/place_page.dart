@@ -1,10 +1,12 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:rmservice/place_page/models/rental_place.dart';
 import 'package:rmservice/place_page/models/rental_place_res.dart';
 import 'package:rmservice/place_page/models/rental_place_result.dart';
+import 'package:rmservice/utilities/constants/function.dart';
 import 'package:rmservice/utilities/constants/variable.dart';
 
 final dio = Dio(
@@ -20,11 +22,17 @@ final dio = Dio(
 
 class PlacePageController {
   Future<void> createPlaceRental(
-      RentalPlace rentalPlace, String userCode) async {
+      RentalPlace rentalPlace, String userCode, List<File> imagesFile) async {
     try {
+      List<String> images = [];
+      for (var i = 0; i < imagesFile.length; i++) {
+        String path = await uploadImage(imagesFile[i]);
+        images.add(path);
+      }
+      rentalPlace.images = images;
       var response = await dio.post(
         '/user/$userCode/area-booking/create',
-        data: jsonEncode(rentalPlace),
+        data: rentalPlace.toJson(),
       );
       if (response.data['code'] == 0) {
         return;
@@ -45,6 +53,9 @@ class PlacePageController {
       }
       debugPrint(e.type.toString());
       throw 'Server Error';
+    } catch (e) {
+      debugPrint(e.toString());
+      throw e.toString();
     }
   }
 
@@ -153,8 +164,14 @@ class PlacePageController {
     }
   }
 
-  Future<void> updateRental(RentalPlace rentalPlace, String code, String userCode) async {
+  Future<void> updateRental(RentalPlace rentalPlace, String code, String userCode, List<File> imagesFile) async {
     try {
+      List<String> images = [];
+      for (var i = 0; i < imagesFile.length; i++) {
+        String path = await uploadImage(imagesFile[i]);
+        images.add(path);
+      }
+      rentalPlace.images = images;
       var response = await dio.post(
         '/user/$userCode/area-booking/$code/update',
         data: jsonEncode(rentalPlace),
