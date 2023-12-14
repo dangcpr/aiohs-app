@@ -134,7 +134,9 @@ class _WorkerShoppingState extends State<WorkerShopping> {
                   }),
             if (widget.order.maid_code == context.read<UserCubit>().state.code)
               SizedBox(height: 15),
-            if (widget.order.maid_code == context.read<UserCubit>().state.code)
+            if (widget.order.maid_code ==
+                    context.read<UserCubit>().state.code &&
+                widget.order.status == "new")
               ButtonGreenApp(label: "Hủy đơn này", onPressed: null),
             if (widget.order.maid_code == context.read<UserCubit>().state.code)
               SizedBox(height: 15),

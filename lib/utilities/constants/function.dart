@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:cloudinary/cloudinary.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_walkthrough_screen/flutter_walkthrough_screen.dart';
@@ -117,4 +120,27 @@ void successMessage(String message, BuildContext context) {
       ),
     ),
   );
+}
+
+Future<String> uploadImage(File file) async {
+  try {
+    final response = await cloudinary.upload(
+      file: file.path,
+      fileBytes: file.readAsBytesSync(),
+      resourceType: CloudinaryResourceType.image,
+      folder: "/images",
+      progressCallback: (count, total) {
+        print('Uploading image from file with progress: $count/$total');
+      },
+    );
+
+    if (response.isSuccessful) {
+      return response.url!;
+    } else {
+      throw response.error!;
+    }
+  } catch (e) {
+    debugPrint(e.toString());
+    throw e.toString();
+  }
 }

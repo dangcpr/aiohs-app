@@ -5,6 +5,7 @@ import 'package:rmservice/history/cubits/get_history_accepted/get_history_accept
 import 'package:rmservice/history/widgets/card_order.dart';
 import 'package:rmservice/login/cubit/user_cubit.dart';
 import 'package:rmservice/utilities/constants/variable.dart';
+import 'package:rmservice/utilities/components/empty_card.dart';
 
 class HistoryOrderReceived extends StatefulWidget {
   const HistoryOrderReceived({super.key});
@@ -19,6 +20,7 @@ class _HistoryOrderReceivedState extends State<HistoryOrderReceived> {
   void initState() {
     super.initState();
     final cubit = context.read<GetHistoryAcceptedCubit>();
+    cubit.setInitialAccepted();
     cubit.getHistoryAccepted(context.read<UserCubit>().state.code!);
     _scrollController.addListener(() {
       if (_scrollController.position.maxScrollExtent ==
@@ -43,27 +45,38 @@ class _HistoryOrderReceivedState extends State<HistoryOrderReceived> {
         physics: AlwaysScrollableScrollPhysics(),
         scrollDirection: Axis.vertical,
         child: Container(
-          child: getHistory is GetHistoryAcceptedInitial
+          child: getHistory is GetHistoryAcceptedError
               ? Center(child: Text("Đã có lỗi xảy ra"))
-              : Column(
-                  children: [
-                    for (int i = 0; i < getHistory.ordersAccepted.length; i++)
-                      CardHistoryOrder(order: getHistory.ordersAccepted[i]),
-                    //loading
-                    BlocBuilder<GetHistoryAcceptedCubit, GetHistoryAcceptedState>(
-                        builder: (context, state) {
-                      if (state is GetHistoryAcceptedLoading) {
-                        return Align(
-                          alignment: FractionalOffset.topCenter,
-                          child: CircularProgressIndicator(
-                            color: colorProject.primaryColor,
-                          ),
-                        );
-                      }
-                      return Container();
-                    }),
-                  ],
-                ),
+              : (getHistory.ordersAccepted.isEmpty &&
+                      getHistory.state is GetHistoryAcceptedLoaded)
+                  ? WorkerEmptyOrder(
+                      title: "Không có đơn đã có giúp việc",
+                      desc:
+                          "Không có đơn đã có giúp việc, vui lòng thử lại sau.",
+                    )
+                  : Column(
+                      children: [
+                        for (int i = 0;
+                            i < getHistory.ordersAccepted.length;
+                            i++)
+                          CardHistoryOrder(order: getHistory.ordersAccepted[i]),
+                        //loading
+                        BlocBuilder<GetHistoryAcceptedCubit,
+                            GetHistoryAcceptedState>(
+                          builder: (context, state) {
+                            if (state is GetHistoryAcceptedLoading) {
+                              return Align(
+                                alignment: FractionalOffset.topCenter,
+                                child: CircularProgressIndicator(
+                                  color: colorProject.primaryColor,
+                                ),
+                              );
+                            }
+                            return Container();
+                          },
+                        ),
+                      ],
+                    ),
         ),
       ),
     );

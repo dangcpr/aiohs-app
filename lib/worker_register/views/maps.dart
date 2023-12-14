@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:rmservice/login/cubit/user_cubit.dart';
 import 'package:rmservice/utilities/constants/mapsController.dart';
 import 'package:rmservice/cleaning_hourly/cubits/save_info/save_address.dart';
 import 'package:rmservice/cleaning_hourly/models/address.dart';
@@ -70,21 +71,8 @@ class _ChooseLocationScreenState extends State<ChooseLocationScreen> {
         actions: [
           TextButton(
             onPressed: () {
-              if (isSearch) {
-
-                addressObject = Address(
-                  address: searchLocationController.text,
-                  latitude: latCurrent,
-                  longitude: lngCurrent,
-                );
-                context.read<SaveAddressCubit>().setAddress(addressObject);
-                debugPrint( context.read<SaveAddressCubit>().state?.toJson().toString());
-
-                Navigator.pop(
-                  context,
-                );
-              } else
-                null;
+              context.read<SaveAddressCubit>().setAddress(addressObject);
+              Navigator.pop(context);
             },
             child: Text(
               "Chọn",
@@ -142,6 +130,10 @@ class _ChooseLocationScreenState extends State<ChooseLocationScreen> {
                         ['long_name'] +
                     ' ' +
                     jsonDecode(address)['address_components'][1]['long_name'],
+                latitude: latCurrent,
+                longitude: lngCurrent,
+                name: context.read<UserCubit>().state.full_name,
+                phone: context.read<UserCubit>().state.phone_number,
               );
 
               // debugPrint(await MapController()
@@ -205,9 +197,15 @@ class _ChooseLocationScreenState extends State<ChooseLocationScreen> {
                         );
 
                         addressObject = Address(
-                          address: jsonDecode(detailAddress)['formatted_address'],
-                          shortAddress:
-                              jsonDecode(detailAddress)['name']
+                          address:
+                              jsonDecode(detailAddress)['formatted_address'],
+                          shortAddress: jsonDecode(detailAddress)['name'],
+                          name: context.read<UserCubit>().state.full_name,
+                          phone: context.read<UserCubit>().state.phone_number,
+                          latitude: jsonDecode(detailAddress)['geometry']
+                              ['location']['lat'],
+                          longitude: jsonDecode(detailAddress)['geometry']
+                              ['location']['lng'],
                         );
 
                         setState(() {

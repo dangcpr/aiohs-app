@@ -1,12 +1,12 @@
+// ignore_for_file: use_build_context_synchronously
+
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:page_transition/page_transition.dart';
-import 'package:rmservice/get_product/controllers/get_product.dart';
-import 'package:rmservice/get_product/cubits/get_product/get_product_cubit.dart';
-import 'package:rmservice/get_product/cubits/get_product/get_product_state.dart';
 import 'package:rmservice/login/cubit/user_cubit.dart';
 import 'package:rmservice/main_page/widgets/button_post_job.dart';
-import 'package:rmservice/shopping/widgets/dialog_wrong.dart';
+import 'package:rmservice/user_address/controllers/user_address.dart';
 import 'package:rmservice/utilities/constants/variable.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:rmservice/worker_register/views/register_step1.dart';
@@ -207,7 +207,34 @@ class _MainPageState extends State<MainPage> {
               ),
             ),
             InkWell(
-              onTap: () {
+              onTap: () async {
+                showDialog(
+                  barrierDismissible: false,
+                  context: context,
+                  builder: (context) {
+                    return PopScope(
+                      canPop: false,
+                      child: const Center(
+                          child: CircularProgressIndicator(
+                              color: colorProject.primaryColor)),
+                    );
+                  },
+                );
+                int length = (await UserAddressController()
+                        .getAddress(context.read<UserCubit>().state.code!))
+                    .length;
+                if (length == 0) {
+                  Navigator.pop(context);
+                  AwesomeDialog(
+                    context: context,
+                    dialogType: DialogType.error,
+                    animType: AnimType.bottomSlide,
+                    title: 'Không tìm thấy địa chỉ',
+                    desc: 'Vui lòng thêm lưu địa chỉ mặc định trước khi nhận việc',
+                  ).show();
+                  return;
+                }
+                Navigator.pop(context);
                 if (context.read<WorkerGetOrderAllCubit>().state
                     is WorkerGetOrderAllInitial) {
                   context

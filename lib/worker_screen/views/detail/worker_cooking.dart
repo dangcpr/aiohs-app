@@ -38,7 +38,7 @@ class _WorkerCookingHistoryDetailState
         ),
       ),
       body: Padding(
-        padding: const EdgeInsets.only(left: 20, right: 20, bottom: 90),
+        padding: const EdgeInsets.only(left: 20, right: 20),
         child: ListView(
           children: [
             Padding(
@@ -128,7 +128,8 @@ class _WorkerCookingHistoryDetailState
               SizedBox(height: 15),
 
             if (widget.order.orderCooking.maidCode ==
-                context.read<UserCubit>().state.code)
+                    context.read<UserCubit>().state.code &&
+                widget.order.orderCooking.status == "new")
               ButtonGreenApp(label: "Hủy đơn này", onPressed: null),
             if (widget.order.orderCooking.maidCode ==
                 context.read<UserCubit>().state.code)

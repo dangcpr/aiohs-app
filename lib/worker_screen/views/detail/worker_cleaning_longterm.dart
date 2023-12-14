@@ -12,8 +12,6 @@ import 'package:rmservice/utilities/constants/variable.dart';
 import 'package:rmservice/utilities/dialog/dialog.dart';
 import 'package:rmservice/worker_screen/controllers/worker.dart';
 
-
-
 class CleaningLongTermHistoryDetail extends StatefulWidget {
   const CleaningLongTermHistoryDetail({super.key, required this.order});
 
@@ -92,7 +90,8 @@ class _CleaningLongTermHistoryDetailState
                   order: widget.order,
                 ),
               ),
-            if (widget.order.orderCleaningLongTerm.maidCode == "") SizedBox(height: 15),
+            if (widget.order.orderCleaningLongTerm.maidCode == "")
+              SizedBox(height: 15),
             if (widget.order.orderCleaningLongTerm.maidCode == "")
               ButtonGreenApp(
                   label: "Nhận đơn này",
@@ -105,7 +104,8 @@ class _CleaningLongTermHistoryDetailState
                           );
                         });
                     try {
-                      await WorkerController().acceptedOrder(widget.order.orderCleaningLongTerm.code,
+                      await WorkerController().acceptedOrder(
+                          widget.order.orderCleaningLongTerm.code,
                           context.read<UserCubit>().state.code!);
                       Navigator.pop(context);
                       showCustomDialog(
@@ -122,12 +122,15 @@ class _CleaningLongTermHistoryDetailState
                           isMultipleButton: false);
                     }
                   }),
-            if (widget.order.orderCleaningLongTerm.maidCode == context.read<UserCubit>().state.code)
+            if (widget.order.orderCleaningLongTerm.maidCode ==
+                context.read<UserCubit>().state.code)
               SizedBox(height: 15),
-
-            if (widget.order.orderCleaningLongTerm.maidCode == context.read<UserCubit>().state.code)
+            if (widget.order.orderCleaningLongTerm.maidCode ==
+                    context.read<UserCubit>().state.code &&
+                widget.order.orderCleaningLongTerm.status == "new")
               ButtonGreenApp(label: "Hủy đơn này", onPressed: null),
-            if (widget.order.orderCleaningLongTerm.maidCode == context.read<UserCubit>().state.code)
+            if (widget.order.orderCleaningLongTerm.maidCode ==
+                context.read<UserCubit>().state.code)
               SizedBox(height: 15),
           ],
         ),

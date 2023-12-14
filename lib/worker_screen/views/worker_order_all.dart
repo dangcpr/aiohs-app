@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rmservice/login/cubit/user_cubit.dart';
 import 'package:rmservice/utilities/components/button_green.dart';
 import 'package:rmservice/utilities/components/dialog_wrong.dart';
+import 'package:rmservice/utilities/components/empty_card.dart';
 import 'package:rmservice/utilities/components/text_field_basic.dart';
 import 'package:rmservice/utilities/components/text_label.dart';
 import 'package:rmservice/utilities/components/text_sub_label.dart';
@@ -83,34 +84,51 @@ class _WorkerOrderAllState extends State<WorkerOrderAll> {
               ),
             ],
           ),
-          Expanded(
-            child: workerGetOrderAll is WorkerGetOrderAllError
-                ? Center(child: Text("Đã có lỗi xảy ra"))
-                : SingleChildScrollView(
-                    controller: _scrollController,
-                    scrollDirection: Axis.vertical,
-                    child: Column(
-                      children: [
-                        for (int i = 0;
-                            i < workerGetOrderAll.orders.length;
-                            i++)
-                          WorkerOrderCard(order: workerGetOrderAll.orders[i]),
-                        //loading
-                        BlocBuilder<WorkerGetOrderAllCubit,
-                            WorkerGetOrderAllState>(builder: (context, state) {
-                          if (state is WorkerGetOrderAllLoading) {
-                            return Align(
-                              alignment: FractionalOffset.topCenter,
-                              child: CircularProgressIndicator(
-                                color: colorProject.primaryColor,
-                              ),
-                            );
-                          }
-                          return Container();
-                        }),
-                      ],
+           Expanded(
+              child: RefreshIndicator(
+            onRefresh: () async {
+              context.read<WorkerGetOrderAllCubit>().reset();
+              context
+                  .read<WorkerGetOrderAllCubit>()
+                  .getOrderAll(distance, context.read<UserCubit>().state.code!);
+            },
+            child:workerGetOrderAll.state is WorkerGetOrderAllError
+                  ? Center(child: Text("Đã có lỗi xảy ra"))
+                  : SingleChildScrollView(
+                      physics: AlwaysScrollableScrollPhysics(),
+                      controller: _scrollController,
+                      scrollDirection: Axis.vertical,
+                      child: (workerGetOrderAll.orders.isEmpty &&
+                        workerGetOrderAll.state
+                            is WorkerGetOrderAllLoaded)
+                    ? WorkerEmptyOrder(
+                        title: "Không có đơn gần đây",
+                        desc:
+                            "Không có đơn gần đây. Vui lòng thay đổi địa chỉ mặc định")
+                    :  Column(
+                        children: [
+                          for (int i = 0;
+                              i < workerGetOrderAll.orders.length;
+                              i++)
+                            WorkerOrderCard(order: workerGetOrderAll.orders[i]),
+                          //loading
+                          BlocBuilder<WorkerGetOrderAllCubit,
+                                  WorkerGetOrderAllState>(
+                              builder: (context, state) {
+                            if (state is WorkerGetOrderAllLoading) {
+                              return Align(
+                                alignment: FractionalOffset.topCenter,
+                                child: CircularProgressIndicator(
+                                  color: colorProject.primaryColor,
+                                ),
+                              );
+                            }
+                            return Container();
+                          }),
+                        ],
+                      ),
                     ),
-                  ),
+            ),
           ),
         ],
       ),

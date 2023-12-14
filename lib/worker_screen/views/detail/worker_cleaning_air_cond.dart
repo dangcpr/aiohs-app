@@ -38,7 +38,7 @@ class _CleaningLongTermHistoryDetailState
         ),
       ),
       body: Padding(
-        padding: const EdgeInsets.only(left: 20, right: 20, bottom: 90),
+        padding: const EdgeInsets.only(left: 20, right: 20),
         child: ListView(
           children: [
             Padding(
@@ -123,7 +123,8 @@ class _CleaningLongTermHistoryDetailState
             if (widget.order.orderAirCondHistory.maidCode == context.read<UserCubit>().state.code)
               SizedBox(height: 15),
 
-            if (widget.order.orderAirCondHistory.maidCode == context.read<UserCubit>().state.code)
+            if (widget.order.orderAirCondHistory.maidCode == context.read<UserCubit>().state.code &&
+            widget.order.orderAirCondHistory.status == "new")
               ButtonGreenApp(label: "Hủy đơn này", onPressed: null),
             if (widget.order.orderAirCondHistory.maidCode == context.read<UserCubit>().state.code)
               SizedBox(height: 15),
