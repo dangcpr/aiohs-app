@@ -5,7 +5,7 @@ class MaidRes {
   late String phone_number;
   late String avatar_url;
   late int total_rating;
-  late int avg_star;
+  late double avg_star;
   late double longitude;
   late double latitude;
   late String address;
@@ -36,7 +36,7 @@ class MaidRes {
     longitude = json['longitude'];
     latitude = json['latitude'];
     address = json['address'];
-    distance = json['distance'];
+    distance = json['distance'] ==  0 ? 0.0 : json['distance'];
   }
 
   Map<String, dynamic> toJson() => {

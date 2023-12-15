@@ -17,11 +17,11 @@ final dio = Dio(
 );
 
 class MaidInfoController {
-  Future<List<MaidRes>> getMaidAround(String userCode) async {
+  Future<List<MaidRes>> getMaidAround(String userCode, double distance, double star) async {
     try {
       var response = await dio.get('/user/$userCode/maid-around', queryParameters: {
-        "distance": 5,
-        "star": 0.1,
+        "distance": distance,
+        "star": star,
       });
       if (response.data['code'] == 0) {
         List<MaidRes> maidList = [];

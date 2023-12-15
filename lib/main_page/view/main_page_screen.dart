@@ -1,6 +1,7 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'package:awesome_dialog/awesome_dialog.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:page_transition/page_transition.dart';
@@ -29,6 +30,9 @@ class _MainPageState extends State<MainPage> {
     super.initState();
   }
 
+  ValueListenable<double> distanceMaidNear = ValueNotifier(5.0);
+  ValueListenable<int> starMaidNear = ValueNotifier(3);
+  
   @override
   Widget build(BuildContext context) {
     // final Size size = MediaQuery.of(context).size;
@@ -66,13 +70,7 @@ class _MainPageState extends State<MainPage> {
               const SizedBox(height: 12),
               HorizontalListViewWithIndicator(),
               const SizedBox(height: 15),
-              Text(
-                "Người giúp việc gần đây",
-                style: const TextStyle(
-                  fontFamily: fontBoldApp,
-                  fontSize: 20,
-                ),
-              ),
+
               MaidNear(),
               const SizedBox(height: 15),
               ButtonPostJob(),
@@ -240,7 +238,8 @@ class _MainPageState extends State<MainPage> {
                     dialogType: DialogType.error,
                     animType: AnimType.bottomSlide,
                     title: 'Không tìm thấy địa chỉ',
-                    desc: 'Vui lòng thêm lưu địa chỉ mặc định trước khi nhận việc',
+                    desc:
+                        'Vui lòng thêm lưu địa chỉ mặc định trước khi nhận việc',
                   ).show();
                   return;
                 }
@@ -326,6 +325,8 @@ class _MainPageState extends State<MainPage> {
       ),
     );
   }
+
+
 
   // Widget Appbar() {
   //   return Row(
