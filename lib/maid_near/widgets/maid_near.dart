@@ -10,6 +10,8 @@ import 'package:rmservice/maid_near/models/maid_res.dart';
 import 'package:rmservice/maid_near/widgets/maid_near_card.dart';
 import 'package:rmservice/user_address/controllers/user_address.dart';
 import 'package:rmservice/user_address/models/address_response.dart';
+import 'package:rmservice/utilities/components/button_green.dart';
+import 'package:rmservice/utilities/components/text_field_basic.dart';
 import 'package:rmservice/utilities/constants/variable.dart';
 
 class MaidNear extends StatefulWidget {
@@ -60,7 +62,7 @@ class _MaidNearState extends State<MaidNear> {
 
   @override
   Widget build(BuildContext context) {
-    //bool isDarkMode = Theme.of(context).brightness == Brightness.dark;
+    bool isDarkMode = Theme.of(context).brightness == Brightness.dark;
     return Column(
       children: [
         Row(
@@ -77,7 +79,7 @@ class _MaidNearState extends State<MaidNear> {
             ),
             InkWell(
               onTap: () {
-                filterMaidNear();
+                filterMaidNear(isDarkMode);
               },
               child: Row(
                 children: const [
@@ -96,6 +98,7 @@ class _MaidNearState extends State<MaidNear> {
             ),
           ],
         ),
+        SizedBox(height: 10),
         Container(
           //height: 150,
           width: double.infinity,
@@ -104,7 +107,9 @@ class _MaidNearState extends State<MaidNear> {
               : loading == 1
                   ? Center(
                       child: CircularProgressIndicator(
-                          color: colorProject.primaryColor))
+                        color: colorProject.primaryColor,
+                      ),
+                    )
                   : Container(
                       child: listAddress.isEmpty
                           ? Text('Vui lòng lưu ít nhất 1 địa chỉ mặc định')
@@ -123,12 +128,12 @@ class _MaidNearState extends State<MaidNear> {
     );
   }
 
-  void filterMaidNear() {
+  void filterMaidNear(bool isDarkMode) {
     showModalBottomSheet(
       context: context,
       builder: (builder) {
         return Container(
-          height: MediaQuery.of(context).size.height / 3,
+          height: MediaQuery.of(context).size.height / 4.5,
           padding: const EdgeInsets.all(20),
           color: Colors.transparent,
           child: Column(
@@ -165,8 +170,91 @@ class _MaidNearState extends State<MaidNear> {
                     },
                   ),
                 ],
+              ),
+              const SizedBox(height: 10),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  const Expanded(
+                    child: Text(
+                      'Tìm trong khoảng cách',
+                      style: TextStyle(
+                        fontFamily: fontBoldApp,
+                        fontSize: fontSize.mediumLarger,
+                      ),
+                    ),
+                  ),
+                  Container(
+                    width: 100,
+                    height: 30,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      border: Border.all(
+                        color: colorProject.primaryColor,
+                      ),
+                    ),
+                    child: InkWell(
+                      onTap: () {
+                        showDialogChangeDistance(isDarkMode);
+                      },
+                      child: Center(
+                        child: Text(
+                          distance.toString() + ' km',
+                          style: TextStyle(
+                            fontFamily: fontBoldApp,
+                            fontSize: fontSize.medium,
+                          ),
+                        ),
+                      ),
+                    ),
+                  )
+                ],
               )
             ],
+          ),
+        );
+      },
+    );
+  }
+
+  void showDialogChangeDistance(bool isDarkMode) {
+    TextEditingController controller = TextEditingController();
+    controller.text = distance.toString();
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: const Center(
+            child: Text(
+              'Thay đổi khoảng cách',
+              style: TextStyle(
+                fontFamily: fontBoldApp,
+                fontSize: fontSize.mediumLarger,
+              ),
+            ),
+          ),
+          content: Container(
+            width: MediaQuery.of(context).size.width,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                TextFieldBasic(
+                  controller: controller,
+                  isDarkMode: isDarkMode,
+                  hintText: "Thay đổi khoảng cách",
+                ),
+                const SizedBox(height: 20),
+                ButtonGreenApp(
+                    label: "Thay đổi",
+                    onPressed: () {
+                      setState(() {
+                        distance = double.parse(controller.text);
+                        getUserAddress();
+                      });
+                      Navigator.pop(context);
+                    })
+              ],
+            ),
           ),
         );
       },

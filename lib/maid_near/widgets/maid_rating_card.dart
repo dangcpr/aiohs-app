@@ -40,14 +40,16 @@ class _MaidRatingCardState extends State<MaidRatingCard> {
                       Text(
                         widget.maidRating.renter_name,
                         style: TextStyle(
-                            fontFamily: fontBoldApp,
-                            fontSize: fontSize.medium + 1,
-                            color: colorProject.primaryColor),
+                          fontFamily: fontBoldApp,
+                          fontSize: fontSize.medium + 1,
+                          color: colorProject.primaryColor,
+                        ),
                       ),
                       RatingBar.builder(
                         itemSize: 20,
                         initialRating: widget.maidRating.star.toDouble(),
                         minRating: 1,
+                        ignoreGestures: true,
                         direction: Axis.horizontal,
                         onRatingUpdate: (rating) {
                           null;
@@ -55,7 +57,7 @@ class _MaidRatingCardState extends State<MaidRatingCard> {
                         itemBuilder: (context, index) {
                           return Icon(
                             Icons.star,
-                            color: Color.fromARGB(255, 255, 235, 59),
+                            color: Color.fromARGB(255, 232, 209, 0),
                           );
                         },
                       ),

@@ -6,7 +6,6 @@ import 'package:rmservice/utilities/components/empty_card.dart';
 
 import '../../../login/cubit/user_cubit.dart';
 import '../../widgets/card_cancel.dart';
-import '../../widgets/card_order.dart';
 
 class HistoryOrderCancelled extends StatefulWidget {
   const HistoryOrderCancelled({super.key});
@@ -30,7 +29,8 @@ class _HistoryOrderCancelledState extends State<HistoryOrderCancelled> {
         BlocBuilder<GetHistoryCancelCubit, GetHistoryCancelState>(
             builder: (context, state) {
       if (state is GetHistoryCancelLoading) {
-        return const Center(
+        return const Align(
+          alignment: FractionalOffset.topCenter,
           child: CircularProgressIndicator(color: colorProject.primaryColor),
         );
       }

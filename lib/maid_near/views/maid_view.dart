@@ -65,6 +65,7 @@ class _MaidViewState extends State<MaidView> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         RatingBar.builder(
+                          ignoreGestures: true,
                           allowHalfRating: true,
                           itemSize: 30,
                           initialRating: widget.maidNear.avg_star,

@@ -29,8 +29,12 @@ class _HistoryOrderCompletedState extends State<HistoryOrderCompleted> {
         BlocBuilder<GetHistoryCompletedCubit, GetHistoryOrderCompletedState>(
             builder: (context, state) {
       if (state is GetHistoryOrderCompletedLoading) {
-        return CircularProgressIndicator(color: colorProject.primaryColor);
-        
+        return Align(
+          alignment: FractionalOffset.topCenter,
+          child: CircularProgressIndicator(
+            color: colorProject.primaryColor,
+          ),
+        );
       }
 
       if (state is GetHistoryOrderCompletedLoaded) {
@@ -41,15 +45,16 @@ class _HistoryOrderCompletedState extends State<HistoryOrderCompleted> {
                 .read<GetHistoryCompletedCubit>()
                 .getHistoryCompleted(context.read<UserCubit>().state.code!);
           },
-          child: state.orders.isEmpty ? WorkerEmptyOrder(
-                title: "Không có đơn đã hoàn thành",
-                desc: "Không có đơn đã hoàn thành, vui lòng quay lại."
-              ) : ListView.builder(
-            itemCount: state.orders.length,
-            itemBuilder: (context, index) {
-              return CardHistoryOrder(order: state.orders[index]);
-            },
-          ),
+          child: state.orders.isEmpty
+              ? WorkerEmptyOrder(
+                  title: "Không có đơn đã hoàn thành",
+                  desc: "Không có đơn đã hoàn thành, vui lòng quay lại.")
+              : ListView.builder(
+                  itemCount: state.orders.length,
+                  itemBuilder: (context, index) {
+                    return CardHistoryOrder(order: state.orders[index]);
+                  },
+                ),
         );
       }
 

@@ -27,7 +27,7 @@ class HistoryCancelled {
           'search_role_type': 'renter',
         },
       );
-      //await Future.delayed(const Duration(milliseconds: 700));
+      await Future.delayed(const Duration(milliseconds: 500));
 
       if (response.data['code'] == 0) {
         List<Order> orders = [];
