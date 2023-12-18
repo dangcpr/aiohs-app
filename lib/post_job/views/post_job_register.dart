@@ -8,6 +8,7 @@ import 'package:rmservice/cleaning_hourly/cubits/save_info/save_address.dart';
 import 'package:rmservice/login/cubit/user_cubit.dart';
 import 'package:rmservice/login/models/user.dart';
 import 'package:rmservice/post_job/constants/sex_choose.dart';
+import 'package:rmservice/post_job/cubits/images_place_cubit.dart';
 import 'package:rmservice/post_job/cubits/post_job_cubit/post_job_cubit.dart';
 import 'package:rmservice/post_job/cubits/save_info_job_posting.dart';
 import 'package:rmservice/post_job/views/post_job_confirm.dart';
@@ -102,6 +103,7 @@ class _PostJobRegisterState extends State<PostJobRegister> {
             desc: 'Post job successfully',
             btnOkOnPress: () {
               context.read<SaveInfoJobPostingCubit>().setInitial();
+              context.read<ImagesPlaceCubitForJobPosting>().state.clear();
               Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(
@@ -137,6 +139,7 @@ class _PostJobRegisterState extends State<PostJobRegister> {
           leading: InkWell(
             onTap: () {
               context.read<SaveInfoJobPostingCubit>().setInitial();
+              context.read<ImagesPlaceCubitForJobPosting>().state.clear();
               Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(
@@ -434,7 +437,11 @@ class _PostJobRegisterState extends State<PostJobRegister> {
                         });
                     return;
                   }
-                  if (cubit.images.length == 0) {
+                  if (context
+                          .read<ImagesPlaceCubitForJobPosting>()
+                          .state
+                          .length ==
+                      0) {
                     showDialog(
                         context: context,
                         builder: (context) {
@@ -464,7 +471,8 @@ class _PostJobRegisterState extends State<PostJobRegister> {
                     candidateExperience: candidateExpController.text,
                   );
                   final userCode = context.read<UserCubit>().state.code;
-                  context.read<PostJobCubit>().postJob(userCode!, postJobInfo);
+                  context.read<PostJobCubit>().postJob(userCode!, postJobInfo,
+                      context.read<ImagesPlaceCubitForJobPosting>().state);
                   print(postJobInfo.toJson().toString());
                 }
               }),

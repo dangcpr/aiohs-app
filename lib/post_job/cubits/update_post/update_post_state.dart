@@ -7,7 +7,10 @@ class UpdatePostInitial extends UpdatePostState {}
 
 class UpdatePostILoading extends UpdatePostState {}
 
-class UpdatePostSuccess extends UpdatePostState {}
+class UpdatePostSuccess extends UpdatePostState {
+  HistoryJobPosting historyJobPosting;
+  UpdatePostSuccess(this.historyJobPosting);
+}
 
 class UpdatePostFailed extends UpdatePostState {
   String message;
