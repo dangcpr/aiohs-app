@@ -12,7 +12,11 @@ import 'package:rmservice/utilities/components/button_green.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class BottomSheetAddress extends StatefulWidget {
-  const BottomSheetAddress({super.key, required this.isDarkMode, required this.lat, required this.long});
+  const BottomSheetAddress(
+      {super.key,
+      required this.isDarkMode,
+      required this.lat,
+      required this.long});
 
   final bool isDarkMode;
   final double lat;
@@ -31,6 +35,32 @@ class _BottomSheetAddressState extends State<BottomSheetAddress> {
   @override
   void initState() {
     super.initState();
+    shortAddressController.text =
+        context.read<SaveAddressShoppingCubit>().state!.nameAddress!;
+    nameController.text =
+        (context.read<SaveAddressShoppingCubit>().state!.yourName != null &&
+                context
+                    .read<SaveAddressShoppingCubit>()
+                    .state!
+                    .yourName!
+                    .isNotEmpty
+            ? context.read<SaveAddressShoppingCubit>().state!.yourName
+            : (context.read<UserCubit>().state.full_name == null ||
+                    context.read<UserCubit>().state.full_name!.isEmpty
+                ? ""
+                : context.read<UserCubit>().state.full_name)!)!;
+    phoneController.text =
+        (context.read<SaveAddressShoppingCubit>().state!.phoneNum != null &&
+                context
+                    .read<SaveAddressShoppingCubit>()
+                    .state!
+                    .phoneNum!
+                    .isNotEmpty
+            ? context.read<SaveAddressShoppingCubit>().state!.phoneNum
+            : (context.read<UserCubit>().state.phone_number == null ||
+                    context.read<UserCubit>().state.phone_number!.isEmpty
+                ? ""
+                : context.read<UserCubit>().state.phone_number)!)!;
   }
 
   @override
@@ -43,24 +73,7 @@ class _BottomSheetAddressState extends State<BottomSheetAddress> {
   @override
   Widget build(BuildContext context) {
     //controller.text = context.read<SavePriceShopping>().state.toString();
-    shortAddressController.text =
-        context.read<SaveAddressShoppingCubit>().state!.nameAddress!;
-    nameController.text =
-        (context.read<SaveAddressShoppingCubit>().state!.yourName != null &&
-                context.read<SaveAddressShoppingCubit>().state!.yourName!.isNotEmpty
-            ? context.read<SaveAddressShoppingCubit>().state!.yourName
-            : (context.read<UserCubit>().state.full_name == null ||
-                    context.read<UserCubit>().state.full_name!.isEmpty
-                ? ""
-                : context.read<UserCubit>().state.full_name)!)!;
-    phoneController.text =
-        (context.read<SaveAddressShoppingCubit>().state!.phoneNum != null &&
-                context.read<SaveAddressShoppingCubit>().state!.phoneNum!.isNotEmpty
-            ? context.read<SaveAddressShoppingCubit>().state!.phoneNum
-            : (context.read<UserCubit>().state.phone_number == null ||
-                    context.read<UserCubit>().state.phone_number!.isEmpty
-                ? ""
-                : context.read<UserCubit>().state.phone_number)!)!;
+
     return Container(
       padding: EdgeInsets.only(
         left: 20,

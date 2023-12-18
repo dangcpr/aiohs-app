@@ -6,6 +6,7 @@ import 'package:intl/intl.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:rmservice/cleaning_longterm/cubit/get_price/get_price_cleaning_longterm_cubit.dart';
 import 'package:rmservice/cleaning_longterm/cubit/save_info_cubit.dart';
+import 'package:rmservice/utilities/components/show_address.dart';
 import 'package:rmservice/utilities/constants/variable.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -60,16 +61,21 @@ class _CleaningLongTermStep1State extends State<CleaningLongTermStep1> {
               ? "Vui lòng chọn địa điểm"
               : context.watch<SaveAddressCubit>().state!.address!,
           isDarkMode: isDarkMode,
-          onPressed: () {
-            Navigator.push(
-              context,
-              PageTransition(
-                duration: Duration(milliseconds: 400),
-                type: PageTransitionType.rightToLeftWithFade,
-                child: ChooseLocationScreen(),
-                childCurrent: CleaningLongTermStep1(),
-              ),
+          onPressed: () async {
+            showModalBottomSheet(
+              context: context,
+              builder: (context) {
+                return YourAddress();
+              },
             );
+            // Navigator.push(
+            //   context,
+            //   PageTransition(
+            //     duration: Duration(milliseconds: 400),
+            //     type: PageTransitionType.rightToLeftWithFade,
+            //     child: ChooseLocationScreen(),
+            //   ),
+            // );
           },
         ),
         leading: InkWell(

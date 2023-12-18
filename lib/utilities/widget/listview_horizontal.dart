@@ -14,7 +14,7 @@ import 'package:rmservice/laundry/cubits/get_price_laundry/get_price_laundry_cub
 import 'package:rmservice/laundry/views/laundry_step1.dart';
 import 'package:rmservice/main_page/main_page.dart';
 import 'package:rmservice/shopping/cubits/get_shopping_price/get_shopping_price_cubit.dart';
-import 'package:rmservice/shopping/views/shopping_step1.dart';
+import 'package:rmservice/shopping/views/shopping_step2.dart';
 
 import '../cards/service_card.dart';
 
@@ -101,7 +101,7 @@ class _HorizontalListViewWithIndicatorState
             PageTransition(
               duration: Duration(milliseconds: 500),
               type: PageTransitionType.rightToLeftWithFade,
-              child: ShoppingStep1Screen(),
+              child: ShoppingStep2Screen(),
               childCurrent: MainPage(),
             ),
           );

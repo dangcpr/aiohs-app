@@ -7,6 +7,7 @@ import 'package:rmservice/air_conditioning_cleaning/cubit/get_price_air_cond/get
 import 'package:rmservice/air_conditioning_cleaning/cubit/price_air_cond_cubit.dart';
 import 'package:rmservice/air_conditioning_cleaning/cubit/save_info_air_conditioning_cleaning.dart';
 import 'package:rmservice/air_conditioning_cleaning/model/air_conditioning_cleaning_price.dart';
+import 'package:rmservice/utilities/components/show_address.dart';
 import 'package:rmservice/utilities/constants/variable.dart';
 
 import '../../cleaning_hourly/cubits/save_info/save_address.dart';
@@ -60,16 +61,21 @@ class _AirConditioningCleaningScreenStep1State
                 ? "Vui lòng chọn địa điểm"
                 : context.watch<SaveAddressCubit>().state!.address!,
             isDarkMode: isDarkMode,
-            onPressed: () {
-              Navigator.push(
-                context,
-                PageTransition(
-                  duration: Duration(milliseconds: 400),
-                  type: PageTransitionType.rightToLeftWithFade,
-                  child: ChooseLocationScreen(),
-                  childCurrent: AirConditioningCleaningScreenStep1(),
-                ),
+            onPressed: () async {
+              showModalBottomSheet(
+                context: context,
+                builder: (context) {
+                  return YourAddress();
+                },
               );
+              // Navigator.push(
+              //   context,
+              //   PageTransition(
+              //     duration: Duration(milliseconds: 400),
+              //     type: PageTransitionType.rightToLeftWithFade,
+              //     child: ChooseLocationScreen(),
+              //   ),
+              // );
             },
           ),
           leading: InkWell(

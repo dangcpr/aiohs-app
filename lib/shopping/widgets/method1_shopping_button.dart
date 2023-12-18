@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:page_transition/page_transition.dart';
+import 'package:rmservice/shopping/cubits/save_address.dart';
 import 'package:rmservice/shopping/cubits/save_data.dart';
 import 'package:rmservice/shopping/views/shopping_step2.dart';
 import 'package:rmservice/shopping/views/shopping_step3_M1.dart';
+import 'package:rmservice/shopping/widgets/dialog_wrong.dart';
 import 'package:rmservice/utilities/constants/app_assets.dart';
 import 'package:rmservice/utilities/constants/variable.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -21,6 +23,17 @@ class _Method1ShoppingButtonState extends State<Method1ShoppingButton> {
     return InkWell(
       borderRadius: BorderRadius.circular(10),
       onTap: () {
+        if (context.read<SaveAddressShoppingCubit>().state == null ||
+            context.read<SaveAddressShoppingCubit>().state!.fullAddress == "") {
+          showDialog(
+              context: context,
+              builder: (context) {
+                return DialogWrong(
+                  notification: "Vui lòng chọn địa điểm làm việc",
+                );
+              });
+          return;
+        }
         context.read<SaveDataShopping>().state.methodOfShpping = 1;
         Navigator.push(
           context,
@@ -127,7 +140,10 @@ class _Method1ShoppingButtonState extends State<Method1ShoppingButton> {
                   color: colorProject.primaryColor,
                   shape: BoxShape.circle,
                 ),
-                child: Icon(Icons.arrow_forward_rounded, color: Colors.white,),
+                child: Icon(
+                  Icons.arrow_forward_rounded,
+                  color: Colors.white,
+                ),
               ),
             ),
           ],
