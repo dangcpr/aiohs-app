@@ -8,6 +8,7 @@ import 'package:rmservice/cooking/cubit/price_cooking_cubit.dart';
 import 'package:rmservice/cooking/cubit/save_info_cooking.dart';
 import 'package:rmservice/cooking/model/cooking_price.dart';
 import 'package:rmservice/cooking/widgets/service_bonus.dart';
+import 'package:rmservice/utilities/components/show_address.dart';
 import 'package:rmservice/utilities/constants/variable.dart';
 
 import '../../cleaning_hourly/cubits/price_cleaning_hourly_cubit.dart';
@@ -48,16 +49,21 @@ class _CookingScreenStep1State extends State<CookingScreenStep1> {
               ? "Vui lòng chọn địa điểm"
               : context.watch<SaveAddressCubit>().state!.address!,
           isDarkMode: isDarkMode,
-          onPressed: () {
-            Navigator.push(
-              context,
-              PageTransition(
-                duration: Duration(milliseconds: 400),
-                type: PageTransitionType.rightToLeftWithFade,
-                child: ChooseLocationScreen(),
-                childCurrent: CookingScreenStep1(),
-              ),
+          onPressed: () async {
+            showModalBottomSheet(
+              context: context,
+              builder: (context) {
+                return YourAddress();
+              },
             );
+            // Navigator.push(
+            //   context,
+            //   PageTransition(
+            //     duration: Duration(milliseconds: 400),
+            //     type: PageTransitionType.rightToLeftWithFade,
+            //     child: ChooseLocationScreen(),
+            //   ),
+            // );
           },
         ),
         leading: InkWell(

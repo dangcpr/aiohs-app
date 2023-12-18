@@ -18,6 +18,7 @@ import 'package:rmservice/cleaning_hourly/widgets/button_next_step1.dart';
 import 'package:rmservice/cleaning_hourly/widgets/duration_choice.dart';
 import 'package:rmservice/cleaning_hourly/widgets/notice_step1.dart';
 import 'package:rmservice/cleaning_hourly/widgets/pet_choice.dart';
+import 'package:rmservice/utilities/components/show_address.dart';
 import 'package:rmservice/utilities/components/text_label.dart';
 import 'package:rmservice/utilities/components/text_sub_label.dart';
 import 'package:rmservice/utilities/constants/variable.dart';
@@ -60,16 +61,21 @@ class _CleaningHourlyStep1ScreenState extends State<CleaningHourlyStep1Screen> {
               ? "Vui lòng chọn địa điểm"
               : context.watch<SaveAddressCubit>().state!.address!,
           isDarkMode: isDarkMode,
-          onPressed: () {
-            Navigator.push(
-              context,
-              PageTransition(
-                duration: Duration(milliseconds: 400),
-                type: PageTransitionType.rightToLeftWithFade,
-                child: ChooseLocationScreen(),
-                childCurrent: CleaningHourlyStep1Screen(),
-              ),
+          onPressed: () async {
+            showModalBottomSheet(
+              context: context,
+              builder: (context) {
+                return YourAddress();
+              },
             );
+            // Navigator.push(
+            //   context,
+            //   PageTransition(
+            //     duration: Duration(milliseconds: 400),
+            //     type: PageTransitionType.rightToLeftWithFade,
+            //     child: ChooseLocationScreen(),
+            //   ),
+            // );
           },
         ),
       ),

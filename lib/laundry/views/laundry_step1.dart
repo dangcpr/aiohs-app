@@ -11,6 +11,7 @@ import 'package:rmservice/laundry/widgets/button/button_next_step1.dart';
 import 'package:rmservice/laundry/widgets/card/dry_cleaning_card.dart';
 import 'package:rmservice/laundry/widgets/card/normal_cleaning_card.dart';
 import 'package:rmservice/laundry/widgets/card/service_cleaning_card.dart';
+import 'package:rmservice/utilities/components/show_address.dart';
 import 'package:rmservice/utilities/components/text_label.dart';
 import 'package:rmservice/utilities/constants/variable.dart';
 
@@ -40,15 +41,21 @@ class _LaundryStep1ScreenState extends State<LaundryStep1Screen> {
               ? "Vui lòng chọn địa điểm"
               : context.watch<SaveAddressCubit>().state!.address!,
           isDarkMode: isDarkMode,
-          onPressed: () {
-            Navigator.push(
-              context,
-              PageTransition(
-                duration: Duration(milliseconds: 400),
-                type: PageTransitionType.rightToLeftWithFade,
-                child: ChooseLocationScreen(),
-              ),
+          onPressed: () async {
+            showModalBottomSheet(
+              context: context,
+              builder: (context) {
+                return YourAddress();
+              },
             );
+            // Navigator.push(
+            //   context,
+            //   PageTransition(
+            //     duration: Duration(milliseconds: 400),
+            //     type: PageTransitionType.rightToLeftWithFade,
+            //     child: ChooseLocationScreen(),
+            //   ),
+            // );
           },
         ),
       ),

@@ -22,10 +22,13 @@ class PickPrice extends StatefulWidget {
 
 class _PickPriceState extends State<PickPrice> {
   TextEditingController controller = TextEditingController();
-
+  @override
+  void initState() {
+    super.initState();
+    controller.text = context.read<SavePriceShopping>().state.toString();
+  }
   @override
   Widget build(BuildContext context) {
-    controller.text = context.read<SavePriceShopping>().state.toString();
     var caculateSPriceCubit = context.watch<CalculatePriceShoppingCubit>();
 
     return Container(
