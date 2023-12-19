@@ -58,6 +58,7 @@ import '../../history/cubits/order_cancel/order_cancel_cubit.dart';
 import '../../post_job/cubits/close_post/close_post_cubit.dart';
 import '../../post_job/cubits/get_history_post_cubit/get_history_post_cubit.dart';
 import '../../post_job/cubits/get_post_all/get_post_all_cubit.dart';
+import '../../post_job/cubits/images_place_cubit.dart';
 import '../../post_job/cubits/post_job_cubit/post_job_cubit.dart';
 import '../../post_job/cubits/save_info_job_posting.dart';
 import '../../profile/cubit/update_profile_cubit.dart';
@@ -269,6 +270,9 @@ final listProvider = [
   ),
   BlocProvider<ClosePostCubit>(
     create: (_) => ClosePostCubit(),
+  ),
+  BlocProvider<ImagesPlaceCubitForJobPosting>(
+    create: (_) => ImagesPlaceCubitForJobPosting(),
   ),
 
   //Maid Around

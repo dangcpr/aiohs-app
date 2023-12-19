@@ -3,23 +3,28 @@ import 'dart:io';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:rmservice/post_job/cubits/save_info_job_posting.dart';
+import 'package:rmservice/post_job/cubits/images_place_cubit.dart';
 import 'package:rmservice/utilities/constants/variable.dart';
 
-import '../cubits/images_place_cubit.dart';
-
-class ImageListAndButton extends StatefulWidget {
-  const ImageListAndButton({super.key});
+class ImageListAndButtonUpdate extends StatefulWidget {
+  const ImageListAndButtonUpdate({super.key});
 
   @override
-  State<ImageListAndButton> createState() => _ImageListAndButtonState();
+  State<ImageListAndButtonUpdate> createState() =>
+      _ImageListAndButtonUpdateState();
 }
 
-class _ImageListAndButtonState extends State<ImageListAndButton> {
+class _ImageListAndButtonUpdateState extends State<ImageListAndButtonUpdate> {
   List<File> files = [];
+  @override
+  void initState() {
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
+    files = context.read<ImagesPlaceCubitForJobPosting>().state;
+
     return Row(
       children: [
         ElevatedButton(
@@ -30,23 +35,6 @@ class _ImageListAndButtonState extends State<ImageListAndButton> {
               allowedExtensions: ['jpg', 'jpeg', 'png', 'heic'],
             );
 
-            // if (result != null) {
-            //   List<File> fileAdd =
-            //       result.paths.map((path) => File(path!)).toList();
-            //   setState(() {
-            //     files.insertAll(0, fileAdd);
-            //     for (int i = 0; i < files.length; i++) {
-            //       context
-            //           .read<SaveInfoJobPostingCubit>()
-            //           .state
-            //           .images
-            //           .add(files[i].path);
-            //     }
-            //   });
-            //   debugPrint(files.length.toString());
-            // } else {
-            //   return;
-            // }
             if (result != null) {
               List<File> fileAdd =
                   result.paths.map((path) => File(path!)).toList();
@@ -107,15 +95,16 @@ class _ImageListAndButtonState extends State<ImageListAndButton> {
                 ),
               ),
               InkWell(
-                  child: Icon(Icons.cancel),
-                  onTap: () {
-                    setState(() {
-                      files.remove(images);
-                      context
-                          .read<ImagesPlaceCubitForJobPosting>()
-                          .setImages(files);
-                    });
-                  })
+                child: Icon(Icons.cancel),
+                onTap: () {
+                  setState(() {
+                    files.remove(images);
+                    context
+                        .read<ImagesPlaceCubitForJobPosting>()
+                        .setImages(files);
+                  });
+                },
+              )
             ],
           ),
           SizedBox(width: 10),

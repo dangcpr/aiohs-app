@@ -1,9 +1,11 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:rmservice/login/models/user.dart';
 
+import '../../utilities/constants/function.dart';
 import '../../utilities/constants/variable.dart';
 import '../models/history_job_posting.dart';
 import '../models/post_job_info.dart';
@@ -21,18 +23,16 @@ final dio = Dio(
 );
 
 class PostJobRepo {
-  Future<void> postJob(String usercode, PostJobInfo postJobInfo) async {
-    // List<String> imagesUrl = [];
-    // for (int i = 0; i < postJobInfo.images.length; i++) {
-    //   final response = await dio.post(
-    //     '/public/images/upload',
-    //     data: {"path": postJobInfo.images[i]},
-    //   );
-    //   imagesUrl.add(response.data["url"]);
-    // }
-    // postJobInfo.images = imagesUrl;
+  Future<void> postJob(
+      String usercode, PostJobInfo postJobInfo, List<File> imagesFile) async {
     print('Test: ${postJobInfo.toJson().toString()}');
     try {
+      List<String> images = [];
+      for (var i = 0; i < imagesFile.length; i++) {
+        String path = await uploadImage(imagesFile[i]);
+        images.add(path);
+      }
+      postJobInfo.images = images;
       final response = await dio.post(
         '/user/$usercode/job-posting/create',
         data: {
@@ -77,18 +77,15 @@ class PostJobRepo {
     }
   }
 
-  Future<void> updatePost(
-      String usercode, PostJobInfo postJobInfo, String jobCode) async {
-    // List<String> imagesUrl = [];
-    // for (int i = 0; i < postJobInfo.images.length; i++) {
-    //   final response = await dio.post(
-    //     '/public/images/upload',
-    //     data: {"path": postJobInfo.images[i]},
-    //   );
-    //   imagesUrl.add(response.data["url"]);
-    // }
-    // postJobInfo.images = imagesUrl;
+  Future<HistoryJobPosting> updatePost(String usercode, PostJobInfo postJobInfo,
+      String jobCode, List<File> imagesFile) async {
     try {
+      List<String> images = [];
+      for (var i = 0; i < imagesFile.length; i++) {
+        String path = await uploadImage(imagesFile[i]);
+        images.add(path);
+      }
+      postJobInfo.images = images;
       final response = await dio.post(
         '/user/$usercode/job-posting/$jobCode/update',
         data: {
@@ -112,7 +109,7 @@ class PostJobRepo {
       if (response.data['code'] == 0) {
         print('%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%');
         print(response.data['job']);
-        return;
+        return HistoryJobPosting.fromJson(response.data['job']);
       } else {
         String message = jsonEncode(response.data['message']);
         throw message;
