@@ -1,11 +1,14 @@
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:page_transition/page_transition.dart';
 import 'package:rmservice/cleaning_hourly/cubits/order_cleaning_hourly/order_cleaning_hourly_cubit.dart';
 import 'package:rmservice/cleaning_hourly/cubits/order_cleaning_hourly/order_cleaning_hourly_state.dart';
 import 'package:rmservice/cleaning_hourly/widgets/button_next_step3.dart';
 import 'package:rmservice/cleaning_hourly/widgets/location_info.dart';
 import 'package:rmservice/cleaning_hourly/widgets/method_payment.dart';
 import 'package:rmservice/cleaning_hourly/widgets/show_bottom_edit_name_phone.dart';
+import 'package:rmservice/home_page/view/home_page.dart';
 import 'package:rmservice/utilities/components/text_label.dart';
 import 'package:rmservice/cleaning_hourly/widgets/work_info.dart';
 import 'package:rmservice/utilities/constants/variable.dart';
@@ -30,11 +33,52 @@ class _CleaningHourlyStep3ScreenState extends State<CleaningHourlyStep3Screen> {
         if (state is OrderCleaningHourlySuccess) {
           debugPrint('OrderCleaningHourlySuccess');
           Navigator.pop(context);
+          AwesomeDialog(
+            context: context,
+            dialogType: DialogType.success,
+            animType: AnimType.bottomSlide,
+            dismissOnBackKeyPress: false,
+            dismissOnTouchOutside: false,
+            title: "Đặt đơn thành công",
+            btnOkText: "Trở lại màn hình chính",
+            btnOkOnPress: () {
+              Navigator.pushAndRemoveUntil(
+                context,
+                PageTransition(
+                  duration: Duration(milliseconds: 400),
+                  type: PageTransitionType.rightToLeftWithFade,
+                  child: HomePage(),
+                ),
+                (route) => false,
+              );
+            },
+          ).show();
           context.read<OrderCleaningHourlyCubit>().setInit();
         }
         if (state is OrderCleaningHourlyError) {
           debugPrint(state.message);
           Navigator.pop(context);
+          AwesomeDialog(
+            context: context,
+            dialogType: DialogType.error,
+            animType: AnimType.bottomSlide,
+            dismissOnBackKeyPress: false,
+            dismissOnTouchOutside: false,
+            title: "Có lỗi xảy ra",
+            desc: state.message,
+            btnOkText: "Trở lại màn hình chính",
+            btnOkOnPress: () {
+              Navigator.pushAndRemoveUntil(
+                context,
+                PageTransition(
+                  duration: Duration(milliseconds: 400),
+                  type: PageTransitionType.rightToLeftWithFade,
+                  child: HomePage(),
+                ),
+                (route) => false,
+              );
+            },
+          ).show();
           context.read<OrderCleaningHourlyCubit>().setInit();
         }
         if (state is OrderCleaningHourlyLoading) {
@@ -44,14 +88,9 @@ class _CleaningHourlyStep3ScreenState extends State<CleaningHourlyStep3Screen> {
             builder: (context) {
               return PopScope(
                 canPop: false,
-                child: AlertDialog(
-                  content: Container(
-                    height: 100,
-                    child: Center(
-                      child: CircularProgressIndicator(
-                        color: colorProject.primaryColor,
-                      ),
-                    ),
+                child: const Center(
+                  child: CircularProgressIndicator(
+                    color: colorProject.primaryColor,
                   ),
                 ),
               );

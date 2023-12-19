@@ -1,18 +1,19 @@
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:page_transition/page_transition.dart';
 import 'package:rmservice/cooking/cubit/order_cooking/order_cooking_cubit.dart';
 import 'package:rmservice/cooking/cubit/save_info_cooking.dart';
 import 'package:rmservice/cooking/widgets/method_payment_cooking.dart';
 import 'package:rmservice/cooking/widgets/work_info_cooking.dart';
+import 'package:rmservice/home_page/view/home_page.dart';
 import 'package:rmservice/shopping/widgets/text_label.dart';
 
 import '../../cleaning_hourly/widgets/location_info.dart';
-import '../../cleaning_hourly/widgets/method_payment.dart';
 import '../../cleaning_hourly/widgets/show_bottom_edit_name_phone.dart';
 import 'package:rmservice/utilities/constants/variable.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-import '../../utilities/dialog/dialog.dart';
 import '../widgets/button_next_step3.dart';
 
 class CookingScreenStep3 extends StatefulWidget {
@@ -42,23 +43,52 @@ class _CookingScreenStep3State extends State<CookingScreenStep3> {
           debugPrint('OrderCleaningLongTermSuccess');
           Navigator.pop(context);
           context.read<OrderCookingCubit>().setInit();
-          showCustomDialog(
+          AwesomeDialog(
             context: context,
-            dialogType: CustomDialogType.SUCCESS,
-            msg: 'Order SuccessFully',
-            isMultipleButton: false,
-          );
+            dialogType: DialogType.success,
+            animType: AnimType.bottomSlide,
+            dismissOnBackKeyPress: false,
+            dismissOnTouchOutside: false,
+            title: "Đặt đơn thành công",
+            btnOkText: "Trở lại màn hình chính",
+            btnOkOnPress: () {
+              Navigator.pushAndRemoveUntil(
+                context,
+                PageTransition(
+                  duration: Duration(milliseconds: 400),
+                  type: PageTransitionType.rightToLeftWithFade,
+                  child: HomePage(),
+                ),
+                (route) => false,
+              );
+            },
+          ).show();
         }
         if (state is OrderCookingFailed) {
           debugPrint(state.message);
           Navigator.pop(context);
-          context.read<OrderCookingCubit>().setInit();
-          showCustomDialog(
+          AwesomeDialog(
             context: context,
-            dialogType: CustomDialogType.FAILURE,
-            msg: state.message,
-            isMultipleButton: false,
-          );
+            dialogType: DialogType.error,
+            animType: AnimType.bottomSlide,
+            dismissOnBackKeyPress: false,
+            dismissOnTouchOutside: false,
+            title: "Có lỗi xảy ra",
+            desc: state.message,
+            btnOkText: "Trở lại màn hình chính",
+            btnOkOnPress: () {
+              Navigator.pushAndRemoveUntil(
+                context,
+                PageTransition(
+                  duration: Duration(milliseconds: 400),
+                  type: PageTransitionType.rightToLeftWithFade,
+                  child: HomePage(),
+                ),
+                (route) => false,
+              );
+            },
+          ).show();
+          context.read<OrderCookingCubit>().setInit();
         }
         if (state is OrderCookingLoading) {
           showDialog(
@@ -67,14 +97,9 @@ class _CookingScreenStep3State extends State<CookingScreenStep3> {
             builder: (context) {
               return PopScope(
                 canPop: false,
-                child: AlertDialog(
-                  content: Container(
-                    height: 100,
-                    child: Center(
-                      child: CircularProgressIndicator(
-                        color: colorProject.primaryColor,
-                      ),
-                    ),
+                child: const Center(
+                  child: CircularProgressIndicator(
+                    color: colorProject.primaryColor,
                   ),
                 ),
               );

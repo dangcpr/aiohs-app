@@ -1,10 +1,11 @@
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:page_transition/page_transition.dart';
+import 'package:rmservice/home_page/view/home_page.dart';
 import 'package:rmservice/shopping/cubits/order_shopping/order_shopping_cubit.dart';
 import 'package:rmservice/shopping/cubits/order_shopping/order_shopping_state.dart';
-import 'package:rmservice/shopping/views/complete_shopping.dart';
 import 'package:rmservice/shopping/widgets/floating_step5.dart';
 import 'package:rmservice/shopping/widgets/location_info.dart';
 import 'package:rmservice/shopping/widgets/method_payment.dart';
@@ -31,20 +32,52 @@ class _ShoppingStep5ScreenState extends State<ShoppingStep5Screen> {
         if (state is OrderShoppingSuccess) {
           debugPrint('OrderShoppingSuccess');
           Navigator.pop(context);
-          Navigator.push(
-            context,
-            PageTransition(
-              duration: Duration(milliseconds: 400),
-              type: PageTransitionType.rightToLeftWithFade,
-              child: CompleteScreen(),
-              childCurrent: ShoppingStep5Screen(),
-            ),
-          );
+          AwesomeDialog(
+            context: context,
+            dialogType: DialogType.success,
+            animType: AnimType.bottomSlide,
+            dismissOnBackKeyPress: false,
+            dismissOnTouchOutside: false,
+            title: "Đặt đơn thành công",
+            btnOkText: "Trở lại màn hình chính",
+            btnOkOnPress: () {
+              Navigator.pushAndRemoveUntil(
+                context,
+                PageTransition(
+                  duration: Duration(milliseconds: 400),
+                  type: PageTransitionType.rightToLeftWithFade,
+                  child: HomePage(),
+                ),
+                (route) => false,
+              );
+            },
+          ).show();
           context.read<OrderShoppingCubit>().setInit();
         }
         if (state is OrderShoppingError) {
           debugPrint(state.message);
           Navigator.pop(context);
+          AwesomeDialog(
+            context: context,
+            dialogType: DialogType.error,
+            animType: AnimType.bottomSlide,
+            dismissOnBackKeyPress: false,
+            dismissOnTouchOutside: false,
+            title: "Có lỗi xảy ra",
+            desc: state.message,
+            btnOkText: "Trở lại màn hình chính",
+            btnOkOnPress: () {
+              Navigator.pushAndRemoveUntil(
+                context,
+                PageTransition(
+                  duration: Duration(milliseconds: 400),
+                  type: PageTransitionType.rightToLeftWithFade,
+                  child: HomePage(),
+                ),
+                (route) => false,
+              );
+            },
+          ).show();
           context.read<OrderShoppingCubit>().setInit();
         }
         if (state is OrderShoppingLoading) {
@@ -54,14 +87,9 @@ class _ShoppingStep5ScreenState extends State<ShoppingStep5Screen> {
             builder: (context) {
               return PopScope(
                 canPop: false,
-                child: AlertDialog(
-                  content: Container(
-                    height: 100,
-                    child: Center(
-                      child: CircularProgressIndicator(
-                        color: colorProject.primaryColor,
-                      ),
-                    ),
+                child: const Center(
+                  child: CircularProgressIndicator(
+                    color: colorProject.primaryColor,
                   ),
                 ),
               );

@@ -1,19 +1,18 @@
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:page_transition/page_transition.dart';
 import 'package:rmservice/air_conditioning_cleaning/cubit/order_air_cond/order_air_cond_cubit.dart';
 import 'package:rmservice/air_conditioning_cleaning/widgets/work_info.dart';
+import 'package:rmservice/home_page/view/home_page.dart';
 import 'package:rmservice/utilities/components/text_label.dart';
 
 import '../../cleaning_hourly/cubits/save_info/save_address.dart';
 import '../../cleaning_hourly/widgets/location_info.dart';
-import '../../cleaning_hourly/widgets/method_payment.dart';
-import '../../cleaning_hourly/widgets/show_bottom_edit_name_phone.dart';
 import 'package:rmservice/utilities/constants/variable.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-import '../../utilities/components/dialog_wrong.dart';
 import '../../utilities/dialog/dialog.dart';
-import '../../utilities/indicator/custom_progress_indicator.dart';
 import '../cubit/save_info_air_conditioning_cleaning.dart';
 import '../widgets/button_next_step3.dart';
 import '../widgets/method_payment.dart';
@@ -46,23 +45,52 @@ class _AirConditioningCleaningScreenStep3State
           debugPrint('OrderAirCondSuccess');
           Navigator.pop(context);
           context.read<OrderAirCondCubit>().setInit();
-          showCustomDialog(
+          AwesomeDialog(
             context: context,
-            dialogType: CustomDialogType.SUCCESS,
-            msg: 'Order SuccessFully',
-            isMultipleButton: false,
-          );
+            dialogType: DialogType.success,
+            animType: AnimType.bottomSlide,
+            dismissOnBackKeyPress: false,
+            dismissOnTouchOutside: false,
+            title: "Đặt đơn thành công",
+            btnOkText: "Trở lại màn hình chính",
+            btnOkOnPress: () {
+              Navigator.pushAndRemoveUntil(
+                context,
+                PageTransition(
+                  duration: Duration(milliseconds: 400),
+                  type: PageTransitionType.rightToLeftWithFade,
+                  child: HomePage(),
+                ),
+                (route) => false,
+              );
+            },
+          ).show();
         }
         if (state is OrderAirCondFailed) {
           debugPrint(state.message);
           Navigator.pop(context);
           context.read<OrderAirCondCubit>().setInit();
-          showCustomDialog(
+          AwesomeDialog(
             context: context,
-            dialogType: CustomDialogType.FAILURE,
-            msg: state.message.toString(),
-            isMultipleButton: false,
-          );
+            dialogType: DialogType.error,
+            animType: AnimType.bottomSlide,
+            dismissOnBackKeyPress: false,
+            dismissOnTouchOutside: false,
+            title: "Có lỗi xảy ra",
+            desc: state.message,
+            btnOkText: "Trở lại màn hình chính",
+            btnOkOnPress: () {
+              Navigator.pushAndRemoveUntil(
+                context,
+                PageTransition(
+                  duration: Duration(milliseconds: 400),
+                  type: PageTransitionType.rightToLeftWithFade,
+                  child: HomePage(),
+                ),
+                (route) => false,
+              );
+            },
+          ).show();
         }
         if (state is OrderAirCondLoading) {
           showDialog(
@@ -71,14 +99,9 @@ class _AirConditioningCleaningScreenStep3State
             builder: (context) {
               return PopScope(
                 canPop: false,
-                child: AlertDialog(
-                  content: Container(
-                    height: 100,
-                    child: Center(
-                      child: CircularProgressIndicator(
-                        color: colorProject.primaryColor,
-                      ),
-                    ),
+                child: const Center(
+                  child: CircularProgressIndicator(
+                    color: colorProject.primaryColor,
                   ),
                 ),
               );

@@ -1,6 +1,9 @@
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:page_transition/page_transition.dart';
+import 'package:rmservice/home_page/view/home_page.dart';
 import 'package:rmservice/laundry/cubits/order_laundry/order_laundry_cubit.dart';
 import 'package:rmservice/laundry/cubits/order_laundry/order_laundry_state.dart';
 import 'package:rmservice/laundry/widgets/button/button_next_step3.dart';
@@ -30,11 +33,52 @@ class _LaundryStep3ScreenState extends State<LaundryStep3Screen> {
         if (state is OrderLaundrySuccess) {
           debugPrint('OrderLaundrySuccess');
           Navigator.pop(context);
+          AwesomeDialog(
+            context: context,
+            dialogType: DialogType.success,
+            animType: AnimType.bottomSlide,
+            dismissOnBackKeyPress: false,
+            dismissOnTouchOutside: false,
+            title: "Đặt đơn thành công",
+            btnOkText: "Trở lại màn hình chính",
+            btnOkOnPress: () {
+              Navigator.pushAndRemoveUntil(
+                context,
+                PageTransition(
+                  duration: Duration(milliseconds: 400),
+                  type: PageTransitionType.rightToLeftWithFade,
+                  child: HomePage(),
+                ),
+                (route) => false,
+              );
+            },
+          ).show();
           context.read<OrderLaundryCubit>().setInit();
         }
         if (state is OrderLaundryError) {
           debugPrint(state.message);
           Navigator.pop(context);
+          AwesomeDialog(
+            context: context,
+            dialogType: DialogType.error,
+            animType: AnimType.bottomSlide,
+            dismissOnBackKeyPress: false,
+            dismissOnTouchOutside: false,
+            title: "Có lỗi xảy ra",
+            desc: state.message,
+            btnOkText: "Trở lại màn hình chính",
+            btnOkOnPress: () {
+              Navigator.pushAndRemoveUntil(
+                context,
+                PageTransition(
+                  duration: Duration(milliseconds: 400),
+                  type: PageTransitionType.rightToLeftWithFade,
+                  child: HomePage(),
+                ),
+                (route) => false,
+              );
+            },
+          ).show();
           context.read<OrderLaundryCubit>().setInit();
         }
         if (state is OrderLaundryLoading) {
@@ -44,14 +88,9 @@ class _LaundryStep3ScreenState extends State<LaundryStep3Screen> {
             builder: (context) {
               return PopScope(
                 canPop: false,
-                child: AlertDialog(
-                  content: Container(
-                    height: 100,
-                    child: Center(
-                      child: CircularProgressIndicator(
-                        color: colorProject.primaryColor,
-                      ),
-                    ),
+                child: const Center(
+                  child: CircularProgressIndicator(
+                    color: colorProject.primaryColor,
                   ),
                 ),
               );

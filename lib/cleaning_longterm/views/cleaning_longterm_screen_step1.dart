@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
-import 'package:page_transition/page_transition.dart';
 import 'package:rmservice/cleaning_longterm/cubit/get_price/get_price_cleaning_longterm_cubit.dart';
 import 'package:rmservice/cleaning_longterm/cubit/save_info_cubit.dart';
 import 'package:rmservice/utilities/components/show_address.dart';
@@ -11,7 +10,6 @@ import 'package:rmservice/utilities/constants/variable.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../cleaning_hourly/cubits/save_info/save_address.dart';
-import '../../cleaning_hourly/views/maps.dart';
 import '../../cleaning_hourly/widgets/button_app_bar.dart';
 import '../../utilities/components/text_label.dart';
 import '../../utilities/components/text_sub_label.dart';
