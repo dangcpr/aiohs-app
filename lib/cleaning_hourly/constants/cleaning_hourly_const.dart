@@ -49,12 +49,14 @@ class AddServiceClass {
   late IconData icon;
   late String? name;
   late String? action;
+  late String? tooltip;
 
   AddServiceClass({
     this.idService,
     required this.icon,
     this.name,
     this.action,
+    this.tooltip = "",
   });
 
   AddServiceClass.fromJson(Map<String, dynamic> json) {
@@ -75,18 +77,22 @@ List<AddServiceClass> getListAddService(BuildContext context) {
       icon: Icons.dining_outlined,
       name: AppLocalizations.of(context)!.cookingLabel,
       action: '+ 1 ${AppLocalizations.of(context)!.hourWorkingLabel}',
+      tooltip: "Bạn có thể yêu cầu người giúp việc nấu ăn nếu thời gian của bạn không cho phép."
     ),
     AddServiceClass(
       idService: 1,
       icon: Icons.iron,
       name: AppLocalizations.of(context)!.ironLabel,
       action: '+ 1 ${AppLocalizations.of(context)!.hourWorkingLabel}',
+      tooltip: "Người giúp việc sẽ sử dụng bàn ủi của bạn để ủi đồ (nếu bạn không sử dụng dịch vụ \"Mang theo dụng cụ\")."
     ),
     AddServiceClass(
       idService: 2,
       icon: Icons.cleaning_services,
       name: AppLocalizations.of(context)!.bringToolLabel,
       action: '+ ' + numberFormat.format(context.read<PriceCleaningHourlyCubit>().state.bringTools),
+      tooltip: "Nếu nhà bạn không có dụng cụ để làm việc thì bạn có thể đặt thêm dịch vụ \"Mang theo dụng cụ\", nếu không thì người giúp việc sẽ sử dụng của nhà bạn.\n\n" +
+       "Bạn có thể ghi lại những dụng cụ cần ở mục \"Ghi chú cho người giúp việc\" ở bước sau."
     ),
     AddServiceClass(
       idService: 3,
