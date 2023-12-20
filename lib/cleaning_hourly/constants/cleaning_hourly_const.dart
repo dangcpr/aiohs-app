@@ -91,7 +91,7 @@ List<AddServiceClass> getListAddService(BuildContext context) {
       icon: Icons.cleaning_services,
       name: AppLocalizations.of(context)!.bringToolLabel,
       action: '+ ' + numberFormat.format(context.read<PriceCleaningHourlyCubit>().state.bringTools),
-      tooltip: "Nếu nhà bạn không có dụng cụ để làm việc thì bạn có thể đặt thêm dịch vụ \"Mang theo dụng cụ\", nếu không thì người giúp việc sẽ sử dụng của nhà bạn.\n\n" +
+      tooltip: "Nếu nhà bạn không có dụng cụ để làm việc thì bạn có thể đặt thêm dịch vụ \"Mang theo dụng cụ\", nếu không thì người giúp việc sẽ sử dụng dụng cụ của nhà bạn.\n\n" +
        "Bạn có thể ghi lại những dụng cụ cần ở mục \"Ghi chú cho người giúp việc\" ở bước sau."
     ),
     AddServiceClass(
