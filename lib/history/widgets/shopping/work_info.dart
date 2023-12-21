@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:rmservice/history/models/shopping.dart';
 import 'package:rmservice/history/widgets/shopping/list_product.dart';
+import 'package:rmservice/shopping/models/product_buy.dart';
 import 'package:rmservice/utilities/constants/variable.dart';
 
 class WorkInfoShoppingHistory extends StatefulWidget {
@@ -24,6 +25,10 @@ class _WorkInfoShoppingHistoryState extends State<WorkInfoShoppingHistory> {
         new DateFormat("yyyy-MM-dd HH:mm:ss").parse(widget.order.working_date);
     DateTime orderHour =
         new DateFormat("HH:mm:ss").parse(widget.order.working_hour);
+    List<ProductBuy> listProduct = widget.order.items.map((s) => ProductBuy(
+      name: s,
+      listImages: []
+    )).toList();
         
     return Container(
       decoration: BoxDecoration(
@@ -101,7 +106,7 @@ class _WorkInfoShoppingHistoryState extends State<WorkInfoShoppingHistory> {
               ),
             ),
             SizedBox(height: 10),
-            ListProductHistory(isRemove: false, listProduct: widget.order.items),
+            ListProductHistory(isRemove: false, listProduct: listProduct),
           ],
         ),
       ),

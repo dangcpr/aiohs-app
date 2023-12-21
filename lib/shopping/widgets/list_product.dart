@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rmservice/shopping/cubits/add_items.dart';
+import 'package:rmservice/shopping/models/product_buy.dart';
 import 'package:rmservice/shopping/widgets/every_product.dart';
 
 class ListProduct extends StatefulWidget {
@@ -15,7 +16,7 @@ class ListProduct extends StatefulWidget {
 class _ListProductState extends State<ListProduct> {
   @override
   Widget build(BuildContext context) {
-    List<String> listProduct = context.watch<AddItemCubit>().state;
+    List<ProductBuy> listProduct = context.watch<AddItemCubit>().state;
     return Column(
       children: List.generate(
         listProduct.length,
