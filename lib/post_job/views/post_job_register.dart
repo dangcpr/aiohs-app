@@ -80,11 +80,16 @@ class _PostJobRegisterState extends State<PostJobRegister> {
       listener: (context, state) {
         // TODO: implement listener
         if (state is PostJobLoading) {
-          Center(
-            child: CircularProgressIndicator(
-              color: colorProject.primaryColor,
-            ),
-          );
+          showDialog(
+              context: context,
+              barrierDismissible: false,
+              builder: (BuildContext context) {
+                return Center(
+                  child: CircularProgressIndicator(
+                    color: colorProject.primaryColor,
+                  ),
+                );
+              });
         }
         if (state is PostJobSuccess) {
           // Navigator.push(
@@ -139,7 +144,7 @@ class _PostJobRegisterState extends State<PostJobRegister> {
           leading: InkWell(
             onTap: () {
               context.read<SaveInfoJobPostingCubit>().setInitial();
-              context.read<ImagesPlaceCubitForJobPosting>().state.clear();
+              context.read<ImagesPlaceCubitForJobPosting>().setInit();
               Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(
@@ -463,8 +468,8 @@ class _PostJobRegisterState extends State<PostJobRegister> {
                     description: desController.text,
                     wageType: selectedValue,
                     // wageTypeDisplay: wageTypeDisplayController.text,
-                    wageMin: int.parse(wageMinController.text),
-                    wageMax: int.parse(wageMaxController.text),
+                    wageMin: double.parse(wageMinController.text),
+                    wageMax: double.parse(wageMaxController.text),
                     candidateGender: candidateGenderController.text,
                     candidateMinAge: int.parse(candidateMinAgeController.text),
                     candidateMaxAge: int.parse(candidateMaxAgeController.text),

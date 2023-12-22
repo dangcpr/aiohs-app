@@ -53,6 +53,11 @@ class _JobPostedState extends State<JobPosted> {
                           ),
                         );
                       }
+                      if (state is GetHistoryPostFailed) {
+                        return Center(
+                          child: Text(state.message),
+                        );
+                      }
                       return Container();
                     }),
                   ],
