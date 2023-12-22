@@ -29,24 +29,6 @@ class _ImageListAndButtonState extends State<ImageListAndButton> {
               allowMultiple: true,
               allowedExtensions: ['jpg', 'jpeg', 'png', 'heic'],
             );
-
-            // if (result != null) {
-            //   List<File> fileAdd =
-            //       result.paths.map((path) => File(path!)).toList();
-            //   setState(() {
-            //     files.insertAll(0, fileAdd);
-            //     for (int i = 0; i < files.length; i++) {
-            //       context
-            //           .read<SaveInfoJobPostingCubit>()
-            //           .state
-            //           .images
-            //           .add(files[i].path);
-            //     }
-            //   });
-            //   debugPrint(files.length.toString());
-            // } else {
-            //   return;
-            // }
             if (result != null) {
               List<File> fileAdd =
                   result.paths.map((path) => File(path!)).toList();

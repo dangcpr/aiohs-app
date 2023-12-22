@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rmservice/login/cubit/user_cubit.dart';
+import 'package:rmservice/utilities/constants/app_assets.dart';
 import 'package:rmservice/utilities/constants/variable.dart';
 
 class InfoAccount extends StatefulWidget {
@@ -19,10 +20,16 @@ class _InfoAccountState extends State<InfoAccount> {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           SizedBox(
-            height: 85,
-            width: 85,
-            child: Image.asset('assets/images/profile.png'),
-          ),
+              height: 85,
+              width: 85,
+              child: userCubit.state.avatar_url!.isNotEmpty
+                  ? CircleAvatar(
+                      backgroundImage:
+                          NetworkImage('${userCubit.state.avatar_url}'),
+                    )
+                  : CircleAvatar(
+                      backgroundImage: AssetImage(AppAssets.profile),
+                    )),
           SizedBox(height: 8),
           Text(
             userCubit.state.full_name ?? userCubit.state.email!,
@@ -33,14 +40,12 @@ class _InfoAccountState extends State<InfoAccount> {
               overflow: TextOverflow.ellipsis,
             ),
           ),
-          Text(
-            '@${userCubit.state.email!}',
-            style: TextStyle(
-              fontFamily: fontApp,
-              fontSize: fontSize.medium,
-              color: colorProject.subColor,
-            )
-          )
+          Text('${userCubit.state.email!}',
+              style: TextStyle(
+                fontFamily: fontApp,
+                fontSize: fontSize.medium,
+                color: colorProject.subColor,
+              ))
         ],
       ),
     );

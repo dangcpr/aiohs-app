@@ -1,10 +1,16 @@
+import 'dart:io';
+
 import 'package:awesome_dialog/awesome_dialog.dart';
+import 'package:file_picker/file_picker.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rmservice/home_page/home_page.dart';
 import 'package:rmservice/login/cubit/user_cubit.dart';
 import 'package:rmservice/main_page/main_page.dart';
-import 'package:rmservice/profile/cubit/update_profile_cubit.dart';
+import 'package:rmservice/profile/cubit/update_avatar/update_avatar_cubit.dart';
+import 'package:rmservice/profile/cubit/update_profile/update_profile_cubit.dart';
 import 'package:rmservice/utilities/constants/app_assets.dart';
 import 'package:rmservice/utilities/constants/variable.dart';
 
@@ -43,6 +49,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
     phoneController.dispose();
   }
 
+  FilePickerResult? result;
+
   @override
   Widget build(BuildContext context) {
     user.full_name != ""
@@ -57,11 +65,93 @@ class _ProfileScreenState extends State<ProfileScreen> {
         padding: const EdgeInsets.all(padding.paddingMedium),
         child: Column(
           children: [
-            Center(
-              child: CircleAvatar(
-                backgroundImage: AssetImage(AppAssets.profile),
-                radius: 65,
-              ),
+            BlocConsumer<UpdateAvatarCubit, UpdateAvatarState>(
+              listener: (context, state) {
+                // TODO: implement listener
+                if (state is UpdateAvatarLoading) {
+                  showDialog(
+                      context: context,
+                      barrierDismissible: false,
+                      builder: (BuildContext context) {
+                        return Center(
+                          child: CircularProgressIndicator(
+                            color: colorProject.primaryColor,
+                          ),
+                        );
+                      });
+                }
+                if (state is UpdateAvatarSuccess) {
+                  AwesomeDialog(
+                    context: context,
+                    dialogType: DialogType.success,
+                    animType: AnimType.topSlide,
+                    showCloseIcon: true,
+                    title: "Success",
+                    desc: "Update Successfully",
+                    btnOkOnPress: () {
+                      context.read<UserCubit>().state.avatar_url =
+                          state.user.avatar_url;
+                      result = null;
+                      Navigator.pushReplacement(context,
+                          MaterialPageRoute(builder: (_) => HomePage()));
+                    },
+                  ).show();
+                }
+              },
+              builder: (context, state) {
+                return Center(
+                    child: Stack(
+                  children: [
+                    result != null
+                        ? CircleAvatar(
+                            backgroundImage:
+                                FileImage(File(result!.paths.first!)),
+                            radius: 65,
+                          )
+                        : context.read<UserCubit>().state.avatar_url!.isNotEmpty
+                            ? CircleAvatar(
+                                backgroundImage: NetworkImage(
+                                    '${context.read<UserCubit>().state.avatar_url}'),
+                                radius: 65,
+                              )
+                            : CircleAvatar(
+                                backgroundImage: AssetImage(AppAssets.profile),
+                                radius: 65,
+                              ),
+                    Positioned(
+                      bottom: 0,
+                      right: 0,
+                      child: CircleAvatar(
+                        backgroundColor: colorProject.primaryColor,
+                        radius: 20,
+                        child: IconButton(
+                          onPressed: () async {
+                            result = await FilePicker.platform.pickFiles(
+                              type: FileType.custom,
+                              allowMultiple: false,
+                              allowedExtensions: ['jpg', 'jpeg', 'png', 'heic'],
+                            );
+                            if (result != null) {
+                              setState(() {
+                                File file = File(result!.paths.first!);
+                                context
+                                    .read<UpdateAvatarCubit>()
+                                    .updateAvatar(user.code!, file);
+                              });
+                            } else {
+                              return;
+                            }
+                          },
+                          icon: Icon(
+                            Icons.edit,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+                    )
+                  ],
+                ));
+              },
             ),
             sizedBox.largeHeight(),
             info(),
@@ -101,7 +191,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             animType: AnimType.topSlide,
             showCloseIcon: true,
             title: "Failed",
-            desc: state.message,
+            desc: 'Thông tin không hợp lệ \n Tên và SĐT không thay đổi',
             btnOkOnPress: () {},
           ).show();
         }
@@ -165,7 +255,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       var email = userCubit.email;
                       await context
                           .read<UpdateProfileCubit>()
-                          .updateProfile(userCode!, fullName, phone, email);
+                          .updateProfile(userCode!, fullName, phone, email!);
                     }
                   },
                   child: Text(
