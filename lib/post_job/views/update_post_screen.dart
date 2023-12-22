@@ -127,11 +127,16 @@ class _UpdatePostScreenState extends State<UpdatePostScreen> {
       listener: (context, state) {
         // TODO: implement listener
         if (state is UpdatePostILoading) {
-          Center(
-            child: CircularProgressIndicator(
-              color: colorProject.primaryColor,
-            ),
-          );
+          showDialog(
+              context: context,
+              barrierDismissible: false,
+              builder: (BuildContext context) {
+                return Center(
+                  child: CircularProgressIndicator(
+                    color: colorProject.primaryColor,
+                  ),
+                );
+              });
         }
         if (state is UpdatePostSuccess) {
           AwesomeDialog(
@@ -392,8 +397,9 @@ class _UpdatePostScreenState extends State<UpdatePostScreen> {
                     images: [],
                     // longitude: widget.post.longitude,
                     // latitude: widget.post.latitude,
-                    longitude: 0,
-                    latitude: 0,
+                    longitude:
+                        context.read<SaveAddressCubit>().state!.longitude,
+                    latitude: context.read<SaveAddressCubit>().state!.latitude,
                     workingAddress:
                         context.read<SaveAddressCubit>().state!.address,
                     title: titleController.text,
@@ -401,8 +407,8 @@ class _UpdatePostScreenState extends State<UpdatePostScreen> {
                     description: desController.text,
                     wageType: selectedValue,
                     // wageTypeDisplay: wageTypeDisplayController.text,
-                    wageMin: int.parse(wageMinController.text),
-                    wageMax: int.parse(wageMaxController.text),
+                    wageMin: double.parse(wageMinController.text),
+                    wageMax: double.parse(wageMaxController.text),
                     // candidateGender: candidateGenderController.text,
                     candidateMinAge: int.parse(candidateMinAgeController.text),
                     candidateMaxAge: int.parse(candidateMaxAgeController.text),

@@ -26,8 +26,8 @@ class HistoryJobPosting {
   late final String status;
   late final String statusDisplay;
   late final String userCode;
-  late final int longitude;
-  late final int latitude;
+  late final double longitude;
+  late final double latitude;
   late final String workingAddress;
   late final String title;
   late final int numberEmployee;
