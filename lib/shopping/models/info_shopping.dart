@@ -1,9 +1,10 @@
 import 'package:rmservice/shopping/models/address_shopping.dart';
+import 'package:rmservice/shopping/models/product_buy.dart';
 
 class InfoShopping {
   late AddressShopping? address;
   late int? methodOfShpping;
-  late List<String>? listItems;
+  late List<ProductBuy>? listItems;
   late int? price;
   late int? purchaseFee;
   late DateTime? date;

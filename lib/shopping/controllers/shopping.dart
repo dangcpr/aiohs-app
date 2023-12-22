@@ -47,6 +47,7 @@ class ShoppingController {
 
   Future<void> orderShopping(
       InfoShopping info, AddressShopping address, String userCode) async {
+    List<String> nameProduct = info.listItems!.map((e) => e.name).toList();
     try {
       var response = await dio
           .post('/user/$userCode/orders/grocery-assistant/create', data: {
@@ -59,7 +60,7 @@ class ShoppingController {
         "working_address": '${address.nameAddress!}-${address.fullAddress}',
         "latitude": address.latCurrent,
         "longitude": address.lngCurrent,
-        "items": info.listItems,
+        "items": nameProduct,
         "amount": info.price!,
         "purchase_fee": info.purchaseFee!,
         "note": info.note,

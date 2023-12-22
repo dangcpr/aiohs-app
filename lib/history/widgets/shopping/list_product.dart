@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:rmservice/shopping/models/product_buy.dart';
 import 'package:rmservice/shopping/widgets/every_product.dart';
 
 class ListProductHistory extends StatefulWidget {
   const ListProductHistory({super.key, required this.isRemove, required this.listProduct});
 
   final bool isRemove;
-  final List<String> listProduct;
+  final List<ProductBuy> listProduct;
 
   @override
   State<ListProductHistory> createState() => _ListProductHistoryState();

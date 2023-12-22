@@ -37,7 +37,7 @@ class _ShowInfoAddressState extends State<ShowInfoAddress> {
               ),
               Expanded(
                 child: Text(
-                  "Nguyễn Hải Đăng",
+                  widget.address.agent_name,
                   style: TextStyle(
                     fontFamily: fontApp,
                     fontSize: fontSize.mediumLarger,
@@ -55,7 +55,7 @@ class _ShowInfoAddressState extends State<ShowInfoAddress> {
               ),
               Expanded(
                 child: Text(
-                  "0123456789",
+                  widget.address.agent_phone,
                   style: TextStyle(
                     fontFamily: fontApp,
                     fontSize: fontSize.mediumLarger,
