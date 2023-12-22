@@ -9,6 +9,7 @@ import 'package:rmservice/login/cubit/user_cubit.dart';
 import 'package:rmservice/main_page/widgets/button_post_job.dart';
 import 'package:rmservice/maid_near/widgets/maid_near.dart';
 import 'package:rmservice/user_address/controllers/user_address.dart';
+import 'package:rmservice/utilities/constants/app_assets.dart';
 import 'package:rmservice/utilities/constants/variable.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:rmservice/worker_register/views/register_step1.dart';
@@ -32,7 +33,7 @@ class _MainPageState extends State<MainPage> {
 
   ValueListenable<double> distanceMaidNear = ValueNotifier(5.0);
   ValueListenable<int> starMaidNear = ValueNotifier(3);
-  
+
   @override
   Widget build(BuildContext context) {
     // final Size size = MediaQuery.of(context).size;
@@ -51,7 +52,7 @@ class _MainPageState extends State<MainPage> {
                   context.read<UserCubit>().state.full_name == ""
                       ? context.read<UserCubit>().state.email
                       : context.read<UserCubit>().state.full_name,
-                  ""),
+                  context.read<UserCubit>().state.avatar_url!),
               const SizedBox(height: 12),
               //Register(),
               context.read<UserCubit>().state.role == "normal"
@@ -86,14 +87,17 @@ class _MainPageState extends State<MainPage> {
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         SizedBox(
-          height: 85,
-          width: 85,
-          child: CircleAvatar(
-            child: image == ""
-                ? Image.asset('assets/images/profile.png')
-                : Image.network(image),
-          ),
-        ),
+            height: 85,
+            width: 85,
+            child: image.isNotEmpty
+                ? CircleAvatar(
+                    backgroundImage: NetworkImage('${image}'),
+                    radius: 50,
+                  )
+                : CircleAvatar(
+                    backgroundImage: AssetImage(AppAssets.profile),
+                    radius: 50,
+                  )),
         const SizedBox(width: 12),
         Expanded(
           child: Column(
@@ -325,8 +329,6 @@ class _MainPageState extends State<MainPage> {
       ),
     );
   }
-
-
 
   // Widget Appbar() {
   //   return Row(

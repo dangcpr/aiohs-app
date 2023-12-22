@@ -26,8 +26,10 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> with InputValidationMixin {
   final formKeyLogin = GlobalKey<FormState>();
-  TextEditingController emailController = TextEditingController();
-  TextEditingController passwordController = TextEditingController();
+  TextEditingController emailController =
+      TextEditingController(text: 'namvay0403@gmail.com');
+  TextEditingController passwordController =
+      TextEditingController(text: '123456');
 
   @override
   void dispose() {
@@ -192,15 +194,19 @@ class _LoginScreenState extends State<LoginScreen> with InputValidationMixin {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          socialButton(assetString: AppAssets.google, onTap: () async {
-                            await LoginController().handleGoogleSignIn();
-                            await LoginController().handleSignOut();
-                          }),
+                          socialButton(
+                              assetString: AppAssets.google,
+                              onTap: () async {
+                                await LoginController().handleGoogleSignIn();
+                                await LoginController().handleSignOut();
+                              }),
                           const SizedBox(width: 15),
-                          socialButton(assetString: AppAssets.facebook, onTap: () async {
-                            await LoginController().handleFacebookSignIn();
-                            await LoginController().handleSignOutFacebook();
-                          }),
+                          socialButton(
+                              assetString: AppAssets.facebook,
+                              onTap: () async {
+                                await LoginController().handleFacebookSignIn();
+                                await LoginController().handleSignOutFacebook();
+                              }),
                         ],
                       ),
                       const SizedBox(height: 14),
@@ -243,7 +249,8 @@ class _LoginScreenState extends State<LoginScreen> with InputValidationMixin {
     );
   }
 
-  Ink socialButton({required String assetString, required VoidCallback? onTap}) {
+  Ink socialButton(
+      {required String assetString, required VoidCallback? onTap}) {
     return Ink(
       child: InkWell(
         onTap: onTap,
