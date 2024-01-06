@@ -3,6 +3,8 @@ import 'dart:ffi';
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:rmservice/chat/chat_page.dart';
+import 'package:rmservice/chat/controller/chat_controller.dart';
 import 'package:rmservice/login/cubit/user_cubit.dart';
 import 'package:rmservice/post_job/constants/sex_choose.dart';
 import 'package:rmservice/post_job/cubits/close_post/close_post_cubit.dart';
@@ -20,9 +22,10 @@ import '../models/history_job_posting.dart';
 import 'slider.dart';
 
 class DetailPost extends StatefulWidget {
-  const DetailPost({super.key, required this.post});
+  const DetailPost({super.key, required this.post, required this.tokenChat});
 
   final HistoryJobPosting post;
+  final String tokenChat;
 
   @override
   State<DetailPost> createState() => _DetailPostState();
@@ -393,10 +396,15 @@ class _DetailPostState extends State<DetailPost> {
                                 builder: (_) =>
                                     UpdatePostScreen(post: widget.post)));
                       })
-                  : userCubit.state.role == 'maid'
-                      ? ButtonGreenApp(
-                          label: 'Liên hệ người đăng bài', onPressed: () {})
-                      : Container()
+                  : ButtonGreenApp(
+                      label: 'Liên hệ người đăng bài',
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (_) =>
+                                    ChatPage(chatToken: widget.tokenChat)));
+                      })
               : Container(),
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,

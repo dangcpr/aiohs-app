@@ -77,7 +77,7 @@ class _PostJobRegisterState extends State<PostJobRegister> {
   Widget build(BuildContext context) {
     bool darkMode = Theme.of(context).brightness == Brightness.dark;
     return BlocListener<PostJobCubit, PostJobState>(
-      listener: (context, state) {
+      listener: (context1, state) {
         // TODO: implement listener
         if (state is PostJobLoading) {
           showDialog(
@@ -107,8 +107,9 @@ class _PostJobRegisterState extends State<PostJobRegister> {
             title: "Success",
             desc: 'Post job successfully',
             btnOkOnPress: () {
-              context.read<SaveInfoJobPostingCubit>().setInitial();
-              context.read<ImagesPlaceCubitForJobPosting>().state.clear();
+              // context.read<SaveInfoJobPostingCubit>().setInitial();
+              // context.read<ImagesPlaceCubitForJobPosting>().state.clear();
+              Navigator.pop(context);
               Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(
@@ -266,6 +267,7 @@ class _PostJobRegisterState extends State<PostJobRegister> {
                   child: TextFieldBasic(
                     controller: numberEmployeeController,
                     isDarkMode: darkMode,
+                    keyboardType: TextInputType.number,
                     hintText: "Số lượng tuyển dụng",
                     validator: (input) {
                       if (input!.isEmpty) {
@@ -311,6 +313,7 @@ class _PostJobRegisterState extends State<PostJobRegister> {
                   child: TextFieldBasic(
                     controller: wageMinController,
                     isDarkMode: darkMode,
+                    keyboardType: TextInputType.number,
                     hintText: "Lương tối thiểu (VNĐ)",
                     validator: (input) {
                       if (input!.isEmpty) {
@@ -325,6 +328,7 @@ class _PostJobRegisterState extends State<PostJobRegister> {
                   child: TextFieldBasic(
                     controller: wageMaxController,
                     isDarkMode: darkMode,
+                    keyboardType: TextInputType.number,
                     hintText: "Lương tối đa (VNĐ)",
                     validator: (input) {
                       if (input!.isEmpty) {
@@ -384,6 +388,7 @@ class _PostJobRegisterState extends State<PostJobRegister> {
                   child: TextFieldBasic(
                     controller: candidateMinAgeController,
                     isDarkMode: darkMode,
+                    keyboardType: TextInputType.number,
                     hintText: "Độ tuổi tối thiểu",
                     validator: (input) {
                       if (input!.isEmpty) {
@@ -396,6 +401,7 @@ class _PostJobRegisterState extends State<PostJobRegister> {
                 SizedBox(
                   height: 85,
                   child: TextFieldBasic(
+                    keyboardType: TextInputType.number,
                     controller: candidateMaxAgeController,
                     isDarkMode: darkMode,
                     hintText: "Độ tuổi tối đa",

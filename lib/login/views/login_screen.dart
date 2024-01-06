@@ -27,9 +27,9 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> with InputValidationMixin {
   final formKeyLogin = GlobalKey<FormState>();
   TextEditingController emailController =
-      TextEditingController();
+      TextEditingController(text: 'namvay1@gmail.com');
   TextEditingController passwordController =
-      TextEditingController();
+      TextEditingController(text: '123456');
 
   @override
   void dispose() {

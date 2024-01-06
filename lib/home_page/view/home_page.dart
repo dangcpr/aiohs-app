@@ -18,12 +18,12 @@ class HomePage extends StatefulWidget {
 
 class HomePageState extends State<HomePage> {
   int myCurrentIndex = 0;
-  List pages = const [
-    MainPage(),
-    HistoryPage(),
-    PlacePage(),
+  List pages = [
+    const MainPage(),
+    const HistoryPage(),
+    const PlacePage(),
     MessagePage(),
-    AccountPage(),
+    const AccountPage(),
   ];
 
   @override
