@@ -49,10 +49,10 @@ class _MainPageState extends State<MainPage> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               ProfileWidget(
-                  context.read<UserCubit>().state.full_name == ""
-                      ? context.read<UserCubit>().state.email
-                      : context.read<UserCubit>().state.full_name,
-                  context.read<UserCubit>().state.avatar_url!),
+                  context.watch<UserCubit>().state.full_name == ""
+                      ? context.watch<UserCubit>().state.email
+                      : context.watch<UserCubit>().state.full_name,
+                  context.watch<UserCubit>().state.avatar_url!),
               const SizedBox(height: 12),
               //Register(),
               context.read<UserCubit>().state.role == "normal"

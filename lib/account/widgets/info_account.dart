@@ -14,7 +14,7 @@ class InfoAccount extends StatefulWidget {
 class _InfoAccountState extends State<InfoAccount> {
   @override
   Widget build(BuildContext context) {
-    var userCubit = context.read<UserCubit>();
+    var userCubit = context.watch<UserCubit>();
     return Container(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
