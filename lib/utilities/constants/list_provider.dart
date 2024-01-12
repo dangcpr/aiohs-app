@@ -62,7 +62,8 @@ import '../../post_job/cubits/get_post_all/get_post_all_cubit.dart';
 import '../../post_job/cubits/images_place_cubit.dart';
 import '../../post_job/cubits/post_job_cubit/post_job_cubit.dart';
 import '../../post_job/cubits/save_info_job_posting.dart';
-import '../../profile/cubit/update_profile_cubit.dart';
+import '../../profile/cubit/update_avatar/update_avatar_cubit.dart';
+import '../../profile/cubit/update_profile/update_profile_cubit.dart';
 
 final listProvider = [
   BlocProvider<SetFirstTimeCubit>(
@@ -225,6 +226,10 @@ final listProvider = [
   //Update profile
   BlocProvider<UpdateProfileCubit>(
     create: (_) => UpdateProfileCubit(),
+  ),
+  //Update avatar
+  BlocProvider<UpdateAvatarCubit>(
+    create: (_) => UpdateAvatarCubit(),
   ),
   //User Addrss
   BlocProvider<GetUserAddressCubit>(

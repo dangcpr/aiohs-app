@@ -32,8 +32,9 @@ class _CardHistoryOrderState extends State<CardHistoryOrder> {
         new DateFormat("yyyy-MM-dd HH:mm:ss").parse(widget.order.created_at);
     String createDateString =
         new DateFormat("dd-MM-yyyy HH:mm:ss").format(createDate);
-    DateTime orderDate =
-        new DateFormat("yyyy-MM-dd HH:mm:ss").parse(widget.order.working_date);
+    DateTime orderDate = widget.order.working_date != ""
+        ? DateFormat("yyyy-MM-dd HH:mm:ss").parse(widget.order.working_date)
+        : DateTime.now();
     String orderDateString = new DateFormat("dd-MM-yyyy").format(orderDate);
     DateTime orderHour =
         new DateFormat("HH:mm:ss").parse(widget.order.working_hour);

@@ -15,7 +15,7 @@ class PostJobCubit extends Cubit<PostJobState> {
       String userCode, PostJobInfo postJobInfo, List<File> imagesFile) async {
     emit(PostJobLoading());
     try {
-      PostJobRepo().postJob(userCode, postJobInfo, imagesFile);
+      await PostJobRepo().postJob(userCode, postJobInfo, imagesFile);
       emit(PostJobSuccess());
     } catch (e) {
       emit(PostJobFailed(e.toString()));

@@ -105,6 +105,7 @@ class _PlacePublicState extends State<PlacePublic> {
                           );
                         },
                       ),
+                      SizedBox(width: 15),
                     ],
                   ),
                   SizedBox(height: 10),

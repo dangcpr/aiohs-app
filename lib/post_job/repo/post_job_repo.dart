@@ -136,9 +136,12 @@ class PostJobRepo {
         '/user/$userCode/job-posting',
         queryParameters: {'status': status},
       );
+
       await Future.delayed(const Duration(milliseconds: 500));
       if (response.data['code'] == 0) {
         List<HistoryJobPosting> posts = [];
+        print('data reponse: ${response.data['jobs'][0]['wage_max'].runtimeType}');
+
         posts = (response.data['jobs'] as List)
             .map((e) => HistoryJobPosting.fromJson(e))
             .toList();

@@ -23,6 +23,7 @@ class GetHistoryPostCubit extends Cubit<GetHistoryPostState> {
       posts.addAll(postResult.posts);
       emit(GetHistoryPostSuccess(posts));
     } catch (e) {
+      print(e.toString());
       emit(GetHistoryPostFailed(e.toString()));
     }
   }

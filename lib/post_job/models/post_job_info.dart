@@ -24,8 +24,8 @@ class PostJobInfo {
   late String? description;
   late String? wageType;
   late String wageTypeDisplay;
-  late int wageMin;
-  late int wageMax;
+  late double wageMin;
+  late double wageMax;
   late List<String> images;
   late String candidateGender;
   late int candidateMinAge;

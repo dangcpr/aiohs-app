@@ -106,11 +106,16 @@ class _DetailPostState extends State<DetailPost> {
       listener: (context, state) {
         // TODO: implement listener
         if (state is ClosePostLoading) {
-          Center(
-            child: CircularProgressIndicator(
-              color: colorProject.primaryColor,
-            ),
-          );
+          showDialog(
+              context: context,
+              barrierDismissible: false,
+              builder: (BuildContext context) {
+                return Center(
+                  child: CircularProgressIndicator(
+                    color: colorProject.primaryColor,
+                  ),
+                );
+              });
         }
         if (state is ClosePostSuccess) {
           // Navigator.push(

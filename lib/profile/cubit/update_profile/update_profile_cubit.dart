@@ -1,8 +1,8 @@
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
 
-import '../../login/models/user.dart';
-import '../repo/account_repo.dart';
+import '../../../login/models/user.dart';
+import '../../repo/account_repo.dart';
 
 part 'update_profile_state.dart';
 
