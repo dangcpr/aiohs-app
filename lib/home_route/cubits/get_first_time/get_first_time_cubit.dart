@@ -11,6 +11,7 @@ class GetFirstTimeCubit extends Cubit<GetFirstTimeState> {
 
       final FirstTimeController firstTimeController = FirstTimeController();
       final firstTime = await firstTimeController.getFirstTime();
+      await firstTimeController.setOauth();
 
       emit(GetFirstTimeLoadedState(firstTime));
     } catch (e) {

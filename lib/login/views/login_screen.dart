@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -27,6 +30,11 @@ class _LoginScreenState extends State<LoginScreen> with InputValidationMixin {
   final formKeyLogin = GlobalKey<FormState>();
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+  bool oauth = false;
+  @override
+  void initState() {
+    super.initState();
+  }
 
   @override
   void dispose() {
@@ -184,30 +192,32 @@ class _LoginScreenState extends State<LoginScreen> with InputValidationMixin {
                         ),
                       ),
                       const SizedBox(height: 14),
-                      Center(
-                        child: Text(AppLocalizations.of(context)!.orLogin,
-                            style: Theme.of(context).textTheme.labelMedium),
-                      ),
-                      const SizedBox(height: 14),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          socialButton(
-                            assetString: AppAssets.google,
-                            onTap: () async {
-                              context.read<LoginCubit>().logInGoogle();
-                            },
-                          ),
-                          const SizedBox(width: 15),
-                          socialButton(
-                            assetString: AppAssets.facebook,
-                            onTap: () async {
-                              context.read<LoginCubit>().logInFB();
-                            },
-                          ),
-                        ],
-                      ),
-                      const SizedBox(height: 14),
+                      if (hasOauth == true && !Platform.isIOS)
+                        Center(
+                          child: Text(AppLocalizations.of(context)!.orLogin,
+                              style: Theme.of(context).textTheme.labelMedium),
+                        ),
+                      if (hasOauth == true && !Platform.isIOS) const SizedBox(height: 14),
+                      if (hasOauth == true && !Platform.isIOS)
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            socialButton(
+                              assetString: AppAssets.google,
+                              onTap: () async {
+                                context.read<LoginCubit>().logInGoogle();
+                              },
+                            ),
+                            const SizedBox(width: 15),
+                            socialButton(
+                              assetString: AppAssets.facebook,
+                              onTap: () async {
+                                context.read<LoginCubit>().logInFB();
+                              },
+                            ),
+                          ],
+                        ),
+                      if (hasOauth == true) const SizedBox(height: 14),
                       Center(
                         child: InkWell(
                           onTap: () => Navigator.push(
@@ -247,7 +257,8 @@ class _LoginScreenState extends State<LoginScreen> with InputValidationMixin {
     );
   }
 
-  Ink socialButton({required String assetString, required VoidCallback? onTap}) {
+  Ink socialButton(
+      {required String assetString, required VoidCallback? onTap}) {
     return Ink(
       child: InkWell(
         onTap: onTap,
