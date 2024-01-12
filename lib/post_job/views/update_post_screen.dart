@@ -55,7 +55,7 @@ class _UpdatePostScreenState extends State<UpdatePostScreen> {
   TextEditingController addressController = TextEditingController();
   List<File> imageList = [];
 
-  String selectedValue = "h";
+  String selectedValue = "WAGE_TYPE_HOURLY";
   int indexSex = 0;
   @override
   void initState() {

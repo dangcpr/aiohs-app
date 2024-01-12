@@ -53,7 +53,7 @@ class _PostJobRegisterState extends State<PostJobRegister> {
   TextEditingController candidateMaxAgeController = TextEditingController();
   TextEditingController candidateExpController = TextEditingController();
 
-  String selectedValue = "h";
+  String selectedValue = "WAGE_TYPE_HOURLY";
   int indexSex = 0;
 
   @override
@@ -122,7 +122,7 @@ class _PostJobRegisterState extends State<PostJobRegister> {
         if (state is PostJobFailed) {
           AwesomeDialog(
             context: context,
-            dialogType: DialogType.success,
+            dialogType: DialogType.error,
             animType: AnimType.topSlide,
             showCloseIcon: true,
             title: "Failed",
@@ -136,7 +136,7 @@ class _PostJobRegisterState extends State<PostJobRegister> {
       child: Scaffold(
         appBar: AppBar(
           title: Text(
-            "Đăng tin giúp việc (Bước 1/2)",
+            "Đăng tin giúp việc",
             style: TextStyle(
               fontSize: fontSize.mediumLarger,
               fontFamily: fontBoldApp,
@@ -433,7 +433,7 @@ class _PostJobRegisterState extends State<PostJobRegister> {
           width: double.infinity,
           padding: EdgeInsets.symmetric(horizontal: 20),
           child: ButtonGreenApp(
-              label: "Tiếp theo",
+              label: "Đăng bài",
               onPressed: () {
                 final cubit = context.read<SaveInfoJobPostingCubit>().state;
                 if (formKey.currentState!.validate()) {
@@ -472,8 +472,7 @@ class _PostJobRegisterState extends State<PostJobRegister> {
                     title: titleController.text,
                     numberEmployee: int.parse(numberEmployeeController.text),
                     description: desController.text,
-                    wageType: selectedValue,
-                    // wageTypeDisplay: wageTypeDisplayController.text,
+                    wageType: wageTypeController.text,
                     wageMin: double.parse(wageMinController.text) / 1.0,
                     wageMax: double.parse(wageMaxController.text) / 1.0,
                     candidateGender: candidateGenderController.text,

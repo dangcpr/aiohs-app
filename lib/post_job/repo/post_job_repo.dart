@@ -43,7 +43,6 @@ class PostJobRepo {
           "number_employee": postJobInfo.numberEmployee,
           "description": postJobInfo.description,
           "wage_type": postJobInfo.wageType,
-          "wage_type_display": postJobInfo.wageTypeDisplay,
           "wage_min": postJobInfo.wageMin,
           "wage_max": postJobInfo.wageMax,
           "images": postJobInfo.images,
@@ -140,7 +139,6 @@ class PostJobRepo {
       await Future.delayed(const Duration(milliseconds: 500));
       if (response.data['code'] == 0) {
         List<HistoryJobPosting> posts = [];
-        print('data reponse: ${response.data['jobs'][0]['wage_max'].runtimeType}');
 
         posts = (response.data['jobs'] as List)
             .map((e) => HistoryJobPosting.fromJson(e))

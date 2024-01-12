@@ -51,7 +51,7 @@ class _DetailPostState extends State<DetailPost> {
   TextEditingController candidateMaxAgeController = TextEditingController();
   TextEditingController candidateExpController = TextEditingController();
 
-  String selectedValue = "h";
+  String selectedValue = "WAGE_TYPE_HOURLY";
   int indexSex = 0;
   @override
   void initState() {
