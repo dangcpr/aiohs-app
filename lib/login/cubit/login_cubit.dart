@@ -20,7 +20,47 @@ class LoginCubit extends Cubit<LoginState> {
       if (res.status == AuthenticationStatus.authenticated) {
         emit(LoginSuccess(statusLogin: res.status.toString(), user: res.user!));
       } else if (res.status == AuthenticationStatus.inactive) {
-        emit(LoginFailure(error: "Tài khoản đang bị khoá. Vui lòng liên hệ quản trị viên"));
+        emit(LoginFailure(
+            error:
+                "Tài khoản đang bị khoá. Vui lòng liên hệ quản trị viên"));
+      } else {
+        emit(LoginFailure(error: "Tài khoản hoặc mật khẩu không đúng"));
+      }
+    } catch (e) {
+      emit(LoginFailure(error: e.toString()));
+    }
+  }
+
+  Future<void> logInGoogle() async {
+    emit(LoginLoading());
+    try {
+      print('Loading');
+      var res = await authenticationRepository.logInOauthGoogle();
+      if (res.status == AuthenticationStatus.authenticated) {
+        emit(LoginSuccess(statusLogin: res.status.toString(), user: res.user!));
+      } else if (res.status == AuthenticationStatus.inactive) {
+        emit(LoginFailure(
+            error:
+                "Tài khoản đang bị khoá. Vui lòng liên hệ quản trị viên"));
+      } else {
+        emit(LoginFailure(error: "Tài khoản hoặc mật khẩu không đúng"));
+      }
+    } catch (e) {
+      emit(LoginFailure(error: e.toString()));
+    }
+  }
+
+  Future<void> logInFB() async {
+    emit(LoginLoading());
+    try {
+      print('Loading');
+      var res = await authenticationRepository.logInOauthFacebook();
+      if (res.status == AuthenticationStatus.authenticated) {
+        emit(LoginSuccess(statusLogin: res.status.toString(), user: res.user!));
+      } else if (res.status == AuthenticationStatus.inactive) {
+        emit(LoginFailure(
+            error:
+                "Tài khoản đang bị khoá. Vui lòng liên hệ quản trị viên"));
       } else {
         emit(LoginFailure(error: "Tài khoản hoặc mật khẩu không đúng"));
       }
