@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:rmservice/home_page/home_page.dart';
-import 'package:rmservice/login/controllers/login.dart';
 import 'package:rmservice/login/cubit/login_cubit.dart';
 import 'package:rmservice/login/cubit/user_cubit.dart';
 import 'package:rmservice/sign_up/views/signup_screen.dart';
@@ -63,6 +62,7 @@ class _LoginScreenState extends State<LoginScreen> with InputValidationMixin {
             isMultipleButton: false,
           );
         } else if (state is LoginSuccess) {
+          Navigator.pop(context);
           Navigator.pushReplacement(
             context,
             MaterialPageRoute(
@@ -192,15 +192,19 @@ class _LoginScreenState extends State<LoginScreen> with InputValidationMixin {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          socialButton(assetString: AppAssets.google, onTap: () async {
-                            await LoginController().handleGoogleSignIn();
-                            await LoginController().handleSignOut();
-                          }),
+                          socialButton(
+                            assetString: AppAssets.google,
+                            onTap: () async {
+                              context.read<LoginCubit>().logInGoogle();
+                            },
+                          ),
                           const SizedBox(width: 15),
-                          socialButton(assetString: AppAssets.facebook, onTap: () async {
-                            await LoginController().handleFacebookSignIn();
-                            await LoginController().handleSignOutFacebook();
-                          }),
+                          socialButton(
+                            assetString: AppAssets.facebook,
+                            onTap: () async {
+                              context.read<LoginCubit>().logInFB();
+                            },
+                          ),
                         ],
                       ),
                       const SizedBox(height: 14),
