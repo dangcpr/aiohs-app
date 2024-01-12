@@ -2,7 +2,9 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:rmservice/shopping/models/address_shopping.dart';
 import 'package:rmservice/shopping/models/info_shopping.dart';
+import 'package:rmservice/shopping/models/product_buy_request.dart';
 import 'package:rmservice/shopping/models/shopping_price.dart';
+import 'package:rmservice/utilities/constants/function.dart';
 import 'package:rmservice/utilities/constants/variable.dart';
 
 final dio = Dio(
@@ -47,7 +49,21 @@ class ShoppingController {
 
   Future<void> orderShopping(
       InfoShopping info, AddressShopping address, String userCode) async {
-    List<String> nameProduct = info.listItems!.map((e) => e.name).toList();
+    List<ProductBuyRequest> productBuyRequest = [];
+
+    //add items to buy request (because images is files so we need to upload it first)
+    for (var items in info.listItems!) {
+      List<String> listImages = [];
+      for (var imageItem in items.listImages) {
+        listImages.add(await uploadImage(imageItem));
+      }
+      productBuyRequest.add(
+        ProductBuyRequest(
+          item: items.name,
+          images: listImages,
+        ),
+      );
+    }
     try {
       var response = await dio
           .post('/user/$userCode/orders/grocery-assistant/create', data: {
@@ -60,7 +76,7 @@ class ShoppingController {
         "working_address": '${address.nameAddress!}-${address.fullAddress}',
         "latitude": address.latCurrent,
         "longitude": address.lngCurrent,
-        "items": nameProduct,
+        "items": productBuyRequest.map((e) => e.toJson()).toList(),
         "amount": info.price!,
         "purchase_fee": info.purchaseFee!,
         "note": info.note,

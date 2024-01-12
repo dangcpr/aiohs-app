@@ -1,8 +1,13 @@
 import 'dart:io';
 
 class ProductBuy {
-  final String name;
-  final List<File> listImages;
+  late final String name;
+  late final List<File> listImages;
 
   ProductBuy({required this.name, required this.listImages});
+
+  ProductBuy.fromJson(Map<String, dynamic> json) {
+    name = json['name'];
+    listImages = json['listImages'];
+  }
 }

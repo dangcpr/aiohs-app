@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:rmservice/shopping/cubits/save_address.dart';
-import 'package:rmservice/shopping/models/address_shopping.dart';
-import 'package:rmservice/utilities/constants/check_type_of_address.dart';
 import 'package:rmservice/shopping/constants/test_address.dart';
 import 'package:rmservice/shopping/cubits/save_data.dart';
 import 'package:rmservice/shopping/views/shopping_step1.dart';

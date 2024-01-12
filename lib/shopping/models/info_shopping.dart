@@ -27,7 +27,12 @@ class InfoShopping {
   InfoShopping.fromJson(Map<String, dynamic> json) {
     address = AddressShopping.fromJson(json['address']);
     methodOfShpping = json['methodOfShpping'];
-    listItems = json['listItems'].cast<String>();
+    if (json['listItems'] != null) {
+      listItems = [];
+      json['listItems'].forEach((v) {
+        listItems!.add(ProductBuy.fromJson(v));
+      });
+    }
     price = json['price'];
     date = DateTime.parse(json['date']);
     time = DateTime.parse(json['time']);

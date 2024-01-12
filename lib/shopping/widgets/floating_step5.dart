@@ -8,8 +8,6 @@ import 'package:rmservice/shopping/cubits/caculate_price/caculate_price_cubit.da
 import 'package:rmservice/shopping/cubits/order_shopping/order_shopping_cubit.dart';
 import 'package:rmservice/shopping/cubits/save_address.dart';
 import 'package:rmservice/shopping/cubits/save_data.dart';
-import 'package:rmservice/shopping/views/complete_shopping.dart';
-import 'package:rmservice/shopping/views/shopping_step5.dart';
 import 'package:rmservice/utilities/components/button_green.dart';
 import 'package:rmservice/utilities/constants/variable.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';

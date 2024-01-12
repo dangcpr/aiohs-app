@@ -6,7 +6,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rmservice/shopping/cubits/add_items.dart';
 import 'package:rmservice/shopping/cubits/save_data.dart';
 import 'package:rmservice/shopping/models/product_buy.dart';
-import 'package:rmservice/utilities/components/text_sub_label.dart';
 import 'package:rmservice/utilities/constants/variable.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
