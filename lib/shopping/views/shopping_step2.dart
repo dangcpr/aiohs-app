@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:page_transition/page_transition.dart';
+//import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:rmservice/cleaning_hourly/widgets/button_app_bar.dart';
 import 'package:rmservice/shopping/cubits/get_shopping_price/get_shopping_price_cubit.dart';
 import 'package:rmservice/shopping/cubits/get_shopping_price/get_shopping_price_state.dart';
 import 'package:rmservice/shopping/cubits/save_address.dart';
 import 'package:rmservice/shopping/cubits/save_data.dart';
 import 'package:rmservice/shopping/cubits/shopping_price_cubit.dart';
-import 'package:rmservice/shopping/views/maps.dart';
 import 'package:rmservice/shopping/widgets/method1_shopping_button.dart';
 import 'package:rmservice/utilities/components/show_address.dart';
 import 'package:rmservice/utilities/constants/variable.dart';

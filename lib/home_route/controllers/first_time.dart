@@ -1,5 +1,8 @@
 // Kiểm tra xem có phải user lần đầu bấm vào app không
+import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
+import 'package:rmservice/utilities/constants/variable.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class FirstTimeController {
@@ -23,6 +26,28 @@ class FirstTimeController {
       debugPrint('Thành công Get');
 
       return prefs.getBool('firstTime') ?? true;
+    } catch (e) {
+      debugPrint(e.toString());
+
+      throw 'Something went wrong';
+    }
+  }
+
+  Future<void> setOauth() async {
+    try {
+      final remoteConfig = FirebaseRemoteConfig.instance;
+      await remoteConfig.setConfigSettings(RemoteConfigSettings(
+        fetchTimeout: const Duration(seconds: 10),
+        minimumFetchInterval: const Duration(hours: 1),
+      ));
+      //await remoteConfig.fetchAndActivate();
+      hasOauth = remoteConfig.getBool('oauth');
+      debugPrint(hasOauth.toString());
+      remoteConfig.onConfigUpdated.listen((event) async {
+        await remoteConfig.activate();
+
+        hasOauth = remoteConfig.getBool('oauth');
+      });
     } catch (e) {
       debugPrint(e.toString());
 

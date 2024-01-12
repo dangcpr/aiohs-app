@@ -1,4 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:rmservice/account/cubits/logout/logout_cubit.dart';
 import 'package:rmservice/air_conditioning_cleaning/cubit/get_price_air_cond/get_price_air_cond_cubit.dart';
 import 'package:rmservice/air_conditioning_cleaning/cubit/order_air_cond/order_air_cond_cubit.dart';
 import 'package:rmservice/air_conditioning_cleaning/cubit/price_air_cond_cubit.dart';
@@ -83,6 +84,9 @@ final listProvider = [
   ),
   BlocProvider<SignupCubit>(
     create: (_) => SignupCubit(),
+  ),
+  BlocProvider<LogoutCubit>(
+    create: (_) => LogoutCubit(),
   ),
 
   //Address

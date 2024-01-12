@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rmservice/shopping/cubits/caculate_price/caculate_price_cubit.dart';
 import 'package:rmservice/shopping/cubits/save_data.dart';
-import 'package:rmservice/shopping/cubits/shopping_price_cubit.dart';
 import 'package:rmservice/utilities/components/text_label.dart';
 import 'package:rmservice/utilities/components/text_sub_label.dart';
 import 'package:rmservice/shopping/cubits/save_price_shopping.dart';

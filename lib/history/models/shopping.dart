@@ -1,3 +1,5 @@
+import 'package:rmservice/shopping/models/product_buy_request.dart';
+
 class ShoppingHistory {
   late String id;
   late String code;
@@ -19,7 +21,7 @@ class ShoppingHistory {
   late String working_address;
   late String created_at;
   late String updated_at;
-  late List<String> items;
+  late List<ProductBuyRequest> items;
   late int amount;
   late int purchase_fee;
   late String note;
@@ -72,7 +74,11 @@ class ShoppingHistory {
     working_address = json['order']['working_address'];
     created_at = json['order']['created_at'];
     updated_at = json['order']['updated_at'];
-    items = json['detail']['order_grocery_assistant']['items'].cast<String>();
+    items = json['detail']['order_grocery_assistant']['items'] != null
+        ? (json['detail']['order_grocery_assistant']['items'])
+            .map<ProductBuyRequest>((i) => ProductBuyRequest.fromJson(i))
+            .toList()
+        : [];
     amount = json['detail']['order_grocery_assistant']['amount'];
     purchase_fee = json['detail']['order_grocery_assistant']['purchase_fee'];
     note = json['detail']['order_grocery_assistant']['note'];

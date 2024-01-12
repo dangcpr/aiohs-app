@@ -38,7 +38,9 @@ class _AccountScreenState extends State<AccountScreen> {
           onTap: () async {
             AccountHelper().getUserAddress(context);
           }),
-      OptionCard(text: "Đăng xuất", icon: Icons.logout),
+      OptionCard(text: "Đăng xuất", icon: Icons.logout, onTap: () {
+        AccountHelper().logOut(context);
+      }),
     ]);
   }
 }

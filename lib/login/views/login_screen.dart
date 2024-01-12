@@ -1,8 +1,10 @@
+import 'dart:io';
+
+import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:rmservice/home_page/home_page.dart';
-import 'package:rmservice/login/controllers/login.dart';
 import 'package:rmservice/login/cubit/login_cubit.dart';
 import 'package:rmservice/login/cubit/user_cubit.dart';
 import 'package:rmservice/sign_up/views/signup_screen.dart';
@@ -30,6 +32,13 @@ class _LoginScreenState extends State<LoginScreen> with InputValidationMixin {
       TextEditingController(text: 'namvay1@gmail.com');
   TextEditingController passwordController =
       TextEditingController(text: '123456');
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+  bool oauth = false;
+  @override
+  void initState() {
+    super.initState();
+  }
 
   @override
   void dispose() {
@@ -65,6 +74,7 @@ class _LoginScreenState extends State<LoginScreen> with InputValidationMixin {
             isMultipleButton: false,
           );
         } else if (state is LoginSuccess) {
+          Navigator.pop(context);
           Navigator.pushReplacement(
             context,
             MaterialPageRoute(
@@ -186,30 +196,32 @@ class _LoginScreenState extends State<LoginScreen> with InputValidationMixin {
                         ),
                       ),
                       const SizedBox(height: 14),
-                      Center(
-                        child: Text(AppLocalizations.of(context)!.orLogin,
-                            style: Theme.of(context).textTheme.labelMedium),
-                      ),
-                      const SizedBox(height: 14),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          socialButton(
+                      if (hasOauth == true && !Platform.isIOS)
+                        Center(
+                          child: Text(AppLocalizations.of(context)!.orLogin,
+                              style: Theme.of(context).textTheme.labelMedium),
+                        ),
+                      if (hasOauth == true && !Platform.isIOS) const SizedBox(height: 14),
+                      if (hasOauth == true && !Platform.isIOS)
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            socialButton(
                               assetString: AppAssets.google,
                               onTap: () async {
-                                await LoginController().handleGoogleSignIn();
-                                await LoginController().handleSignOut();
-                              }),
-                          const SizedBox(width: 15),
-                          socialButton(
+                                context.read<LoginCubit>().logInGoogle();
+                              },
+                            ),
+                            const SizedBox(width: 15),
+                            socialButton(
                               assetString: AppAssets.facebook,
                               onTap: () async {
-                                await LoginController().handleFacebookSignIn();
-                                await LoginController().handleSignOutFacebook();
-                              }),
-                        ],
-                      ),
-                      const SizedBox(height: 14),
+                                context.read<LoginCubit>().logInFB();
+                              },
+                            ),
+                          ],
+                        ),
+                      if (hasOauth == true) const SizedBox(height: 14),
                       Center(
                         child: InkWell(
                           onTap: () => Navigator.push(

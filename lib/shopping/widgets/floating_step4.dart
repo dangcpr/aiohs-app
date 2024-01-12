@@ -26,9 +26,9 @@ class _FloatingStep4State extends State<FloatingStep4> {
 
   @override
   Widget build(BuildContext context) {
-    final date = context.read<SaveDataShopping>().state.date;
+    //final date = context.read<SaveDataShopping>().state.date;
     final time = context.read<SaveDataShopping>().state.time;
-    var saveDataShopping = context.watch<SaveDataShopping>().state;
+    //var saveDataShopping = context.watch<SaveDataShopping>().state;
 
     final caculateSPriceCubit = context.watch<CalculatePriceShoppingCubit>();
 

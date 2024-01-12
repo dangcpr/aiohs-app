@@ -3,6 +3,7 @@ import 'package:intl/intl.dart';
 import 'package:rmservice/history/models/shopping.dart';
 import 'package:rmservice/history/widgets/shopping/list_product.dart';
 import 'package:rmservice/shopping/models/product_buy.dart';
+import 'package:rmservice/shopping/models/product_buy_request.dart';
 import 'package:rmservice/utilities/constants/variable.dart';
 
 class WorkInfoShoppingHistory extends StatefulWidget {
@@ -25,9 +26,9 @@ class _WorkInfoShoppingHistoryState extends State<WorkInfoShoppingHistory> {
         new DateFormat("yyyy-MM-dd HH:mm:ss").parse(widget.order.working_date);
     DateTime orderHour =
         new DateFormat("HH:mm:ss").parse(widget.order.working_hour);
-    List<ProductBuy> listProduct = widget.order.items.map((s) => ProductBuy(
-      name: s,
-      listImages: []
+    List<ProductBuyRequest> listProduct = widget.order.items.map((s) => ProductBuyRequest(
+      item: s.item,
+      images: s.images,
     )).toList();
         
     return Container(
