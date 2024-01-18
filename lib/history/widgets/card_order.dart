@@ -40,7 +40,7 @@ class _CardHistoryOrderState extends State<CardHistoryOrder> {
         new DateFormat("HH:mm:ss").parse(widget.order.working_hour);
     String orderHourString = new DateFormat("HH:mm").format(orderHour);
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 8.0),
+      padding: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 7.0),
       child: Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(8),
