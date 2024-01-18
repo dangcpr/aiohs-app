@@ -18,7 +18,7 @@ class GetPostAllCubit extends Cubit<GetPostAllState> {
     if (posts.isNotEmpty && next == "0") {
       return;
     }
-    //emit(GetPostAllLoading());
+    emit(GetPostAllLoading());
     //debugPrint(state.toString());
     try {
       PostResult postResult =

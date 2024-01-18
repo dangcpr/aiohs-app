@@ -73,12 +73,7 @@ class AuthenticationRepository {
         // await storage.write(
         //     key: 'uid',
         //     value: response.data['response']['user']['id'].toString());
-        if (response.data['user']['status'] != "active") {
-          debugPrint(response.data['user']['status']);
-          loginModel = LoginModel(
-            status: AuthenticationStatus.inactive,
-          );
-        } else {
+        
           _controller.add(AuthenticationStatus.authenticated);
           await storage.write(key: 'token', value: response.data['token']);
           String token = await storage.read(key: 'token') ?? "";
@@ -87,9 +82,16 @@ class AuthenticationRepository {
             status: AuthenticationStatus.authenticated,
             user: User.fromJson(response.data['user']),
           );
-        }
+
         return loginModel;
       } else {
+        if (response.data['code'] == 2) {
+          //debugPrint(response.data['user']['status']);
+          LoginModel loginModel = LoginModel(
+            status: AuthenticationStatus.inactive,
+          );
+          return loginModel;
+        }
         _controller.add(AuthenticationStatus.unauthenticated);
         LoginModel loginModel = LoginModel(
           status: AuthenticationStatus.unauthenticated,

@@ -319,7 +319,7 @@ class _WorkerRegisterStep1ScreenState extends State<WorkerRegisterStep2Screen> {
                     },
                   );
                   try {
-                    await WorkerRegisterController().register(
+                    int result = await WorkerRegisterController().register(
                         context.read<UserCubit>().state.code!,
                         nameController.text,
                         idController.text,
@@ -338,7 +338,7 @@ class _WorkerRegisterStep1ScreenState extends State<WorkerRegisterStep2Screen> {
                       dialogType: DialogType.success,
                       animType: AnimType.bottomSlide,
                       showCloseIcon: true,
-                      title: 'Đăng ký thành công',
+                      title: result == 1 ? 'Đăng ký thành công' : 'Cập nhật thông tin thành công',
                       btnCancelOnPress: () {
                         Navigator.pop(context);
                         Navigator.pop(context);

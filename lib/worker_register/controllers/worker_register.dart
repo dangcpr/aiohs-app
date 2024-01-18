@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'dart:io';
 
 import 'package:dio/dio.dart';
@@ -19,7 +18,7 @@ final dio = Dio(
 );
 
 class WorkerRegisterController {
-  Future<void> register(
+  Future<int> register(
     String user_code,
     String full_name,
     String identiny_no,
@@ -52,10 +51,34 @@ class WorkerRegisterController {
         },
       );
       if (response.data['code'] == 0) {
-        return;
+        return 1;
       } else {
-        String message = jsonEncode(response.data['message']);
-        throw message;
+        try {
+          var response2 = await dio.put(
+            '/user/$user_code/maid-registration',
+            data: {
+              "full_name": full_name,
+              "identity_no": identiny_no,
+              "issued_on": Jiffy.parse(issued_on, pattern: 'dd/MM/yyyy')
+                  .format(pattern: 'yyyy-MM-dd'),
+              "permanent_address": permanent_address,
+              "date_of_birth": Jiffy.parse(date_of_birth, pattern: 'dd/MM/yyyy')
+                  .format(pattern: 'yyyy-MM-dd'),
+              "place_of_birth": place_of_birth,
+              "identity_front_image_url": idFPath,
+              "identity_back_image_url": idBPath,
+              "contact_address": contact_address,
+            },
+          );
+          if (response2.data['code'] == 0) {
+            return 2;
+          } else {
+            throw response2.data['message'];
+          }
+        } catch (e) {
+          debugPrint(e.toString());
+          throw e.toString();
+        }
       }
     } on DioException catch (e) {
       debugPrint(e.type.toString());
