@@ -18,6 +18,7 @@ import 'package:rmservice/utilities/components/text_field_basic.dart';
 import 'package:rmservice/utilities/components/text_field_long.dart';
 import 'package:rmservice/utilities/constants/variable.dart';
 
+import '../../chat/controller/chat_controller.dart';
 import '../../cleaning_hourly/models/address.dart';
 import '../../place_page/controllers/convert_images_to_file.dart';
 import '../../place_page/views/maps.dart';
@@ -54,7 +55,7 @@ class _UpdatePostScreenState extends State<UpdatePostScreen> {
   TextEditingController addressController = TextEditingController();
   List<File> imageList = [];
 
-  String selectedValue = "h";
+  String selectedValue = "WAGE_TYPE_HOURLY";
   int indexSex = 0;
   @override
   void initState() {
@@ -146,12 +147,21 @@ class _UpdatePostScreenState extends State<UpdatePostScreen> {
             showCloseIcon: true,
             title: "Success",
             desc: 'Update post successfully',
-            btnOkOnPress: () {
+            btnOkOnPress: () async {
               context.read<SaveInfoJobPostingCubit>().setInitial();
+              var chatToken = await ChatController().getChatToken(
+                  requesterCode:
+                      context.read<UserCubit>().state.code.toString(),
+                  receiverCode: widget.post.userCode.toString(),
+                  title: widget.post.title,
+                  postCode: widget.post.code);
+              print('chat token: $chatToken');
+              Navigator.pop(context);
               Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(
-                  builder: (_) => DetailPost(post: state.historyJobPosting),
+                  builder: (_) => DetailPost(
+                      post: state.historyJobPosting, tokenChat: chatToken),
                 ),
               );
             },
@@ -165,7 +175,9 @@ class _UpdatePostScreenState extends State<UpdatePostScreen> {
             showCloseIcon: true,
             title: "Failed",
             desc: state.message,
-            btnOkOnPress: () {},
+            btnOkOnPress: () {
+              Navigator.pop(context);
+            },
           ).show();
         }
       },
@@ -180,11 +192,19 @@ class _UpdatePostScreenState extends State<UpdatePostScreen> {
               ),
             ),
             leading: InkWell(
-              onTap: () {
+              onTap: () async {
+                var chatToken = await ChatController().getChatToken(
+                    requesterCode:
+                        context.read<UserCubit>().state.code.toString(),
+                    receiverCode: widget.post.userCode.toString(),
+                    title: widget.post.title,
+                    postCode: widget.post.code);
+                print('chat token: $chatToken');
                 Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(
-                    builder: (_) => DetailPost(post: widget.post),
+                    builder: (_) =>
+                        DetailPost(post: widget.post, tokenChat: chatToken),
                   ),
                 );
               },
@@ -251,6 +271,7 @@ class _UpdatePostScreenState extends State<UpdatePostScreen> {
                       controller: numberEmployeeController,
                       isDarkMode: darkMode,
                       hintText: "Số lượng tuyển dụng",
+                      keyboardType: TextInputType.number,
                     ),
                   ),
                   TextFieldLong(
@@ -285,6 +306,7 @@ class _UpdatePostScreenState extends State<UpdatePostScreen> {
                       enabled: checkEnable,
                       controller: wageMinController,
                       isDarkMode: darkMode,
+                      keyboardType: TextInputType.number,
                       hintText: "Lương tối thiểu (VNĐ)",
                     ),
                   ),
@@ -294,6 +316,7 @@ class _UpdatePostScreenState extends State<UpdatePostScreen> {
                       enabled: checkEnable,
                       controller: wageMaxController,
                       isDarkMode: darkMode,
+                      keyboardType: TextInputType.number,
                       hintText: "Lương tối đa (VNĐ)",
                     ),
                   ),
@@ -348,6 +371,7 @@ class _UpdatePostScreenState extends State<UpdatePostScreen> {
                       enabled: checkEnable,
                       controller: candidateMinAgeController,
                       isDarkMode: darkMode,
+                      keyboardType: TextInputType.number,
                       hintText: "Độ tuổi tối thiểu",
                     ),
                   ),
@@ -357,6 +381,7 @@ class _UpdatePostScreenState extends State<UpdatePostScreen> {
                       enabled: checkEnable,
                       controller: candidateMaxAgeController,
                       isDarkMode: darkMode,
+                      keyboardType: TextInputType.number,
                       hintText: "Độ tuổi tối đa",
                     ),
                   ),

@@ -11,6 +11,7 @@ import 'package:rmservice/post_job/models/history_job_posting.dart';
 import 'package:rmservice/utilities/components/dialog_wrong.dart';
 import 'package:rmservice/utilities/constants/variable.dart';
 
+import '../../chat/controller/chat_controller.dart';
 import 'detail_post.dart';
 
 class CardHistoryPost extends StatefulWidget {
@@ -44,11 +45,18 @@ class _CardHistoryPostState extends State<CardHistoryPost> {
         ),
         child: ListTile(
           onTap: () async {
+            var chatToken = await ChatController().getChatToken(
+                requesterCode: context.read<UserCubit>().state.code.toString(),
+                receiverCode: widget.post.userCode.toString(),
+                title: widget.post.title,
+                postCode: widget.post.code);
+            print('chat token: $chatToken');
             Navigator.pushReplacement(
               context,
               MaterialPageRoute(
                 builder: (_) => DetailPost(
                   post: widget.post,
+                  tokenChat: chatToken,
                 ),
               ),
             );

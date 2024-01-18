@@ -53,7 +53,7 @@ class _PostJobRegisterState extends State<PostJobRegister> {
   TextEditingController candidateMaxAgeController = TextEditingController();
   TextEditingController candidateExpController = TextEditingController();
 
-  String selectedValue = "h";
+  String selectedValue = "WAGE_TYPE_HOURLY";
   int indexSex = 0;
 
   @override
@@ -77,7 +77,7 @@ class _PostJobRegisterState extends State<PostJobRegister> {
   Widget build(BuildContext context) {
     bool darkMode = Theme.of(context).brightness == Brightness.dark;
     return BlocListener<PostJobCubit, PostJobState>(
-      listener: (context, state) {
+      listener: (context1, state) {
         // TODO: implement listener
         if (state is PostJobLoading) {
           showDialog(
@@ -107,8 +107,9 @@ class _PostJobRegisterState extends State<PostJobRegister> {
             title: "Success",
             desc: 'Post job successfully',
             btnOkOnPress: () {
-              context.read<SaveInfoJobPostingCubit>().setInitial();
-              context.read<ImagesPlaceCubitForJobPosting>().state.clear();
+              // context.read<SaveInfoJobPostingCubit>().setInitial();
+              // context.read<ImagesPlaceCubitForJobPosting>().state.clear();
+              Navigator.pop(context);
               Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(
@@ -121,7 +122,7 @@ class _PostJobRegisterState extends State<PostJobRegister> {
         if (state is PostJobFailed) {
           AwesomeDialog(
             context: context,
-            dialogType: DialogType.success,
+            dialogType: DialogType.error,
             animType: AnimType.topSlide,
             showCloseIcon: true,
             title: "Failed",
@@ -135,7 +136,7 @@ class _PostJobRegisterState extends State<PostJobRegister> {
       child: Scaffold(
         appBar: AppBar(
           title: Text(
-            "Đăng tin giúp việc (Bước 1/2)",
+            "Đăng tin giúp việc",
             style: TextStyle(
               fontSize: fontSize.mediumLarger,
               fontFamily: fontBoldApp,
@@ -266,6 +267,7 @@ class _PostJobRegisterState extends State<PostJobRegister> {
                   child: TextFieldBasic(
                     controller: numberEmployeeController,
                     isDarkMode: darkMode,
+                    keyboardType: TextInputType.number,
                     hintText: "Số lượng tuyển dụng",
                     validator: (input) {
                       if (input!.isEmpty) {
@@ -311,6 +313,7 @@ class _PostJobRegisterState extends State<PostJobRegister> {
                   child: TextFieldBasic(
                     controller: wageMinController,
                     isDarkMode: darkMode,
+                    keyboardType: TextInputType.number,
                     hintText: "Lương tối thiểu (VNĐ)",
                     validator: (input) {
                       if (input!.isEmpty) {
@@ -325,6 +328,7 @@ class _PostJobRegisterState extends State<PostJobRegister> {
                   child: TextFieldBasic(
                     controller: wageMaxController,
                     isDarkMode: darkMode,
+                    keyboardType: TextInputType.number,
                     hintText: "Lương tối đa (VNĐ)",
                     validator: (input) {
                       if (input!.isEmpty) {
@@ -384,6 +388,7 @@ class _PostJobRegisterState extends State<PostJobRegister> {
                   child: TextFieldBasic(
                     controller: candidateMinAgeController,
                     isDarkMode: darkMode,
+                    keyboardType: TextInputType.number,
                     hintText: "Độ tuổi tối thiểu",
                     validator: (input) {
                       if (input!.isEmpty) {
@@ -396,6 +401,7 @@ class _PostJobRegisterState extends State<PostJobRegister> {
                 SizedBox(
                   height: 85,
                   child: TextFieldBasic(
+                    keyboardType: TextInputType.number,
                     controller: candidateMaxAgeController,
                     isDarkMode: darkMode,
                     hintText: "Độ tuổi tối đa",
@@ -427,7 +433,7 @@ class _PostJobRegisterState extends State<PostJobRegister> {
           width: double.infinity,
           padding: EdgeInsets.symmetric(horizontal: 20),
           child: ButtonGreenApp(
-              label: "Tiếp theo",
+              label: "Đăng bài",
               onPressed: () {
                 final cubit = context.read<SaveInfoJobPostingCubit>().state;
                 if (formKey.currentState!.validate()) {
@@ -466,8 +472,7 @@ class _PostJobRegisterState extends State<PostJobRegister> {
                     title: titleController.text,
                     numberEmployee: int.parse(numberEmployeeController.text),
                     description: desController.text,
-                    wageType: selectedValue,
-                    // wageTypeDisplay: wageTypeDisplayController.text,
+                    wageType: wageTypeController.text,
                     wageMin: double.parse(wageMinController.text) / 1.0,
                     wageMax: double.parse(wageMaxController.text) / 1.0,
                     candidateGender: candidateGenderController.text,

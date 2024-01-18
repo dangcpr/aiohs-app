@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:rmservice/login/cubit/user_cubit.dart';
+import 'package:rmservice/main_page/main_page.dart';
 import 'package:rmservice/post_job/views/job_activing.dart';
 import 'package:rmservice/post_job/views/job_closed.dart';
 import 'package:rmservice/post_job/views/job_posted.dart';

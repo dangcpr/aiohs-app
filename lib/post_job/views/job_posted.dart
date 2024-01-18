@@ -40,8 +40,17 @@ class _JobPostedState extends State<JobPosted> {
               ? Center(child: Text("Đã có lỗi xảy ra"))
               : Column(
                   children: [
-                    for (int i = 0; i < getHistory.posts.length; i++)
-                      CardHistoryPost(post: getHistory.posts[i]),
+                    getHistory.posts.length != 0
+                        ? ListView.builder(
+                            physics: NeverScrollableScrollPhysics(),
+                            itemCount: getHistory.posts.length,
+                            shrinkWrap: true,
+                            itemBuilder: (context, index) {
+                              return CardHistoryPost(
+                                  post: getHistory.posts[index]);
+                            })
+                        : Center(
+                            child: Text("Bạn chưa đăng tin tuyển dụng nào")),
                     //loading
                     BlocBuilder<GetHistoryPostCubit, GetHistoryPostState>(
                         builder: (context, state) {
@@ -53,11 +62,11 @@ class _JobPostedState extends State<JobPosted> {
                           ),
                         );
                       }
-                      if (state is GetHistoryPostFailed) {
-                        return Center(
-                          child: Text(state.message),
-                        );
-                      }
+                      // if (state is GetHistoryPostFailed) {
+                      //   return Center(
+                      //     child: Text(state.message),
+                      //   );
+                      // }
                       return Container();
                     }),
                   ],

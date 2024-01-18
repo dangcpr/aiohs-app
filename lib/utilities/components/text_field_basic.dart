@@ -12,6 +12,7 @@ class TextFieldBasic extends StatefulWidget {
     this.onChanged,
     this.validator,
     this.enabled = true,
+    this.keyboardType = TextInputType.text,
     //required this.errorText,
   });
 
@@ -24,6 +25,7 @@ class TextFieldBasic extends StatefulWidget {
   final String? Function(String?)? validator;
   final bool enabled;
   //final String errorText;
+  final TextInputType? keyboardType;
 
   @override
   State<TextFieldBasic> createState() => _TextFieldBasicState();
@@ -34,8 +36,8 @@ class _TextFieldBasicState extends State<TextFieldBasic> {
   Widget build(BuildContext context) {
     return TextFormField(
       //inputFormatters: [ThousandsFormatter()],
-      //keyboardType: TextInputType.number,
       controller: widget.controller,
+      keyboardType: widget.keyboardType,
       readOnly: widget.isReadOnly ?? false,
       style: TextStyle(
         fontFamily: fontApp,

@@ -43,7 +43,6 @@ class PostJobRepo {
           "number_employee": postJobInfo.numberEmployee,
           "description": postJobInfo.description,
           "wage_type": postJobInfo.wageType,
-          "wage_type_display": postJobInfo.wageTypeDisplay,
           "wage_min": postJobInfo.wageMin,
           "wage_max": postJobInfo.wageMax,
           "images": postJobInfo.images,
@@ -140,7 +139,6 @@ class PostJobRepo {
       await Future.delayed(const Duration(milliseconds: 500));
       if (response.data['code'] == 0) {
         List<HistoryJobPosting> posts = [];
-        print('data reponse: ${response.data['jobs'][0]['wage_max'].runtimeType}');
 
         posts = (response.data['jobs'] as List)
             .map((e) => HistoryJobPosting.fromJson(e))
@@ -154,7 +152,7 @@ class PostJobRepo {
         print(
             "-------------------------------------------------------------------------------");
 
-        return PostResult(posts, 0);
+        return PostResult(posts, "0");
       } else {
         throw response.data['message'];
       }
@@ -175,12 +173,13 @@ class PostJobRepo {
   }
 
   Future<PostResult> getPostAll(
-      double distance, String userCode, int next) async {
+      double distance, String userCode, String next) async {
     try {
       final response = await dio.get(
         '/user/$userCode/job-posting/public',
         queryParameters: {"distances": distance, "limit": 15, "next": next},
       );
+      debugPrint(response.data.toString());
       await Future.delayed(const Duration(milliseconds: 500));
       if (response.data['code'] == 0) {
         List<HistoryJobPosting> posts = [];
@@ -188,15 +187,14 @@ class PostJobRepo {
             .map((e) => HistoryJobPosting.fromJson(e))
             .toList();
 
-        debugPrint(posts.length.toString());
+        // debugPrint(posts.length.toString());
 
-        print(
-            "-------------------------------------------------------------------------------");
-        print('data reponse: ${response.data}');
-        print(
-            "-------------------------------------------------------------------------------");
+        // print(
+        //     "-------------------------------------------------------------------------------");
+        // print(
+        //     "-------------------------------------------------------------------------------");
 
-        return PostResult(posts, int.tryParse(response.data['next'])!);
+        return PostResult(posts, response.data['next']);
       } else {
         throw response.data['message'];
       }
@@ -213,6 +211,9 @@ class PostJobRepo {
       }
       debugPrint(e.type.toString());
       throw 'Server Error';
+    } catch (e) {
+      debugPrint(e.toString());
+      throw e.toString();
     }
   }
 
