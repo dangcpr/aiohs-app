@@ -192,13 +192,13 @@ class _LoginScreenState extends State<LoginScreen> with InputValidationMixin {
                         ),
                       ),
                       const SizedBox(height: 14),
-                      if (hasOauth == true && !Platform.isIOS)
+                      if (hasOauth == true || (hasOauth == false && !Platform.isIOS))
                         Center(
                           child: Text(AppLocalizations.of(context)!.orLogin,
                               style: Theme.of(context).textTheme.labelMedium),
                         ),
-                      if (hasOauth == true && !Platform.isIOS) const SizedBox(height: 14),
-                      if (hasOauth == true && !Platform.isIOS)
+                      if (hasOauth == true || (hasOauth == false && !Platform.isIOS)) const SizedBox(height: 14),
+                      if (hasOauth == true || (hasOauth == false && !Platform.isIOS))
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
@@ -217,7 +217,7 @@ class _LoginScreenState extends State<LoginScreen> with InputValidationMixin {
                             ),
                           ],
                         ),
-                      if (hasOauth == true) const SizedBox(height: 14),
+                      if (hasOauth == true || (hasOauth == false && !Platform.isIOS)) const SizedBox(height: 14),
                       Center(
                         child: InkWell(
                           onTap: () => Navigator.push(

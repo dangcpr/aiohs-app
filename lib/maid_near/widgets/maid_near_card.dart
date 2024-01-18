@@ -52,7 +52,7 @@ class _MaidNearCardState extends State<MaidNearCard> {
               children: [
                 Icon(Icons.star, color: Color.fromARGB(255, 255, 235, 59)),
                 Text(
-                  widget.maidNear.avg_star.toString(),
+                  widget.maidNear.avg_star.toStringAsFixed(1),
                   style: TextStyle(
                     fontFamily: fontBoldApp,
                     fontSize: fontSize.medium,
