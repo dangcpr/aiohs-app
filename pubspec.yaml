@@ -75,7 +75,7 @@ dependencies:
   flutter_login_facebook: ^1.9.0
   cloudinary: ^1.2.0
   jiffy: ^6.2.1
-  web_socket_channel: ^2.4.1
+  web_socket_channel: ^2.4.0
   flutter_chat_ui: ^1.6.10
   firebase_remote_config: ^4.3.8
   firebase_analytics: ^10.8.0

@@ -26,11 +26,11 @@ class HistoryJobPosting {
   late final String status;
   late final String statusDisplay;
   late final String userCode;
-  late final double longitude;
-  late final double latitude;
+  late final num longitude;
+  late final num latitude;
   late final String workingAddress;
   late final String title;
-  late final int numberEmployee;
+  late final num numberEmployee;
   late final String description;
   late final String wageType;
   late final String wageTypeDisplay;
@@ -38,8 +38,8 @@ class HistoryJobPosting {
   late final double wageMax;
   late final List<String> images;
   late final String candidateGender;
-  late final int candidateMinAge;
-  late final int candidateMaxAge;
+  late final num candidateMinAge;
+  late final num candidateMaxAge;
   late final String candidateExperience;
   late final String createdAt;
   late final String updatedAt;
@@ -57,8 +57,8 @@ class HistoryJobPosting {
     description = json['description'];
     wageType = json['wage_type'];
     wageTypeDisplay = json['wage_type_display'];
-    wageMin = json['wage_min'].runtimeType == int ? json['wage_min'].toDouble() : json['wage_min'];
-    wageMax = json['wage_max'].runtimeType == int ? json['wage_max'].toDouble() : json['wage_max'];
+    wageMin = json['wage_min'].toDouble();
+    wageMax = json['wage_max'].toDouble();
     images = List.castFrom<dynamic, String>(json['images']);
     candidateGender = json['candidate_gender'];
     candidateMinAge = json['candidate_min_age'];

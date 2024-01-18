@@ -13,7 +13,7 @@ import 'package:uuid/uuid.dart';
 class ChatPage extends StatefulWidget {
   final String chatToken;
   late WebSocketChannel channel = IOWebSocketChannel.connect(
-      Uri.parse('ws://192.168.220.131:8080/ws/chat/start?key=$chatToken'));
+      Uri.parse('ws://192.168.206.129:8080/ws/chat/start?key=$chatToken'));
 
   ChatPage({super.key, required this.chatToken});
 

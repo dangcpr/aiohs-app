@@ -152,7 +152,7 @@ class PostJobRepo {
         print(
             "-------------------------------------------------------------------------------");
 
-        return PostResult(posts, 0);
+        return PostResult(posts, "0");
       } else {
         throw response.data['message'];
       }
@@ -173,12 +173,13 @@ class PostJobRepo {
   }
 
   Future<PostResult> getPostAll(
-      double distance, String userCode, int next) async {
+      double distance, String userCode, String next) async {
     try {
       final response = await dio.get(
         '/user/$userCode/job-posting/public',
         queryParameters: {"distances": distance, "limit": 15, "next": next},
       );
+      debugPrint(response.data.toString());
       await Future.delayed(const Duration(milliseconds: 500));
       if (response.data['code'] == 0) {
         List<HistoryJobPosting> posts = [];
@@ -186,15 +187,14 @@ class PostJobRepo {
             .map((e) => HistoryJobPosting.fromJson(e))
             .toList();
 
-        debugPrint(posts.length.toString());
+        // debugPrint(posts.length.toString());
 
-        print(
-            "-------------------------------------------------------------------------------");
-        print('data reponse: ${response.data}');
-        print(
-            "-------------------------------------------------------------------------------");
+        // print(
+        //     "-------------------------------------------------------------------------------");
+        // print(
+        //     "-------------------------------------------------------------------------------");
 
-        return PostResult(posts, int.tryParse(response.data['next'])!);
+        return PostResult(posts, response.data['next']);
       } else {
         throw response.data['message'];
       }
@@ -211,6 +211,9 @@ class PostJobRepo {
       }
       debugPrint(e.type.toString());
       throw 'Server Error';
+    } catch (e) {
+      debugPrint(e.toString());
+      throw e.toString();
     }
   }
 
