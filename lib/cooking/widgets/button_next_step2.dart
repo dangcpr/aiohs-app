@@ -1,5 +1,7 @@
 // ignore_for_file: use_build_context_synchronously
 
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
@@ -77,8 +79,8 @@ class _ButtonNextStep2State extends State<ButtonNextStep2> {
           ButtonGreenApp(
             label: AppLocalizations.of(context)!.nextLabel,
             onPressed: () async {
-              if (await DatetimeSetting.timeIsAuto() == false ||
-                  await DatetimeSetting.timeZoneIsAuto() == false) {
+              if (Platform.isAndroid && (await DatetimeSetting.timeIsAuto() == false ||
+                  await DatetimeSetting.timeZoneIsAuto() == false)) {
                 showDialog(
                     context: context,
                     builder: (context) {

@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:datetime_setting/datetime_setting.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -74,8 +76,8 @@ class _FloatingStep4State extends State<FloatingStep4> {
                   : ButtonGreenApp(
                       label: AppLocalizations.of(context)!.nextLabel,
                       onPressed: () async {
-                        if (await DatetimeSetting.timeIsAuto() == false ||
-                            await DatetimeSetting.timeZoneIsAuto() == false) {
+                        if (Platform.isAndroid && (await DatetimeSetting.timeIsAuto() == false ||
+                            await DatetimeSetting.timeZoneIsAuto() == false)) {
                           showDialog(
                             context: context,
                             builder: (context) {

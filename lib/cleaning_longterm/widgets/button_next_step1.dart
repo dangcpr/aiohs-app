@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:datetime_setting/datetime_setting.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -83,8 +85,8 @@ class _ButtonNextStep1State extends State<ButtonNextStep1> {
                 });
             return;
           }
-          if (await DatetimeSetting.timeIsAuto() == false ||
-              await DatetimeSetting.timeZoneIsAuto() == false) {
+          if (Platform.isAndroid && (await DatetimeSetting.timeIsAuto() == false ||
+              await DatetimeSetting.timeZoneIsAuto() == false)) {
             showDialog(
                 context: context,
                 builder: (context) {
