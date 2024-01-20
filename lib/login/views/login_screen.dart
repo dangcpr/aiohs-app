@@ -196,32 +196,33 @@ class _LoginScreenState extends State<LoginScreen> with InputValidationMixin {
                         ),
                       ),
                       const SizedBox(height: 14),
-                      if (hasOauth == true || (hasOauth == false && !Platform.isIOS))
+                      if ((hasOauth_G == true || hasOauth_F == true) || !Platform.isIOS)
                         Center(
                           child: Text(AppLocalizations.of(context)!.orLogin,
                               style: Theme.of(context).textTheme.labelMedium),
                         ),
-                      if (hasOauth == true || (hasOauth == false && !Platform.isIOS)) const SizedBox(height: 14),
-                      if (hasOauth == true || (hasOauth == false && !Platform.isIOS))
+                      if ((hasOauth_G == true || hasOauth_F == true) || !Platform.isIOS) const SizedBox(height: 14),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            socialButton(
-                              assetString: AppAssets.google,
-                              onTap: () async {
-                                context.read<LoginCubit>().logInGoogle();
-                              },
-                            ),
-                            const SizedBox(width: 15),
-                            socialButton(
-                              assetString: AppAssets.facebook,
-                              onTap: () async {
-                                context.read<LoginCubit>().logInFB();
-                              },
-                            ),
+                            if (hasOauth_G == true || !Platform.isIOS)
+                              socialButton(
+                                assetString: AppAssets.google,
+                                onTap: () async {
+                                  context.read<LoginCubit>().logInGoogle();
+                                },
+                              ),
+                            if (hasOauth_F == true || !Platform.isIOS) const SizedBox(width: 15),
+                            if (hasOauth_F == true || !Platform.isIOS)
+                              socialButton(
+                                assetString: AppAssets.facebook,
+                                onTap: () async {
+                                  context.read<LoginCubit>().logInFB();
+                                },
+                              ),
                           ],
                         ),
-                      if (hasOauth == true || (hasOauth == false && !Platform.isIOS)) const SizedBox(height: 14),
+                      if ((hasOauth_G == true || hasOauth_F == true) || !Platform.isIOS) const SizedBox(height: 14),
                       Center(
                         child: InkWell(
                           onTap: () => Navigator.push(

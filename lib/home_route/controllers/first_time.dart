@@ -41,12 +41,15 @@ class FirstTimeController {
         minimumFetchInterval: const Duration(hours: 1),
       ));
       //await remoteConfig.fetchAndActivate();
-      hasOauth = remoteConfig.getBool('oauth');
-      debugPrint(hasOauth.toString());
+      hasOauth_G = remoteConfig.getBool('oauth_G');
+      hasOauth_F = remoteConfig.getBool('oauth_F');
+      debugPrint(hasOauth_G.toString());
+      debugPrint(hasOauth_F.toString());
       remoteConfig.onConfigUpdated.listen((event) async {
         await remoteConfig.activate();
 
-        hasOauth = remoteConfig.getBool('oauth');
+        hasOauth_G = remoteConfig.getBool('oauth_G');
+        hasOauth_F = remoteConfig.getBool('oauth_F');
       });
     } catch (e) {
       debugPrint(e.toString());

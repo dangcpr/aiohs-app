@@ -87,6 +87,30 @@ class _CreateRentalScreenState extends State<CreateRentalScreen> {
                     fontSize: fontSize.medium,
                   ),
                 ).show();
+                return;
+              }
+            }
+
+            if (formKey.currentState!.validate()) {
+              debugPrint(context.read<SaveAddressCubit>().state!.address);
+              if (context.read<ImagesPlaceCubit>().state.isEmpty) {
+                AwesomeDialog(
+                  context: context,
+                  dialogType: DialogType.error,
+                  animType: AnimType.topSlide,
+                  title: "Chưa có hình ảnh chỗ thuê",
+                  titleTextStyle: TextStyle(
+                    fontFamily: fontBoldApp,
+                    fontSize: fontSize.large,
+                    color: Colors.red,
+                  ),
+                  desc: "Chưa có hình ảnh chỗ thuê. Vui lòng thêm ảnh.",
+                  btnCancelOnPress: () {},
+                  descTextStyle: TextStyle(
+                    fontFamily: fontApp,
+                    fontSize: fontSize.medium,
+                  ),
+                ).show();
               } else {
                 RentalPlace rentalPlace = RentalPlace(
                   title: titleController.text,
@@ -109,8 +133,10 @@ class _CreateRentalScreenState extends State<CreateRentalScreen> {
                       ));
                     });
                 try {
-                  await PlacePageController()
-                      .createPlaceRental(rentalPlace, userCubit.state.code!, context.read<ImagesPlaceCubit>().state);
+                  await PlacePageController().createPlaceRental(
+                      rentalPlace,
+                      userCubit.state.code!,
+                      context.read<ImagesPlaceCubit>().state);
                   Navigator.pop(context);
                   AwesomeDialog(
                     context: context,
@@ -128,7 +154,9 @@ class _CreateRentalScreenState extends State<CreateRentalScreen> {
                       fontSize: fontSize.medium,
                     ),
                   ).show();
-                  context.read<GetPlaceUserCubit>().getPlaceUser(userCubit.state.code!);
+                  context
+                      .read<GetPlaceUserCubit>()
+                      .getPlaceUser(userCubit.state.code!);
                 } catch (e) {
                   Navigator.pop(context);
                   AwesomeDialog(
@@ -285,7 +313,7 @@ class _CreateRentalScreenState extends State<CreateRentalScreen> {
                   if (value!.isEmpty) {
                     return AppLocalizations.of(context)!.signupEmptyError;
                   }
-                  if(value.contains("-") ){
+                  if (value.contains("-")) {
                     return "Tên địa điểm không được chứa dấu -";
                   }
                   return null;

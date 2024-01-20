@@ -15,7 +15,8 @@ final cloudinary = Cloudinary.signedConfig(
   apiKey: "148632498765894",
   apiSecret: "r813jppTpHitSkg3kCdCQ_nEQFE",
 );
-bool hasOauth = false;
+bool hasOauth_G = false;
+bool hasOauth_F = false;
 
 const nameAppShort = "AIOHS";
 
