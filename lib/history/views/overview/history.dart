@@ -22,8 +22,10 @@ class _HistoryPageState extends State<HistoryPage> {
           automaticallyImplyLeading: false,
           titleSpacing: 0,
           flexibleSpace: Column(
+            mainAxisSize: MainAxisSize.min,
             children: [
               TabBar(
+                tabAlignment: TabAlignment.center,
                 indicatorColor: colorProject.primaryColor,
                 labelStyle: TextStyle(
                   color: colorProject.primaryColor,

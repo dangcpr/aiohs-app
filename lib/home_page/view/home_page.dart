@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:page_transition/page_transition.dart';
 import 'package:rmservice/account/account.dart';
 import 'package:rmservice/get_product/cubits/get_product/get_product_cubit.dart';
 import 'package:rmservice/get_product/cubits/get_product/get_product_state.dart';
 import 'package:rmservice/history/views/overview/history.dart';
 import 'package:rmservice/main_page/main_page.dart';
 import 'package:rmservice/message_page/message_page.dart';
+import 'package:rmservice/notification/views/noti_page.dart';
 import 'package:rmservice/place_page/views/place_page.dart';
-import 'package:rmservice/profile/profile.dart';
 import 'package:rmservice/shopping/widgets/dialog_wrong.dart';
 import 'package:rmservice/utilities/constants/variable.dart';
 
@@ -80,11 +81,23 @@ class HomePageState extends State<HomePage> {
               ),
             ),
             actions: [
-              const Icon(
-                Icons.notifications,
-                color: colorProject.primaryColor,
+              InkWell(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    PageTransition(
+                      type: PageTransitionType.rightToLeftWithFade,
+                      duration: const Duration(milliseconds: 300),
+                      child: NotiPage(),
+                    ),
+                  );
+                },
+                child: Icon(
+                  Icons.notifications,
+                  color: colorProject.primaryColor,
+                ),
               ),
-              const SizedBox(width: 20),
+              SizedBox(width: 20),
             ],
           ),
           bottomNavigationBar: Container(
