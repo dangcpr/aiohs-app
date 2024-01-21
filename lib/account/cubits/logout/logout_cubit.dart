@@ -5,10 +5,10 @@ import 'package:rmservice/authentication_repository/authentication_repository.da
 class LogoutCubit extends Cubit<LogoutState> {
   LogoutCubit() : super(LogoutInitial());
 
-  Future<void> logout() async {
+  Future<void> logout(String userCode) async {
     emit(LogoutLoading());
     try {
-      await AuthenticationRepository().logOut();
+      await AuthenticationRepository().logOut(userCode);
       emit(LogoutSuccess());
     } catch (e) {
       emit(LogoutFailure(error: e.toString()));

@@ -4,6 +4,7 @@ import 'package:rmservice/utilities/constants/variable.dart';
 ThemeData darkTheme = ThemeData(
   primaryColor: Color(0xFF00B27D),
   useMaterial3: true,
+  fontFamily: 'GoogleSans-Regular',
   brightness: Brightness.dark,
     textSelectionTheme: TextSelectionThemeData(
     selectionHandleColor: colorProject.primaryColor,

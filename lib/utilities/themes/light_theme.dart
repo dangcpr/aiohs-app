@@ -5,6 +5,7 @@ ThemeData lightTheme = ThemeData(
   primaryColor: Color(0xFF00B27D),
   useMaterial3: true,
   brightness: Brightness.light,
+  fontFamily: 'GoogleSans-Regular',
   textSelectionTheme: TextSelectionThemeData(
     selectionHandleColor: colorProject.primaryColor,
   ),

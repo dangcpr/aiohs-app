@@ -1,6 +1,7 @@
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:rmservice/utilities/constants/variable.dart';
 
 class NotificationController {
   Future<void> init() async {
@@ -17,7 +18,8 @@ class NotificationController {
     );
 
     print('User granted permission: ${settings.authorizationStatus}');
-    debugPrint(await messaging.getToken());
+    fcmToken = await messaging.getToken() ?? "";
+    debugPrint(fcmToken);
 
     //push notification in open app
     FirebaseMessaging.onMessage.listen(

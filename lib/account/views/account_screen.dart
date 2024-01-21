@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:rmservice/account/helpers/account.dart';
 import 'package:rmservice/account/widgets/info_account.dart';
 import 'package:rmservice/account/widgets/option_card.dart';
+import 'package:rmservice/login/cubit/user_cubit.dart';
 import 'package:rmservice/profile/profile.dart';
 
 class AccountScreen extends StatefulWidget {
@@ -39,7 +41,7 @@ class _AccountScreenState extends State<AccountScreen> {
             AccountHelper().getUserAddress(context);
           }),
       OptionCard(text: "Đăng xuất", icon: Icons.logout, onTap: () {
-        AccountHelper().logOut(context);
+        AccountHelper().logOut(context, context.read<UserCubit>().state.code!);
       }),
     ]);
   }

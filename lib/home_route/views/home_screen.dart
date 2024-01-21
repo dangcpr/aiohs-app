@@ -4,7 +4,9 @@
 //Nếu đã đăng nhập => Vô Main screen (cài đặt sau)
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:rmservice/login/views/login_screen.dart';
+import 'package:rmservice/authentication_repository/authentication_repository.dart';
+import 'package:rmservice/home_page/home_page.dart';
+import 'package:rmservice/login/cubit/user_cubit.dart';
 import 'package:rmservice/utilities/components/circle_indicator_screen.dart';
 import 'package:rmservice/utilities/constants/function.dart';
 import 'package:rmservice/home_route/cubits/get_first_time/get_first_time_cubit.dart';
@@ -43,7 +45,14 @@ class _IntroScreenState extends State<IntroScreen> {
               if (state.firstTime == true) {
                 return IntroScreenApp();
               } else {
-                return LoginPage(first_time: false);
+                if(state.loginModel.status != AuthenticationStatus.authenticated){
+                  return LoginPage(first_time: false);
+                } else {
+                  debugPrint("456");
+                  context.read<UserCubit>().setUser(state.loginModel.user!);
+                  //debugPrint(state.loginModel.user!.code.toString());
+                  return HomePage();
+                }
               }
             }
 

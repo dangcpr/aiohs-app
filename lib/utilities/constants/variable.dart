@@ -1,6 +1,7 @@
 import 'package:cloudinary/cloudinary.dart';
 import 'package:flutter/material.dart';
 
+String fcmToken = "";
 const nameApp = "AIO Home Serives";
 //const debugServer = "http://192.168.220.131:9000";
 const debugServer = "http://192.168.206.129:9000";

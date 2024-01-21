@@ -57,4 +57,5 @@ class FirstTimeController {
       throw 'Something went wrong';
     }
   }
+
 }

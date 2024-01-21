@@ -31,9 +31,9 @@ class AuthenticationRepository {
 
   Future<AuthenticationStatus> isLogged() async {
     const storage = FlutterSecureStorage();
-    String refreshToken = await storage.read(key: "refreshToken") ?? "";
+    String accessToken = await storage.read(key: "accessToken") ?? "";
     try {
-      bool hasExpired = JwtDecoder.isExpired(refreshToken);
+      bool hasExpired = JwtDecoder.isExpired(accessToken);
       if (!hasExpired) {
         _controller.add(AuthenticationStatus.authenticated);
         return AuthenticationStatus.authenticated;
@@ -73,17 +73,28 @@ class AuthenticationRepository {
         // await storage.write(
         //     key: 'uid',
         //     value: response.data['response']['user']['id'].toString());
-        
-          _controller.add(AuthenticationStatus.authenticated);
-          await storage.write(key: 'token', value: response.data['token']);
-          String token = await storage.read(key: 'token') ?? "";
-          print('token got: $token');
-          loginModel = LoginModel(
-            status: AuthenticationStatus.authenticated,
-            user: User.fromJson(response.data['user']),
-          );
 
-        return loginModel;
+        _controller.add(AuthenticationStatus.authenticated);
+        await storage.write(key: 'token', value: response.data['token']);
+        String token = await storage.read(key: 'token') ?? "";
+        print('token got: $token');
+        loginModel = LoginModel(
+          status: AuthenticationStatus.authenticated,
+          user: User.fromJson(response.data['user']),
+        );
+
+        var response2 = await dio.post('/user/${loginModel.user!.code!}/token',
+            data: {'token': fcmToken});
+        try {
+          if (response2.data['code'] == 0) {
+            debugPrint("post token success");
+            return loginModel;
+          } else {
+            throw response2.data['message'];
+          }
+        } catch (e) {
+          throw e.toString();
+        }
       } else {
         if (response.data['code'] == 2) {
           //debugPrint(response.data['user']['status']);
@@ -117,7 +128,7 @@ class AuthenticationRepository {
     }
   }
 
-  Future<void> logOut() async {
+  Future<void> logOut(String userCode) async {
     const storage = FlutterSecureStorage();
     // String refreshToken = await storage.read(key: 'refreshToken') ?? "";
     // var options = BaseOptions(
@@ -132,6 +143,16 @@ class AuthenticationRepository {
       //     .request("/auth/logout", data: {"refreshToken": refreshToken});
       // if (response.statusCode == HttpStatus.noContent) //204
       // {
+      var dio = Dio(
+        BaseOptions(
+          contentType: 'application/json',
+          method: 'DELETE',
+          baseUrl: debugServer,
+          validateStatus: (status) {
+            return status! < 500;
+          },
+        ),
+      );
 
       GoogleSignIn googleSignIn = GoogleSignIn();
       await googleSignIn.signOut();
@@ -141,10 +162,18 @@ class AuthenticationRepository {
 
       await storage.deleteAll();
       _controller.add(AuthenticationStatus.unauthenticated);
-      // } else {
-      //   await storage.deleteAll();
-      //   _controller.add(AuthenticationStatus.unauthenticated);
-      // }
+
+      var response2 = await dio.delete('/user/$userCode/token',
+          queryParameters: {'token': fcmToken});
+      try {
+        if (response2.data['code'] == 0) {
+          debugPrint("delete token success");
+        } else {
+          throw response2.data['message'];
+        }
+      } catch (e) {
+        throw e.toString();
+      }
     } catch (error) {
       await storage.deleteAll();
       debugPrint(error.toString());
@@ -180,7 +209,7 @@ class AuthenticationRepository {
         return status! < 500;
       },
     );
-    
+
     final dio = Dio(options);
 
     try {
@@ -209,6 +238,20 @@ class AuthenticationRepository {
             status: AuthenticationStatus.authenticated,
             user: User.fromJson(response.data['user']),
           );
+
+          var response2 = await dio.post(
+              '/user/${loginModel.user!.code!}/token',
+              data: {'token': fcmToken});
+          try {
+            if (response2.data['code'] == 0) {
+              debugPrint("post token success");
+              return loginModel;
+            } else {
+              throw response2.data['message'];
+            }
+          } catch (e) {
+            throw e.toString();
+          }
         }
         return loginModel;
       } else {
@@ -306,6 +349,20 @@ class AuthenticationRepository {
             status: AuthenticationStatus.authenticated,
             user: User.fromJson(response.data['user']),
           );
+
+          var response2 = await dio.post(
+              '/user/${loginModel.user!.code!}/token',
+              data: {'token': fcmToken});
+          try {
+            if (response2.data['code'] == 0) {
+              debugPrint("post token success");
+              return loginModel;
+            } else {
+              throw response2.data['message'];
+            }
+          } catch (e) {
+            throw e.toString();
+          }
         }
         return loginModel;
       } else {
@@ -317,6 +374,65 @@ class AuthenticationRepository {
       }
     } catch (error) {
       print('test: ${error.toString()}');
+      if (error is DioError &&
+          error.response?.statusCode == HttpStatus.unauthorized) {
+        _controller.add(AuthenticationStatus.unauthenticated);
+        LoginModel loginModel = LoginModel(
+          status: AuthenticationStatus.unauthenticated,
+        );
+        return loginModel;
+      } else {
+        _controller.add(AuthenticationStatus.error);
+        LoginModel loginModel = LoginModel(
+          status: AuthenticationStatus.error,
+        );
+        return loginModel;
+      }
+    }
+  }
+
+  Future<LoginModel> autoLogin() async {
+    try {
+      const storage = FlutterSecureStorage();
+      String token = await storage.read(key: "token") ?? "";
+      debugPrint('token auto:' + token);
+      if (token == "") {
+        _controller.add(AuthenticationStatus.unauthenticated);
+        LoginModel loginModel = LoginModel(
+          status: AuthenticationStatus.unknown,
+        );
+        return loginModel;
+      } else {
+        Dio dio = Dio(
+          BaseOptions(
+            contentType: 'application/json',
+            method: 'GET',
+            baseUrl: debugServer,
+            validateStatus: (status) {
+              return status! < 500;
+            },
+          ),
+        );
+        var response =
+            await dio.post('/user/login:auto', data: {'token': token});
+        if (response.data['code'] == 0) {
+          debugPrint("auto login success");
+          _controller.add(AuthenticationStatus.authenticated);
+          LoginModel loginModel = LoginModel(
+            status: AuthenticationStatus.authenticated,
+            user: User.fromJson(response.data['user']),
+          );
+          return loginModel;
+        } else {
+          _controller.add(AuthenticationStatus.unauthenticated);
+          LoginModel loginModel = LoginModel(
+            status: AuthenticationStatus.unauthenticated,
+          );
+          return loginModel;
+        }
+      }
+    } catch (error) {
+      //print('test: ${error.toString()}');
       if (error is DioError &&
           error.response?.statusCode == HttpStatus.unauthorized) {
         _controller.add(AuthenticationStatus.unauthenticated);

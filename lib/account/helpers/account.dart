@@ -53,7 +53,7 @@ class AccountHelper {
     }
   }
 
-  void logOut(BuildContext context) async {
+  void logOut(BuildContext context, String userCode) async {
     showDialog(
       context: context,
       builder: (context) {
@@ -63,7 +63,7 @@ class AccountHelper {
       },
     );
     try {
-      await context.read<LogoutCubit>().logout();
+      await context.read<LogoutCubit>().logout(userCode);
       Navigator.pop(context);
       Navigator.pushReplacement(
         context,
