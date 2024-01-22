@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -67,12 +68,16 @@ class _LoginScreenState extends State<LoginScreen> with InputValidationMixin {
           );
         } else if (state is LoginFailure) {
           Navigator.pop(context);
-          showCustomDialog(
+          AwesomeDialog(
             context: context,
-            dialogType: CustomDialogType.FAILURE,
-            msg: state.error.toString(),
-            isMultipleButton: false,
-          );
+            dialogType: DialogType.error,
+            titleTextStyle: const TextStyle(color: Colors.red, fontSize: 20),
+            animType: AnimType.topSlide,
+            showCloseIcon: true,
+            title: "Login Failed",
+            desc: state.error,
+            btnOkOnPress: () {},
+          ).show();
         } else if (state is LoginSuccess) {
           Navigator.pop(context);
           Navigator.pushReplacement(
@@ -196,33 +201,39 @@ class _LoginScreenState extends State<LoginScreen> with InputValidationMixin {
                         ),
                       ),
                       const SizedBox(height: 14),
-                      if ((hasOauth_G == true || hasOauth_F == true) || !Platform.isIOS)
+                      if ((hasOauth_G == true || hasOauth_F == true) ||
+                          !Platform.isIOS)
                         Center(
                           child: Text(AppLocalizations.of(context)!.orLogin,
                               style: Theme.of(context).textTheme.labelMedium),
                         ),
-                      if ((hasOauth_G == true || hasOauth_F == true) || !Platform.isIOS) const SizedBox(height: 14),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            if (hasOauth_G == true || !Platform.isIOS)
-                              socialButton(
-                                assetString: AppAssets.google,
-                                onTap: () async {
-                                  context.read<LoginCubit>().logInGoogle();
-                                },
-                              ),
-                            if (hasOauth_F == true || !Platform.isIOS) const SizedBox(width: 15),
-                            if (hasOauth_F == true || !Platform.isIOS)
-                              socialButton(
-                                assetString: AppAssets.facebook,
-                                onTap: () async {
-                                  context.read<LoginCubit>().logInFB();
-                                },
-                              ),
-                          ],
-                        ),
-                      if ((hasOauth_G == true || hasOauth_F == true) || !Platform.isIOS) const SizedBox(height: 14),
+                      if ((hasOauth_G == true || hasOauth_F == true) ||
+                          !Platform.isIOS)
+                        const SizedBox(height: 14),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          if (hasOauth_G == true || !Platform.isIOS)
+                            socialButton(
+                              assetString: AppAssets.google,
+                              onTap: () async {
+                                context.read<LoginCubit>().logInGoogle();
+                              },
+                            ),
+                          if (hasOauth_F == true || !Platform.isIOS)
+                            const SizedBox(width: 15),
+                          if (hasOauth_F == true || !Platform.isIOS)
+                            socialButton(
+                              assetString: AppAssets.facebook,
+                              onTap: () async {
+                                context.read<LoginCubit>().logInFB();
+                              },
+                            ),
+                        ],
+                      ),
+                      if ((hasOauth_G == true || hasOauth_F == true) ||
+                          !Platform.isIOS)
+                        const SizedBox(height: 14),
                       Center(
                         child: InkWell(
                           onTap: () => Navigator.push(

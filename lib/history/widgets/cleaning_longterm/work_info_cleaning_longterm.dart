@@ -22,8 +22,8 @@ class _HistoryInfoCleaningLongTermState
   @override
   Widget build(BuildContext context) {
     String locale = Localizations.localeOf(context).languageCode;
-    DateTime orderDate = new DateFormat("yyyy-MM-dd HH:mm:ss")
-        .parse(widget.order.orderCleaningLongTerm.workingDate);
+    // DateTime orderDate = new DateFormat("yyyy-MM-dd HH:mm:ss")
+    //     .parse(widget.order.detail.orderCleaningSubscription.dates[0]);
     DateTime orderHour = new DateFormat("HH:mm:ss")
         .parse(widget.order.orderCleaningLongTerm.workingHour);
 
@@ -46,27 +46,27 @@ class _HistoryInfoCleaningLongTermState
                 color: widget.isDarkMode ? Colors.white : Colors.black,
               ),
             ),
-            SizedBox(height: 5),
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Icon(
-                  Icons.calendar_month,
-                  color: colorProject.primaryColor,
-                ),
-                SizedBox(width: 8),
-                Flexible(
-                  child: Text(
-                    '${DateFormat.yMMMMEEEEd(locale).format(orderDate)}, ${DateFormat.Hm(locale).format(orderHour)}',
-                    style: TextStyle(
-                      fontSize: fontSize.medium,
-                      fontFamily: fontApp,
-                      color: widget.isDarkMode ? Colors.white : Colors.black,
-                    ),
-                  ),
-                ),
-              ],
-            ),
+            // SizedBox(height: 5),
+            // Row(
+            //   crossAxisAlignment: CrossAxisAlignment.start,
+            //   children: [
+            //     Icon(
+            //       Icons.calendar_month,
+            //       color: colorProject.primaryColor,
+            //     ),
+            //     SizedBox(width: 8),
+            //     Flexible(
+            //       child: Text(
+            //         'Tổng thời gian làm: ${DateFormat.Hm(locale).format(orderHour)}',
+            //         style: TextStyle(
+            //           fontSize: fontSize.medium,
+            //           fontFamily: fontApp,
+            //           color: widget.isDarkMode ? Colors.white : Colors.black,
+            //         ),
+            //       ),
+            //     ),
+            //   ],
+            // ),
             SizedBox(height: 5),
             Row(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -78,7 +78,7 @@ class _HistoryInfoCleaningLongTermState
                 SizedBox(width: 8),
                 Flexible(
                   child: Text(
-                    '${widget.order.detail.orderCleaningSubscription.durationPerDay} ${AppLocalizations.of(context)!.hourLabel}, ${AppLocalizations.of(context)!.fromLabel} ${DateFormat.Hm(locale).format(orderHour)} ${AppLocalizations.of(context)!.toLabel} ${DateFormat.Hm(locale).format(
+                    '${widget.order.detail.orderCleaningSubscription.durationPerDay} ${AppLocalizations.of(context)!.hourLabel}/ngày, ${AppLocalizations.of(context)!.fromLabel} ${DateFormat.Hm(locale).format(orderHour)} ${AppLocalizations.of(context)!.toLabel} ${DateFormat.Hm(locale).format(
                       orderHour.add(
                         Duration(
                             hours: widget.order.detail.orderCleaningSubscription

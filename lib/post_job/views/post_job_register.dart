@@ -43,7 +43,8 @@ class _PostJobRegisterState extends State<PostJobRegister> {
   TextEditingController titleController = TextEditingController();
   TextEditingController numberEmployeeController = TextEditingController();
   TextEditingController desController = TextEditingController();
-  TextEditingController wageTypeController = TextEditingController();
+  TextEditingController wageTypeController =
+      TextEditingController(text: 'WAGE_TYPE_HOURLY');
   TextEditingController wageTypeDisplayController = TextEditingController();
   TextEditingController wageMinController = TextEditingController();
   TextEditingController wageMaxController = TextEditingController();
@@ -76,6 +77,7 @@ class _PostJobRegisterState extends State<PostJobRegister> {
   @override
   Widget build(BuildContext context) {
     bool darkMode = Theme.of(context).brightness == Brightness.dark;
+    wageTypeController = TextEditingController(text: 'WAGE_TYPE_HOURLY');
     return BlocListener<PostJobCubit, PostJobState>(
       listener: (context1, state) {
         // TODO: implement listener
@@ -103,7 +105,6 @@ class _PostJobRegisterState extends State<PostJobRegister> {
             context: context,
             dialogType: DialogType.success,
             animType: AnimType.topSlide,
-            showCloseIcon: true,
             title: "Success",
             desc: 'Post job successfully',
             btnOkOnPress: () {
@@ -123,8 +124,8 @@ class _PostJobRegisterState extends State<PostJobRegister> {
           AwesomeDialog(
             context: context,
             dialogType: DialogType.error,
+            titleTextStyle: TextStyle(color: Colors.red),
             animType: AnimType.topSlide,
-            showCloseIcon: true,
             title: "Failed",
             desc: state.message,
             btnOkOnPress: () {
