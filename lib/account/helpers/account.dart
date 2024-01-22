@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:rmservice/account/cubits/logout/logout_cubit.dart';
+import 'package:rmservice/change_password/views/change_pass_page.dart';
 import 'package:rmservice/login/cubit/login_cubit.dart';
 import 'package:rmservice/login/cubit/user_cubit.dart';
 import 'package:rmservice/login/views/login_page.dart';
@@ -51,6 +52,17 @@ class AccountHelper {
       );
       debugPrint(e.toString());
     }
+  }
+
+  void changePassword(BuildContext context) {
+    Navigator.push(
+      context,
+      PageTransition(
+        duration: Duration(milliseconds: 400),
+        type: PageTransitionType.rightToLeftWithFade,
+        child: ChangePassPage(),
+      ),
+    );
   }
 
   void logOut(BuildContext context, String userCode) async {

@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:rmservice/notification/helpers/handle_error.dart';
+import 'package:rmservice/utilities/constants/handle_error.dart';
 import 'package:rmservice/notification/models/inbox.dart';
 import 'package:rmservice/utilities/constants/variable.dart';
 

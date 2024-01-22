@@ -1,6 +1,6 @@
 class Inbox {
   late String id;
-  late String user_id;
+  late String user_code;
   late String title;
   late String body;
   late String deeplink;
@@ -9,7 +9,7 @@ class Inbox {
 
   Inbox({
     required this.id,
-    required this.user_id,
+    required this.user_code,
     required this.title,
     required this.body,
     required this.deeplink,
@@ -19,7 +19,7 @@ class Inbox {
 
   Inbox.fromJson(Map<String, dynamic> json) {
     id = json['id'];
-    user_id = json['user_id'];
+    user_code = json['user_code'];
     title = json['title'];
     body = json['body'];
     deeplink = json['deeplink'];
@@ -29,7 +29,7 @@ class Inbox {
 
   Map<String, dynamic> toJson() => {
     'id': id,
-    'user_id': user_id,
+    'user_code': user_code,
     'title': title,
     'body': body,
     'deeplink': deeplink,

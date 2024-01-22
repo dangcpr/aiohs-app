@@ -5,6 +5,7 @@ import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:page_transition/page_transition.dart';
 import 'package:rmservice/home_page/home_page.dart';
 import 'package:rmservice/login/cubit/login_cubit.dart';
 import 'package:rmservice/login/cubit/user_cubit.dart';
@@ -171,9 +172,12 @@ class _LoginScreenState extends State<LoginScreen> with InputValidationMixin {
                                 InkWell(
                                   onTap: () => Navigator.push(
                                       context,
-                                      MaterialPageRoute(
-                                          builder: (_) =>
-                                              ForgotPasswordPage())),
+                                      PageTransition(
+                                          duration:
+                                              const Duration(milliseconds: 400),
+                                          type: PageTransitionType
+                                              .rightToLeftWithFade,
+                                          child: ForgotPasswordPage(),),),
                                   child: Text(
                                       AppLocalizations.of(context)!
                                           .forgotPassword,
