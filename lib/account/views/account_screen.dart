@@ -17,11 +17,12 @@ class AccountScreen extends StatefulWidget {
 class _AccountScreenState extends State<AccountScreen> {
   @override
   Widget build(BuildContext context) {
-    return ListView(children: [
-      SizedBox(height: 20),
-      InfoAccount(),
-      SizedBox(height: 20),
-      OptionCard(
+    return ListView(
+      children: [
+        SizedBox(height: 20),
+        InfoAccount(),
+        SizedBox(height: 20),
+        OptionCard(
           text: "Chỉnh sửa thông tin",
           icon: Icons.change_circle,
           onTap: () {
@@ -33,16 +34,31 @@ class _AccountScreenState extends State<AccountScreen> {
                 child: ProfilePage(),
               ),
             );
-          }),
-      OptionCard(
+          },
+        ),
+        OptionCard(
+          text: "Đổi mật khẩu",
+          icon: Icons.password,
+          onTap: () {
+            AccountHelper().changePassword(context);
+          },
+        ),
+        OptionCard(
           text: "Địa chỉ đã lưu",
           icon: Icons.location_on,
           onTap: () async {
             AccountHelper().getUserAddress(context);
-          }),
-      OptionCard(text: "Đăng xuất", icon: Icons.logout, onTap: () {
-        AccountHelper().logOut(context, context.read<UserCubit>().state.code!);
-      }),
-    ]);
+          },
+        ),
+        OptionCard(
+          text: "Đăng xuất",
+          icon: Icons.logout,
+          onTap: () {
+            AccountHelper()
+                .logOut(context, context.read<UserCubit>().state.code!);
+          },
+        ),
+      ],
+    );
   }
 }
