@@ -82,6 +82,7 @@ class LaundryController {
         },
         "received_date":
             '${infoLaundry.sendDate!.year.toString().padLeft(4, '0')}-${infoLaundry.sendDate!.month.toString().padLeft(2, '0')}-${infoLaundry.sendDate!.day.toString().padLeft(2, '0')}',
+        "price_type": infoLaundry.price_type,
       });
       await Future.delayed(const Duration(seconds: 1));
       if (response.data['code'] == 0) {
@@ -128,7 +129,8 @@ class LaundryController {
           "vietnam_dress": infoLaundry.vietnamDress,
           "wedding_dress": infoLaundry.weedingDress,
           "bleaching": infoLaundry.bleaching,
-        }
+        },
+        "price_type": infoLaundry.price_type,
       });
       await Future.delayed(const Duration(milliseconds: 500));
       if (response.statusCode == 200) {

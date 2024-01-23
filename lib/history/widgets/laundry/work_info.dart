@@ -127,7 +127,11 @@ class _WorkInfoLaundryHistoryState extends State<WorkInfoLaundryHistory> {
                   children: [
                     if (widget.order.clothes != 0)
                       Text(
-                        "Quần áo x " + widget.order.clothes.toString() + " bộ",
+                        "Quần áo x " +
+                            widget.order.clothes.toString() +
+                            (widget.order.price_type == 'kg'
+                                ? " kg"
+                                : " bộ"),
                         style: TextStyle(
                           fontSize: fontSize.medium,
                           fontFamily: fontApp,
@@ -137,7 +141,11 @@ class _WorkInfoLaundryHistoryState extends State<WorkInfoLaundryHistory> {
                       ),
                     if (widget.order.blanket != 0)
                       Text(
-                        "Mền x " + widget.order.blanket.toString() + " bộ",
+                        "Mền x " +
+                            widget.order.blanket.toString() +
+                            (widget.order.price_type == 'kg'
+                                ? " kg"
+                                : " bộ"),
                         style: TextStyle(
                           fontSize: fontSize.medium,
                           fontFamily: fontApp,
@@ -149,7 +157,9 @@ class _WorkInfoLaundryHistoryState extends State<WorkInfoLaundryHistory> {
                       Text(
                         "Mùng chống muỗi x " +
                             widget.order.mosquito.toString() +
-                            " bộ",
+                            (widget.order.price_type == 'kg'
+                                ? " kg"
+                                : " bộ"),
                         style: TextStyle(
                           fontSize: fontSize.medium,
                           fontFamily: fontApp,
@@ -159,7 +169,11 @@ class _WorkInfoLaundryHistoryState extends State<WorkInfoLaundryHistory> {
                       ),
                     if (widget.order.net != 0)
                       Text(
-                        "Lưới x " + widget.order.net.toString() + " bộ",
+                        "Lưới x " +
+                            widget.order.net.toString() +
+                            (widget.order.price_type == 'kg'
+                                ? " kg"
+                                : " bộ"),
                         style: TextStyle(
                           fontSize: fontSize.medium,
                           fontFamily: fontApp,
@@ -169,7 +183,11 @@ class _WorkInfoLaundryHistoryState extends State<WorkInfoLaundryHistory> {
                       ),
                     if (widget.order.drap != 0)
                       Text(
-                        "Drap x " + widget.order.drap.toString() + " bộ",
+                        "Drap x " +
+                            widget.order.drap.toString() +
+                            (widget.order.price_type == 'kg'
+                                ? " kg"
+                                : " bộ"),
                         style: TextStyle(
                           fontSize: fontSize.medium,
                           fontFamily: fontApp,
@@ -181,7 +199,9 @@ class _WorkInfoLaundryHistoryState extends State<WorkInfoLaundryHistory> {
                       Text(
                         "Tấm phủ nệm x " +
                             widget.order.topper.toString() +
-                            " bộ",
+                            (widget.order.price_type == 'kg'
+                                ? " kg"
+                                : " bộ"),
                         style: TextStyle(
                           fontSize: fontSize.medium,
                           fontFamily: fontApp,
@@ -191,7 +211,11 @@ class _WorkInfoLaundryHistoryState extends State<WorkInfoLaundryHistory> {
                       ),
                     if (widget.order.pillow != 0)
                       Text(
-                        "Gối x " + widget.order.pillow.toString() + " bộ",
+                        "Gối x " +
+                            widget.order.pillow.toString() +
+                            (widget.order.price_type == 'kg'
+                                ? " kg"
+                                : " bộ"),
                         style: TextStyle(
                           fontSize: fontSize.medium,
                           fontFamily: fontApp,
@@ -201,7 +225,11 @@ class _WorkInfoLaundryHistoryState extends State<WorkInfoLaundryHistory> {
                       ),
                     if (widget.order.comple != 0)
                       Text(
-                        "Com-lê x " + widget.order.comple.toString() + " bộ",
+                        "Com-lê x " +
+                            widget.order.comple.toString() +
+                            (widget.order.price_type == 'kg'
+                                ? " kg"
+                                : " bộ"),
                         style: TextStyle(
                           fontSize: fontSize.medium,
                           fontFamily: fontApp,
@@ -213,7 +241,9 @@ class _WorkInfoLaundryHistoryState extends State<WorkInfoLaundryHistory> {
                       Text(
                         "Áo dài x " +
                             widget.order.vietnam_dress.toString() +
-                            " bộ",
+                            (widget.order.price_type == 'kg'
+                                ? " kg"
+                                : " bộ"),
                         style: TextStyle(
                           fontSize: fontSize.medium,
                           fontFamily: fontApp,
@@ -225,7 +255,9 @@ class _WorkInfoLaundryHistoryState extends State<WorkInfoLaundryHistory> {
                       Text(
                         "Áo cưới x " +
                             widget.order.wedding_dress.toString() +
-                            " bộ",
+                            (widget.order.price_type == 'kg'
+                                ? " kg"
+                                : " bộ"),
                         style: TextStyle(
                           fontSize: fontSize.medium,
                           fontFamily: fontApp,
@@ -237,7 +269,9 @@ class _WorkInfoLaundryHistoryState extends State<WorkInfoLaundryHistory> {
                       Text(
                         "Tẩy trắng đồ giặt x " +
                             widget.order.bleaching.toString() +
-                            " bộ",
+                            (widget.order.price_type == 'kg'
+                                ? " kg"
+                                : " bộ"),
                         style: TextStyle(
                           fontSize: fontSize.medium,
                           fontFamily: fontApp,

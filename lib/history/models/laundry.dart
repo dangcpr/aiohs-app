@@ -32,6 +32,7 @@ class LaundryHistory {
   late int wedding_dress;
   late int bleaching;
   late String note;
+  late String price_type;
 
   LaundryHistory({
     required this.id,
@@ -67,6 +68,7 @@ class LaundryHistory {
     required this.wedding_dress,
     required this.bleaching,
     required this.note,
+    required this.price_type,
   });
 
   LaundryHistory.fromJson(Map<String, dynamic> json) {
@@ -105,6 +107,7 @@ class LaundryHistory {
         json['detail']['order_laundry']['others_clothes']['wedding_dress'];
     bleaching = json['detail']['order_laundry']['others_clothes']['bleaching'];
     note = json['detail']['order_laundry']['note'];
+    price_type = json['detail']['order_laundry']['price_type'];
   }
 
   Map<String, dynamic> toJson() => {
@@ -140,6 +143,7 @@ class LaundryHistory {
         'vietnam_dress': vietnam_dress,
         'wedding_dress': wedding_dress,
         'bleaching': bleaching,
-        'note': note
+        'note': note,
+        'price_type': price_type,
       };
 }

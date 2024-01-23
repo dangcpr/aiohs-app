@@ -14,7 +14,10 @@ import 'package:rmservice/utilities/constants/variable.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class NormalCleaningCard extends StatefulWidget {
-  const NormalCleaningCard({super.key});
+  const NormalCleaningCard(
+      {super.key, this.priceType = 'LAUNDRY_PRICE_TYPE_KG'});
+
+  final String priceType;
 
   @override
   State<NormalCleaningCard> createState() => _NormalCleaningCardState();
@@ -31,9 +34,10 @@ class _NormalCleaningCardState extends State<NormalCleaningCard> {
   void initState() {
     super.initState();
     additionalInfoController.addListener(() {
-      expanded=!expanded;
+      expanded = !expanded;
     });
   }
+
   final formatter = NumberFormat.simpleCurrency(locale: "vi-VN");
   @override
   Widget build(BuildContext context) {
@@ -81,8 +85,13 @@ class _NormalCleaningCardState extends State<NormalCleaningCard> {
                         ),
                       ),
                       Text(
-                        formatter.format(priceLaundryCubit.state.clothes) +
-                            "/bộ",
+                        widget.priceType == 'LAUNDRY_PRICE_TYPE_KG'
+                            ? formatter
+                                    .format(priceLaundryCubit.state.clothes_k) +
+                                "/kg"
+                            : formatter
+                                    .format(priceLaundryCubit.state.clothes) +
+                                "/bộ",
                         style: TextStyle(
                           color: colorProject.primaryColor,
                           fontFamily: fontApp,
@@ -112,8 +121,13 @@ class _NormalCleaningCardState extends State<NormalCleaningCard> {
                         ),
                       ),
                       Text(
-                        formatter.format(priceLaundryCubit.state.blanket) +
-                            "/bộ",
+                        widget.priceType == 'LAUNDRY_PRICE_TYPE_KG'
+                            ? formatter
+                                    .format(priceLaundryCubit.state.blanket_k) +
+                                "/kg"
+                            : formatter
+                                    .format(priceLaundryCubit.state.blanket) +
+                                "/bộ",
                         style: TextStyle(
                           color: colorProject.primaryColor,
                           fontFamily: fontApp,
@@ -143,8 +157,13 @@ class _NormalCleaningCardState extends State<NormalCleaningCard> {
                         ),
                       ),
                       Text(
-                        formatter.format(priceLaundryCubit.state.mosquito) +
-                            "/bộ",
+                        widget.priceType == 'LAUNDRY_PRICE_TYPE_KG'
+                            ? formatter
+                                    .format(priceLaundryCubit.state.mosquito_k) +
+                                "/kg"
+                            : formatter
+                                    .format(priceLaundryCubit.state.mosquito) +
+                                "/bộ",
                         style: TextStyle(
                           color: colorProject.primaryColor,
                           fontFamily: fontApp,
@@ -174,7 +193,12 @@ class _NormalCleaningCardState extends State<NormalCleaningCard> {
                         ),
                       ),
                       Text(
-                        formatter.format(priceLaundryCubit.state.net) + "/bộ",
+                        widget.priceType == 'LAUNDRY_PRICE_TYPE_KG'
+                            ? formatter
+                                    .format(priceLaundryCubit.state.net_k) +
+                                "/kg"
+                            : formatter.format(priceLaundryCubit.state.net) +
+                                "/bộ",
                         style: TextStyle(
                           color: colorProject.primaryColor,
                           fontFamily: fontApp,
@@ -204,7 +228,11 @@ class _NormalCleaningCardState extends State<NormalCleaningCard> {
                         ),
                       ),
                       Text(
-                        formatter.format(priceLaundryCubit.state.drap) + "/bộ",
+                        widget.priceType == 'LAUNDRY_PRICE_TYPE_KG'
+                            ? formatter.format(priceLaundryCubit.state.drap_k) +
+                                "/kg"
+                            : formatter.format(priceLaundryCubit.state.drap) +
+                                "/bộ",
                         style: TextStyle(
                           color: colorProject.primaryColor,
                           fontFamily: fontApp,
@@ -234,8 +262,11 @@ class _NormalCleaningCardState extends State<NormalCleaningCard> {
                         ),
                       ),
                       Text(
-                        formatter.format(priceLaundryCubit.state.topper) +
-                            "/bộ",
+                        widget.priceType == 'LAUNDRY_PRICE_TYPE_KG'
+                            ? formatter.format(priceLaundryCubit.state.topper_k) +
+                                "/kg"
+                            : formatter.format(priceLaundryCubit.state.topper) +
+                                "/bộ",
                         style: TextStyle(
                           color: colorProject.primaryColor,
                           fontFamily: fontApp,
@@ -265,8 +296,11 @@ class _NormalCleaningCardState extends State<NormalCleaningCard> {
                         ),
                       ),
                       Text(
-                        formatter.format(priceLaundryCubit.state.pillow) +
-                            "/bộ",
+                        widget.priceType == 'LAUNDRY_PRICE_TYPE_KG'
+                            ? formatter.format(priceLaundryCubit.state.pillow_k) +
+                                "/kg"
+                            : formatter.format(priceLaundryCubit.state.pillow) +
+                                "/bộ",
                         style: TextStyle(
                           color: colorProject.primaryColor,
                           fontFamily: fontApp,

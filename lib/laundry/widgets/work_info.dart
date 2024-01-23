@@ -84,7 +84,7 @@ class _WorkInfoLaundryState extends State<WorkInfoLaundry> {
                 Flexible(
                   child: Text(
                     //context.watch<SaveAddressShoppingCubit>().state!.yourName!,
-                    '${DateFormat.yMMMMEEEEd(locale).format(laundryInfo.receiveDate!)}, giao trong khoảng từ ${DateFormat.Hm(locale).format(laundryInfo.receiveTime!.add(Duration(hours: -1)))} tới ${DateFormat.Hm(locale).format(laundryInfo.receiveTime!)}',
+                    '${DateFormat.yMMMMEEEEd(locale).format(laundryInfo.receiveDate!)}',
                     style: TextStyle(
                       fontSize: fontSize.medium,
                       fontFamily: fontApp,
@@ -118,7 +118,11 @@ class _WorkInfoLaundryState extends State<WorkInfoLaundry> {
                   children: [
                     if (laundryInfo.clothes != 0)
                       Text(
-                        "Quần áo x " + laundryInfo.clothes.toString() + " bộ",
+                        "Quần áo x " +
+                            laundryInfo.clothes.toString() +
+                            (laundryInfo.price_type == 'LAUNDRY_PRICE_TYPE_KG'
+                                ? " kg"
+                                : " bộ"),
                         style: TextStyle(
                           fontSize: fontSize.medium,
                           fontFamily: fontApp,
@@ -128,7 +132,11 @@ class _WorkInfoLaundryState extends State<WorkInfoLaundry> {
                       ),
                     if (laundryInfo.blanket != 0)
                       Text(
-                        "Mền x " + laundryInfo.blanket.toString() + " bộ",
+                        "Mền x " +
+                            laundryInfo.blanket.toString() +
+                            (laundryInfo.price_type == 'LAUNDRY_PRICE_TYPE_KG'
+                                ? " kg"
+                                : " bộ"),
                         style: TextStyle(
                           fontSize: fontSize.medium,
                           fontFamily: fontApp,
@@ -140,7 +148,9 @@ class _WorkInfoLaundryState extends State<WorkInfoLaundry> {
                       Text(
                         "Mùng chống muỗi x " +
                             laundryInfo.mosquito.toString() +
-                            " bộ",
+                            (laundryInfo.price_type == 'LAUNDRY_PRICE_TYPE_KG'
+                                ? " kg"
+                                : " bộ"),
                         style: TextStyle(
                           fontSize: fontSize.medium,
                           fontFamily: fontApp,
@@ -150,7 +160,11 @@ class _WorkInfoLaundryState extends State<WorkInfoLaundry> {
                       ),
                     if (laundryInfo.net != 0)
                       Text(
-                        "Lưới x " + laundryInfo.net.toString() + " bộ",
+                        "Lưới x " +
+                            laundryInfo.net.toString() +
+                            (laundryInfo.price_type == 'LAUNDRY_PRICE_TYPE_KG'
+                                ? " kg"
+                                : " bộ"),
                         style: TextStyle(
                           fontSize: fontSize.medium,
                           fontFamily: fontApp,
@@ -160,7 +174,11 @@ class _WorkInfoLaundryState extends State<WorkInfoLaundry> {
                       ),
                     if (laundryInfo.drap != 0)
                       Text(
-                        "Drap x " + laundryInfo.drap.toString() + " bộ",
+                        "Drap x " +
+                            laundryInfo.drap.toString() +
+                            (laundryInfo.price_type == 'LAUNDRY_PRICE_TYPE_KG'
+                                ? " kg"
+                                : " bộ"),
                         style: TextStyle(
                           fontSize: fontSize.medium,
                           fontFamily: fontApp,
@@ -172,7 +190,9 @@ class _WorkInfoLaundryState extends State<WorkInfoLaundry> {
                       Text(
                         "Tấm phủ nệm x " +
                             laundryInfo.topper.toString() +
-                            " bộ",
+                            (laundryInfo.price_type == 'LAUNDRY_PRICE_TYPE_KG'
+                                ? " kg"
+                                : " bộ"),
                         style: TextStyle(
                           fontSize: fontSize.medium,
                           fontFamily: fontApp,
@@ -182,7 +202,11 @@ class _WorkInfoLaundryState extends State<WorkInfoLaundry> {
                       ),
                     if (laundryInfo.pillow != 0)
                       Text(
-                        "Gối x " + laundryInfo.pillow.toString() + " bộ",
+                        "Gối x " +
+                            laundryInfo.pillow.toString() +
+                            (laundryInfo.price_type == 'LAUNDRY_PRICE_TYPE_KG'
+                                ? " kg"
+                                : " bộ"),
                         style: TextStyle(
                           fontSize: fontSize.medium,
                           fontFamily: fontApp,
@@ -192,7 +216,11 @@ class _WorkInfoLaundryState extends State<WorkInfoLaundry> {
                       ),
                     if (laundryInfo.comple != 0)
                       Text(
-                        "Com-lê x " + laundryInfo.comple.toString() + " bộ",
+                        "Com-lê x " +
+                            laundryInfo.comple.toString() +
+                            (laundryInfo.price_type == 'LAUNDRY_PRICE_TYPE_KG'
+                                ? " kg"
+                                : " bộ"),
                         style: TextStyle(
                           fontSize: fontSize.medium,
                           fontFamily: fontApp,
@@ -204,7 +232,9 @@ class _WorkInfoLaundryState extends State<WorkInfoLaundry> {
                       Text(
                         "Áo dài x " +
                             laundryInfo.vietnamDress.toString() +
-                            " bộ",
+                            (laundryInfo.price_type == 'LAUNDRY_PRICE_TYPE_KG'
+                                ? " kg"
+                                : " bộ"),
                         style: TextStyle(
                           fontSize: fontSize.medium,
                           fontFamily: fontApp,
@@ -216,7 +246,9 @@ class _WorkInfoLaundryState extends State<WorkInfoLaundry> {
                       Text(
                         "Áo cưới x " +
                             laundryInfo.weedingDress.toString() +
-                            " bộ",
+                            (laundryInfo.price_type == 'LAUNDRY_PRICE_TYPE_KG'
+                                ? " kg"
+                                : " bộ"),
                         style: TextStyle(
                           fontSize: fontSize.medium,
                           fontFamily: fontApp,
@@ -228,7 +260,9 @@ class _WorkInfoLaundryState extends State<WorkInfoLaundry> {
                       Text(
                         "Tẩy trắng đồ giặt x " +
                             laundryInfo.bleaching.toString() +
-                            " bộ",
+                            (laundryInfo.price_type == 'LAUNDRY_PRICE_TYPE_KG'
+                                ? " kg"
+                                : " bộ"),
                         style: TextStyle(
                           fontSize: fontSize.medium,
                           fontFamily: fontApp,

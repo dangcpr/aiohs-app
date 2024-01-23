@@ -8,7 +8,10 @@ import 'package:rmservice/laundry/widgets/count/bleaching.dart';
 import 'package:rmservice/utilities/constants/variable.dart';
 
 class ServiceCleaningCard extends StatefulWidget {
-  const ServiceCleaningCard({super.key});
+  const ServiceCleaningCard(
+      {super.key, this.priceType = 'LAUNDRY_PRICE_TYPE_KG'});
+
+  final String priceType;
 
   @override
   State<ServiceCleaningCard> createState() => _ServiceCleaningCardState();
@@ -76,8 +79,13 @@ class _ServiceCleaningCardState extends State<ServiceCleaningCard> {
                         ),
                       ),
                       Text(
-                        formatter.format(priceLaundryCubit.state.bleaching) +
-                            "/bộ",
+                        widget.priceType == 'LAUNDRY_PRICE_TYPE_KG'
+                            ? formatter.format(
+                                    priceLaundryCubit.state.bleaching_k) +
+                                "/kg"
+                            : formatter
+                                    .format(priceLaundryCubit.state.bleaching) +
+                                "/bộ",
                         style: TextStyle(
                           color: colorProject.primaryColor,
                           fontFamily: fontApp,
@@ -92,9 +100,7 @@ class _ServiceCleaningCardState extends State<ServiceCleaningCard> {
             ),
           ],
         ),
-        controller: ExpandableController(
-          initialExpanded: expanded,
-        ),
+        controller: additionalInfoController,
       ),
     );
   }

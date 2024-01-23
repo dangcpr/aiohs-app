@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:page_transition/page_transition.dart';
 import 'package:rmservice/login/cubit/user_cubit.dart';
 import 'package:rmservice/shopping/cubits/save_address.dart';
 import 'package:rmservice/shopping/models/address_shopping.dart';
-import 'package:rmservice/shopping/views/shopping_step1.dart';
-import 'package:rmservice/shopping/views/shopping_step2.dart';
 import 'package:rmservice/utilities/components/text_field_basic.dart';
 import 'package:rmservice/utilities/components/text_label.dart';
 import 'package:rmservice/utilities/components/button_green.dart';
@@ -178,15 +175,15 @@ class _BottomSheetAddressState extends State<BottomSheetAddress> {
                     WidgetsBinding.instance.addPostFrameCallback((_) {
                       Navigator.pop(context);
                       Navigator.pop(context);
-                      Navigator.push(
-                        context,
-                        PageTransition(
-                          duration: Duration(milliseconds: 400),
-                          type: PageTransitionType.rightToLeftWithFade,
-                          child: ShoppingStep2Screen(),
-                          childCurrent: ShoppingStep1Screen(),
-                        ),
-                      );
+                      // Navigator.push(
+                      //   context,
+                      //   PageTransition(
+                      //     duration: Duration(milliseconds: 400),
+                      //     type: PageTransitionType.rightToLeftWithFade,
+                      //     child: ShoppingStep2Screen(),
+                      //     childCurrent: ShoppingStep1Screen(),
+                      //   ),
+                      // );
                     });
                     _formKey.currentState!.save();
                   } else {}

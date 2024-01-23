@@ -3,7 +3,7 @@ import 'package:rmservice/laundry/widgets/button/button_next_step2.dart';
 import 'package:rmservice/laundry/widgets/note_for_maid.dart';
 import 'package:rmservice/laundry/widgets/notice_step2.dart';
 import 'package:rmservice/laundry/widgets/pick_receive_date.dart';
-import 'package:rmservice/laundry/widgets/pick_receive_time.dart';
+//import 'package:rmservice/laundry/widgets/pick_receive_time.dart';
 import 'package:rmservice/laundry/widgets/pick_send_date.dart';
 import 'package:rmservice/laundry/widgets/pick_send_time.dart';
 import 'package:rmservice/utilities/components/text_label.dart';
@@ -88,17 +88,18 @@ class _LaundryStep2ScreenState extends State<LaundryStep2Screen> {
                 isDarkMode: isDarkMode,
               ),
             ),
+            // Padding(
+            //   padding: const EdgeInsets.only(top: 20),
+            //   child: PickReceiveTime(
+            //     isDarkMode: isDarkMode,
+            //   ),
+            // ),
             Padding(
-              padding: const EdgeInsets.only(top: 20),
-              child: PickReceiveTime(
+              padding: const EdgeInsets.only(top: 15),
+              child: NoticeStep2(
                 isDarkMode: isDarkMode,
               ),
             ),
-            Padding(
-                padding: const EdgeInsets.only(top: 15),
-                child: NoticeStep2(
-                  isDarkMode: isDarkMode,
-                )),
             Padding(
               padding: const EdgeInsets.only(top: 17),
               child: TextLabel(

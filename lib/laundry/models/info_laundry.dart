@@ -21,6 +21,7 @@ class InfoLaundry {
   DateTime? receiveTime;
   String note;
   String paymentMethod;
+  String price_type;
 
   InfoLaundry({
     this.clothes = 0,
@@ -44,6 +45,7 @@ class InfoLaundry {
     this.receiveDate,
     this.receiveTime,
     this.note = '',
-    this.paymentMethod = 'PAYMENT_METHOD_CASH'
+    this.paymentMethod = 'PAYMENT_METHOD_CASH',
+    this.price_type = 'LAUNDRY_PRICE_TYPE_KG',
   });
 }

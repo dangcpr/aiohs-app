@@ -88,25 +88,25 @@ class _ButtonNextStep2LaundryState extends State<ButtonNextStep2Laundry> {
                 );
                 return;
               }
-              if (infoLaundryCubit.state.receiveTime!.hour * 60 +
-                          infoLaundryCubit.state.receiveTime!.minute <
-                      time7Hours ||
-                  infoLaundryCubit.state.receiveTime!.hour * 60 +
-                          infoLaundryCubit.state.receiveTime!.minute >
-                      time22Hours) {
-                debugPrint("Vui lòng chọn giờ trả đồ từ 07:00 tới " +
-                    (22).toString() +
-                    " giờ");
-                showDialog(
-                  context: context,
-                  builder: (context) {
-                    return DialogWrong(
-                      notification:
-                          "Vui lòng chọn giờ trả đồ từ 07:00 tới ${(22).toString()}:00",
-                    );
-                  },
-                );
-              }
+              // if (infoLaundryCubit.state.receiveTime!.hour * 60 +
+              //             infoLaundryCubit.state.receiveTime!.minute <
+              //         time7Hours ||
+              //     infoLaundryCubit.state.receiveTime!.hour * 60 +
+              //             infoLaundryCubit.state.receiveTime!.minute >
+              //         time22Hours) {
+              //   debugPrint("Vui lòng chọn giờ trả đồ từ 07:00 tới " +
+              //       (22).toString() +
+              //       " giờ");
+              //   showDialog(
+              //     context: context,
+              //     builder: (context) {
+              //       return DialogWrong(
+              //         notification:
+              //             "Vui lòng chọn giờ trả đồ từ 07:00 tới ${(22).toString()}:00",
+              //       );
+              //     },
+              //   );
+              // }
               DateTime dateTimeSend = DateTime(
                   infoLaundryCubit.state.sendDate!.year,
                   infoLaundryCubit.state.sendDate!.month,

@@ -10,7 +10,9 @@ import 'package:rmservice/utilities/constants/variable.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class DryCleaningCard extends StatefulWidget {
-  const DryCleaningCard({super.key});
+  const DryCleaningCard({super.key, this.priceType = 'LAUNDRY_PRICE_TYPE_KG'});
+
+  final String priceType;
 
   @override
   State<DryCleaningCard> createState() => _DryCleaningCardState();
@@ -78,8 +80,12 @@ class _DryCleaningCardState extends State<DryCleaningCard> {
                         ),
                       ),
                       Text(
-                        formatter.format(priceLaundryCubit.state.comple) +
-                            "/bộ",
+                        widget.priceType == 'LAUNDRY_PRICE_TYPE_KG'
+                            ? formatter
+                                    .format(priceLaundryCubit.state.comple_k) +
+                                "/kg"
+                            : formatter.format(priceLaundryCubit.state.comple) +
+                                "/bộ",
                         style: TextStyle(
                           color: colorProject.primaryColor,
                           fontFamily: fontApp,
@@ -109,8 +115,13 @@ class _DryCleaningCardState extends State<DryCleaningCard> {
                         ),
                       ),
                       Text(
-                        formatter.format(priceLaundryCubit.state.vietnamDress) +
-                            "/bộ",
+                        widget.priceType == 'LAUNDRY_PRICE_TYPE_KG'
+                            ? formatter.format(
+                                    priceLaundryCubit.state.vietnamDress_k) +
+                                "/kg"
+                            : formatter.format(
+                                    priceLaundryCubit.state.vietnamDress) +
+                                "/bộ",
                         style: TextStyle(
                           color: colorProject.primaryColor,
                           fontFamily: fontApp,
@@ -140,8 +151,13 @@ class _DryCleaningCardState extends State<DryCleaningCard> {
                         ),
                       ),
                       Text(
-                        formatter.format(priceLaundryCubit.state.weedingDress) +
-                            "/bộ",
+                        widget.priceType == 'LAUNDRY_PRICE_TYPE_KG'
+                            ? formatter.format(
+                                    priceLaundryCubit.state.weedingDress_k) +
+                                "/kg"
+                            : formatter.format(
+                                    priceLaundryCubit.state.weedingDress) +
+                                "/bộ",
                         style: TextStyle(
                           color: colorProject.primaryColor,
                           fontFamily: fontApp,

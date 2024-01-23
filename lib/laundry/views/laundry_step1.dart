@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:page_transition/page_transition.dart';
 import 'package:rmservice/cleaning_hourly/cubits/save_info/save_address.dart';
-import 'package:rmservice/cleaning_hourly/views/maps.dart';
 import 'package:rmservice/cleaning_hourly/widgets/button_app_bar.dart';
+import 'package:rmservice/laundry/constants/price_type.dart';
+import 'package:rmservice/laundry/cubits/calculate_laundry/calculate_laundry_cubit.dart';
 import 'package:rmservice/laundry/cubits/get_price_laundry/get_price_laundry_cubit.dart';
 import 'package:rmservice/laundry/cubits/get_price_laundry/get_price_laundry_state.dart';
+import 'package:rmservice/laundry/cubits/save_info_laundry_cubit.dart';
 import 'package:rmservice/laundry/helpers/set_price_laundry.dart';
 import 'package:rmservice/laundry/widgets/button/button_next_step1.dart';
 import 'package:rmservice/laundry/widgets/card/dry_cleaning_card.dart';
@@ -23,6 +24,8 @@ class LaundryStep1Screen extends StatefulWidget {
 }
 
 class _LaundryStep1ScreenState extends State<LaundryStep1Screen> {
+  int priceTypeChoice = 0;
+
   @override
   Widget build(BuildContext context) {
     bool isDarkMode =
@@ -65,30 +68,45 @@ class _LaundryStep1ScreenState extends State<LaundryStep1Screen> {
             setPriceLaundry(state.priceLaundry, context);
 
             return Padding(
-              padding: EdgeInsets.only(left: 20, right: 20, bottom: 90),
-              child: ListView(
-                padding: EdgeInsets.only(top: 20),
-                children: [
-                  TextLabel(
-                    label: "Vui lòng chọn những thứ bạn muốn giặt ủi",
-                    isDarkMode: isDarkMode,
-                  ),
-                  SizedBox(height: 10),
-                  NormalCleaningCard(),
-                  SizedBox(height: 10),
-                  DryCleaningCard(),
-                  SizedBox(height: 10),
-                  ServiceCleaningCard(),
-                  
-                ],
+              padding:
+                  EdgeInsets.only(left: 20, right: 20, bottom: 90, top: 20),
+              child: Container(
+                //padding: EdgeInsets.only(top: 20),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    TextLabel(
+                      label: "Vui lòng chọn những thứ bạn muốn giặt ủi",
+                      isDarkMode: isDarkMode,
+                    ),
+                    choicePricetype(),
+                    SizedBox(height: 10),
+                    Expanded(
+                      child: SingleChildScrollView(
+                        child: Column(
+                          children: [
+                            NormalCleaningCard(
+                                priceType: priceTypes[priceTypeChoice].code),
+                            SizedBox(height: 10),
+                            DryCleaningCard(
+                                priceType: priceTypes[priceTypeChoice].code),
+                            SizedBox(height: 10),
+                            ServiceCleaningCard(
+                                priceType: priceTypes[priceTypeChoice].code),
+                            SizedBox(height: 10)
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
               ),
             );
           }
           if (state is GetPriceLaundryLoading) {
             return const Center(
-              child: CircularProgressIndicator(
-                color: colorProject.primaryColor
-              ),
+              child:
+                  CircularProgressIndicator(color: colorProject.primaryColor),
             );
           }
           if (state is GetPriceLaundryError) {
@@ -101,7 +119,39 @@ class _LaundryStep1ScreenState extends State<LaundryStep1Screen> {
       ),
       floatingActionButton: ButtonNextStep1Laundry(),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-    )
-    ;
+    );
+  }
+
+  Widget choicePricetype() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Text(
+          "Đơn vị tính: ",
+          style: TextStyle(fontSize: fontSize.medium),
+        ),
+        Wrap(
+          spacing: 3,
+          children: List.generate(
+            priceTypes.length,
+            (index) => ChoiceChip(
+              selectedColor: colorProject.primaryColor.withOpacity(0.2),
+              label: Text(priceTypes[index].name),
+              selected: priceTypeChoice == index,
+              onSelected: (value) {
+                setState(() {
+                  priceTypeChoice = index;
+                  context
+                      .read<SaveInfoLaundryCubit>()
+                      .updatePriceType(priceTypes[index].code);
+                  context.read<CalculateLaundryCubit>().calculateLaundry(
+                      context.read<SaveInfoLaundryCubit>().state);
+                });
+              },
+            ),
+          ),
+        )
+      ],
+    );
   }
 }

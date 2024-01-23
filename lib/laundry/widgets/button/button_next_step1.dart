@@ -5,7 +5,7 @@ import 'package:page_transition/page_transition.dart';
 import 'package:rmservice/cleaning_hourly/cubits/save_info/save_address.dart';
 import 'package:rmservice/laundry/cubits/calculate_laundry/calculate_laundry_cubit.dart';
 import 'package:rmservice/laundry/cubits/calculate_laundry/calculate_laundry_state.dart';
-import 'package:rmservice/laundry/cubits/save_info_laundry_cubit.dart';
+//import 'package:rmservice/laundry/cubits/save_info_laundry_cubit.dart';
 import 'package:rmservice/laundry/views/laundry_step2.dart';
 import 'package:rmservice/utilities/components/button_green.dart';
 import 'package:rmservice/utilities/components/dialog_wrong.dart';
@@ -22,7 +22,7 @@ class ButtonNextStep1Laundry extends StatefulWidget {
 class _ButtonNextStep1LaundryState extends State<ButtonNextStep1Laundry> {
   @override
   Widget build(BuildContext context) {
-    var infoLaundryCubit = context.watch<SaveInfoLaundryCubit>();
+    //var infoLaundryCubit = context.watch<SaveInfoLaundryCubit>();
     var calculateLaundry = context.watch<CalculateLaundryCubit>();
     final formatter = NumberFormat.simpleCurrency(locale: "vi-VN");
     return Padding(

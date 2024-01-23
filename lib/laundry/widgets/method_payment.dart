@@ -25,7 +25,7 @@ class _MethodPaymentLaundryState extends State<MethodPaymentLaundry> {
             });
             context
                 .read<SaveInfoLaundryCubit>()
-                .upatePaymentMethod(paymentMethodCode[value]);
+                .updatePaymentMethod(paymentMethodCode[value]);
           },
           child: Container(
             padding: const EdgeInsets.all(8),
@@ -75,7 +75,7 @@ class _MethodPaymentLaundryState extends State<MethodPaymentLaundry> {
             });
             context
                 .read<SaveInfoLaundryCubit>()
-                .upatePaymentMethod(paymentMethodCode[value]);
+                .updatePaymentMethod(paymentMethodCode[value]);
           },
           child: Container(
             padding: const EdgeInsets.all(8),

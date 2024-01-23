@@ -140,9 +140,15 @@ class SaveInfoLaundryCubit extends Cubit<InfoLaundry> {
     emit(infoLaundry);
   }
 
-  void upatePaymentMethod(String value) {
+  void updatePaymentMethod(String value) {
     InfoLaundry infoLaundry = state;
     infoLaundry.paymentMethod = value;
+    emit(infoLaundry);
+  }
+
+  void updatePriceType(String value) {
+    InfoLaundry infoLaundry = state;
+    infoLaundry.price_type = value;
     emit(infoLaundry);
   }
 }

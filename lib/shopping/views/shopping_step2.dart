@@ -45,11 +45,11 @@ class _ShoppingStep2ScreenState extends State<ShoppingStep2Screen> {
               ? "Vui lòng chọn địa điểm"
               : context.watch<SaveAddressShoppingCubit>().state!.fullAddress!,
           isDarkMode: isDarkMode,
-          onPressed: () async {
+          onPressed: () {
             showModalBottomSheet(
               context: context,
               builder: (context) {
-                return YourAddress();
+                return YourAddress(isShopping: true);
               },
             );
             // Navigator.push(
