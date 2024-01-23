@@ -4,6 +4,7 @@ import 'package:page_transition/page_transition.dart';
 import 'package:rmservice/account/helpers/account.dart';
 import 'package:rmservice/account/widgets/info_account.dart';
 import 'package:rmservice/account/widgets/option_card.dart';
+import 'package:rmservice/delete_account/helpers/delete_account.dart';
 import 'package:rmservice/login/cubit/user_cubit.dart';
 import 'package:rmservice/profile/profile.dart';
 
@@ -56,6 +57,14 @@ class _AccountScreenState extends State<AccountScreen> {
           onTap: () {
             AccountHelper()
                 .logOut(context, context.read<UserCubit>().state.code!);
+          },
+        ),
+        OptionCard(
+          text: "Xóa tài khoản",
+          color: Colors.red,
+          icon: Icons.delete,
+          onTap: () {
+            deleteAccountUser(context);
           },
         ),
       ],

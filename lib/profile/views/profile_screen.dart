@@ -2,20 +2,14 @@ import 'dart:io';
 
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:file_picker/file_picker.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rmservice/home_page/home_page.dart';
 import 'package:rmservice/login/cubit/user_cubit.dart';
-import 'package:rmservice/main_page/main_page.dart';
 import 'package:rmservice/profile/cubit/update_avatar/update_avatar_cubit.dart';
 import 'package:rmservice/profile/cubit/update_profile/update_profile_cubit.dart';
 import 'package:rmservice/utilities/constants/app_assets.dart';
 import 'package:rmservice/utilities/constants/variable.dart';
-
-import '../../account/views/account_page.dart';
-import '../../account/views/account_screen.dart';
 import '../../login/models/user.dart';
 import '../widgets/text_field_custom.dart';
 

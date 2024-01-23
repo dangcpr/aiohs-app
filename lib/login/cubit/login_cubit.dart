@@ -22,7 +22,7 @@ class LoginCubit extends Cubit<LoginState> {
       } else if (res.status == AuthenticationStatus.inactive) {
         emit(LoginFailure(
             error:
-                "Tài khoản đang bị khoá. Vui lòng liên hệ quản trị viên"));
+                "Tài khoản đang bị khoá hoặc đã bị bạn xóa. Vui lòng liên hệ quản trị viên"));
       } else {
         emit(LoginFailure(error: "Tài khoản hoặc mật khẩu không đúng"));
       }

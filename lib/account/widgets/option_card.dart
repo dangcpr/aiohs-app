@@ -3,11 +3,12 @@ import 'package:rmservice/utilities/constants/variable.dart';
 
 class OptionCard extends StatefulWidget {
   const OptionCard(
-      {super.key, required this.text, required this.icon, this.onTap});
+      {super.key, required this.text, required this.icon, this.onTap, this.color = colorProject.primaryColor});
 
   final String text;
   final IconData icon;
   final VoidCallback? onTap;
+  final Color color;
 
   @override
   State<OptionCard> createState() => _OptionCardState();
@@ -37,18 +38,18 @@ class _OptionCardState extends State<OptionCard> {
           onTap: widget.onTap,
           leading: Icon(
             widget.icon,
-            color: colorProject.primaryColor,
+            color: widget.color,
           ),
           trailing: Icon(
             Icons.chevron_right,
-            color: colorProject.primaryColor,
+            color: widget.color,
           ),
           title: Text(
             widget.text,
             style: TextStyle(
               fontFamily: fontBoldApp,
               fontSize: fontSize.mediumLarger,
-              color: colorProject.primaryColor,
+              color: widget.color,
             ),
           ),
         ),
