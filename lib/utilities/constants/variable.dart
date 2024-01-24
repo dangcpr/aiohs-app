@@ -5,6 +5,7 @@ String fcmToken = "";
 const nameApp = "AIO Home Serives";
 // const debugServer = "http://192.168.220.131:9000";
 const debugServer = "http://192.168.206.129:9000";
+// const debugServer = "https://d7f0-171-231-61-254.ngrok-free.app/";
 const extractIDServer = "https://api.idg.vnpt.vn";
 const extractIDTokenKey =
     "MFwwDQYJKoZIhvcNAQEBBQADSwAwSAJBAK8beog2hh8thfXlbs/L7483K2EIEgTbxmfsCT2YWG3mAJCxIu4YReCUJ3VWZwqcgLPgLNTqmz6LhM4phSc69OUCAwEAAQ==";

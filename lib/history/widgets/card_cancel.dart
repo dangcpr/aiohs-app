@@ -151,11 +151,14 @@ class _CardHistoryOrderCancelState extends State<CardHistoryOrderCancel> {
                       fontSize: fontSize.medium,
                     ),
                   ),
-                  Text(
-                    createDateString,
-                    style: TextStyle(
-                      fontFamily: fontApp,
-                      fontSize: fontSize.medium,
+                  Expanded(
+                    child: Text(
+                      createDateString,
+                      style: TextStyle(
+                        fontFamily: fontApp,
+                        fontSize: fontSize.medium,
+                        overflow: TextOverflow.ellipsis,
+                      ),
                     ),
                   )
                 ],

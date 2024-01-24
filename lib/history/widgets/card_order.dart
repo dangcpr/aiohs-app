@@ -133,13 +133,15 @@ class _CardHistoryOrderState extends State<CardHistoryOrder> {
                       fontSize: fontSize.medium,
                     ),
                   ),
-                  Text(
-                    numberFormat.format(widget.order.order_amount),
-                    style: TextStyle(
-                      fontFamily: fontApp,
-                      fontSize: fontSize.medium,
+                  Expanded(
+                    child: Text(
+                      numberFormat.format(widget.order.order_amount),
+                      style: TextStyle(
+                        fontFamily: fontApp,
+                        fontSize: fontSize.medium,
+                      ),
                     ),
-                  )
+                  ),
                 ],
               ),
               Row(
@@ -151,11 +153,14 @@ class _CardHistoryOrderState extends State<CardHistoryOrder> {
                       fontSize: fontSize.medium,
                     ),
                   ),
-                  Text(
-                    createDateString,
-                    style: TextStyle(
-                      fontFamily: fontApp,
-                      fontSize: fontSize.medium,
+                  Expanded(
+                    child: Text(
+                      createDateString,
+                      style: TextStyle(
+                        fontFamily: fontApp,
+                        fontSize: fontSize.medium,
+                        overflow: TextOverflow.ellipsis,
+                      ),
                     ),
                   )
                 ],

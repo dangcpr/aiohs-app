@@ -35,7 +35,7 @@ class NotificationController {
     final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
         FlutterLocalNotificationsPlugin();
     const AndroidInitializationSettings initializationSettingsAndroid =
-        AndroidInitializationSettings('@drawable/launch_background');
+        AndroidInitializationSettings('@mipmap/launcher_icon');
 
     const DarwinInitializationSettings initializationSettingsIOS =
         DarwinInitializationSettings(
@@ -59,7 +59,9 @@ class NotificationController {
       channelDescription: 'your channel description',
       importance: Importance.max,
       priority: Priority.high,
+      styleInformation: BigTextStyleInformation(''),
     );
+    
     const NotificationDetails platformChannelSpecifics =
         NotificationDetails(android: androidPlatformChannelSpecifics);
     await flutterLocalNotificationsPlugin.show(

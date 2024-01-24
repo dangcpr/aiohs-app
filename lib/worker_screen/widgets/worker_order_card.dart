@@ -84,11 +84,13 @@ class _WorkerOrderCardState extends State<WorkerOrderCard> {
                   debugPrint(jsonEncode(widget.order.toJson()));
                   break;
                 case 'AIR_CONDITIONING_CLEAN':
-                  WorkerHelper().getCleaningAirCondDetail(context, userCubit, widget.order);
+                  WorkerHelper().getCleaningAirCondDetail(
+                      context, userCubit, widget.order);
                   debugPrint(jsonEncode(widget.order.toJson()));
                   break;
                 case 'HOME_COOKING':
-                  WorkerHelper().getCookingDetail(context, userCubit, widget.order);
+                  WorkerHelper()
+                      .getCookingDetail(context, userCubit, widget.order);
                   debugPrint(jsonEncode(widget.order.toJson()));
                   break;
                 default:
@@ -155,11 +157,14 @@ class _WorkerOrderCardState extends State<WorkerOrderCard> {
                       fontSize: fontSize.medium,
                     ),
                   ),
-                  Text(
-                    createDateString,
-                    style: TextStyle(
-                      fontFamily: fontApp,
-                      fontSize: fontSize.medium,
+                  Expanded(
+                    child: Text(
+                      createDateString,
+                      style: TextStyle(
+                        fontFamily: fontApp,
+                        fontSize: fontSize.medium,
+                        overflow: TextOverflow.ellipsis,
+                      ),
                     ),
                   )
                 ],
