@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rmservice/login/cubit/user_cubit.dart';
 import 'package:rmservice/notification/controllers/inbox.dart';
+import 'package:rmservice/notification/cubits/unread_cubit.dart';
 import 'package:rmservice/notification/helpers/handle_time.dart';
 import 'package:rmservice/notification/models/inbox.dart';
 import 'package:rmservice/utilities/constants/variable.dart';
@@ -18,22 +19,24 @@ class CardInbox extends StatefulWidget {
 class _CardInboxState extends State<CardInbox> {
   @override
   Widget build(BuildContext context) {
-    bool isOpen = widget.inbox.is_open;
     return Container(
       //padding: const EdgeInsets.all(10),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(8),
         border: Border.all(color: colorProject.primaryColor),
-        color: isOpen == false
+        color: widget.inbox.is_open == false
             ? colorProject.primaryColor.withOpacity(0.2)
             : Colors.transparent,
       ),
       child: ListTile(
         onTap: () async {
-          await InboxController().readed(
-              context.read<UserCubit>().state.code!, widget.inbox.id);
-              
+          await InboxController()
+              .readed(context.read<UserCubit>().state.code!, widget.inbox.id);
+
           setState(() {
+            if (widget.inbox.is_open == false) {
+              context.read<UnreadNotiCubit>().setUnreadNotiDown();
+            }
             widget.inbox.is_open = true;
           });
         },
@@ -43,13 +46,12 @@ class _CardInboxState extends State<CardInbox> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
-                widget.inbox.title,
-                style: TextStyle(
-                    fontSize: fontSize.mediumLarger,
-                    fontFamily: fontBoldApp,
-                    color: colorProject.primaryColor),
-              ),
-            
+              widget.inbox.title,
+              style: TextStyle(
+                  fontSize: fontSize.mediumLarger,
+                  fontFamily: fontBoldApp,
+                  color: colorProject.primaryColor),
+            ),
             Text(
               handleTime(context, widget.inbox.created_at),
               style: TextStyle(

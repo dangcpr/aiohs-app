@@ -5,8 +5,12 @@ import 'package:rmservice/account/account.dart';
 import 'package:rmservice/get_product/cubits/get_product/get_product_cubit.dart';
 import 'package:rmservice/get_product/cubits/get_product/get_product_state.dart';
 import 'package:rmservice/history/views/overview/history.dart';
+import 'package:rmservice/login/cubit/user_cubit.dart';
 import 'package:rmservice/main_page/main_page.dart';
 import 'package:rmservice/message_page/message_page.dart';
+import 'package:rmservice/notification/controllers/fcm.dart';
+import 'package:rmservice/notification/controllers/inbox.dart';
+import 'package:rmservice/notification/cubits/unread_cubit.dart';
 import 'package:rmservice/notification/views/noti_page.dart';
 import 'package:rmservice/place_page/views/place_page.dart';
 import 'package:rmservice/shopping/widgets/dialog_wrong.dart';
@@ -27,15 +31,24 @@ class HomePageState extends State<HomePage> {
     const AccountPage(),
   ];
 
+  int unreadNoti = 0;
+
   @override
   void initState() {
     super.initState();
     BlocProvider.of<GetProductCubit>(context).getProduct();
+    NotificationController().init(context: context);
+    InboxController().getInbox(context.read<UserCubit>().state.code!).then(
+          (value) => context.read<UnreadNotiCubit>().setUnreadNotiInit(
+                value.where((element) => element.is_open == false).length,
+              ),
+        );
   }
 
   @override
   Widget build(BuildContext context) {
     return BlocListener<GetProductCubit, GetProductState>(
+      key: mainKey,
       listener: (context, state) {
         debugPrint(state.toString());
         if (state is GetProductLoading) {
@@ -92,9 +105,37 @@ class HomePageState extends State<HomePage> {
                     ),
                   );
                 },
-                child: Icon(
-                  Icons.notifications,
-                  color: colorProject.primaryColor,
+                child: Stack(
+                  children: [
+                    Icon(
+                      Icons.notifications,
+                      color: colorProject.primaryColor,
+                    ),
+                    context.watch<UnreadNotiCubit>().state > 0
+                        ? Positioned(
+                            right: 0,
+                            child: Container(
+                              padding: const EdgeInsets.all(2),
+                              decoration: BoxDecoration(
+                                color: Colors.red,
+                                borderRadius: BorderRadius.circular(6),
+                              ),
+                              constraints: const BoxConstraints(
+                                minWidth: 14,
+                                minHeight: 14,
+                              ),
+                              child: Text(
+                                context.watch<UnreadNotiCubit>().state.toString(),
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 8,
+                                ),
+                                textAlign: TextAlign.center,
+                              ),
+                            ),
+                          )
+                        : const SizedBox.shrink(),
+                  ],
                 ),
               ),
               SizedBox(width: 20),

@@ -7,6 +7,7 @@ import 'package:rmservice/login/cubit/user_cubit.dart';
 import 'package:rmservice/notification/controllers/inbox.dart';
 import 'package:rmservice/notification/cubits/get_inbox/get_inbox_cubit.dart';
 import 'package:rmservice/notification/cubits/get_inbox/get_inbox_state.dart';
+import 'package:rmservice/notification/cubits/unread_cubit.dart';
 import 'package:rmservice/notification/widgets/card_inbox.dart';
 import 'package:rmservice/utilities/components/empty_card.dart';
 import 'package:rmservice/utilities/constants/variable.dart';
@@ -42,6 +43,7 @@ class _NotiScreenState extends State<NotiScreen> {
               await context
                   .read<GetInboxCubit>()
                   .getInboxNoLoad(context.read<UserCubit>().state.code!);
+              context.read<UnreadNotiCubit>().setReadNotiAll();
             },
             icon: const Icon(Icons.mark_email_read, color: colorProject.primaryColor),
           ),

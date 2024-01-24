@@ -30,6 +30,7 @@ import 'package:rmservice/laundry/cubits/save_info_laundry_cubit.dart';
 import 'package:rmservice/login/cubit/login_cubit.dart';
 import 'package:rmservice/login/cubit/user_cubit.dart';
 import 'package:rmservice/maid_near/cubits/get_maid_ratings/get_maid_ratings_cubit.dart';
+import 'package:rmservice/notification/cubits/unread_cubit.dart';
 import 'package:rmservice/place_page/cubits/get_place_public/get_place_public_cubit.dart';
 import 'package:rmservice/place_page/cubits/get_place_user/get_place_user_cubit.dart';
 import 'package:rmservice/place_page/cubits/images_place_cubit.dart';
@@ -287,5 +288,10 @@ final listProvider = [
   //Maid Around
   BlocProvider<GetMaidRatingsCubit>(
     create: (_) => GetMaidRatingsCubit(),
-  )
+  ),
+
+  //Unread Noti
+  BlocProvider<UnreadNotiCubit>(
+    create: (_) => UnreadNotiCubit(),
+  ),
 ];

@@ -1,10 +1,14 @@
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:rmservice/notification/cubits/unread_cubit.dart';
 import 'package:rmservice/utilities/constants/variable.dart';
 
 class NotificationController {
-  Future<void> init() async {
+  Future<void> init({
+    BuildContext? context,
+  }) async {
     FirebaseMessaging messaging = FirebaseMessaging.instance;
 
     NotificationSettings settings = await messaging.requestPermission(
@@ -25,7 +29,11 @@ class NotificationController {
     FirebaseMessaging.onMessage.listen(
       //push notification
       (RemoteMessage message) {
+        debugPrint('abc');
         _handleMessage(message);
+        if(context != null){
+          context.read<UnreadNotiCubit>().setUnreadNotiUp();
+        }
       },
     );
   }
@@ -71,5 +79,6 @@ class NotificationController {
       platformChannelSpecifics,
       payload: message.data['body'],
     );
+
   }
 }
