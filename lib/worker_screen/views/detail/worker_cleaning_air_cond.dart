@@ -13,7 +13,6 @@ import 'package:rmservice/utilities/components/button_green.dart';
 import 'package:rmservice/utilities/components/text_label.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:rmservice/utilities/constants/variable.dart';
-import 'package:rmservice/utilities/dialog/dialog.dart';
 import 'package:rmservice/worker_screen/controllers/worker.dart';
 
 class CleaningAirCondHistoryDetail extends StatefulWidget {
@@ -98,34 +97,66 @@ class _CleaningLongTermHistoryDetailState
               SizedBox(height: 15),
             if (widget.order.orderAirCondHistory.maidCode == "")
               ButtonGreenApp(
-                  label: "Nhận đơn này",
-                  onPressed: () async {
-                    showDialog(
-                        context: context,
-                        builder: (context) {
-                          return const Center(
-                            child: CircularProgressIndicator(),
-                          );
-                        });
-                    try {
-                      await WorkerController().acceptedOrder(
-                          widget.order.orderAirCondHistory.code,
-                          context.read<UserCubit>().state.code!);
-                      Navigator.pop(context);
-                      showCustomDialog(
+                label: "Nhận đơn này",
+                onPressed: () async {
+                  AwesomeDialog(
+                    context: context,
+                    dialogType: DialogType.warning,
+                    animType: AnimType.topSlide,
+                    titleTextStyle: TextStyle(
+                      color: Colors.orange,
+                      fontSize: fontSize.large,
+                      fontFamily: fontBoldApp,
+                    ),
+                    showCloseIcon: true,
+                    title: "Cảnh báo",
+                    desc: 'Bạn có chắc muốn nhận đơn?',
+                    btnOkOnPress: () async {
+                      showDialog(
                           context: context,
-                          dialogType: CustomDialogType.SUCCESS,
-                          msg: "Bạn đã nhận đơn này",
-                          isMultipleButton: false);
-                    } catch (e) {
-                      Navigator.pop(context);
-                      showCustomDialog(
+                          builder: (context) {
+                            return const Center(
+                              child: CircularProgressIndicator(
+                                color: colorProject.primaryColor,
+                              ),
+                            );
+                          });
+                      try {
+                        await WorkerController().acceptedOrder(
+                            widget.order.orderAirCondHistory.code,
+                            context.read<UserCubit>().state.code!);
+                        Navigator.pop(context);
+                        AwesomeDialog(
                           context: context,
-                          dialogType: CustomDialogType.FAILURE,
-                          msg: e.toString(),
-                          isMultipleButton: false);
-                    }
-                  }),
+                          dialogType: DialogType.success,
+                          animType: AnimType.topSlide,
+                          title: "Nhận đơn thành công",
+                          btnOkOnPress: () {
+                            Navigator.pop(context);
+                          },
+                        ).show();
+                      } catch (e) {
+                        Navigator.pop(context);
+                        AwesomeDialog(
+                          context: context,
+                          dialogType: DialogType.success,
+                          animType: AnimType.topSlide,
+                          title: "Có lỗi xảy ra",
+                          titleTextStyle: TextStyle(
+                            color: Colors.red,
+                            fontSize: fontSize.large,
+                            fontFamily: fontBoldApp,
+                          ),
+                          desc: e.toString(),
+                          btnOkOnPress: () {
+                            Navigator.pop(context);
+                          },
+                        ).show();
+                      }
+                    },
+                  ).show();
+                },
+              ),
             if (widget.order.orderAirCondHistory.maidCode ==
                 context.read<UserCubit>().state.code)
               SizedBox(height: 15),
@@ -142,6 +173,7 @@ class _CleaningLongTermHistoryDetailState
                       animType: AnimType.topSlide,
                       titleTextStyle: TextStyle(
                         color: Colors.orange,
+                        fontSize: fontSize.mediumLarger,
                       ),
                       showCloseIcon: true,
                       title: "Cảnh báo",
@@ -151,14 +183,15 @@ class _CleaningLongTermHistoryDetailState
                           context: context,
                           builder: (context) {
                             return const Center(
-                              child: CircularProgressIndicator(color: colorProject.primaryColor),
+                              child: CircularProgressIndicator(
+                                  color: colorProject.primaryColor),
                             );
-                          }
+                          },
                         );
                         try {
-                        await HistoryCancelled().ordersCancelled(
-                            context.read<UserCubit>().state.code!,
-                            widget.order.orderAirCondHistory.code);
+                          await HistoryCancelled().ordersCancelled(
+                              context.read<UserCubit>().state.code!,
+                              widget.order.orderAirCondHistory.code);
                           Navigator.pop(context);
                           AwesomeDialog(
                             context: context,

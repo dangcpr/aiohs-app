@@ -7,7 +7,7 @@ import 'package:rmservice/get_product/cubits/get_product/get_product_state.dart'
 import 'package:rmservice/history/views/overview/history.dart';
 import 'package:rmservice/login/cubit/user_cubit.dart';
 import 'package:rmservice/main_page/main_page.dart';
-import 'package:rmservice/message_page/message_page.dart';
+import 'package:rmservice/message_page/views/message_page.dart';
 import 'package:rmservice/notification/controllers/fcm.dart';
 import 'package:rmservice/notification/controllers/inbox.dart';
 import 'package:rmservice/notification/cubits/unread_cubit.dart';

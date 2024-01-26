@@ -22,6 +22,8 @@ class _PlacePageState extends State<PlacePage> {
           flexibleSpace: Column(
             children: [
               TabBar(
+                tabAlignment: TabAlignment.center,
+                isScrollable: true,
                 indicatorColor: colorProject.primaryColor,
                 labelStyle: TextStyle(
                   color: colorProject.primaryColor,

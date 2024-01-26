@@ -67,6 +67,7 @@ class _NotiScreenState extends State<NotiScreen> {
                   await context
                       .read<GetInboxCubit>()
                       .getInbox(context.read<UserCubit>().state.code!);
+                  context.read<UnreadNotiCubit>().setReadNotiAll();
                 },
               ).show();
             },

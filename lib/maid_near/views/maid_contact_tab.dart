@@ -92,32 +92,38 @@ class _MaidContactTabState extends State<MaidContactTab> {
             ],
           ),
           SizedBox(height: 10),
-          ButtonGreenApp(
-            label: "Địa chỉ trên Google Maps",
-            onPressed: () {
-              Navigator.push(
-                context,
-                PageTransition(
-                  duration: Duration(milliseconds: 400),
-                  type: PageTransitionType.rightToLeftWithFade,
-                  child: SeeMapPlace(
-                    title: widget.maidNear.name,
-                    appBarTitle: "Địa chỉ của ${widget.maidNear.name}",
-                    address: widget.maidNear.address,
-                    latitude: widget.maidNear.latitude,
-                    longtitude: widget.maidNear.longitude,
+          Container(
+            width: double.infinity,
+            child: ButtonGreenApp(
+              label: "Địa chỉ trên Google Maps",
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  PageTransition(
+                    duration: Duration(milliseconds: 400),
+                    type: PageTransitionType.rightToLeftWithFade,
+                    child: SeeMapPlace(
+                      title: widget.maidNear.name,
+                      appBarTitle: "Địa chỉ của ${widget.maidNear.name}",
+                      address: widget.maidNear.address,
+                      latitude: widget.maidNear.latitude,
+                      longtitude: widget.maidNear.longitude,
+                    ),
                   ),
-                ),
-              );
-            },
+                );
+              },
+            ),
           ),
           SizedBox(height: 10),
-          ButtonGreenApp(
-            label: "Chat với người giúp việc",
-            onPressed: () {
-              null;
-            },
-          )
+          Container(
+            width: double.infinity,
+            child: ButtonGreenApp(
+              label: "Chat với người giúp việc",
+              onPressed: () {
+                null;
+              },
+            ),
+          ),
         ],
       ),
     );
