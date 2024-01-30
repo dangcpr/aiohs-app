@@ -68,7 +68,7 @@ class _MaidViewState extends State<MaidView> {
                           ignoreGestures: true,
                           allowHalfRating: true,
                           itemSize: 30,
-                          initialRating: widget.maidNear.avg_star,
+                          initialRating: widget.maidNear.avg_star.toDouble(),
                           minRating: 1,
                           direction: Axis.horizontal,
                           onRatingUpdate: (rating) {

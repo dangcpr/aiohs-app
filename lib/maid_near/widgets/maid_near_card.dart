@@ -33,7 +33,7 @@ class _MaidNearCardState extends State<MaidNearCard> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             widget.maidNear.avatar_url == ''
-                ? CircleAvatar(child: Image.asset('assets/images/avatar.png'))
+                ? CircleAvatar(child: Image.asset('assets/images/no_avatar.png'))
                 : CircleAvatar(
                     backgroundImage: NetworkImage(widget.maidNear.avatar_url),
                     radius: 40,

@@ -48,7 +48,6 @@ class HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return BlocListener<GetProductCubit, GetProductState>(
-      key: mainKey,
       listener: (context, state) {
         debugPrint(state.toString());
         if (state is GetProductLoading) {

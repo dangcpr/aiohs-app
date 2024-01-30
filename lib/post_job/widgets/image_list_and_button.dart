@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:rmservice/post_job/cubits/save_info_job_posting.dart';
 import 'package:rmservice/utilities/constants/variable.dart';
 
 import '../cubits/images_place_cubit.dart';
