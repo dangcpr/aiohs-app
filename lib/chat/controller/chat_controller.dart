@@ -32,8 +32,43 @@ class ChatController {
         "requester": requesterCode, //user_code who clicks the chat button,
         "receiver": receiverCode //user_code who chats with
       });
-      await Future.delayed(const Duration(seconds: 1));
       if (response.statusCode == 200) {
+        return response.data['result'];
+      } else {
+        String message = jsonEncode(response.data['message']);
+        throw message;
+      }
+    } on DioException catch (e) {
+      debugPrint(e.type.toString());
+      if (e.type == DioExceptionType.receiveTimeout ||
+          e.type == DioExceptionType.connectionTimeout) {
+        throw 'Connection Timeout';
+      }
+
+      if (e.type == DioExceptionType.unknown ||
+          e.type == DioExceptionType.connectionError) {
+        throw 'Internet Error or Server Error';
+      }
+      debugPrint(e.type.toString());
+      throw 'Server Error';
+    }
+  }
+
+  Future<String> getChatTokenV2({
+    required String requesterCode,
+    required String requesterName,
+    required String receiverCode,
+    required String receiverName,
+  }) async {
+    try {
+      final response = await dio.post('/ws/info/parsing/v2', data: {
+        "requester_code": requesterCode,
+        "requester_name": requesterName,
+        "receiver_code": receiverCode,
+        "receiver_name": receiverName,
+      });
+      if (response.statusCode == 200) {
+        debugPrint(response.data['result']);
         return response.data['result'];
       } else {
         String message = jsonEncode(response.data['message']);
@@ -60,7 +95,6 @@ class ChatController {
       final response = await dio.get('/ws/chat/rooms', queryParameters: {
         "userCode": userCode,
       });
-      await Future.delayed(const Duration(milliseconds: 400));
       debugPrint("get chat info");
 
       //if (response.statusCode == 200) {
@@ -83,7 +117,6 @@ class ChatController {
         "limit": 10,
       });
       debugPrint("get chat detail");
-      await Future.delayed(const Duration(seconds: 1));
       //if (response.statusCode == 200) {
       List<Messages> messages = [];
       for (var item in response.data['messages']) {
