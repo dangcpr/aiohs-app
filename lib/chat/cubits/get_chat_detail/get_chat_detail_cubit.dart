@@ -5,18 +5,19 @@ import 'package:rmservice/chat/models/chat_detail.dart';
 
 class GetChatDetailCubit extends Cubit<GetChatDetailState> {
   GetChatDetailCubit() : super(GetChatDetailInitial());
-  String next = "0";
-  List<ChatDetail> listChatDetail = [];
+  int next = 0;
 
-  Future<void> getChatDetail(String chatId) async {
+  Future<List<Messages>> getChatDetail(String roomId) async {
     emit(GetChatDetailLoading());
     try {
-      final chatDetail = await ChatController().getChatDetail(chatId, next);
-      listChatDetail.addAll(chatDetail.result);
-      next = chatDetail.next;
-      emit(GetChatDetailSuccess(listChatDetail: listChatDetail));
+      final chatDetailResult =
+          await ChatController().getChatDetail(roomId, next);
+      next = chatDetailResult.next;
+      emit(GetChatDetailSuccess(chatDetailResult: chatDetailResult));
+      return chatDetailResult.result;
     } catch (e) {
       emit(GetChatDetailFailure(message: e.toString()));
     }
+    return [];
   }
 }

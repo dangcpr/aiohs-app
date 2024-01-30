@@ -16,7 +16,7 @@ class MessageScreen extends StatefulWidget {
 }
 
 class _MessageScreenState extends State<MessageScreen> {
-  late ChatInfo chatInfo;
+  late List<ChatInfo> listChatInfo;
   String error = "";
   int loading = 0;
   bool showLoading = true;
@@ -49,15 +49,16 @@ class _MessageScreenState extends State<MessageScreen> {
                 onRefresh: () async {
                   chatInfoFunc();
                 },
-                child: SingleChildScrollView(
-                  physics: AlwaysScrollableScrollPhysics(),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      CardChatInfo(chatInfo: chatInfo),
-                    ],
-                  ),
-                )));
+                child: ListView.builder(
+                    physics: NeverScrollableScrollPhysics(),
+                    itemCount: listChatInfo.length,
+                    shrinkWrap: true,
+                    itemBuilder: (context, index) {
+                      return CardChatInfo(
+                        chatInfo: listChatInfo[index],
+                      );
+                    }),
+              ));
   }
 
   void chatInfoFunc() {
@@ -65,10 +66,10 @@ class _MessageScreenState extends State<MessageScreen> {
       loading = 1;
     });
     try {
-      ChatController().getChatInfo(context.read<UserCubit>().state.code!).then(
+      ChatController().getListChat(context.read<UserCubit>().state.code!).then(
             (value) => setState(() {
               loading = 0;
-              chatInfo = value;
+              listChatInfo = value;
             }),
           );
     } catch (e) {
@@ -81,9 +82,9 @@ class _MessageScreenState extends State<MessageScreen> {
 
   void chatInfoFuncNotLoad() {
     try {
-      ChatController().getChatInfo(context.read<UserCubit>().state.code!).then(
+      ChatController().getListChat(context.read<UserCubit>().state.code!).then(
             (value) => setState(() {
-              chatInfo = value;
+              listChatInfo = value;
             }),
           );
     } catch (e) {

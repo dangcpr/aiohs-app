@@ -7,9 +7,9 @@ class GetChatDetailInitial extends GetChatDetailState {}
 class GetChatDetailLoading extends GetChatDetailState {}
 
 class GetChatDetailSuccess extends GetChatDetailState {
-  final List<ChatDetail> listChatDetail;
+  final ChatDetailResult chatDetailResult;
 
-  GetChatDetailSuccess({required this.listChatDetail});
+  GetChatDetailSuccess({required this.chatDetailResult});
 }
 
 class GetChatDetailFailure extends GetChatDetailState {

@@ -9,7 +9,7 @@ import 'package:rmservice/utilities/constants/variable.dart';
 
 final dio = Dio(
   BaseOptions(
-    baseUrl: 'https://' + serverChat,
+    baseUrl: 'http://' + serverChat,
     connectTimeout: const Duration(seconds: 10),
     receiveTimeout: const Duration(seconds: 10),
     validateStatus: (status) {
@@ -55,7 +55,7 @@ class ChatController {
     }
   }
 
-  Future<ChatInfo> getChatInfo(String userCode) async {
+  Future<List<ChatInfo>> getListChat(String userCode) async {
     try {
       final response = await dio.get('/ws/chat/rooms', queryParameters: {
         "userCode": userCode,
@@ -64,13 +64,10 @@ class ChatController {
       debugPrint("get chat info");
 
       //if (response.statusCode == 200) {
-      return ChatInfo(
-        room_id: response.data['room_id'],
-        post_code: response.data['post_code'],
-        post_name: response.data['post_name'],
-        requester: response.data['requester'],
-        receiver: response.data['receiver'],
-      );
+      List<ChatInfo> listRooms = [];
+      listRooms =
+          (response.data as List).map((e) => ChatInfo.fromJson(e)).toList();
+      return listRooms;
     } on DioException catch (e) {
       throw handleError(e);
     } catch (e) {
@@ -78,7 +75,7 @@ class ChatController {
     }
   }
 
-  Future<ChatDetailResult> getChatDetail(String room_id, String next) async {
+  Future<ChatDetailResult> getChatDetail(String room_id, int next) async {
     try {
       final response = await dio.get('/ws/chat/history', queryParameters: {
         "roomId": room_id,
@@ -88,17 +85,19 @@ class ChatController {
       debugPrint("get chat detail");
       await Future.delayed(const Duration(seconds: 1));
       //if (response.statusCode == 200) {
-      List<ChatDetail> chatDetailList = [];
-      for (var item in response.data['result']) {
-        chatDetailList.add(ChatDetail.fromJson(item));
+      List<Messages> messages = [];
+      for (var item in response.data['messages']) {
+        messages.add(Messages.fromJson(item));
       }
       return ChatDetailResult(
         next: response.data['next'],
-        result: chatDetailList,
+        result: messages,
       );
     } on DioException catch (e) {
+      print(e.toString());
       throw handleError(e);
     } catch (e) {
+      print(e.toString());
       throw e.toString();
     }
   }
