@@ -10,10 +10,12 @@ import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
 import 'package:flutter_chat_ui/flutter_chat_ui.dart';
 import 'package:uuid/uuid.dart';
 
+// Chat page from job posting
+
 class ChatPage extends StatefulWidget {
   final String chatToken;
   late WebSocketChannel channel = IOWebSocketChannel.connect(
-      Uri.parse('ws://' + serverChat + '/ws/chat/start?key=$chatToken'));
+      Uri.parse('ws://${serverChat}/ws/chat/start?key=$chatToken'));
 
   ChatPage({super.key, required this.chatToken});
 
@@ -27,9 +29,7 @@ class _ChatPageState extends State<ChatPage> {
     super.initState();
   }
 
-  void getListChatDetail() {
-    
-  }
+  void getListChatDetail() {}
 
   final WebSocketChannel? channel;
   List<types.Message> _messages = [];
@@ -47,11 +47,11 @@ class _ChatPageState extends State<ChatPage> {
   }
 
   _ChatPageState({this.channel}) {
-    // if (channel == null) {
-    //   print("Channel is null");
-    // } else {
-    //   print("Channel is not null");
-    // }
+    if (channel == null) {
+      print("Channel is null");
+    } else {
+      print("Channel is not null");
+    }
     channel!.stream.listen((data) {
       var content = jsonDecode(data);
       setState(() {

@@ -7,7 +7,7 @@ class MaidRatingRes {
   late String product_code;
   late String product_name;
   late String comment;
-  late int star;
+  late num star;
 
   MaidRatingRes({
     required this.code,

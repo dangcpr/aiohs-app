@@ -1,14 +1,10 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
-import 'package:rmservice/history/helpers/get_detail.dart';
 import 'package:rmservice/history/helpers/get_icon.dart';
-import 'package:rmservice/history/models/order.dart';
 import 'package:rmservice/login/cubit/user_cubit.dart';
 import 'package:rmservice/post_job/models/history_job_posting.dart';
-import 'package:rmservice/utilities/components/dialog_wrong.dart';
+
 import 'package:rmservice/utilities/constants/variable.dart';
 
 import '../../chat/controller/chat_controller.dart';
@@ -31,7 +27,7 @@ class _CardPostState extends State<CardPost> {
   int state = 0;
   @override
   Widget build(BuildContext context) {
-    var userCubit = context.read<UserCubit>();
+    //var userCubit = context.read<UserCubit>();
     DateTime createDate =
         new DateFormat("yyyy-MM-dd HH:mm:ss").parse(widget.post.createdAt);
     String createDateString =
@@ -89,11 +85,14 @@ class _CardPostState extends State<CardPost> {
                       fontSize: fontSize.medium,
                     ),
                   ),
-                  Text(
-                    '${numberFormat.format(widget.post.wageMin)} - ${numberFormat.format(widget.post.wageMax)}',
-                    style: TextStyle(
-                      fontFamily: fontApp,
-                      fontSize: fontSize.medium,
+                  Expanded(
+                    child: Text(
+                      '${numberFormat.format(widget.post.wageMin)} - ${numberFormat.format(widget.post.wageMax)}',
+                      style: TextStyle(
+                        fontFamily: fontApp,
+                        fontSize: fontSize.medium,
+                        overflow: TextOverflow.ellipsis,
+                      ),
                     ),
                   )
                 ],
@@ -107,11 +106,14 @@ class _CardPostState extends State<CardPost> {
                       fontSize: fontSize.medium,
                     ),
                   ),
-                  Text(
-                    createDateString,
-                    style: TextStyle(
-                      fontFamily: fontApp,
-                      fontSize: fontSize.medium,
+                  Expanded(
+                    child: Text(
+                      createDateString,
+                      style: TextStyle(
+                        fontFamily: fontApp,
+                        fontSize: fontSize.medium,
+                        overflow: TextOverflow.ellipsis,
+                      ),
                     ),
                   )
                 ],

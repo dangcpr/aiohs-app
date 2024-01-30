@@ -51,6 +51,7 @@ import 'package:rmservice/worker_screen/cubits/get_order_all/get_order_all_cubit
 import 'package:rmservice/worker_screen/cubits/get_order_cancelled/get_order_cancelled_cubit.dart';
 import 'package:rmservice/worker_screen/cubits/get_order_completed/get_order_completed_cubit.dart';
 
+import '../../chat/cubits/get_chat_detail/get_chat_detail_cubit.dart';
 import '../../cleaning_hourly/cubits/save_info/save_info.dart';
 import '../../cleaning_longterm/cubit/price_cleaning_longterm_cubit.dart';
 import '../../cleaning_longterm/cubit/save_info_cubit.dart';
@@ -293,5 +294,10 @@ final listProvider = [
   //Unread Noti
   BlocProvider<UnreadNotiCubit>(
     create: (_) => UnreadNotiCubit(),
+  ),
+
+  // Chat
+  BlocProvider<GetChatDetailCubit>(
+    create: (_) => GetChatDetailCubit(),
   ),
 ];

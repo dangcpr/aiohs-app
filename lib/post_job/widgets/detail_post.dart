@@ -1,10 +1,7 @@
-import 'dart:ffi';
-
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rmservice/chat/chat_page.dart';
-import 'package:rmservice/chat/controller/chat_controller.dart';
 import 'package:rmservice/login/cubit/user_cubit.dart';
 import 'package:rmservice/post_job/constants/sex_choose.dart';
 import 'package:rmservice/post_job/cubits/close_post/close_post_cubit.dart';

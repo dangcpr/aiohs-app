@@ -1,19 +1,18 @@
-class ChatDetail {
-  late String roomId;
-  late String sender;
-  late String receiver;
-  late String content;
-  late String sendTime;
-
-  ChatDetail({
+class Messages {
+  Messages({
     required this.roomId,
     required this.sender,
     required this.receiver,
     required this.content,
     required this.sendTime,
   });
+  late final String roomId;
+  late final String sender;
+  late final String receiver;
+  late final String content;
+  late final String sendTime;
 
-  ChatDetail.fromJson(Map<String, dynamic> json) {
+  Messages.fromJson(Map<String, dynamic> json) {
     roomId = json['room_id'];
     sender = json['sender'];
     receiver = json['receiver'];
@@ -21,18 +20,20 @@ class ChatDetail {
     sendTime = json['send_time'];
   }
 
-  Map<String, dynamic> toJson() => {
-        'room_id': roomId,
-        'sender': sender,
-        'receiver': receiver,
-        'content': content,
-        'send_time': sendTime,
-      };
+  Map<String, dynamic> toJson() {
+    final _data = <String, dynamic>{};
+    _data['room_id'] = roomId;
+    _data['sender'] = sender;
+    _data['receiver'] = receiver;
+    _data['content'] = content;
+    _data['send_time'] = sendTime;
+    return _data;
+  }
 }
 
 class ChatDetailResult {
-  late String next;
-  late List<ChatDetail> result;
+  late int next;
+  late List<Messages> result;
 
   ChatDetailResult({
     required this.next,
@@ -42,8 +43,8 @@ class ChatDetailResult {
   ChatDetailResult.fromJson(Map<String, dynamic> json) {
     next = json['next'];
     result = [];
-    for (var item in json['result']) {
-      result.add(ChatDetail.fromJson(item));
+    for (var item in json['messages']) {
+      result.add(Messages.fromJson(item));
     }
   }
 

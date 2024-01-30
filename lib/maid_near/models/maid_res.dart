@@ -4,12 +4,12 @@ class MaidRes {
   late String email;
   late String phone_number;
   late String avatar_url;
-  late int total_rating;
-  late double avg_star;
+  late num total_rating;
+  late num avg_star;
   late double longitude;
   late double latitude;
   late String address;
-  late double distance;
+  late num distance;
 
   MaidRes({
     required this.code,
