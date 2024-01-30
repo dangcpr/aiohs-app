@@ -40,7 +40,15 @@ class _InfoAccountState extends State<InfoAccount> {
               overflow: TextOverflow.ellipsis,
             ),
           ),
-          Text('${userCubit.state.email!}',
+          Text(
+            '${userCubit.state.email!}',
+            style: TextStyle(
+              fontFamily: fontApp,
+              fontSize: fontSize.medium,
+              color: colorProject.subColor,
+            ),
+          ),
+          Text('Mã người dùng: ' + '${userCubit.state.code!}',
               style: TextStyle(
                 fontFamily: fontApp,
                 fontSize: fontSize.medium,

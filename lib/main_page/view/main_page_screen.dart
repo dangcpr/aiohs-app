@@ -59,8 +59,8 @@ class _MainPageState extends State<MainPage> {
                   ? Register()
                   : maidCard(),
               const SizedBox(height: 12),
-              SearchBox(),
-              const SizedBox(height: 12),
+              //SearchBox(),
+              //const SizedBox(height: 12),
               Text(
                 AppLocalizations.of(context)!.services,
                 style: const TextStyle(
