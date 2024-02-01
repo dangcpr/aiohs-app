@@ -6,6 +6,9 @@ class Address {
   late double? latitude;
   late double? longitude;
   late String? typeOfAddress;
+  late String ward;
+  late String district;
+  late String city;
 
   Address({
     this.name,
@@ -14,7 +17,10 @@ class Address {
     this.address,
     this.latitude,
     this.longitude,
-    this.typeOfAddress
+    this.typeOfAddress,
+    this.ward = '',
+    this.district = '',
+    this.city = '',
   });
 
   Address.fromJson(Map<String, dynamic> json) {
@@ -25,6 +31,9 @@ class Address {
     latitude = json['latitude'];
     longitude = json['longitude'];
     typeOfAddress = json['typeOfAddress'];
+    ward = json['ward'];
+    district = json['district'];
+    city = json['city'];
   }
 
   Map<String, dynamic> toJson() => {
@@ -34,6 +43,9 @@ class Address {
     'address': address,
     'latitude': latitude,
     'longitude': longitude,
-    'typeOfAddress': typeOfAddress
+    'typeOfAddress': typeOfAddress,
+    'ward': ward,
+    'district': district,
+    'city': city,
   };
 }

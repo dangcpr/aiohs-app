@@ -56,8 +56,8 @@ class UserAddressController {
     try {
       var response = await dio.post('/user/$userCode/address', data: {
         "type": address.typeOfAddress,
-        "city": "",
-        "district": "",
+        "city": address.city,
+        "district": address.district,
         "ward": "",
         "street_name": address.address,
         "house_no": "",

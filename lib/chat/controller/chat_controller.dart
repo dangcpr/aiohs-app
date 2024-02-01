@@ -9,7 +9,7 @@ import 'package:rmservice/utilities/constants/variable.dart';
 
 final dio = Dio(
   BaseOptions(
-    baseUrl: 'https://' + serverChat,
+    baseUrl: 'http://' + serverChat,
     connectTimeout: const Duration(seconds: 10),
     receiveTimeout: const Duration(seconds: 10),
     validateStatus: (status) {

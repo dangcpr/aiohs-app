@@ -14,7 +14,8 @@ class ChooseLocationScreenUser extends StatefulWidget {
   const ChooseLocationScreenUser({super.key});
 
   @override
-  State<ChooseLocationScreenUser> createState() => _ChooseLocationScreenUserState();
+  State<ChooseLocationScreenUser> createState() =>
+      _ChooseLocationScreenUserState();
 }
 
 class _ChooseLocationScreenUserState extends State<ChooseLocationScreenUser> {
@@ -73,16 +74,24 @@ class _ChooseLocationScreenUserState extends State<ChooseLocationScreenUser> {
           TextButton(
             onPressed: () {
               if (isSearch) {
-                context.read<SaveAddressCubit>().state!.address = searchLocationController.text;
-                context.read<SaveAddressCubit>().state!.shortAddress = addressObject.shortAddress;
+                context.read<SaveAddressCubit>().state!.address =
+                    searchLocationController.text;
+                context.read<SaveAddressCubit>().state!.shortAddress =
+                    addressObject.shortAddress;
                 context.read<SaveAddressCubit>().state!.latitude = latCurrent;
                 context.read<SaveAddressCubit>().state!.longitude = lngCurrent;
+                context.read<SaveAddressCubit>().state!.ward =
+                    addressObject.ward;
+                context.read<SaveAddressCubit>().state!.city =
+                    addressObject.city;
+                context.read<SaveAddressCubit>().state!.district =
+                    addressObject.district;
+
                 showModalBottomSheet(
                   context: context,
                   isScrollControlled: true,
                   builder: (builder) {
                     return BottomSheetAddressUser(isDarkMode: isDarkMode);
-                    
                   },
                 );
               } else
@@ -137,6 +146,11 @@ class _ChooseLocationScreenUserState extends State<ChooseLocationScreenUser> {
 
               searchLocationController.text =
                   jsonDecode(address!)['formatted_address']!;
+              
+              List<dynamic> addressComponents = jsonDecode(address)['address_components'];
+              debugPrint(addressComponents.firstWhere(
+                  (entry) => entry['types']
+                      .contains('administrative_area_level_1'))['long_name']);
 
               addressObject = Address(
                 address: jsonDecode(address)['formatted_address'],
@@ -144,6 +158,12 @@ class _ChooseLocationScreenUserState extends State<ChooseLocationScreenUser> {
                         ['long_name'] +
                     ' ' +
                     jsonDecode(address)['address_components'][1]['long_name'],
+                district: addressComponents.firstWhere(
+                  (entry) => entry['types']
+                      .contains('administrative_area_level_2'))['long_name'],
+                city: addressComponents.firstWhere(
+                  (entry) => entry['types']
+                      .contains('administrative_area_level_1'))['long_name'],
               );
 
               // debugPrint(await MapController()
@@ -207,14 +227,13 @@ class _ChooseLocationScreenUserState extends State<ChooseLocationScreenUser> {
                         );
 
                         addressObject = Address(
-                          address: jsonDecode(detailAddress)['formatted_address'],
-                          shortAddress:
-                              jsonDecode(detailAddress)['name']
-                        );
+                            address:
+                                jsonDecode(detailAddress)['formatted_address'],
+                            shortAddress: jsonDecode(detailAddress)['name']);
 
                         setState(() {
                           isSearch = true;
-                          isOnCameraMove = false;
+                          //isOnCameraMove = false;
                         });
                       },
                       icon: Icon(Icons.search),

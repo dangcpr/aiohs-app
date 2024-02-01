@@ -68,7 +68,7 @@ class MapController {
 
       String _host = 'https://maps.google.com/maps/api/geocode/json';
 
-      final url = '$_host?key=$mapApiKey&language=en&latlng=$lat,$lng';
+      final url = '$_host?key=$mapApiKey&language=vn&latlng=$lat,$lng';
 
       var response = await http.get(Uri.parse(url));
 
@@ -77,7 +77,7 @@ class MapController {
       if (response.statusCode == 200) {
         Map data = jsonDecode(response.body);
         //String _formattedAddress = data["results"][0]["formatted_address"];
-        debugPrint("response ==== ${data["results"][0]}");
+        debugPrint("response ==== ${data["results"][0]}", wrapWidth: 1024);
         return jsonEncode(data["results"][0]);
       } else {
         return null;
@@ -95,11 +95,11 @@ class MapController {
       String _host =
           'https://maps.googleapis.com/maps/api/place/textsearch/json';
 
-      final url = '$_host?&query=$address&key=$mapApiKey&language=en';
+      final url = '$_host?&query=$address&key=$mapApiKey&language=vn';
 
       var response = await http.get(Uri.parse(url));
 
-      debugPrint(response.statusCode.toString());
+      debugPrint(response.statusCode.toString(), wrapWidth: 1024);
 
       if (response.statusCode == 200) {
         Map data = jsonDecode(response.body);
