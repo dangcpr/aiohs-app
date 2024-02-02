@@ -69,6 +69,25 @@ class LoginCubit extends Cubit<LoginState> {
     }
   }
 
+  Future<void> logInApple() async {
+    emit(LoginLoading());
+    try {
+      print('Loading');
+      var res = await authenticationRepository.logInOauthApple();
+      if (res.status == AuthenticationStatus.authenticated) {
+        emit(LoginSuccess(statusLogin: res.status.toString(), user: res.user!));
+      } else if (res.status == AuthenticationStatus.inactive) {
+        emit(LoginFailure(
+            error:
+                "Tài khoản đang bị khoá. Vui lòng liên hệ quản trị viên"));
+      } else {
+        emit(LoginFailure(error: "Tài khoản hoặc mật khẩu không đúng"));
+      }
+    } catch (e) {
+      emit(LoginFailure(error: e.toString()));
+    }
+  }
+
   Future<void> setInit() async {
     emit(LoginInitial());
   }

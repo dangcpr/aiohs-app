@@ -171,13 +171,15 @@ class _LoginScreenState extends State<LoginScreen> with InputValidationMixin {
                               children: [
                                 InkWell(
                                   onTap: () => Navigator.push(
-                                      context,
-                                      PageTransition(
-                                          duration:
-                                              const Duration(milliseconds: 400),
-                                          type: PageTransitionType
-                                              .rightToLeftWithFade,
-                                          child: ForgotPasswordPage(),),),
+                                    context,
+                                    PageTransition(
+                                      duration:
+                                          const Duration(milliseconds: 400),
+                                      type: PageTransitionType
+                                          .rightToLeftWithFade,
+                                      child: ForgotPasswordPage(),
+                                    ),
+                                  ),
                                   child: Text(
                                       AppLocalizations.of(context)!
                                           .forgotPassword,
@@ -231,6 +233,14 @@ class _LoginScreenState extends State<LoginScreen> with InputValidationMixin {
                               assetString: AppAssets.facebook,
                               onTap: () async {
                                 context.read<LoginCubit>().logInFB();
+                              },
+                            ),
+                          if (Platform.isIOS) const SizedBox(width: 15),
+                          if (Platform.isIOS)
+                            socialButton(
+                              assetString: AppAssets.apple,
+                              onTap: () async {
+                                context.read<LoginCubit>().logInApple();
                               },
                             ),
                         ],

@@ -10,6 +10,7 @@ import 'package:dio/dio.dart';
 import 'package:rmservice/authentication_repository/login_model.dart';
 import 'package:rmservice/login/models/user.dart';
 import 'package:rmservice/utilities/constants/variable.dart';
+import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 
 enum AuthenticationStatus {
   unknown,
@@ -310,6 +311,103 @@ class AuthenticationRepository {
 
     final body = {
       "email": await fb.getUserEmail(),
+    };
+
+    var options = BaseOptions(
+      contentType: 'application/json',
+      method: 'POST',
+      baseUrl: debugServer,
+      validateStatus: (status) {
+        return status! < 500;
+      },
+    );
+
+    final dio = Dio(options);
+
+    try {
+      final response = await dio.request("/user/oauth-login", data: body);
+      print(jsonEncode(response.data));
+      if (response.statusCode == 200) {
+        const storage = FlutterSecureStorage();
+        LoginModel loginModel;
+        // await storage.write(
+        //     key: 'refreshToken',
+        //     value: response.data['response']['tokens']['refresh']['token']);
+        // await storage.write(
+        //     key: 'uid',
+        //     value: response.data['response']['user']['id'].toString());
+        if (response.data['user']['status'] != "active") {
+          debugPrint(response.data['user']['status']);
+          loginModel = LoginModel(
+            status: AuthenticationStatus.inactive,
+          );
+        } else {
+          _controller.add(AuthenticationStatus.authenticated);
+          await storage.write(key: 'token', value: response.data['token']);
+          String token = await storage.read(key: 'token') ?? "";
+          print('token got: $token');
+          loginModel = LoginModel(
+            status: AuthenticationStatus.authenticated,
+            user: User.fromJson(response.data['user']),
+          );
+
+          var response2 = await dio.post(
+              '/user/${loginModel.user!.code!}/token',
+              data: {'token': fcmToken});
+          try {
+            if (response2.data['code'] == 0) {
+              debugPrint("post token success");
+              return loginModel;
+            } else {
+              throw response2.data['message'];
+            }
+          } catch (e) {
+            throw e.toString();
+          }
+        }
+        return loginModel;
+      } else {
+        _controller.add(AuthenticationStatus.unauthenticated);
+        LoginModel loginModel = LoginModel(
+          status: AuthenticationStatus.unauthenticated,
+        );
+        return loginModel;
+      }
+    } catch (error) {
+      print('test: ${error.toString()}');
+      if (error is DioError &&
+          error.response?.statusCode == HttpStatus.unauthorized) {
+        _controller.add(AuthenticationStatus.unauthenticated);
+        LoginModel loginModel = LoginModel(
+          status: AuthenticationStatus.unauthenticated,
+        );
+        return loginModel;
+      } else {
+        _controller.add(AuthenticationStatus.error);
+        LoginModel loginModel = LoginModel(
+          status: AuthenticationStatus.error,
+        );
+        return loginModel;
+      }
+    }
+  }
+
+  Future<LoginModel> logInOauthApple() async {
+    final credential = await SignInWithApple.getAppleIDCredential(
+      scopes: [
+        AppleIDAuthorizationScopes.email,
+        AppleIDAuthorizationScopes.fullName,
+      ],
+      webAuthenticationOptions: WebAuthenticationOptions(
+        clientId: 'com.example.rmservice',
+        redirectUri: Uri.parse(
+          'https://example.com/callbacks/sign_in_with_apple',
+        ),
+      ),
+    );
+
+    final body = {
+      "email": credential.email,
     };
 
     var options = BaseOptions(

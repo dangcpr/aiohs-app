@@ -21,6 +21,7 @@ final cloudinary = Cloudinary.signedConfig(
 );
 bool hasOauth_G = false;
 bool hasOauth_F = false;
+bool hasOauth_A = false;
 
 const nameAppShort = "AIOHS";
 
