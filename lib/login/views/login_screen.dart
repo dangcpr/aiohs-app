@@ -207,7 +207,7 @@ class _LoginScreenState extends State<LoginScreen> with InputValidationMixin {
                         ),
                       ),
                       const SizedBox(height: 14),
-                      if ((hasOauth_G == true || hasOauth_F == true) ||
+                      if ((hasOauth_G == true || hasOauth_F == true || hasOauth_A == true) ||
                           !Platform.isIOS)
                         Center(
                           child: Text(AppLocalizations.of(context)!.orLogin,
@@ -235,8 +235,8 @@ class _LoginScreenState extends State<LoginScreen> with InputValidationMixin {
                                 context.read<LoginCubit>().logInFB();
                               },
                             ),
-                          if (Platform.isIOS) const SizedBox(width: 15),
-                          if (Platform.isIOS)
+                          if (hasOauth_A && Platform.isIOS) const SizedBox(width: 15),
+                          if (hasOauth_A && Platform.isIOS)
                             socialButton(
                               assetString: AppAssets.apple,
                               onTap: () async {
