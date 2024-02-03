@@ -65,6 +65,9 @@ class LaundryController {
         "note": infoLaundry.note,
         "agent_name": address.name,
         "agent_phone": address.phone,
+        "city": address.city,
+        "district": address.district,
+        "ward": address.ward,
         "normal_clothes": {
           "clothes": infoLaundry.clothes,
           "blanket": infoLaundry.blanket,

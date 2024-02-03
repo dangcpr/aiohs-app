@@ -24,6 +24,9 @@ class SaveAddressShoppingCubit extends Cubit<AddressShopping?> {
     newAddress.nameAddress = address.detail;
     newAddress.latCurrent = address.latitude;
     newAddress.lngCurrent = address.longitude;
+    newAddress.city = address.city;
+    newAddress.district = address.district;
+    newAddress.ward = address.ward;
     emit(AddressShopping());
     emit(newAddress);
   }

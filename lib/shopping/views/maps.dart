@@ -78,6 +78,15 @@ class _ChooseLocationScreenState extends State<ChooseLocationScreen> {
                     searchLocationController.text;
                 context.read<SaveAddressShoppingCubit>().state!.nameAddress =
                     addressObject.nameAddress;
+                context.read<SaveAddressShoppingCubit>().state!.latCurrent =
+                    addressObject.latCurrent;
+                context.read<SaveAddressShoppingCubit>().state!.lngCurrent =
+                    addressObject.lngCurrent;
+                context.read<SaveAddressShoppingCubit>().state!.city =
+                    addressObject.city;
+                context.read<SaveAddressShoppingCubit>().state!.district =
+                    addressObject.district;
+
                 showModalBottomSheet(
                   context: context,
                   isScrollControlled: true,
@@ -143,6 +152,11 @@ class _ChooseLocationScreenState extends State<ChooseLocationScreen> {
               searchLocationController.text =
                   jsonDecode(address!)['formatted_address']!;
 
+              List<dynamic> addressComponents =
+                  jsonDecode(address)['address_components'];
+              debugPrint(addressComponents.firstWhere((entry) => entry['types']
+                  .contains('administrative_area_level_1'))['long_name']);
+
               addressObject = AddressShopping(
                 fullAddress: jsonDecode(address)['formatted_address'],
                 nameAddress: jsonDecode(address)['address_components'][0]
@@ -151,6 +165,10 @@ class _ChooseLocationScreenState extends State<ChooseLocationScreen> {
                     jsonDecode(address)['address_components'][1]['long_name'],
                 latCurrent: latCurrent,
                 lngCurrent: lngCurrent,
+                district: addressComponents.firstWhere((entry) => entry['types']
+                    .contains('administrative_area_level_2'))['long_name'],
+                city: addressComponents.firstWhere((entry) => entry['types']
+                    .contains('administrative_area_level_1'))['long_name'],
               );
 
               // debugPrint(await MapController()
@@ -225,7 +243,7 @@ class _ChooseLocationScreenState extends State<ChooseLocationScreen> {
 
                         setState(() {
                           isSearch = true;
-                          isOnCameraMove = false;
+                          // isOnCameraMove = false;
                         });
                       },
                       icon: Icon(Icons.search),

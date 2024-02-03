@@ -40,6 +40,7 @@ class _AddressCardState extends State<AddressCard> {
                     ),
                   );
                 } else {
+                  debugPrint(widget.address.district);
                   context
                       .read<SaveAddressCubit>()
                       .setAddressFromRes(widget.address);

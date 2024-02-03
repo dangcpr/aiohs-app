@@ -70,6 +70,9 @@ class CleaningHourlyController {
           "with_laundry": info.iron,
           "bring_tools": info.bringTool,
           "note": info.note,
+          "city": address.city,
+          "district": address.district,
+          "ward": address.ward,
         },
       );
       if (response.data['code'] == 0) {

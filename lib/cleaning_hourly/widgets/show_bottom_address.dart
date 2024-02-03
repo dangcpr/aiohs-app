@@ -26,8 +26,8 @@ class _BottomSheetAddressState extends State<BottomSheetAddress> {
   final _formKey = GlobalKey<FormState>();
 
   @override
-  Widget build(BuildContext context) {
-    //controller.text = context.read<SavePriceShopping>().state.toString();
+  void initState() {
+    super.initState();
     shortAddressController.text =
         context.read<SaveAddressCubit>().state!.shortAddress!;
     nameController.text =
@@ -46,6 +46,12 @@ class _BottomSheetAddressState extends State<BottomSheetAddress> {
                     context.read<UserCubit>().state.phone_number!.isEmpty
                 ? ""
                 : context.read<UserCubit>().state.phone_number)!)!;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    //controller.text = context.read<SavePriceShopping>().state.toString();
+    
     return Container(
       padding: EdgeInsets.only(
         left: 20,
@@ -143,6 +149,9 @@ class _BottomSheetAddressState extends State<BottomSheetAddress> {
                             shortAddress: shortAddressController.text,
                             latitude: widget.lat,
                             longitude: widget.lng,
+                            district: context.read<SaveAddressCubit>().state!.district,
+                            city: context.read<SaveAddressCubit>().state!.city,
+                            ward: context.read<SaveAddressCubit>().state!.ward,
                           ),
                         );
 

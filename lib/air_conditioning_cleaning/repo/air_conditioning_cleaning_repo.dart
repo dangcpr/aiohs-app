@@ -68,6 +68,9 @@ class AirCondRepo {
         "longitude": address.longitude,
         "agent_name": address.name,
         "agent_phone": address.phone,
+        "city": address.city,
+        "district": address.district,
+        "ward": address.ward,
         "wall": {
           "number_bellow_2hp": info.details[0].amount,
           "number_above_2hp": info.details[1].amount,
