@@ -170,6 +170,18 @@ class _BottomSheetAddressState extends State<BottomSheetAddress> {
                             nameAddress: shortAddressController.text,
                             latCurrent: widget.lat,
                             lngCurrent: widget.long,
+                            district: context
+                                .read<SaveAddressShoppingCubit>()
+                                .state!
+                                .district,
+                            city: context
+                                .read<SaveAddressShoppingCubit>()
+                                .state!
+                                .city,
+                            ward: context
+                                .read<SaveAddressShoppingCubit>()
+                                .state!
+                                .ward,
                           ),
                         );
                     WidgetsBinding.instance.addPostFrameCallback((_) {

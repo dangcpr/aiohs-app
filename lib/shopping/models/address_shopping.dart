@@ -6,6 +6,9 @@ class AddressShopping {
   late String? fullAddress;
   late double latCurrent;
   late double lngCurrent;
+  late String city;
+  late String district;
+  late String ward;
 
   AddressShopping({
     this.yourName = "",
@@ -15,6 +18,9 @@ class AddressShopping {
     this.fullAddress = "",
     this.latCurrent = 0,
     this.lngCurrent = 0,
+    this.city = "",
+    this.district = "",
+    this.ward = "",
   });
 
   AddressShopping.fromJson(Map<String, dynamic> json) {
@@ -25,6 +31,9 @@ class AddressShopping {
     fullAddress = json['fullAddress'];
     latCurrent = json['latCurrent'];
     lngCurrent = json['lngCurrent'];
+    district = json['district'];
+    city = json['city'];
+    ward = json['ward'];
   }
 
   Map<String, dynamic> toJson() => {
@@ -35,5 +44,8 @@ class AddressShopping {
     'fullAddress': fullAddress,
     'latCurrent': latCurrent,
     'lngCurrent': lngCurrent,
+    'city': city,
+    'district': district,
+    'ward': ward,
   };
 }

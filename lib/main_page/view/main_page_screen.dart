@@ -252,7 +252,7 @@ class _MainPageState extends State<MainPage> {
                     is WorkerGetOrderAllInitial) {
                   context
                       .read<WorkerGetOrderAllCubit>()
-                      .getOrderAll(5, context.read<UserCubit>().state.code!);
+                      .getOrderAll(context.read<UserCubit>().state.code!, distance: 5.0);
                 }
 
                 Navigator.push(

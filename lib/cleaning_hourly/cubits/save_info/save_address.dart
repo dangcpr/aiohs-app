@@ -26,6 +26,9 @@ class SaveAddressCubit extends Cubit<Address?> {
     newAddress.latitude = address.latitude;
     newAddress.longitude = address.longitude;
     newAddress.typeOfAddress = address.type;
+    newAddress.city = address.city;
+    newAddress.district = address.district;
+    newAddress.ward = address.ward;
     emit(Address(
         name: "",
         phone: "",

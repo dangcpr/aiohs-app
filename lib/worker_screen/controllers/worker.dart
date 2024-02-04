@@ -19,7 +19,13 @@ final dio = Dio(
 
 class WorkerController {
   Future<OrderResult> getOrderPublic(
-      double distance, String userCode, int next) async {
+    String userCode,
+    int next, {
+    num? distance,
+    String? city,
+    String? district,
+    String? productCode,
+  }) async {
     try {
       final response = await dio.get(
         '/user/$userCode/orders/public',
@@ -27,7 +33,9 @@ class WorkerController {
           "distance": distance,
           "limit": 15,
           "next": next,
-          "search_role_type": 'maid'
+          "city": city,
+          "district": district,
+          "product_code": productCode,
         },
       );
       await Future.delayed(const Duration(milliseconds: 800));
@@ -111,7 +119,8 @@ class WorkerController {
     }
   }
 
-    Future<OrderResult> getOrderMaidCompleted(String userCode, String next) async {
+  Future<OrderResult> getOrderMaidCompleted(
+      String userCode, String next) async {
     try {
       final response = await dio.get(
         '/user/$userCode/orders',
@@ -157,7 +166,8 @@ class WorkerController {
     }
   }
 
-  Future<OrderResult> getOrderMaidCancelled(String userCode, String next) async {
+  Future<OrderResult> getOrderMaidCancelled(
+      String userCode, String next) async {
     try {
       final response = await dio.get(
         '/user/$userCode/orders',

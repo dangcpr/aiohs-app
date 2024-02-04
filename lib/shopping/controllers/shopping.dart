@@ -64,6 +64,7 @@ class ShoppingController {
         ),
       );
     }
+    debugPrint(address.toJson().toString());
     try {
       var response = await dio
           .post('/user/$userCode/orders/grocery-assistant/create', data: {
@@ -82,6 +83,9 @@ class ShoppingController {
         "note": info.note,
         "agent_name": address.yourName,
         "agent_phone": address.phoneNum,
+        "city": address.city,
+        "district": address.district,
+        "ward": address.ward,
       });
       if (response.data['code'] == 0) {
         return;

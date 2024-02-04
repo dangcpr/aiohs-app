@@ -73,14 +73,27 @@ class _ChooseLocationScreenState extends State<ChooseLocationScreen> {
           TextButton(
             onPressed: () {
               if (isSearch) {
-                context.read<SaveAddressCubit>().state!.address = searchLocationController.text;
-                context.read<SaveAddressCubit>().state!.shortAddress = addressObject.shortAddress;
+                context.read<SaveAddressCubit>().state!.address =
+                    searchLocationController.text;
+                context.read<SaveAddressCubit>().state!.shortAddress =
+                    addressObject.shortAddress;
+                context.read<SaveAddressCubit>().state!.latitude = latCurrent;
+                context.read<SaveAddressCubit>().state!.longitude = lngCurrent;
+                context.read<SaveAddressCubit>().state!.ward =
+                    addressObject.ward;
+                context.read<SaveAddressCubit>().state!.city =
+                    addressObject.city;
+                context.read<SaveAddressCubit>().state!.district =
+                    addressObject.district;
+
                 showModalBottomSheet(
                   context: context,
                   isScrollControlled: true,
                   builder: (builder) {
-                    return BottomSheetAddress(isDarkMode: isDarkMode, lat: latCurrent, lng: lngCurrent);
-                    
+                    return BottomSheetAddress(
+                        isDarkMode: isDarkMode,
+                        lat: latCurrent,
+                        lng: lngCurrent);
                   },
                 );
               } else
@@ -136,12 +149,21 @@ class _ChooseLocationScreenState extends State<ChooseLocationScreen> {
               searchLocationController.text =
                   jsonDecode(address!)['formatted_address']!;
 
+              List<dynamic> addressComponents =
+                  jsonDecode(address)['address_components'];
+              debugPrint(addressComponents.firstWhere((entry) => entry['types']
+                  .contains('administrative_area_level_1'))['long_name']);
+
               addressObject = Address(
                 address: jsonDecode(address)['formatted_address'],
                 shortAddress: jsonDecode(address)['address_components'][0]
                         ['long_name'] +
                     ' ' +
                     jsonDecode(address)['address_components'][1]['long_name'],
+                district: addressComponents.firstWhere((entry) => entry['types']
+                    .contains('administrative_area_level_2'))['long_name'],
+                city: addressComponents.firstWhere((entry) => entry['types']
+                    .contains('administrative_area_level_1'))['long_name'],
               );
 
               // debugPrint(await MapController()
@@ -205,14 +227,13 @@ class _ChooseLocationScreenState extends State<ChooseLocationScreen> {
                         );
 
                         addressObject = Address(
-                          address: jsonDecode(detailAddress)['formatted_address'],
-                          shortAddress:
-                              jsonDecode(detailAddress)['name']
-                        );
+                            address:
+                                jsonDecode(detailAddress)['formatted_address'],
+                            shortAddress: jsonDecode(detailAddress)['name']);
 
                         setState(() {
                           isSearch = true;
-                          isOnCameraMove = false;
+                          //isOnCameraMove = false;
                         });
                       },
                       icon: Icon(Icons.search),
