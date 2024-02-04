@@ -11,15 +11,27 @@ class WorkerGetOrderAllCubit extends Cubit<WorkerGetOrderAllState> {
   int next = 0;
   List<Order> orders = [];
 
-  Future<void> getOrderAll(double distance, String userCode) async {
-    if(state is WorkerGetOrderAllLoaded && next == 0){
+  Future<void> getOrderAll(
+    String userCode, {
+    num? distance,
+    String? city,
+    String? district,
+    String? productCode,
+  }) async {
+    if (state is WorkerGetOrderAllLoaded && next == 0) {
       return;
     }
     emit(WorkerGetOrderAllLoading());
     debugPrint(state.toString());
     try {
       OrderResult orderResult = await WorkerController().getOrderPublic(
-          distance, userCode, next);
+        userCode,
+        next,
+        distance: distance,
+        city: city,
+        district: district,
+        productCode: productCode,
+      );
       next = orderResult.next;
       debugPrint(next.toString());
       orders.addAll(orderResult.orders);

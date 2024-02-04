@@ -70,7 +70,7 @@ class _MaidNearState extends State<MaidNear> {
           children: [
             Expanded(
               child: Text(
-                "Người giúp việc gần đây",
+                "Liên hệ giúp việc gần đây",
                 style: const TextStyle(
                   fontFamily: fontBoldApp,
                   fontSize: 20,
