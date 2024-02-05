@@ -32,7 +32,7 @@ class _PlacePageState extends State<PlacePage> {
                 ),
                 tabs: [
                   Tab(
-                    text: 'Thuê chỗ gần đây',
+                    text: 'Bạn cần đi thuê chỗ?',
                   ),
                   Tab(
                     text: 'Tin thuê chỗ của bạn',

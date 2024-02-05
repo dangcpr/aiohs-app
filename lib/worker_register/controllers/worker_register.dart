@@ -29,8 +29,13 @@ class WorkerRegisterController {
     File identity_front_image_url,
     File identity_back_image_url,
     String contact_address,
+    String bank_code,
+    String bank_name,
+    String bank_account_holder,
+    String bank_account_no,
   ) async {
     try {
+      debugPrint(bank_name);
       String idFPath = await uploadImage(identity_front_image_url);
       String idBPath = await uploadImage(identity_back_image_url);
       debugPrint(idFPath);
@@ -48,6 +53,10 @@ class WorkerRegisterController {
           "identity_front_image_url": idFPath,
           "identity_back_image_url": idBPath,
           "contact_address": contact_address,
+          "bank_code": bank_code,
+          "bank_name": bank_name,
+          "bank_account_holder": bank_account_holder,
+          "bank_account_no": bank_account_no,
         },
       );
       if (response.data['code'] == 0) {

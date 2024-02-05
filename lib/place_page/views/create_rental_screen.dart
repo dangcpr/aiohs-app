@@ -233,8 +233,8 @@ class _CreateRentalScreenState extends State<CreateRentalScreen> {
                     }
                     if (int.tryParse(value) == null ||
                         int.tryParse(value)! < 1 ||
-                        int.tryParse(value)! > 7) {
-                      return "Vui lòng nhập số nguyên từ 1 đến 7 (ngày)";
+                        int.tryParse(value)! > 31) {
+                      return "Vui lòng nhập số nguyên từ 1 đến 31 (ngày)";
                     } else
                       return null;
                   },

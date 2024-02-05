@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+// import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:rmservice/air_conditioning_cleaning/cubit/get_price_air_cond/get_price_air_cond_cubit.dart';
 import 'package:rmservice/air_conditioning_cleaning/views/air_conditioning_cleaning_page.dart';
@@ -18,7 +18,6 @@ import 'package:rmservice/shopping/cubits/get_shopping_price/get_shopping_price_
 import 'package:rmservice/shopping/views/shopping_step2.dart';
 import 'package:rmservice/utilities/constants/variable.dart';
 
-import '../cards/service_card.dart';
 
 class HorizontalListViewWithIndicator extends StatefulWidget {
   const HorizontalListViewWithIndicator({super.key});

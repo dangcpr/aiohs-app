@@ -118,7 +118,7 @@ class _ForgotPasswordSetState extends State<ForgotPasswordSet> {
                     Container(
                       width: double.infinity,
                       child: ButtonGreenApp(
-                        label: 'Gửi mã OTP',
+                        label: 'Đặt lại mật khẩu',
                         onPressed: () async {
                           showDialog(
                             context: context,

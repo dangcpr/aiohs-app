@@ -12,7 +12,9 @@ import 'package:rmservice/utilities/components/button_green.dart';
 import 'package:rmservice/utilities/components/text_field_basic.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:rmservice/utilities/constants/variable.dart';
+import 'package:rmservice/worker_register/controllers/bank_vn.dart';
 import 'package:rmservice/worker_register/controllers/worker_register.dart';
+import 'package:rmservice/worker_register/models/bank_vn.dart';
 import 'package:rmservice/worker_register/views/maps.dart';
 
 class WorkerRegisterStep2Screen extends StatefulWidget {
@@ -49,6 +51,10 @@ class _WorkerRegisterStep1ScreenState extends State<WorkerRegisterStep2Screen> {
   TextEditingController permanentAddressController = TextEditingController();
   TextEditingController issueOnController = TextEditingController();
   TextEditingController placeOfBirthController = TextEditingController();
+  String bankCode = "";
+  String bankName = "";
+  TextEditingController bankHolderController = TextEditingController();
+  TextEditingController bankNoController = TextEditingController();
 
   List<dynamic> listWork = List.empty();
   // final _item =
@@ -222,32 +228,87 @@ class _WorkerRegisterStep1ScreenState extends State<WorkerRegisterStep2Screen> {
                   },
                 ),
               ),
+              TextLabel(
+                label: "Ngân hàng",
+                isDarkMode: darkMode,
+              ),
+              SizedBox(height: 5),
+              SizedBox(
+                height: 85,
+                child: FutureBuilder(
+                  future: BankVNController().getBankVN(),
+                  builder: (context, snapshot) {
+                    if (snapshot.hasData) {
+                      return DropdownButtonFormField(
+                        validator: (value) {
+                          if (value == null) {
+                            return AppLocalizations.of(context)!
+                                .signupEmptyError;
+                          }
+                          return null;
+                        },
+                        hint: Text("Chọn ngân hàng"),
+                        items: (snapshot.data as List<BankVN>)
+                            .map((e) => DropdownMenuItem(
+                                child: Text(e.shortName), value: e.shortName))
+                            .toList(),
+                        onChanged: (value) {
+                          setState(() {
+                            bankCode = value!.toString();
+                            debugPrint(bankCode);
+                            bankName = (snapshot.data as List<BankVN>)
+                                .firstWhere(
+                                    (element) => element.shortName == bankCode)
+                                .name;
+                            debugPrint(bankName);
+                          });
+                        },
+                        decoration: InputDecoration(
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: colorProject.primaryColor,
+                            ),
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                        ),
+                      );
+                    }
+                    return Text("Đang chờ ...");
+                  },
+                ),
+              ),
+              SizedBox(
+                height: 85,
+                child: TextFieldBasic(
+                  controller: bankHolderController,
+                  isDarkMode: darkMode,
+                  hintText: "Tên chủ tài khoản",
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return AppLocalizations.of(context)!.signupEmptyError;
+                    }
+                    return null;
+                  },
+                ),
+              ),
+              SizedBox(
+                height: 85,
+                child: TextFieldBasic(
+                  controller: bankNoController,
+                  isDarkMode: darkMode,
+                  hintText: "Số tài khoản",
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return AppLocalizations.of(context)!.signupEmptyError;
+                    }
+                    return null;
+                  },
+                ),
+              ),
 
-              // TextLabel(
-              //   label: "Công việc bạn có thể làm",
-              //   isDarkMode: darkMode,
-              // ),
-              // MultiSelectChipField(
-              //   scroll: false,
-              //   decoration: BoxDecoration(
-              //     borderRadius: BorderRadius.circular(10),
-              //   ),
-              //   items: _item,
-              //   initialValue: listWork,
-              //   validator: (values) {
-              //     if (values == null || values.isEmpty) {
-              //       return AppLocalizations.of(context)!.signupEmptyError;
-              //     }
-              //     return null;
-              //   },
-              //   onTap: (values) {
-              //     listWork = values;
-              //     print(jsonEncode(listWork.map((e) => e.toJson()).toList()));
-              //   },
-              //   showHeader: false,
-              //   icon: Icon(Icons.check),
-              // ),
-              // SizedBox(height: 20),
               TextLabel(
                 label: "Địa chỉ liên lạc",
                 isDarkMode: darkMode,
@@ -329,7 +390,11 @@ class _WorkerRegisterStep1ScreenState extends State<WorkerRegisterStep2Screen> {
                         placeOfBirthController.text,
                         widget.identity_front_image_url,
                         widget.identity_back_image_url,
-                        context.read<SaveAddressCubit>().state!.address!);
+                        context.read<SaveAddressCubit>().state!.address!,
+                        bankCode,
+                        bankName,
+                        bankHolderController.text,
+                        bankNoController.text);
                     // ignore: use_build_context_synchronously
                     Navigator.pop(context);
                     // ignore: use_build_context_synchronously
@@ -338,7 +403,9 @@ class _WorkerRegisterStep1ScreenState extends State<WorkerRegisterStep2Screen> {
                       dialogType: DialogType.success,
                       animType: AnimType.bottomSlide,
                       showCloseIcon: true,
-                      title: result == 1 ? 'Đăng ký thành công' : 'Cập nhật thông tin thành công',
+                      title: result == 1
+                          ? 'Đăng ký thành công'
+                          : 'Cập nhật thông tin thành công',
                       btnCancelOnPress: () {
                         Navigator.pop(context);
                         Navigator.pop(context);

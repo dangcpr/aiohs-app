@@ -8,6 +8,8 @@ import 'package:page_transition/page_transition.dart';
 import 'package:rmservice/login/cubit/user_cubit.dart';
 import 'package:rmservice/main_page/widgets/button_post_job.dart';
 import 'package:rmservice/maid_near/widgets/maid_near.dart';
+import 'package:rmservice/report/controllers/report.dart';
+import 'package:rmservice/report/widgets/card_report.dart';
 import 'package:rmservice/user_address/controllers/user_address.dart';
 import 'package:rmservice/utilities/constants/app_assets.dart';
 import 'package:rmservice/utilities/constants/variable.dart';
@@ -39,7 +41,6 @@ class _MainPageState extends State<MainPage> {
     // final Size size = MediaQuery.of(context).size;
     // bool darkMode = Theme.of(context).brightness == Brightness.dark;
     //context.read<GetProductCubit>().getProduct();
-
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 8),
       child: SingleChildScrollView(
@@ -55,9 +56,11 @@ class _MainPageState extends State<MainPage> {
                   context.watch<UserCubit>().state.avatar_url!),
               const SizedBox(height: 12),
               //Register(),
+              if (context.read<UserCubit>().state.role == "maid") maidCard(),
+              const SizedBox(height: 12),
               context.read<UserCubit>().state.role == "normal"
                   ? Register()
-                  : maidCard(),
+                  : report(),
               const SizedBox(height: 12),
               //SearchBox(),
               //const SizedBox(height: 12),
@@ -79,6 +82,55 @@ class _MainPageState extends State<MainPage> {
           ),
         ),
       ),
+    );
+  }
+
+  Widget report() {
+    final userCubit = context.read<UserCubit>();
+
+    return FutureBuilder(
+      future: ReportController().getReport(userCubit.state.code!, null, null),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const Center(
+            child: CircularProgressIndicator(
+              color: colorProject.primaryColor,
+            ),
+          );
+        }
+        if (snapshot.hasError) {
+          return Center(
+            child: Text(
+              "Lỗi: ${snapshot.error}",
+              style: const TextStyle(
+                color: Colors.red,
+                fontSize: fontSize.medium,
+              ),
+            ),
+          );
+        }
+        return Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            CardReport(
+                title: "Số đơn đã nhận",
+                value: snapshot.data!.total_received_order.toDouble(),
+                icon: Icons.numbers,
+                fontSizeTitle: 14,
+                fontSizeValue: 20,
+                paddingValue: 12.5,
+                mainPage: true),
+            CardReport(
+                title: "Doanh thu (VNĐ)",
+                value: snapshot.data!.received_amount.toDouble(),
+                icon: Icons.money,
+                fontSizeTitle: 14,
+                fontSizeValue: 20,
+                paddingValue: 12.5,
+                mainPage: true),
+          ],
+        );
+      },
     );
   }
 
@@ -250,9 +302,9 @@ class _MainPageState extends State<MainPage> {
                 Navigator.pop(context);
                 if (context.read<WorkerGetOrderAllCubit>().state
                     is WorkerGetOrderAllInitial) {
-                  context
-                      .read<WorkerGetOrderAllCubit>()
-                      .getOrderAll(context.read<UserCubit>().state.code!, distance: 5.0);
+                  context.read<WorkerGetOrderAllCubit>().getOrderAll(
+                      context.read<UserCubit>().state.code!,
+                      distance: 5.0);
                 }
 
                 Navigator.push(
