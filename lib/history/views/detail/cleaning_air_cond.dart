@@ -136,7 +136,11 @@ class _CleaningLongTermHistoryDetailState
                       order: widget.order,
                     ),
                   ),
-                widget.order.orderAirCondHistory.status == 'new' || widget.order.orderAirCondHistory.status == 'maid_accepted'
+                (widget.order.orderAirCondHistory.status == 'new' ||
+                            (widget.order.orderAirCondHistory.status ==
+                                'maid_accepted' &&
+                        widget.order.orderAirCondHistory.paymentMethod !=
+                            'cash'))
                     ? ButtonGreenApp(
                         label: "Hủy đơn này",
                         onPressed: () {

@@ -158,9 +158,10 @@ class _WorkerCookingHistoryDetailState
               SizedBox(height: 15),
 
             if (widget.order.orderCooking.maidCode ==
-                        context.read<UserCubit>().state.code &&
-                    widget.order.orderCooking.status == "new" ||
-                widget.order.orderCooking.status == 'maid_accepted')
+                    context.read<UserCubit>().state.code &&
+                (widget.order.orderCooking.status == "new" ||
+                    (widget.order.orderCooking.status == 'maid_accepted' &&
+                widget.order.orderCooking.paymentMethod == "cash")))
               ButtonGreenApp(
                   label: "Hủy đơn này",
                   onPressed: () async {

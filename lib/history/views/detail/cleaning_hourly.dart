@@ -137,7 +137,9 @@ class _CleaningHourlyHistoryDetailState
                   ),
                 if (widget.order.maid_name != "") SizedBox(height: 15),
 
-                widget.order.status == 'new' || widget.order.status == 'maid_accepted'
+                ((widget.order.status == 'new' ||
+                            (widget.order.status == 'maid_accepted' &&
+                        widget.order.payment_method != 'cash')))
                     ? ButtonGreenApp(
                         label: "Hủy đơn này",
                         onPressed: () {
@@ -163,7 +165,7 @@ class _CleaningHourlyHistoryDetailState
                         })
                     : SizedBox(),
                 SizedBox(height: 15),
-                widget.order.status == 'maid_accepted' 
+                widget.order.status == 'maid_accepted'
                     ? ButtonGreenApp(
                         label: "Hoàn thành đơn",
                         onPressed: () {

@@ -156,7 +156,8 @@ class _WorkerCleaingHourlyState extends State<WorkerCleaingHourly> {
             if (widget.order.maid_code ==
                     context.read<UserCubit>().state.code &&
                 (widget.order.status == "new" ||
-                    widget.order.status == 'maid_accepted'))
+                    (widget.order.status == 'maid_accepted' &&
+                        widget.order.payment_method == "cash")))
               ButtonGreenApp(
                   label: "Hủy đơn này",
                   onPressed: () async {

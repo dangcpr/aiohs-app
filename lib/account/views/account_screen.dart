@@ -7,6 +7,7 @@ import 'package:rmservice/account/widgets/option_card.dart';
 import 'package:rmservice/delete_account/helpers/delete_account.dart';
 import 'package:rmservice/login/cubit/user_cubit.dart';
 import 'package:rmservice/profile/profile.dart';
+import 'package:rmservice/report/views/report_page.dart';
 
 class AccountScreen extends StatefulWidget {
   const AccountScreen({super.key});
@@ -23,6 +24,20 @@ class _AccountScreenState extends State<AccountScreen> {
         SizedBox(height: 20),
         InfoAccount(),
         SizedBox(height: 20),
+        OptionCard(
+          text: "Báo cáo - Thống kê",
+          icon: Icons.money,
+          onTap: () {
+            Navigator.push(
+              context,
+              PageTransition(
+                duration: Duration(milliseconds: 400),
+                type: PageTransitionType.rightToLeftWithFade,
+                child: ReportPage(),
+              ),
+            );
+          },
+        ),
         OptionCard(
           text: "Chỉnh sửa thông tin",
           icon: Icons.change_circle,

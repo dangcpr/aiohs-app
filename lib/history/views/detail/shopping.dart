@@ -166,7 +166,9 @@ class _ShoppingHistoryDetailState extends State<ShoppingHistoryDetail> {
                     ),
                   ),
 
-                widget.order.status == 'new' || widget.order.status == 'maid_accepted'
+                (widget.order.status == 'new' ||
+                            (widget.order.status == 'maid_accepted' &&
+                        widget.order.payment_method != 'cash'))
                     ? ButtonGreenApp(
                         label: "Hủy đơn này",
                         onPressed: () {

@@ -3,8 +3,10 @@ import 'package:flutter/material.dart';
 
 String fcmToken = "";
 const nameApp = "AIO Home Serives";
-const debugServer = "http://192.168.206.129:9000";
+const protocolServer = "http://";
+const debugServer = protocolServer + "192.168.206.129:9000";
 // const debugServer = "https://9e96-171-231-25-147.ngrok-free.app";
+const protocolChat = "http://";
 const serverChat = "192.168.206.129:8080"; //not include method http or https
 // const serverChat = "a126-171-231-25-147.ngrok-free.app"; //not include method http or https
 // const debugServer = "https://d7f0-171-231-61-254.ngrok-free.app/";

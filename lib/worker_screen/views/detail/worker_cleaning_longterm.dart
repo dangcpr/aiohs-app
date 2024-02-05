@@ -159,8 +159,8 @@ class _CleaningLongTermHistoryDetailState
             if (widget.order.orderCleaningLongTerm.maidCode ==
                     context.read<UserCubit>().state.code &&
                 (widget.order.orderCleaningLongTerm.status == "new" ||
-                    widget.order.orderCleaningLongTerm.status ==
-                        'maid_accepted'))
+                    (widget.order.orderCleaningLongTerm.status ==
+                        'maid_accepted'  && widget.order.orderCleaningLongTerm.paymentMethod == "cash")))
               ButtonGreenApp(
                   label: "Hủy đơn này",
                   onPressed: () async {
