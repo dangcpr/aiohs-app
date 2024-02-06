@@ -51,10 +51,13 @@ import 'package:rmservice/worker_screen/cubits/get_order_all/get_order_all_cubit
 import 'package:rmservice/worker_screen/cubits/get_order_cancelled/get_order_cancelled_cubit.dart';
 import 'package:rmservice/worker_screen/cubits/get_order_completed/get_order_completed_cubit.dart';
 
+import '../../air_conditioning_cleaning/cubit/cal_price/cal_price_cubit.dart';
 import '../../chat/cubits/get_chat_detail/get_chat_detail_cubit.dart';
 import '../../cleaning_hourly/cubits/save_info/save_info.dart';
+import '../../cleaning_longterm/cubit/cal_price/cal_price_cleaning_longterm_cubit.dart';
 import '../../cleaning_longterm/cubit/price_cleaning_longterm_cubit.dart';
 import '../../cleaning_longterm/cubit/save_info_cubit.dart';
+import '../../cooking/cubit/cal_price/cal_price_cubit.dart';
 import '../../cooking/cubit/price_cooking_cubit.dart';
 import '../../history/cubits/get_history_cancel/get_history_cancel_cubit.dart';
 import '../../history/cubits/order_cancel/order_cancel_cubit.dart';
@@ -155,6 +158,9 @@ final listProvider = [
   BlocProvider<OrderCleaningLongtermCubit>(
     create: (_) => OrderCleaningLongtermCubit(),
   ),
+  BlocProvider<CalPriceCleaningLongtermCubit>(
+    create: (_) => CalPriceCleaningLongtermCubit(),
+  ),
 
   // air conditioning cleaning
   BlocProvider<SaveInfoAirConditioningCleaningCubit>(
@@ -169,6 +175,9 @@ final listProvider = [
   BlocProvider<OrderAirCondCubit>(
     create: (_) => OrderAirCondCubit(),
   ),
+  BlocProvider<CalPriceCookingCubit>(
+    create: (_) => CalPriceCookingCubit(),
+  ),
 
   // cooking
   BlocProvider<SaveInfoCookingCubit>(
@@ -182,6 +191,9 @@ final listProvider = [
   ),
   BlocProvider<OrderCookingCubit>(
     create: (_) => OrderCookingCubit(),
+  ),
+  BlocProvider<CalPriceCubit>(
+    create: (_) => CalPriceCubit(),
   ),
 
   BlocProvider<WorkerCubit>(

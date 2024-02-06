@@ -6,6 +6,7 @@ import 'package:rmservice/utilities/components/text_sub_label.dart';
 import 'package:rmservice/utilities/constants/variable.dart';
 
 import '../../cleaning_hourly/widgets/notice_step2.dart';
+import '../cubit/cal_price/cal_price_cubit.dart';
 import '../cubit/save_info_air_conditioning_cleaning.dart';
 import '../widgets/button_next_step2.dart';
 import '../widgets/notice_for_maid.dart';
@@ -22,6 +23,15 @@ class AirConditioningCleaningScreenStep2 extends StatefulWidget {
 
 class _AirConditioningCleaningScreenStep2State
     extends State<AirConditioningCleaningScreenStep2> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    context
+        .read<CalPriceCubit>()
+        .calPrice(context.read<SaveInfoAirConditioningCleaningCubit>().state);
+  }
+
   @override
   Widget build(BuildContext context) {
     var brightness = MediaQuery.of(context).platformBrightness;

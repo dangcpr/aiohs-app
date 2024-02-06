@@ -13,6 +13,7 @@ import 'package:rmservice/utilities/constants/variable.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../utilities/dialog/dialog.dart';
+import '../cubit/cal_price/cal_price_cubit.dart';
 import '../cubit/save_info_air_conditioning_cleaning.dart';
 import '../widgets/button_next_step3.dart';
 import '../widgets/method_payment.dart';
@@ -32,6 +33,9 @@ class _AirConditioningCleaningScreenStep3State
     // TODO: implement initState
     super.initState();
     context.read<SaveInfoAirConditioningCleaningCubit>().confuseListDetails();
+    context
+        .read<CalPriceCubit>()
+        .calPrice(context.read<SaveInfoAirConditioningCleaningCubit>().state);
   }
 
   @override

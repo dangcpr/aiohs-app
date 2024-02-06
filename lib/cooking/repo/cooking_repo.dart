@@ -97,4 +97,63 @@ class CookingRepo {
       throw 'Server Error';
     }
   }
+
+  Future<int> caculatePrice(InfoCooking info) async {
+    try {
+      print('test: ${info.toJson().toString()}');
+      List<String> foods = [];
+      if (info.food1 != '') {
+        foods.add(info.food1);
+      }
+      if (info.food2 != '') {
+        foods.add(info.food2);
+      }
+      if (info.food3 != '') {
+        foods.add(info.food3);
+      }
+      if (info.food4 != '') {
+        foods.add(info.food4);
+      }
+      print('foods: ${foods.length}');
+      final response = await dio.post(
+        '/user/orders/home-cooking/prices/calculate',
+        data: {
+          "working_hour":
+              '${info.time!.hour.toString().padLeft(2, '0')}:${info.time!.minute.toString().padLeft(2, '0')}:00',
+          "working_date":
+              '${info.date!.year.toString().padLeft(4, '0')}-${info.date!.month.toString().padLeft(2, '0')}-${info.date!.day.toString().padLeft(2, '0')}',
+          "number_of_people": info.numberOfPeople,
+          "courses": foods,
+          "with_grocery_assistant": info.chooseMaid,
+          "grocery_assistant_amount":
+              double.parse(info.bonusService.toString()),
+        },
+      );
+
+      await Future.delayed(const Duration(milliseconds: 800));
+
+      if (response.statusCode == 200) {
+        int price = response.data['price'];
+        print('price: $price');
+        return price;
+      } else {
+        String message = jsonEncode(response.data['message']);
+        throw message;
+      }
+    } on DioException catch (e) {
+      debugPrint(e.type.toString());
+      if (e.type == DioExceptionType.receiveTimeout ||
+          e.type == DioExceptionType.connectionTimeout) {
+        throw 'Connection Timeout';
+      }
+
+      if (e.type == DioExceptionType.unknown ||
+          e.type == DioExceptionType.connectionError) {
+        // throw 'Internet Error or Server Error';
+        throw e.toString();
+      }
+      debugPrint(e.type.toString());
+      throw e.toString();
+    }
+  }
 }
