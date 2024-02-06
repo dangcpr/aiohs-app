@@ -57,7 +57,7 @@ class _LocationCardState extends State<LocationCard> {
                     widget.rentalPlace[index].title,
                     widget.rentalPlace[index].address,
                     widget.rentalPlace[index].images[0],
-                    widget.rentalPlace[index].price,
+                    widget.rentalPlace[index].price.toDouble(),
                     widget.rentalPlace[index].type_display,
                   ),
                 ),
