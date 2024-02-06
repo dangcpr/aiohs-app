@@ -7,14 +7,14 @@ class RentalPlaceRes {
   late String status_display;
   late String title;
   late int number_rental_days;
-  late double area;
-  late double price;
+  late num area;
+  late num price;
   late String description;
   late List<String> images;
   late String address;
   late double longitude;
   late double latitude;
-  late double height;
+  late num height;
   late bool has_elevator;
   late bool on_the_floors;
   late String city;
