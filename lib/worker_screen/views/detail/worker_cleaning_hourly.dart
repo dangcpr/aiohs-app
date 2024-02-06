@@ -59,6 +59,7 @@ class _WorkerCleaingHourlyState extends State<WorkerCleaingHourly> {
               isDarkMode: isDarkMode,
               order: widget.order,
             ),
+            SizedBox(height: 15),
             Padding(
               padding: const EdgeInsets.only(top: 17),
               child: TextLabel(
@@ -72,6 +73,19 @@ class _WorkerCleaingHourlyState extends State<WorkerCleaingHourly> {
                 isDarkMode: isDarkMode,
                 order: widget.order,
               ),
+            ),
+            SizedBox(height: 15),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                Text(
+                  'Tổng giá tiền: ${widget.order.order_amount}',
+                  style: TextStyle(
+                    fontFamily: fontBoldApp,
+                    fontSize: fontSize.mediumLarger,
+                  ),
+                ),
+              ],
             ),
             if (widget.order.maid_name != "")
               Padding(

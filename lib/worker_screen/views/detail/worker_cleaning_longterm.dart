@@ -75,6 +75,19 @@ class _CleaningLongTermHistoryDetailState
                 order: widget.order,
               ),
             ),
+            SizedBox(height: 15),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                Text(
+                  'Tổng giá tiền: ${widget.order.orderCleaningLongTerm.orderAmount}',
+                  style: TextStyle(
+                    fontFamily: fontBoldApp,
+                    fontSize: fontSize.mediumLarger,
+                  ),
+                ),
+              ],
+            ),
             if (widget.order.orderCleaningLongTerm.maidCode != "")
               Padding(
                 padding: const EdgeInsets.only(top: 17),
@@ -160,7 +173,9 @@ class _CleaningLongTermHistoryDetailState
                     context.read<UserCubit>().state.code &&
                 (widget.order.orderCleaningLongTerm.status == "new" ||
                     (widget.order.orderCleaningLongTerm.status ==
-                        'maid_accepted'  && widget.order.orderCleaningLongTerm.paymentMethod == "cash")))
+                            'maid_accepted' &&
+                        widget.order.orderCleaningLongTerm.paymentMethod ==
+                            "cash")))
               ButtonGreenApp(
                   label: "Hủy đơn này",
                   onPressed: () async {
