@@ -6,6 +6,7 @@ import '../../login/cubit/user_cubit.dart';
 import '../../shopping/widgets/dialog_wrong.dart';
 import '../../shopping/widgets/text_label.dart';
 import '../../utilities/components/button_green.dart';
+import '../../utilities/components/empty_card.dart';
 import '../../utilities/components/text_field_basic.dart';
 import '../../utilities/components/text_sub_label.dart';
 import '../../utilities/constants/variable.dart';
@@ -87,29 +88,36 @@ class _JobPostState extends State<JobPost> {
           Expanded(
             child: getAllPost is GetPostAllFailed
                 ? Center(child: Text("Đã có lỗi xảy ra"))
-                : SingleChildScrollView(
-                    controller: _scrollController,
-                    scrollDirection: Axis.vertical,
-                    child: Column(
-                      children: [
-                        for (int i = 0; i < getAllPost.posts.length; i++)
-                          CardPost(post: getAllPost.posts[i]),
-                        //loading
-                        BlocBuilder<GetPostAllCubit, GetPostAllState>(
-                            builder: (context, state) {
-                          if (state is GetPostAllLoading) {
-                            return Align(
-                              alignment: FractionalOffset.topCenter,
-                              child: CircularProgressIndicator(
-                                color: colorProject.primaryColor,
-                              ),
-                            );
-                          }
-                          return Container();
-                        }),
-                      ],
-                    ),
-                  ),
+                : (getAllPost.posts.isEmpty &&
+                        getAllPost.state is GetPostAllSuccess)
+                    ? WorkerEmptyOrder(
+                        title: "Không có bài post",
+                        desc:
+                            "Hiện không có bài post nào, vui lòng thử lại sau.",
+                      )
+                    : SingleChildScrollView(
+                        controller: _scrollController,
+                        scrollDirection: Axis.vertical,
+                        child: Column(
+                          children: [
+                            for (int i = 0; i < getAllPost.posts.length; i++)
+                              CardPost(post: getAllPost.posts[i]),
+                            //loading
+                            BlocBuilder<GetPostAllCubit, GetPostAllState>(
+                                builder: (context, state) {
+                              if (state is GetPostAllLoading) {
+                                return Align(
+                                  alignment: FractionalOffset.topCenter,
+                                  child: CircularProgressIndicator(
+                                    color: colorProject.primaryColor,
+                                  ),
+                                );
+                              }
+                              return Container();
+                            }),
+                          ],
+                        ),
+                      ),
           ),
         ],
       ),

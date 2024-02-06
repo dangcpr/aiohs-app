@@ -119,6 +119,20 @@ class _CleaningHourlyHistoryDetailState
                     order: widget.order,
                   ),
                 ),
+                SizedBox(height: 15),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    Text(
+                      'Tổng giá tiền: ${widget.order.order_amount}',
+                      style: TextStyle(
+                        fontFamily: fontBoldApp,
+                        fontSize: fontSize.mediumLarger,
+                      ),
+                    ),
+                  ],
+                ),
+                SizedBox(height: 15),
                 if (widget.order.maid_name != "")
                   Padding(
                     padding: const EdgeInsets.only(top: 17),
@@ -127,6 +141,7 @@ class _CleaningHourlyHistoryDetailState
                       isDarkMode: isDarkMode,
                     ),
                   ),
+
                 if (widget.order.maid_name != "")
                   Padding(
                     padding: const EdgeInsets.only(top: 17),
@@ -138,8 +153,8 @@ class _CleaningHourlyHistoryDetailState
                 if (widget.order.maid_name != "") SizedBox(height: 15),
 
                 ((widget.order.status == 'new' ||
-                            (widget.order.status == 'maid_accepted' &&
-                        widget.order.payment_method != 'cash')))
+                        (widget.order.status == 'maid_accepted' &&
+                            widget.order.payment_method != 'cash')))
                     ? ButtonGreenApp(
                         label: "Hủy đơn này",
                         onPressed: () {

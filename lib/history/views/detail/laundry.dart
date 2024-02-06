@@ -124,6 +124,20 @@ class _LaundryHistoryDetailState extends State<LaundryHistoryDetail> {
                 //     isDarkMode: isDarkMode,
                 //   ),
                 // ),
+                SizedBox(height: 15),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    Text(
+                      'Tổng giá tiền: ${widget.order.order_amount}',
+                      style: TextStyle(
+                        fontFamily: fontBoldApp,
+                        fontSize: fontSize.mediumLarger,
+                      ),
+                    ),
+                  ],
+                ),
+                SizedBox(height: 15),
                 if (widget.order.maid_name != "")
                   Padding(
                     padding: const EdgeInsets.only(top: 17),

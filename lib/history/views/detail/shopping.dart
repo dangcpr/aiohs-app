@@ -130,6 +130,20 @@ class _ShoppingHistoryDetailState extends State<ShoppingHistoryDetail> {
                     order: widget.order,
                   ),
                 ),
+                SizedBox(height: 15),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    Text(
+                      'Tổng giá tiền: ${widget.order.order_amount}',
+                      style: TextStyle(
+                        fontFamily: fontBoldApp,
+                        fontSize: fontSize.mediumLarger,
+                      ),
+                    ),
+                  ],
+                ),
+                SizedBox(height: 15),
                 // Padding(
                 //   padding: const EdgeInsets.only(top: 17),
                 //   child: WorkInfoCleaningHourly(
@@ -167,8 +181,8 @@ class _ShoppingHistoryDetailState extends State<ShoppingHistoryDetail> {
                   ),
 
                 (widget.order.status == 'new' ||
-                            (widget.order.status == 'maid_accepted' &&
-                        widget.order.payment_method != 'cash'))
+                        (widget.order.status == 'maid_accepted' &&
+                            widget.order.payment_method != 'cash'))
                     ? ButtonGreenApp(
                         label: "Hủy đơn này",
                         onPressed: () {
