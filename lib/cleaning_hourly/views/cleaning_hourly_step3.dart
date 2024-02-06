@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:rmservice/cleaning_hourly/cubits/order_cleaning_hourly/order_cleaning_hourly_cubit.dart';
 import 'package:rmservice/cleaning_hourly/cubits/order_cleaning_hourly/order_cleaning_hourly_state.dart';
+import 'package:rmservice/cleaning_hourly/cubits/save_info/save_info.dart';
 import 'package:rmservice/cleaning_hourly/widgets/button_next_step3.dart';
 import 'package:rmservice/cleaning_hourly/widgets/location_info.dart';
 import 'package:rmservice/cleaning_hourly/widgets/method_payment.dart';
@@ -33,26 +34,28 @@ class _CleaningHourlyStep3ScreenState extends State<CleaningHourlyStep3Screen> {
         if (state is OrderCleaningHourlySuccess) {
           debugPrint('OrderCleaningHourlySuccess');
           Navigator.pop(context);
-          AwesomeDialog(
-            context: context,
-            dialogType: DialogType.success,
-            animType: AnimType.bottomSlide,
-            dismissOnBackKeyPress: false,
-            dismissOnTouchOutside: false,
-            title: "Đặt đơn thành công",
-            btnOkText: "Trở lại màn hình chính",
-            btnOkOnPress: () {
-              Navigator.pushAndRemoveUntil(
-                context,
-                PageTransition(
-                  duration: Duration(milliseconds: 400),
-                  type: PageTransitionType.rightToLeftWithFade,
-                  child: HomePage(),
-                ),
-                (route) => false,
-              );
-            },
-          ).show();
+          if (context.read<SaveInfoCleaningHourlyCubit>().state.paymentMethod !=
+              "PAYMENT_METHOD_ZALOPAY")
+            AwesomeDialog(
+              context: context,
+              dialogType: DialogType.success,
+              animType: AnimType.bottomSlide,
+              dismissOnBackKeyPress: false,
+              dismissOnTouchOutside: false,
+              title: "Đặt đơn thành công",
+              btnOkText: "Trở lại màn hình chính",
+              btnOkOnPress: () {
+                Navigator.pushAndRemoveUntil(
+                  context,
+                  PageTransition(
+                    duration: Duration(milliseconds: 400),
+                    type: PageTransitionType.rightToLeftWithFade,
+                    child: HomePage(),
+                  ),
+                  (route) => false,
+                );
+              },
+            ).show();
           context.read<OrderCleaningHourlyCubit>().setInit();
         }
         if (state is OrderCleaningHourlyError) {

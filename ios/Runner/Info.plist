@@ -11,6 +11,10 @@
       </array>
       </dict>
     </array>
+    <key>LSApplicationQueriesSchemes</key>
+    <array>
+      <string>zalopay</string>
+    </array>
     <key>FacebookAppID</key>
     <string>299996812745844</string>
     <key>FacebookClientToken</key>

@@ -47,7 +47,7 @@ class ShoppingController {
     }
   }
 
-  Future<void> orderShopping(
+  Future<String> orderShopping(
       InfoShopping info, AddressShopping address, String userCode) async {
     List<ProductBuyRequest> productBuyRequest = [];
 
@@ -69,7 +69,9 @@ class ShoppingController {
       var response = await dio
           .post('/user/$userCode/orders/grocery-assistant/create', data: {
         "order_amount": info.price!,
-        "payment_method": info.paymentMethod,
+        "payment_method": info.paymentMethod == "PAYMENT_METHOD_ZALOPAY"
+            ? "PAYMENT_METHOD_WALLET"
+            : info.paymentMethod,
         "working_date":
             '${info.date!.year.toString().padLeft(4, '0')}-${info.date!.month.toString().padLeft(2, '0')}-${info.date!.day.toString().padLeft(2, '0')}',
         "working_hour":
@@ -88,7 +90,7 @@ class ShoppingController {
         "ward": address.ward,
       });
       if (response.data['code'] == 0) {
-        return;
+        return response.data['order_code'];
       } else {
         String message = response.data['message'];
         throw message;
