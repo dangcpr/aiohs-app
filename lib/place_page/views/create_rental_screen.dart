@@ -35,6 +35,9 @@ class _CreateRentalScreenState extends State<CreateRentalScreen> {
   TextEditingController priceController = TextEditingController();
   TextEditingController detailController = TextEditingController();
   TextEditingController addressController = TextEditingController();
+  TextEditingController heightController = TextEditingController();
+  bool haveElevator = false;
+  bool isOnTheFloors = false;
 
   @override
   Widget build(BuildContext context) {
@@ -116,13 +119,19 @@ class _CreateRentalScreenState extends State<CreateRentalScreen> {
                   title: titleController.text,
                   number_rental_days: int.parse(numOfDayController.text),
                   area: double.parse(areaController.text),
-                  price: int.parse(priceController.text),
+                  price: double.parse(priceController.text),
                   description: detailController.text,
                   images: [],
                   address:
                       '${addressController.text} - ${context.read<SaveAddressCubit>().state!.address}',
                   latitude: context.read<SaveAddressCubit>().state!.latitude!,
                   longitude: context.read<SaveAddressCubit>().state!.longitude!,
+                  height: double.parse(heightController.text),
+                  has_elevator: haveElevator,
+                  on_the_floors: isOnTheFloors,
+                  city: 'oke',
+                  district: 'oke',
+                  ward: 'oke',
                 );
                 showDialog(
                     context: context,
@@ -261,6 +270,24 @@ class _CreateRentalScreenState extends State<CreateRentalScreen> {
               SizedBox(
                 height: 85,
                 child: TextFieldBasic(
+                  controller: heightController,
+                  isDarkMode: darkMode,
+                  hintText: "Chiều cao (m\u00B2)",
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return AppLocalizations.of(context)!.signupEmptyError;
+                    }
+                    if (double.tryParse(value) == null ||
+                        double.tryParse(value)! <= 0) {
+                      return "Vui lòng nhập số lớn hơn 0 (m\u00B2)";
+                    } else
+                      return null;
+                  },
+                ),
+              ),
+              SizedBox(
+                height: 85,
+                child: TextFieldBasic(
                     controller: priceController,
                     isDarkMode: darkMode,
                     hintText: "Giá thuê (VNĐ)",
@@ -286,6 +313,64 @@ class _CreateRentalScreenState extends State<CreateRentalScreen> {
                   }
                   return null;
                 },
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    'Nơi cho thuê ở trên lầu?',
+                    style: textStyle.normalStyle(fontSize: 16),
+                  ),
+                  SizedBox(
+                    width: 50,
+                    height: 40,
+                    child: FittedBox(
+                      fit: BoxFit.fill,
+                      child: Switch(
+                        activeColor: colorProject.primaryColor,
+                        value: isOnTheFloors,
+                        onChanged: (bool value) {
+                          setState(() {
+                            isOnTheFloors = value;
+                            print(isOnTheFloors);
+                          });
+                        },
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(
+                height: 15,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    'Nơi cho thuê có thang máy?',
+                    style: textStyle.normalStyle(fontSize: 16),
+                  ),
+                  SizedBox(
+                    width: 50,
+                    height: 40,
+                    child: FittedBox(
+                      fit: BoxFit.fill,
+                      child: Switch(
+                        activeColor: colorProject.primaryColor,
+                        value: haveElevator,
+                        onChanged: (bool value) {
+                          setState(() {
+                            haveElevator = value;
+                            print(haveElevator);
+                          });
+                        },
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(
+                height: 15,
               ),
               TextLabel(
                 label: "Hình ảnh",

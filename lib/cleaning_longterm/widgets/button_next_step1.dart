@@ -9,12 +9,14 @@ import 'package:rmservice/air_conditioning_cleaning/views/air_conditioning_clean
 import 'package:rmservice/cleaning_longterm/cleaning_longterm.dart';
 import 'package:rmservice/cleaning_longterm/cubit/price_cleaning_longterm_cubit.dart';
 import 'package:rmservice/cleaning_longterm/cubit/save_info_cubit.dart';
+import 'package:rmservice/cleaning_longterm/model/info_cleaning_longterm.dart';
 import 'package:rmservice/cleaning_longterm/model/price_cleaning_longterm.dart';
 import 'package:rmservice/utilities/components/button_green.dart';
 
 import '../../air_conditioning_cleaning/views/air_conditioning_cleaning_sreen_step1.dart';
 import '../../cleaning_hourly/cubits/save_info/save_address.dart';
 import '../../utilities/components/dialog_wrong.dart';
+import '../cubit/cal_price/cal_price_cleaning_longterm_cubit.dart';
 import '../views/cleaning_longterm_screen_step2.dart';
 
 class ButtonNextStep1 extends StatefulWidget {
@@ -85,8 +87,9 @@ class _ButtonNextStep1State extends State<ButtonNextStep1> {
                 });
             return;
           }
-          if (Platform.isAndroid && (await DatetimeSetting.timeIsAuto() == false ||
-              await DatetimeSetting.timeZoneIsAuto() == false)) {
+          if (Platform.isAndroid &&
+              (await DatetimeSetting.timeIsAuto() == false ||
+                  await DatetimeSetting.timeZoneIsAuto() == false)) {
             showDialog(
                 context: context,
                 builder: (context) {

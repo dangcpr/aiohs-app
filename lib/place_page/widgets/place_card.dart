@@ -22,6 +22,7 @@ class _LocationCardState extends State<LocationCard> {
     super.initState();
     debugPrint(widget.rentalPlace.length.toString());
   }
+
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
@@ -56,7 +57,7 @@ class _LocationCardState extends State<LocationCard> {
                     widget.rentalPlace[index].title,
                     widget.rentalPlace[index].address,
                     widget.rentalPlace[index].images[0],
-                    widget.rentalPlace[index].price,
+                    widget.rentalPlace[index].price.toDouble(),
                     widget.rentalPlace[index].type_display,
                   ),
                 ),
@@ -70,7 +71,7 @@ class _LocationCardState extends State<LocationCard> {
   }
 
   Container Card(Size size, String title, String address, String image,
-      int price, String state) {
+      double price, String state) {
     return Container(
       width: size.width / 1.2,
       decoration: BoxDecoration(

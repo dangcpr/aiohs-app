@@ -30,6 +30,8 @@ class PlacePageController {
         images.add(path);
       }
       rentalPlace.images = images;
+      print(rentalPlace.toJson().toString());
+
       var response = await dio.post(
         '/user/$userCode/area-booking/create',
         data: rentalPlace.toJson(),
@@ -92,12 +94,10 @@ class PlacePageController {
 
   Future<List<RentalPlaceRes>> getRentalInactive(String userCode) async {
     try {
-      var response = await dio.get(
-        '/user/$userCode/area-booking',
-        queryParameters: {
-          'status': 'AREA_BOOKING_STATUS_INACTIVE',
-        }
-      );
+      var response =
+          await dio.get('/user/$userCode/area-booking', queryParameters: {
+        'status': 'AREA_BOOKING_STATUS_INACTIVE',
+      });
       await Future.delayed(const Duration(milliseconds: 800));
       if (response.data['code'] == 0) {
         List<RentalPlaceRes> rentalPlaceRes = (response.data['posts'] as List)
@@ -124,26 +124,22 @@ class PlacePageController {
     }
   }
 
-  Future<RentalPlaceResult> getRentalPublic(String userCode, String next, int limit, double distance ) async {
+  Future<RentalPlaceResult> getRentalPublic(
+      String userCode, String next, int limit, double distance) async {
     try {
-      var response = await dio.get(
-        '/user/$userCode/area-booking/public',
-        queryParameters: {
-          "next": next,
-          "limit": limit,
-          "distance": distance
-        }
-      );
+      var response = await dio.get('/user/$userCode/area-booking/public',
+          queryParameters: {
+            "next": next,
+            "limit": limit,
+            "distance": distance
+          });
       await Future.delayed(const Duration(milliseconds: 800));
       if (response.data['code'] == 0) {
         List<RentalPlaceRes> rentalPlaceRes = (response.data['posts'] as List)
             .map((e) => RentalPlaceRes.fromJson(e))
             .toList();
         String next = response.data['next'];
-        return RentalPlaceResult(
-          next: next,
-          rentalPlaceRes: rentalPlaceRes
-        );
+        return RentalPlaceResult(next: next, rentalPlaceRes: rentalPlaceRes);
       } else {
         String message = jsonEncode(response.data['message']);
         throw message;
@@ -164,7 +160,8 @@ class PlacePageController {
     }
   }
 
-  Future<void> updateRental(RentalPlace rentalPlace, String code, String userCode, List<File> imagesFile) async {
+  Future<void> updateRental(RentalPlace rentalPlace, String code,
+      String userCode, List<File> imagesFile) async {
     try {
       List<String> images = [];
       for (var i = 0; i < imagesFile.length; i++) {
@@ -199,10 +196,9 @@ class PlacePageController {
   }
 
   Future<void> cancelRental(RentalPlaceRes rentalPlace, String userCode) async {
-    try  {
-      var response = await dio.get(
-        '/user/$userCode/area-booking/${rentalPlace.code}/close'
-      );
+    try {
+      var response = await dio
+          .get('/user/$userCode/area-booking/${rentalPlace.code}/close');
       await Future.delayed(const Duration(milliseconds: 800));
       if (response.data['code'] == 0) {
         return;

@@ -14,6 +14,7 @@ import '../../cleaning_hourly/widgets/show_bottom_edit_name_phone.dart';
 import 'package:rmservice/utilities/constants/variable.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+import '../cubit/cal_price/cal_price_cubit.dart';
 import '../widgets/button_next_step3.dart';
 
 class CookingScreenStep3 extends StatefulWidget {
@@ -30,6 +31,9 @@ class _CookingScreenStep3State extends State<CookingScreenStep3> {
     super.initState();
     final cubit = context.read<SaveInfoCookingCubit>().state;
     print(cubit.toJson().toString());
+    context
+        .read<CalPriceCookingCubit>()
+        .calPrice(context.read<SaveInfoCookingCubit>().state);
   }
 
   @override

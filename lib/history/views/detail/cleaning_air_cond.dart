@@ -120,6 +120,19 @@ class _CleaningLongTermHistoryDetailState
                   ),
                 ),
                 SizedBox(height: 15),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    Text(
+                      'Tổng giá tiền: ${widget.order.orderAirCondHistory.orderAmount}',
+                      style: TextStyle(
+                        fontFamily: fontBoldApp,
+                        fontSize: fontSize.mediumLarger,
+                      ),
+                    ),
+                  ],
+                ),
+                SizedBox(height: 15),
                 if (widget.order.orderAirCondHistory.maidCode != "")
                   Padding(
                     padding: const EdgeInsets.only(top: 17),
@@ -137,10 +150,10 @@ class _CleaningLongTermHistoryDetailState
                     ),
                   ),
                 (widget.order.orderAirCondHistory.status == 'new' ||
-                            (widget.order.orderAirCondHistory.status ==
+                        (widget.order.orderAirCondHistory.status ==
                                 'maid_accepted' &&
-                        widget.order.orderAirCondHistory.paymentMethod !=
-                            'cash'))
+                            widget.order.orderAirCondHistory.paymentMethod !=
+                                'cash'))
                     ? ButtonGreenApp(
                         label: "Hủy đơn này",
                         onPressed: () {

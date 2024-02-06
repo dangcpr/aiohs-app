@@ -75,6 +75,19 @@ class _WorkerCookingHistoryDetailState
                 order: widget.order,
               ),
             ),
+            SizedBox(height: 15),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                Text(
+                  'Tổng giá tiền: ${widget.order.orderCooking.orderAmount}',
+                  style: TextStyle(
+                    fontFamily: fontBoldApp,
+                    fontSize: fontSize.mediumLarger,
+                  ),
+                ),
+              ],
+            ),
             if (widget.order.orderCooking.maidCode != "")
               Padding(
                 padding: const EdgeInsets.only(top: 17),
@@ -161,7 +174,7 @@ class _WorkerCookingHistoryDetailState
                     context.read<UserCubit>().state.code &&
                 (widget.order.orderCooking.status == "new" ||
                     (widget.order.orderCooking.status == 'maid_accepted' &&
-                widget.order.orderCooking.paymentMethod == "cash")))
+                        widget.order.orderCooking.paymentMethod == "cash")))
               ButtonGreenApp(
                   label: "Hủy đơn này",
                   onPressed: () async {

@@ -39,6 +39,10 @@ class _UpdateRentalScreenState extends State<UpdateRentalScreen> {
   TextEditingController priceController = TextEditingController();
   TextEditingController detailController = TextEditingController();
   TextEditingController addressController = TextEditingController();
+  TextEditingController heightController = TextEditingController();
+  bool isOnTheFloor = false;
+  bool haveElevator = false;
+
   List<File> imageList = [];
   @override
   void initState() {
@@ -49,6 +53,10 @@ class _UpdateRentalScreenState extends State<UpdateRentalScreen> {
     priceController.text = widget.rentalPlace.price.toString();
     detailController.text = widget.rentalPlace.description;
     addressController.text = widget.rentalPlace.address.split(' - ')[0];
+    heightController.text = widget.rentalPlace.height.toString();
+    isOnTheFloor = widget.rentalPlace.on_the_floors;
+    haveElevator = widget.rentalPlace.has_elevator;
+
     context.read<SaveAddressCubit>().setAddress(
           Address(
             latitude: widget.rentalPlace.latitude,
@@ -127,13 +135,19 @@ class _UpdateRentalScreenState extends State<UpdateRentalScreen> {
                   title: titleController.text,
                   number_rental_days: int.parse(numOfDayController.text),
                   area: double.parse(areaController.text),
-                  price: int.parse(priceController.text),
+                  price: double.parse(priceController.text),
                   description: detailController.text,
                   images: [],
                   address:
                       '${addressController.text} - ${context.read<SaveAddressCubit>().state!.address}',
                   latitude: context.read<SaveAddressCubit>().state!.latitude!,
                   longitude: context.read<SaveAddressCubit>().state!.longitude!,
+                  height: double.parse(heightController.text),
+                  has_elevator: haveElevator,
+                  on_the_floors: isOnTheFloor,
+                  city: 'oke',
+                  district: 'oke',
+                  ward: 'oke',
                 );
                 showDialog(
                     context: context,
@@ -144,8 +158,11 @@ class _UpdateRentalScreenState extends State<UpdateRentalScreen> {
                       ));
                     });
                 try {
-                  await PlacePageController().updateRental(rentalPlace,
-                      widget.rentalPlace.code, userCubit.state.code!, context.read<ImagesPlaceCubit>().state);
+                  await PlacePageController().updateRental(
+                      rentalPlace,
+                      widget.rentalPlace.code,
+                      userCubit.state.code!,
+                      context.read<ImagesPlaceCubit>().state);
                   Navigator.pop(context);
                   AwesomeDialog(
                     dismissOnTouchOutside: false,
@@ -273,6 +290,24 @@ class _UpdateRentalScreenState extends State<UpdateRentalScreen> {
               SizedBox(
                 height: 85,
                 child: TextFieldBasic(
+                  controller: heightController,
+                  isDarkMode: darkMode,
+                  hintText: "Chiều cao (m\u00B2)",
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return AppLocalizations.of(context)!.signupEmptyError;
+                    }
+                    if (double.tryParse(value) == null ||
+                        double.tryParse(value)! <= 0) {
+                      return "Vui lòng nhập số lớn hơn 0 (m\u00B2)";
+                    } else
+                      return null;
+                  },
+                ),
+              ),
+              SizedBox(
+                height: 85,
+                child: TextFieldBasic(
                     controller: priceController,
                     isDarkMode: darkMode,
                     hintText: "Giá thuê (VNĐ)",
@@ -298,6 +333,64 @@ class _UpdateRentalScreenState extends State<UpdateRentalScreen> {
                   }
                   return null;
                 },
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    'Nơi cho thuê ở trên lầu?',
+                    style: textStyle.normalStyle(fontSize: 16),
+                  ),
+                  SizedBox(
+                    width: 50,
+                    height: 40,
+                    child: FittedBox(
+                      fit: BoxFit.fill,
+                      child: Switch(
+                        activeColor: colorProject.primaryColor,
+                        value: isOnTheFloor,
+                        onChanged: (bool value) {
+                          setState(() {
+                            isOnTheFloor = value;
+                            print(isOnTheFloor);
+                          });
+                        },
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(
+                height: 15,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    'Nơi cho thuê có thang máy?',
+                    style: textStyle.normalStyle(fontSize: 16),
+                  ),
+                  SizedBox(
+                    width: 50,
+                    height: 40,
+                    child: FittedBox(
+                      fit: BoxFit.fill,
+                      child: Switch(
+                        activeColor: colorProject.primaryColor,
+                        value: haveElevator,
+                        onChanged: (bool value) {
+                          setState(() {
+                            haveElevator = value;
+                            print(haveElevator);
+                          });
+                        },
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(
+                height: 15,
               ),
               TextLabel(
                 label: "Hình ảnh",

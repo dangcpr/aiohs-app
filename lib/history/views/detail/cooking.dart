@@ -118,6 +118,18 @@ class _CookingHistoryDetailState extends State<CookingHistoryDetail> {
                   ),
                 ),
                 SizedBox(height: 15),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    Text(
+                      'Tổng giá tiền: ${widget.order.orderCooking.orderAmount}',
+                      style: TextStyle(
+                        fontFamily: fontBoldApp,
+                        fontSize: fontSize.mediumLarger,
+                      ),
+                    ),
+                  ],
+                ),
                 SizedBox(height: 15),
                 if (widget.order.orderCooking.maidCode != "")
                   Padding(
@@ -135,8 +147,9 @@ class _CookingHistoryDetailState extends State<CookingHistoryDetail> {
                       order: widget.order,
                     ),
                   ),
-                (widget.order.orderCooking.status == 'new' && (widget.order.orderCooking.status == 'maid_accepted'  &&
-                        widget.order.orderCooking.paymentMethod != 'cash'))
+                (widget.order.orderCooking.status == 'new' &&
+                        (widget.order.orderCooking.status == 'maid_accepted' &&
+                            widget.order.orderCooking.paymentMethod != 'cash'))
                     ? ButtonGreenApp(
                         label: "Hủy đơn này",
                         onPressed: () {

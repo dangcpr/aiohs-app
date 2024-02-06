@@ -96,4 +96,48 @@ class CleaningLongTermRepo {
       throw 'Server Error';
     }
   }
+
+  Future<int> caculatePrice(InfoCleaningLongTerm info) async {
+    try {
+      List<String> listDay = [];
+      for (int i = 0; i < info.days.length; i++) {
+        listDay.add(info.days[i].toString());
+      }
+      print('test: ${info.toJson().toString()}');
+      final response = await dio.post(
+        '/user/orders/clean-subscription/prices/calculate',
+        data: {
+          "working_hour":
+              '${info.time!.hour.toString().padLeft(2, '0')}:${info.time!.minute.toString().padLeft(2, '0')}:00',
+          "working_dates": listDay,
+          "duration_per_day": info.duration,
+        },
+      );
+
+      await Future.delayed(const Duration(milliseconds: 800));
+
+      if (response.statusCode == 200) {
+        int price = response.data['price'];
+        debugPrint(price.toString());
+        return price;
+      } else {
+        String message = jsonEncode(response.data['message']);
+        throw message;
+      }
+    } on DioException catch (e) {
+      debugPrint(e.type.toString());
+      if (e.type == DioExceptionType.receiveTimeout ||
+          e.type == DioExceptionType.connectionTimeout) {
+        throw 'Connection Timeout';
+      }
+
+      if (e.type == DioExceptionType.unknown ||
+          e.type == DioExceptionType.connectionError) {
+        // throw 'Internet Error or Server Error';
+        throw e.toString();
+      }
+      debugPrint(e.type.toString());
+      throw e.toString();
+    }
+  }
 }

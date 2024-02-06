@@ -120,6 +120,19 @@ class _CleaningLongTermHistoryDetailState
                   ),
                 ),
                 SizedBox(height: 15),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    Text(
+                      'Tổng giá tiền: ${widget.order.orderCleaningLongTerm.orderAmount}',
+                      style: TextStyle(
+                        fontFamily: fontBoldApp,
+                        fontSize: fontSize.mediumLarger,
+                      ),
+                    ),
+                  ],
+                ),
+                SizedBox(height: 15),
                 if (widget.order.orderCleaningLongTerm.maidCode != "")
                   Padding(
                     padding: const EdgeInsets.only(top: 17),

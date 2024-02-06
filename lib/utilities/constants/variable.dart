@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 String fcmToken = "";
 const nameApp = "AIO Home Serives";
 const protocolServer = "http://";
+// const debugServer = protocolServer + "192.168.206.129:9000";
 const debugServer = protocolServer + "192.168.206.129:9000";
 // const debugServer = "https://9e96-171-231-25-147.ngrok-free.app";
 const protocolChat = "http://";

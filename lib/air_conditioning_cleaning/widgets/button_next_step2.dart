@@ -56,91 +56,73 @@ class _ButtonNextStep2State extends State<ButtonNextStep2> {
         right: 20,
         bottom: 10,
       ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Text(
-            numberFormat.format(totalPrice) +
-                ' - ' +
-                context
-                    .read<SaveInfoAirConditioningCleaningCubit>()
-                    .state
-                    .realDuration
-                    .toString() +
-                " giờ",
-            style: TextStyle(
-                fontFamily: fontBoldApp,
-                fontSize: fontSize.mediumLarger + 1,
-                color: colorProject.primaryColor),
-          ),
-          ButtonGreenApp(
-            label: AppLocalizations.of(context)!.nextLabel,
-            onPressed: () async {
-              if (Platform.isAndroid && (await DatetimeSetting.timeIsAuto() == false ||
+      child: ButtonGreenApp(
+        label: AppLocalizations.of(context)!.nextLabel,
+        onPressed: () async {
+          if (Platform.isAndroid &&
+              (await DatetimeSetting.timeIsAuto() == false ||
                   await DatetimeSetting.timeZoneIsAuto() == false)) {
-                showDialog(
-                    context: context,
-                    builder: (context) {
-                      return DialogWrong(
-                          notification:
-                              "Vui lòng lựa chọn giờ và múi giờ tự động trên thiết bị");
-                    });
-                return;
-              }
-              if (context
-                                  .read<SaveInfoAirConditioningCleaningCubit>()
-                                  .state
-                                  .time!
-                                  .hour *
-                              60 +
-                          context
+            showDialog(
+                context: context,
+                builder: (context) {
+                  return DialogWrong(
+                      notification:
+                          "Vui lòng lựa chọn giờ và múi giờ tự động trên thiết bị");
+                });
+            return;
+          }
+          if (context
                               .read<SaveInfoAirConditioningCleaningCubit>()
                               .state
                               .time!
-                              .minute <
-                      time6Hours ||
-                  context
-                                  .read<SaveInfoAirConditioningCleaningCubit>()
-                                  .state
-                                  .time!
-                                  .hour *
-                              60 +
-                          context
+                              .hour *
+                          60 +
+                      context
+                          .read<SaveInfoAirConditioningCleaningCubit>()
+                          .state
+                          .time!
+                          .minute <
+                  time6Hours ||
+              context
                               .read<SaveInfoAirConditioningCleaningCubit>()
                               .state
                               .time!
-                              .minute >
-                      time23Hours -
-                          context
-                                  .read<SaveInfoAirConditioningCleaningCubit>()
-                                  .state
-                                  .realDuration! *
-                              60) {
-                debugPrint("Vui lòng chọn giờ làm việc từ 06:00 tới " +
-                    (23 - duration).toString() +
-                    " giờ");
-                showDialog(
-                  context: context,
-                  builder: (context) {
-                    return DialogWrong(
-                        notification:
-                            "Vui lòng chọn giờ làm việc từ 06:00 tới ${(23 - duration).toString()}:00");
-                  },
-                );
-                return;
-              }
-              Navigator.push(
-                context,
-                PageTransition(
-                  duration: Duration(milliseconds: 400),
-                  type: PageTransitionType.rightToLeftWithFade,
-                  child: AirConditioningCleaningScreenStep3(),
-                  childCurrent: AirConditioningCleaningScreenStep2(),
-                ),
-              );
-            },
-          ),
-        ],
+                              .hour *
+                          60 +
+                      context
+                          .read<SaveInfoAirConditioningCleaningCubit>()
+                          .state
+                          .time!
+                          .minute >
+                  time23Hours -
+                      context
+                              .read<SaveInfoAirConditioningCleaningCubit>()
+                              .state
+                              .realDuration! *
+                          60) {
+            debugPrint("Vui lòng chọn giờ làm việc từ 06:00 tới " +
+                (23 - duration).toString() +
+                " giờ");
+            showDialog(
+              context: context,
+              builder: (context) {
+                return DialogWrong(
+                    notification:
+                        "Vui lòng chọn giờ làm việc từ 06:00 tới ${(23 - duration).toString()}:00");
+              },
+            );
+            return;
+          }
+          Navigator.push(
+            context,
+            PageTransition(
+              duration: Duration(milliseconds: 400),
+              type: PageTransitionType.rightToLeftWithFade,
+              child: AirConditioningCleaningScreenStep3(),
+              childCurrent: AirConditioningCleaningScreenStep2(),
+            ),
+          );
+        },
       ),
     );
   }
