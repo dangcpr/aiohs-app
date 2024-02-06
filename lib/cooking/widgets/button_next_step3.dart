@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:rmservice/cleaning_hourly/cubits/save_info/save_address.dart';
+import 'package:rmservice/cooking/cubit/cal_price/cal_price_cubit.dart';
 import 'package:rmservice/cooking/cubit/order_cooking/order_cooking_cubit.dart';
 import 'package:rmservice/cooking/cubit/price_cooking_cubit.dart';
 import 'package:rmservice/cooking/cubit/save_info_cooking.dart';
@@ -12,6 +13,7 @@ import 'package:rmservice/utilities/components/button_green.dart';
 import 'package:rmservice/utilities/constants/variable.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+import '../../air_conditioning_cleaning/cubit/cal_price/cal_price_cubit.dart';
 import '../../login/cubit/user_cubit.dart';
 import '../../payment/views/payment.dart';
 
@@ -40,15 +42,39 @@ class _ButtonNextStep3State extends State<ButtonNextStep3> {
       child: Row(
         children: [
           Expanded(
-            child: Text(
-              formatter.format(infoCubit.state.price) +
-                  ' - ' +
-                  '${infoCubit.state.duration} Giờ',
-              style: TextStyle(
-                fontSize: 20,
-                fontFamily: fontBoldApp,
-                color: colorProject.primaryColor,
-              ),
+            child: BlocBuilder<CalPriceCookingCubit, CalPriceCookingState>(
+              builder: (context, state) {
+                if (state is CalPriceCookingLoading) {
+                  return Align(
+                    alignment: Alignment.bottomLeft,
+                    child: CircularProgressIndicator(),
+                  );
+                }
+                if (state is CalPriceCookingFailed) {
+                  return Text(
+                    state.message,
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontFamily: fontBoldApp,
+                      color: colorProject.primaryColor,
+                    ),
+                  );
+                }
+                if (state is CalPriceCookingSuccess) {
+                  return Text(
+                    formatter.format(state.cookingPrice) +
+                        ' - ' +
+                        infoCubit.state.realDuration.toString() +
+                        " giờ",
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontFamily: fontBoldApp,
+                      color: colorProject.primaryColor,
+                    ),
+                  );
+                }
+                return Container();
+              },
             ),
           ),
           ButtonGreenApp(

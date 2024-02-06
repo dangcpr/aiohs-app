@@ -64,82 +64,58 @@ class _ButtonNextStep2State extends State<ButtonNextStep2> {
         right: 20,
         bottom: 10,
       ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Text(
-            formatter.format(infoCubit.state.price) +
-                ' - ' +
-                '${infoCubit.state.duration} Giờ',
-            style: TextStyle(
-                fontFamily: fontBoldApp,
-                fontSize: fontSize.mediumLarger + 1,
-                color: colorProject.primaryColor),
-          ),
-          ButtonGreenApp(
-            label: AppLocalizations.of(context)!.nextLabel,
-            onPressed: () async {
-              if (Platform.isAndroid && (await DatetimeSetting.timeIsAuto() == false ||
+      child: ButtonGreenApp(
+        label: AppLocalizations.of(context)!.nextLabel,
+        onPressed: () async {
+          if (Platform.isAndroid &&
+              (await DatetimeSetting.timeIsAuto() == false ||
                   await DatetimeSetting.timeZoneIsAuto() == false)) {
-                showDialog(
-                    context: context,
-                    builder: (context) {
-                      return DialogWrong(
-                          notification:
-                              "Vui lòng lựa chọn giờ và múi giờ tự động trên thiết bị");
-                    });
-                return;
-              }
-              if (context.read<SaveInfoCookingCubit>().state.time!.hour * 60 +
-                          context
-                              .read<SaveInfoCookingCubit>()
+            showDialog(
+                context: context,
+                builder: (context) {
+                  return DialogWrong(
+                      notification:
+                          "Vui lòng lựa chọn giờ và múi giờ tự động trên thiết bị");
+                });
+            return;
+          }
+          if (context.read<SaveInfoCookingCubit>().state.time!.hour * 60 +
+                      context.read<SaveInfoCookingCubit>().state.time!.minute <
+                  time6Hours ||
+              context.read<SaveInfoCookingCubit>().state.time!.hour * 60 +
+                      context.read<SaveInfoCookingCubit>().state.time!.minute >
+                  time23Hours -
+                      context
+                              .read<SaveInfoCleaningHourlyCubit>()
                               .state
-                              .time!
-                              .minute <
-                      time6Hours ||
-                  context.read<SaveInfoCookingCubit>().state.time!.hour * 60 +
-                          context
-                              .read<SaveInfoCookingCubit>()
-                              .state
-                              .time!
-                              .minute >
-                      time23Hours -
-                          context
-                                  .read<SaveInfoCleaningHourlyCubit>()
-                                  .state
-                                  .realDuration! *
-                              60) {
-                debugPrint("Vui lòng chọn giờ làm việc từ 06:00 tới " +
-                    (23 - duration).toString() +
-                    " giờ");
-                showDialog(
-                  context: context,
-                  builder: (context) {
-                    return DialogWrong(
-                        notification:
-                            "Vui lòng chọn giờ làm việc từ 06:00 tới ${(23 - duration).toString()}:00");
-                  },
-                );
-                return;
-              }
-              Navigator.push(
-                context,
-                PageTransition(
-                  duration: Duration(milliseconds: 400),
-                  type: PageTransitionType.rightToLeftWithFade,
-                  child: CookingScreenStep3(),
-                  childCurrent: CookingScreenStep2(),
-                ),
-              );
+                              .realDuration! *
+                          60) {
+            debugPrint("Vui lòng chọn giờ làm việc từ 06:00 tới " +
+                (23 - duration).toString() +
+                " giờ");
+            showDialog(
+              context: context,
+              builder: (context) {
+                return DialogWrong(
+                    notification:
+                        "Vui lòng chọn giờ làm việc từ 06:00 tới ${(23 - duration).toString()}:00");
+              },
+            );
+            return;
+          }
+          Navigator.push(
+            context,
+            PageTransition(
+              duration: Duration(milliseconds: 400),
+              type: PageTransitionType.rightToLeftWithFade,
+              child: CookingScreenStep3(),
+              childCurrent: CookingScreenStep2(),
+            ),
+          );
 
-              debugPrint(context
-                  .read<SaveInfoCookingCubit>()
-                  .state
-                  .toJson()
-                  .toString());
-            },
-          ),
-        ],
+          debugPrint(
+              context.read<SaveInfoCookingCubit>().state.toJson().toString());
+        },
       ),
     );
   }

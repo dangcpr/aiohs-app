@@ -13,6 +13,7 @@ import '../../cleaning_hourly/widgets/location_info.dart';
 import '../../cleaning_hourly/widgets/show_bottom_edit_name_phone.dart';
 import '../../utilities/components/text_label.dart';
 import '../../utilities/dialog/dialog.dart';
+import '../cubit/cal_price/cal_price_cleaning_longterm_cubit.dart';
 import '../widgets/button_next_step2.dart';
 import '../widgets/method_payment.dart';
 
@@ -28,8 +29,11 @@ class _CleaningLongTermStep2State extends State<CleaningLongTermStep2> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    print(
-        'End Data is: ${context.read<SaveInfoCleaningLongTermCubit>().state.toJson().toString()}');
+    // print(
+    //     'End Data is: ${context.read<SaveInfoCleaningLongTermCubit>().state.toJson().toString()}');
+    context
+        .read<CalPriceCleaningLongtermCubit>()
+        .calculatePrice(context.read<SaveInfoCleaningLongTermCubit>().state);
   }
 
   @override

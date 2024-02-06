@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:page_transition/page_transition.dart';
+import 'package:rmservice/air_conditioning_cleaning/cubit/cal_price/cal_price_cubit.dart';
 import 'package:rmservice/air_conditioning_cleaning/cubit/order_air_cond/order_air_cond_cubit.dart';
 import 'package:rmservice/air_conditioning_cleaning/cubit/save_info_air_conditioning_cleaning.dart';
 
@@ -31,19 +32,39 @@ class ButtonNextStep3 extends StatelessWidget {
       child: Row(
         children: [
           Expanded(
-            child: Text(
-              formatter.format(context
-                      .read<SaveInfoAirConditioningCleaningCubit>()
-                      .state
-                      .price) +
-                  ' - ' +
-                  infoCubit.state.realDuration.toString() +
-                  " giờ",
-              style: TextStyle(
-                fontSize: 20,
-                fontFamily: fontBoldApp,
-                color: colorProject.primaryColor,
-              ),
+            child: BlocBuilder<CalPriceCubit, CalPriceState>(
+              builder: (context, state) {
+                if (state is CalPriceLoading) {
+                  return Align(
+                    alignment: Alignment.bottomLeft,
+                    child: CircularProgressIndicator(),
+                  );
+                }
+                if (state is CalPriceFailed) {
+                  return Text(
+                    state.message,
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontFamily: fontBoldApp,
+                      color: colorProject.primaryColor,
+                    ),
+                  );
+                }
+                if (state is CalPriceSuccess) {
+                  return Text(
+                    formatter.format(state.price) +
+                        ' - ' +
+                        infoCubit.state.realDuration.toString() +
+                        " giờ",
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontFamily: fontBoldApp,
+                      color: colorProject.primaryColor,
+                    ),
+                  );
+                }
+                return Container();
+              },
             ),
           ),
           ButtonGreenApp(

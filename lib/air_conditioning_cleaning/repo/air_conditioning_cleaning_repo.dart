@@ -128,4 +128,69 @@ class AirCondRepo {
       throw 'Server Error';
     }
   }
+
+  Future<int> caculatePrice(InfoAirConditioningCleaning info) async {
+    try {
+      final response = await dio.post(
+        '/user/orders/air-conditioning/prices/calculate',
+        data: {
+          "working_hour":
+              '${info.time!.hour.toString().padLeft(2, '0')}:${info.time!.minute.toString().padLeft(2, '0')}:00',
+          "working_date":
+              '${info.date!.year.toString().padLeft(4, '0')}-${info.date!.month.toString().padLeft(2, '0')}-${info.date!.day.toString().padLeft(2, '0')}',
+          "wall": {
+            "number_bellow_2hp": info.details[0].amount,
+            "number_above_2hp": info.details[1].amount,
+            "gas_refill_bellow_2hp": info.details[0].hasGasAmount,
+            "gas_refill_above_2hp": info.details[1].hasGasAmount
+          },
+          "portable": {
+            "number_ac": info.details[2].amount,
+            "gas_refill": info.details[2].hasGasAmount
+          },
+          "cassette": {
+            "number_bellow_3hp": info.details[3].amount,
+            "number_above_3hp": info.details[4].amount,
+            "gas_refill_bellow_3hp": info.details[3].hasGasAmount,
+            "gas_refill_above_3hp": info.details[4].hasGasAmount
+          },
+          "floor": {
+            "number_bellow_5hp": info.details[5].amount,
+            "number_above_5hp": info.details[6].amount,
+            "gas_refill_bellow_5hp": info.details[5].hasGasAmount,
+            "gas_refill_above_5hp": info.details[6].hasGasAmount
+          },
+          "built_in": {
+            "number_ac": info.details[7].amount,
+            "gas_refill": info.details[7].hasGasAmount
+          }
+        },
+      );
+
+      await Future.delayed(const Duration(milliseconds: 800));
+
+      if (response.statusCode == 200) {
+        int price = response.data['price'];
+        print('price: $price');
+        return price;
+      } else {
+        String message = jsonEncode(response.data['message']);
+        throw message;
+      }
+    } on DioException catch (e) {
+      debugPrint(e.type.toString());
+      if (e.type == DioExceptionType.receiveTimeout ||
+          e.type == DioExceptionType.connectionTimeout) {
+        throw 'Connection Timeout';
+      }
+
+      if (e.type == DioExceptionType.unknown ||
+          e.type == DioExceptionType.connectionError) {
+        // throw 'Internet Error or Server Error';
+        throw e.toString();
+      }
+      debugPrint(e.type.toString());
+      throw e.toString();
+    }
+  }
 }

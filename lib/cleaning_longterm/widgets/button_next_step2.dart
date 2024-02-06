@@ -8,6 +8,7 @@ import 'package:rmservice/cleaning_hourly/cubits/save_info/save_info.dart';
 import 'package:rmservice/cleaning_hourly/cubits/total_price_CH.dart';
 import 'package:rmservice/cleaning_hourly/views/cleaning_hourly_step2.dart';
 import 'package:rmservice/cleaning_hourly/views/cleaning_hourly_step3.dart';
+import 'package:rmservice/cleaning_longterm/cubit/cal_price/cal_price_cleaning_longterm_cubit.dart';
 import 'package:rmservice/cleaning_longterm/cubit/order_cleaning_longterm/order_cleaning_longterm_cubit.dart';
 import 'package:rmservice/cleaning_longterm/cubit/price_cleaning_longterm_cubit.dart';
 import 'package:rmservice/cleaning_longterm/cubit/save_info_cubit.dart';
@@ -51,15 +52,40 @@ class _ButtonNextStep2State extends State<ButtonNextStep2> {
       child: Row(
         children: [
           Expanded(
-            child: Text(
-              formatter.format(totalPrice) +
-                  ' - ' +
-                  '${infoCubit.state.days.length * infoCubit.state.month * 4} Buổi',
-              style: TextStyle(
-                fontSize: 20,
-                fontFamily: fontBoldApp,
-                color: colorProject.primaryColor,
-              ),
+            child: BlocBuilder<CalPriceCleaningLongtermCubit,
+                CalPriceCleaningLongtermState>(
+              builder: (context, state) {
+                if (state is CalPriceCleaningLongtermLoading) {
+                  return Align(
+                    alignment: Alignment.bottomLeft,
+                    child: CircularProgressIndicator(),
+                  );
+                }
+                if (state is CalPriceCleaningLongtermFailed) {
+                  return Text(
+                    state.message,
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontFamily: fontBoldApp,
+                      color: colorProject.primaryColor,
+                    ),
+                  );
+                }
+                if (state is CalPriceCleaningLongtermSuccess) {
+                  return Text(
+                    formatter.format(state.totalPrice) +
+                        ' - ' +
+                        '${infoCubit.state.days.length * infoCubit.state.month * 4} Buổi',
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontFamily: fontBoldApp,
+                      color: colorProject.primaryColor,
+                    ),
+                  );
+                } else {
+                  return Container();
+                }
+              },
             ),
           ),
           ButtonGreenApp(
