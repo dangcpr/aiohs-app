@@ -9,6 +9,7 @@ import 'package:intl/intl.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:rmservice/cleaning_longterm/cubit/cal_price/cal_price_cleaning_longterm_cubit.dart';
 import 'package:rmservice/cleaning_longterm/cubit/order_cleaning_longterm/order_cleaning_longterm_cubit.dart';
+import 'package:rmservice/cleaning_longterm/cubit/price_cleaning_longterm_cubit.dart';
 import 'package:rmservice/cleaning_longterm/cubit/save_info_cubit.dart';
 import 'package:rmservice/cleaning_longterm/repo/cleaning_longterm_repo.dart';
 import 'package:rmservice/payment/controllers/zalopay.dart';
@@ -45,6 +46,10 @@ class _ButtonNextStep2State extends State<ButtonNextStep2> {
     var addressCubit = context.watch<SaveAddressCubit>();
 
     final formatter = NumberFormat.simpleCurrency(locale: "vi-VN");
+    
+    var cleaningLongTermPrice =
+        context.read<PriceCleaningLongTermCubit>().state;
+    var totalPrice = infoCubit.totalPrice(cleaningLongTermPrice);
 
     return Padding(
       padding: const EdgeInsets.only(
