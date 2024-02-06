@@ -81,6 +81,7 @@ dependencies:
   firebase_analytics: ^10.8.0
   sign_in_with_apple: ^5.0.0
   countup: ^0.1.4
+  url_launcher: ^6.2.4
 
 dev_dependencies:
   flutter_test:

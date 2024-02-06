@@ -47,7 +47,7 @@ class CleaningLongTermRepo {
     }
   }
 
-  Future<void> orderCleaningLongTerm(
+  Future<String> orderCleaningLongTerm(
       InfoCleaningLongTerm info, Address address, String userCode) async {
     List<String> listDay = [];
     for (int i = 0; i < info.days.length; i++) {
@@ -58,7 +58,9 @@ class CleaningLongTermRepo {
         '/user/$userCode/orders/clean-subscription/create',
         data: {
           "order_amount": info.price,
-          "payment_method": info.paymentMethod,
+          "payment_method": info.paymentMethod == 'PAYMENT_METHOD_ZALOPAY'
+              ? 'PAYMENT_METHOD_WALLET'
+              : info.paymentMethod,
           "working_hour":
               '${info.time!.hour.toString().padLeft(2, '0')}:${info.time!.minute.toString().padLeft(2, '0')}:00',
           "working_address": '${address.shortAddress!}-${address.address!}',
@@ -76,7 +78,7 @@ class CleaningLongTermRepo {
         },
       );
       if (response.data['code'] == 0) {
-        return;
+        return response.data['order_code'];
       } else {
         String message = jsonEncode(response.data['message']);
         throw message;

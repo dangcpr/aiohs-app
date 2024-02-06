@@ -49,14 +49,16 @@ class CookingRepo {
     }
   }
 
-  Future<void> orderCooking(
+  Future<String> orderCooking(
       InfoCooking info, Address address, String userCode) async {
     try {
       final response = await dio.post(
         '/user/$userCode/orders/home-cooking/create',
         data: {
           "order_amount": info.price,
-          "payment_method": info.paymentMethod,
+          "payment_method": info.paymentMethod == "PAYMENT_METHOD_ZALOPAY"
+              ? "PAYMENT_METHOD_WALLET"
+              : info.paymentMethod,
           "working_hour":
               '${info.time!.hour.toString().padLeft(2, '0')}:${info.time!.minute.toString().padLeft(2, '0')}:00',
           "working_address": '${address.shortAddress!}-${address.address!}',
@@ -77,7 +79,7 @@ class CookingRepo {
         },
       );
       if (response.data['code'] == 0) {
-        return;
+        return response.data['order_code'];
       } else {
         String message = jsonEncode(response.data['message']);
         throw message;

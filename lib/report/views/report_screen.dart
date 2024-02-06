@@ -60,6 +60,16 @@ class _ReportScreenState extends State<ReportScreen> {
                     isReadOnly: true,
                     onTap: () async {
                       DateTime? date = await showDatePicker(
+                        builder: (context, child) {
+                          return Theme(
+                            data: ThemeData.light().copyWith(
+                              primaryColor: colorProject.primaryColor,
+                              colorScheme: ColorScheme.light(primary: colorProject.primaryColor),
+                              buttonTheme: ButtonThemeData(textTheme: ButtonTextTheme.primary),
+                            ),
+                            child: child!,
+                          );
+                        },
                         context: context,
                         initialDate: fromDate ?? DateTime.now(),
                         firstDate: DateTime(2023),
@@ -69,7 +79,7 @@ class _ReportScreenState extends State<ReportScreen> {
                         setState(() {
                           fromDate = date;
                         });
-                        if( toDate == null || fromDate!.isAfter(toDate!)){
+                        if (toDate == null || fromDate!.isAfter(toDate!)) {
                           toDate = fromDate;
                           to_date_controller.text =
                               "${fromDate!.year.toString().padLeft(4, '0')}-${fromDate!.month.toString().padLeft(2, '0')}-${fromDate!.day.toString().padLeft(2, '0')}";
@@ -104,6 +114,16 @@ class _ReportScreenState extends State<ReportScreen> {
                       isReadOnly: true,
                       onTap: () async {
                         DateTime? date = await showDatePicker(
+                          builder: (context, child) {
+                            return Theme(
+                              data: ThemeData.light().copyWith(
+                                primaryColor: colorProject.primaryColor,
+                                colorScheme: ColorScheme.light(primary: colorProject.primaryColor),
+                                buttonTheme: ButtonThemeData(textTheme: ButtonTextTheme.primary),
+                              ),
+                              child: child!,
+                            );
+                          },
                           context: context,
                           initialDate: toDate ?? DateTime.now(),
                           firstDate: fromDate!,
@@ -124,8 +144,8 @@ class _ReportScreenState extends State<ReportScreen> {
             const SizedBox(height: 20),
             Expanded(
               child: FutureBuilder(
-                future: ReportController()
-                    .getReport(userCubit.state.code!, from_date_controller.text, to_date_controller.text),
+                future: ReportController().getReport(userCubit.state.code!,
+                    from_date_controller.text, to_date_controller.text),
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
                     return const Center(

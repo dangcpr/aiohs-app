@@ -117,6 +117,56 @@ class _MethodPaymentShoppingState extends State<MethodPaymentShopping> {
             ),
           ),
         ),
+        SizedBox(height: 10),
+        InkWell(
+          onTap: () {
+            setState(() {
+              value = 3;
+            });
+            context
+                .read<SaveDataShopping>()
+                .updatePaymentMethod(paymentMethodCode[value]);
+          },
+          child: Container(
+            padding: const EdgeInsets.all(8),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10),
+              border: Border.all(
+                color: value == 3
+                    ? colorProject.primaryColor
+                    : const Color.fromARGB(172, 172, 172, 172),
+                width: value == 3 ? 2 : 1,
+              ),
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Icon(
+                  Icons.payment,
+                  color: value == 3
+                      ? colorProject.primaryColor
+                      : (widget.isDarkMode ? Colors.white : Colors.black),
+                ),
+                Flexible(
+                  child: Text(
+                    "Zalopay",
+                    style: TextStyle(
+                      fontSize: fontSize.mediumLarger,
+                      fontFamily: value == 3 ? fontBoldApp : fontApp,
+                      color: value == 3
+                          ? colorProject.primaryColor
+                          : (widget.isDarkMode ? Colors.white : Colors.black),
+                    ),
+                  ),
+                ),
+                Icon(Icons.navigate_next,
+                    color: value == 3
+                        ? colorProject.primaryColor
+                        : (widget.isDarkMode ? Colors.white : Colors.black)),
+              ],
+            ),
+          ),
+        ),
       ],
     );
   }

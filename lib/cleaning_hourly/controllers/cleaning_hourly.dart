@@ -47,14 +47,16 @@ class CleaningHourlyController {
     }
   }
 
-  Future<void> orderCleaningHourly(
+  Future<String> orderCleaningHourly(
       InfoCleaningHourly info, Address address, String userCode) async {
     try {
       final response = await dio.post(
         '/user/$userCode/orders/clean-demand/create',
         data: {
           "order_amount": info.price,
-          "payment_method": info.paymentMethod,
+          "payment_method": info.paymentMethod == "PAYMENT_METHOD_ZALOPAY"
+              ? "PAYMENT_METHOD_WALLET"
+              : info.paymentMethod,
           "working_date":
               '${info.date!.year.toString().padLeft(4, '0')}-${info.date!.month.toString().padLeft(2, '0')}-${info.date!.day.toString().padLeft(2, '0')}',
           "working_hour":
@@ -76,7 +78,7 @@ class CleaningHourlyController {
         },
       );
       if (response.data['code'] == 0) {
-        return;
+        return response.data['order_code'];
       } else {
         String message = jsonEncode(response.data['message']);
         throw message;

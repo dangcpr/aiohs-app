@@ -48,13 +48,15 @@ class LaundryController {
     }
   }
 
-  Future<void> orderLaundry(
+  Future<String> orderLaundry(
       InfoLaundry infoLaundry, Address address, String userCode) async {
     try {
       final response =
           await dio.post('/user/$userCode/orders/laundry/create', data: {
         "order_amount": infoLaundry.totalPrice,
-        "payment_method": infoLaundry.paymentMethod,
+        "payment_method": infoLaundry.paymentMethod == "PAYMENT_METHOD_ZALOPAY"
+            ? "PAYMENT_METHOD_WALLET"
+            : infoLaundry.paymentMethod,
         "working_date":
             '${infoLaundry.sendDate!.year.toString().padLeft(4, '0')}-${infoLaundry.sendDate!.month.toString().padLeft(2, '0')}-${infoLaundry.sendDate!.day.toString().padLeft(2, '0')}',
         "working_hour":
@@ -89,7 +91,7 @@ class LaundryController {
       });
       await Future.delayed(const Duration(seconds: 1));
       if (response.data['code'] == 0) {
-        return;
+        return response.data['order_code'];
       } else {
         String message = jsonEncode(response.data['message']);
         throw message;

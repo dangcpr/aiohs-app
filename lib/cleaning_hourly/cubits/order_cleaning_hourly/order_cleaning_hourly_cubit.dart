@@ -7,13 +7,15 @@ import 'package:rmservice/cleaning_hourly/models/info_cleaning_hourly.dart';
 class OrderCleaningHourlyCubit extends Cubit<OrderCleaningHourlyState> {
   OrderCleaningHourlyCubit() : super(OrderCleaningHourlyInitial());
 
-  void orderCleaningHourly(InfoCleaningHourly infoCleaningHourly, Address address, String userCode) async {
+  Future<String> orderCleaningHourly(InfoCleaningHourly infoCleaningHourly, Address address, String userCode) async {
     emit(OrderCleaningHourlyLoading());
     try {
-      await CleaningHourlyController().orderCleaningHourly(infoCleaningHourly, address, userCode);
+      String code = await CleaningHourlyController().orderCleaningHourly(infoCleaningHourly, address, userCode);
       emit(OrderCleaningHourlySuccess());
+      return code;
     } catch (e) {
       emit(OrderCleaningHourlyError(e.toString()));
+      return "";
     }
   }
 
