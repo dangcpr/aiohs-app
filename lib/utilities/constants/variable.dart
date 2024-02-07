@@ -5,7 +5,9 @@ String fcmToken = "";
 const nameApp = "AIO Home Serives";
 const protocolServer = "http://";
 // const debugServer = protocolServer + "192.168.206.129:9000";
-const debugServer = protocolServer + "18.143.167.78:9000";
+// const debugServer = protocolServer + "18.143.167.78:9000";
+const debugServer = protocolServer + "192.168.220.131:9000";
+
 // const debugServer = "https://9e96-171-231-25-147.ngrok-free.app";
 const protocolChat = "http://";
 const serverChat = "18.143.167.78:8080"; //not include method http or https

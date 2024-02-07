@@ -46,7 +46,7 @@ class _ButtonNextStep2State extends State<ButtonNextStep2> {
     var addressCubit = context.watch<SaveAddressCubit>();
 
     final formatter = NumberFormat.simpleCurrency(locale: "vi-VN");
-    
+
     var cleaningLongTermPrice =
         context.read<PriceCleaningLongTermCubit>().state;
     var totalPrice = infoCubit.totalPrice(cleaningLongTermPrice);
@@ -80,6 +80,7 @@ class _ButtonNextStep2State extends State<ButtonNextStep2> {
                   );
                 }
                 if (state is CalPriceCleaningLongtermSuccess) {
+                  infoCubit.state.price = state.totalPrice;
                   return Text(
                     formatter.format(state.totalPrice) +
                         ' - ' +
