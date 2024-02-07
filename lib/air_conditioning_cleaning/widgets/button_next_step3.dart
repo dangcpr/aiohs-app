@@ -61,6 +61,7 @@ class ButtonNextStep3 extends StatelessWidget {
                   );
                 }
                 if (state is CalPriceSuccess) {
+                  infoCubit.state.price = state.price;
                   return Text(
                     formatter.format(state.price) +
                         ' - ' +

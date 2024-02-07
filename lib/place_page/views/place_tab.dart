@@ -44,6 +44,24 @@ class _PlaceTabDetailState extends State<PlaceTabDetail> {
             ),
             SizedBox(height: 8),
             InfoLine(
+              title: 'Chiều cao phòng: ',
+              content: widget.rentalPlace.height.toString() + ' m',
+              icon: Icons.height,
+            ),
+            SizedBox(height: 8),
+            InfoLine(
+              title: 'Thang máy: ',
+              content: widget.rentalPlace.has_elevator ? 'Có' : 'Không',
+              icon: Icons.elevator,
+            ),
+            SizedBox(height: 8),
+            InfoLine(
+              title: 'Nơi cho thuê ở trên lầu: ',
+              content: widget.rentalPlace.on_the_floors ? 'Có' : 'Không',
+              icon: Icons.house_siding,
+            ),
+            SizedBox(height: 8),
+            InfoLine(
               title: 'Chi tiết: ',
               content: widget.rentalPlace.description,
               icon: Icons.info_outline,
@@ -63,9 +81,7 @@ class _PlaceTabDetailState extends State<PlaceTabDetail> {
                   widget.rentalPlace.number_rental_days.toString() + ' ngày',
               icon: Icons.timer,
             ),
-
             SizedBox(height: 8),
-
             SizedBox(height: 15),
             // InfoLine(
             //   content: widget.rentalPlace.

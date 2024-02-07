@@ -125,14 +125,21 @@ class PlacePageController {
   }
 
   Future<RentalPlaceResult> getRentalPublic(
-      String userCode, String next, int limit, double distance) async {
+    String userCode,
+    String next,
+    double? distance,
+    String? city,
+    String? district,
+  ) async {
     try {
-      var response = await dio.get('/user/$userCode/area-booking/public',
-          queryParameters: {
-            "next": next,
-            "limit": limit,
-            "distance": distance
-          });
+      var response = await dio
+          .get('/user/$userCode/area-booking/public', queryParameters: {
+        "next": next,
+        "limit": 10,
+        "distance": distance,
+        "city": city,
+        "district": district,
+      });
       await Future.delayed(const Duration(milliseconds: 800));
       if (response.data['code'] == 0) {
         List<RentalPlaceRes> rentalPlaceRes = (response.data['posts'] as List)

@@ -14,15 +14,20 @@ class GetPostAllCubit extends Cubit<GetPostAllState> {
   String next = "0";
   List<HistoryJobPosting> posts = [];
 
-  Future<void> getPostAll(double distance, String userCode) async {
+  Future<void> getPostAll(
+    double distance,
+    String userCode,
+    String? city,
+    String? district,
+  ) async {
     if (posts.isNotEmpty && next == "0") {
       return;
     }
     emit(GetPostAllLoading());
     //debugPrint(state.toString());
     try {
-      PostResult postResult =
-          await PostJobRepo().getPostAll(distance, userCode, next);
+      PostResult postResult = await PostJobRepo()
+          .getPostAll(distance, userCode, next, city, district);
       next = postResult.next;
       //debugPrint(next.toString());
       posts.addAll(postResult.posts);

@@ -15,6 +15,9 @@ class PostJobInfo {
     this.candidateMinAge = 18,
     this.candidateMaxAge = 50,
     this.candidateExperience,
+    this.city,
+    this.district,
+    this.ward,
   });
   late double? longitude;
   late double? latitude;
@@ -31,6 +34,9 @@ class PostJobInfo {
   late int candidateMinAge;
   late int candidateMaxAge;
   late String? candidateExperience;
+  late String? city;
+  late String? district;
+  late String? ward;
 
   PostJobInfo.fromJson(Map<String, dynamic> json) {
     longitude = json['longitude'];
@@ -48,6 +54,9 @@ class PostJobInfo {
     candidateMinAge = json['candidate_min_age'];
     candidateMaxAge = json['candidate_max_age'];
     candidateExperience = json['candidate_experience'];
+    city = json['city'];
+    district = json['district'];
+    ward = json['ward'];
   }
 
   Map<String, dynamic> toJson() {
@@ -67,6 +76,9 @@ class PostJobInfo {
     _data['candidate_min_age'] = candidateMinAge;
     _data['candidate_max_age'] = candidateMaxAge;
     _data['candidate_experience'] = candidateExperience;
+    _data['city'] = city;
+    _data['district'] = district;
+    _data['ward'] = ward;
     return _data;
   }
 }

@@ -122,16 +122,15 @@ class _CreateRentalScreenState extends State<CreateRentalScreen> {
                   price: double.parse(priceController.text),
                   description: detailController.text,
                   images: [],
-                  address:
-                      '${context.read<SaveAddressCubit>().state!.address}',
+                  address: '${context.read<SaveAddressCubit>().state!.address}',
                   latitude: context.read<SaveAddressCubit>().state!.latitude!,
                   longitude: context.read<SaveAddressCubit>().state!.longitude!,
                   height: double.parse(heightController.text),
                   has_elevator: haveElevator,
                   on_the_floors: isOnTheFloors,
-                  city: 'oke',
-                  district: 'oke',
-                  ward: 'oke',
+                  city: context.read<SaveAddressCubit>().state!.city,
+                  district: context.read<SaveAddressCubit>().state!.district,
+                  ward: context.read<SaveAddressCubit>().state!.ward,
                 );
                 showDialog(
                     context: context,
@@ -272,7 +271,7 @@ class _CreateRentalScreenState extends State<CreateRentalScreen> {
                 child: TextFieldBasic(
                   controller: heightController,
                   isDarkMode: darkMode,
-                  hintText: "Chiều cao (m\u00B2)",
+                  hintText: "Chiều cao (m)",
                   validator: (value) {
                     if (value!.isEmpty) {
                       return AppLocalizations.of(context)!.signupEmptyError;

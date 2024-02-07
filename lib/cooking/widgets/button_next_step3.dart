@@ -38,6 +38,7 @@ class _ButtonNextStep3State extends State<ButtonNextStep3> {
     timer.cancel();
     super.dispose();
   }
+
   @override
   Widget build(BuildContext context) {
     var infoCubit = context.watch<SaveInfoCookingCubit>();
@@ -74,6 +75,7 @@ class _ButtonNextStep3State extends State<ButtonNextStep3> {
                   );
                 }
                 if (state is CalPriceCookingSuccess) {
+                  infoCubit.state.price = state.cookingPrice;
                   return Text(
                     formatter.format(state.cookingPrice) +
                         ' - ' +
@@ -100,7 +102,7 @@ class _ButtonNextStep3State extends State<ButtonNextStep3> {
                       userCubit.state.code!,
                     );
               } else if (infoCubit.state.paymentMethod ==
-                  'PAYMENT_METHOD_WALLET')  {
+                  'PAYMENT_METHOD_WALLET') {
                 Navigator.push(
                     context,
                     PageTransition(
@@ -115,9 +117,10 @@ class _ButtonNextStep3State extends State<ButtonNextStep3> {
                 showCircleIndicatorDialog(context);
                 showCircleIndicatorDialog(context);
                 try {
-                  String orderCode = await CookingRepo()
-                      .orderCooking(infoCubit.state, addressCubit.state!,
-                          userCubit.state.code!);
+                  String orderCode = await CookingRepo().orderCooking(
+                      infoCubit.state,
+                      addressCubit.state!,
+                      userCubit.state.code!);
                   Zalopay zalopay = await ZalopayController().createOrder(
                     userCode: context.read<UserCubit>().state.code!,
                     orderCode: orderCode,
@@ -156,7 +159,6 @@ class _ButtonNextStep3State extends State<ButtonNextStep3> {
                   debugPrint(e.toString());
                 }
               }
-            
             },
           ),
         ],
