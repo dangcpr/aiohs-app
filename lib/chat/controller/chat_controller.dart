@@ -95,17 +95,18 @@ class ChatController {
       final response = await dio.get('/ws/chat/rooms', queryParameters: {
         "userCode": userCode,
       });
-      debugPrint("get chat info");
+      debugPrint(response.data.toString());
 
       //if (response.statusCode == 200) {
       List<ChatInfo> listRooms = [];
       listRooms =
-          (response.data as List).map((e) => ChatInfo.fromJson(e)).toList();
+          (jsonDecode(response.data) as List).map((e) => ChatInfo.fromJson(e)).toList();
       return listRooms;
     } on DioException catch (e) {
-      throw handleError(e);
+      debugPrint(e.type.toString());
+      return [];
     } catch (e) {
-      throw e.toString();
+      return [];
     }
   }
 
