@@ -125,22 +125,22 @@ class _SignupScreenState extends State<SignupScreen> with InputValidationMixin {
               ),
             ),
             */
-            SizedBox(
-              height: 95,
-              child: TextFieldApp(
-                controller: nameController,
-                label: AppLocalizations.of(context)!.signupName,
-                icon: Icons.person,
-                validatorFunc: (input) {
-                  if (input!.isEmpty) {
-                    return AppLocalizations.of(context)!.signupEmptyError;
-                  } else {
-                    return null;
-                  }
-                },
-                darkMode: darkMode,
-              ),
-            ),
+            // SizedBox(
+            //   height: 95,
+            //   child: TextFieldApp(
+            //     controller: nameController,
+            //     label: AppLocalizations.of(context)!.signupName,
+            //     icon: Icons.person,
+            //     validatorFunc: (input) {
+            //       if (input!.isEmpty) {
+            //         return AppLocalizations.of(context)!.signupEmptyError;
+            //       } else {
+            //         return null;
+            //       }
+            //     },
+            //     darkMode: darkMode,
+            //   ),
+            // ),
             SizedBox(
               height: 95,
               child: TextFieldApp(

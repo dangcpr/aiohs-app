@@ -22,7 +22,7 @@ class SignupController {
         '/user/register',
         data: {
           "email": user.email,
-          "phone": user.phone,
+          // "phone": user.phone,
           "password": user.password,
         },
       );
