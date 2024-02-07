@@ -350,7 +350,11 @@ class _UpdatePostScreenState extends State<UpdatePostScreen> {
                           selectedColor:
                               colorProject.primaryColor.withOpacity(0.4),
                           label: Text(
-                            sexList[index],
+                            sexList[index] == 'male'
+                                ? 'Nam'
+                                : sexList[index] == 'female'
+                                    ? 'Nữ'
+                                    : 'Không yêu cầu',
                             style: TextStyle(fontFamily: fontBoldApp),
                           ),
                           selected: indexSex == index,
@@ -438,6 +442,9 @@ class _UpdatePostScreenState extends State<UpdatePostScreen> {
                     candidateMinAge: int.parse(candidateMinAgeController.text),
                     candidateMaxAge: int.parse(candidateMaxAgeController.text),
                     candidateExperience: candidateExpController.text,
+                    city: context.read<SaveAddressCubit>().state!.city,
+                    district: context.read<SaveAddressCubit>().state!.district,
+                    ward: context.read<SaveAddressCubit>().state!.ward,
                   );
                   final userCode = context.read<UserCubit>().state.code;
                   context.read<UpdatePostCubit>().updatePost(

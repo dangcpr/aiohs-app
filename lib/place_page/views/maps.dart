@@ -138,6 +138,9 @@ class _ChooseLocationScreenPlaceState extends State<ChooseLocationScreenPlace> {
               searchLocationController.text =
                   jsonDecode(address!)['formatted_address']!;
 
+              List<dynamic> addressComponents =
+                  jsonDecode(address)['address_components'];
+
               addressObject = Address(
                 address: jsonDecode(address)['formatted_address'],
                 shortAddress: jsonDecode(address)['address_components'][0]
@@ -148,6 +151,10 @@ class _ChooseLocationScreenPlaceState extends State<ChooseLocationScreenPlace> {
                 longitude: lngCurrent,
                 name: context.read<UserCubit>().state.full_name,
                 phone: context.read<UserCubit>().state.phone_number,
+                district: addressComponents.firstWhere((entry) => entry['types']
+                    .contains('administrative_area_level_2'))['long_name'],
+                city: addressComponents.firstWhere((entry) => entry['types']
+                    .contains('administrative_area_level_1'))['long_name'],
               );
 
               // debugPrint(await MapController()
@@ -209,6 +216,10 @@ class _ChooseLocationScreenPlaceState extends State<ChooseLocationScreenPlace> {
                             ),
                           ),
                         );
+                        String? address = await MapController()
+                            .convertLocationToAddress(latCurrent, lngCurrent);
+                        List<dynamic> addressComponents =
+                            jsonDecode(address!)['address_components'];
 
                         addressObject = Address(
                           address:
@@ -218,11 +229,17 @@ class _ChooseLocationScreenPlaceState extends State<ChooseLocationScreenPlace> {
                           longitude: lngCurrent,
                           name: context.read<UserCubit>().state.full_name,
                           phone: context.read<UserCubit>().state.phone_number,
+                          district: addressComponents.firstWhere((entry) =>
+                              entry['types'].contains(
+                                  'administrative_area_level_2'))['long_name'],
+                          city: addressComponents.firstWhere((entry) =>
+                              entry['types'].contains(
+                                  'administrative_area_level_1'))['long_name'],
                         );
 
                         setState(() {
                           isSearch = true;
-                          isOnCameraMove = false;
+                          // isOnCameraMove = false;
                         });
                       },
                       icon: Icon(Icons.search),

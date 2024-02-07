@@ -143,9 +143,9 @@ class _UpdateRentalScreenState extends State<UpdateRentalScreen> {
                   height: double.parse(heightController.text),
                   has_elevator: haveElevator,
                   on_the_floors: isOnTheFloor,
-                  city: 'oke',
-                  district: 'oke',
-                  ward: 'oke',
+                  city: context.read<SaveAddressCubit>().state!.city,
+                  district: context.read<SaveAddressCubit>().state!.district,
+                  ward: context.read<SaveAddressCubit>().state!.ward,
                 );
                 showDialog(
                     context: context,
@@ -290,7 +290,7 @@ class _UpdateRentalScreenState extends State<UpdateRentalScreen> {
                 child: TextFieldBasic(
                   controller: heightController,
                   isDarkMode: darkMode,
-                  hintText: "Chiều cao (m\u00B2)",
+                  hintText: "Chiều cao (m)",
                   validator: (value) {
                     if (value!.isEmpty) {
                       return AppLocalizations.of(context)!.signupEmptyError;

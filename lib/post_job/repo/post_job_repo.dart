@@ -25,7 +25,6 @@ final dio = Dio(
 class PostJobRepo {
   Future<void> postJob(
       String usercode, PostJobInfo postJobInfo, List<File> imagesFile) async {
-    print('Test: ${postJobInfo.toJson().toString()}');
     try {
       List<String> images = [];
       for (var i = 0; i < imagesFile.length; i++) {
@@ -49,7 +48,10 @@ class PostJobRepo {
           "candidate_gender": postJobInfo.candidateGender,
           "candidate_min_age": postJobInfo.candidateMinAge,
           "candidate_max_age": postJobInfo.candidateMaxAge,
-          "candidate_experience": postJobInfo.candidateExperience
+          "candidate_experience": postJobInfo.candidateExperience,
+          "city": postJobInfo.city,
+          "district": postJobInfo.district,
+          "ward": postJobInfo.ward
         },
       );
       if (response.data['code'] == 0) {
@@ -102,7 +104,10 @@ class PostJobRepo {
           "candidate_gender": postJobInfo.candidateGender,
           "candidate_min_age": postJobInfo.candidateMinAge,
           "candidate_max_age": postJobInfo.candidateMaxAge,
-          "candidate_experience": postJobInfo.candidateExperience
+          "candidate_experience": postJobInfo.candidateExperience,
+          "city": postJobInfo.city,
+          "district": postJobInfo.district,
+          "ward": postJobInfo.ward
         },
       );
       if (response.data['code'] == 0) {
@@ -173,11 +178,22 @@ class PostJobRepo {
   }
 
   Future<PostResult> getPostAll(
-      double distance, String userCode, String next) async {
+    double distance,
+    String userCode,
+    String next,
+    String? city,
+    String? district,
+  ) async {
     try {
       final response = await dio.get(
         '/user/$userCode/job-posting/public',
-        queryParameters: {"distances": distance, "limit": 15, "next": next},
+        queryParameters: {
+          "distances": distance,
+          "limit": 15,
+          "next": next,
+          "city": city,
+          "district": district,
+        },
       );
       debugPrint(response.data.toString());
       await Future.delayed(const Duration(milliseconds: 500));

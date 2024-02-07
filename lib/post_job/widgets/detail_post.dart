@@ -335,7 +335,11 @@ class _DetailPostState extends State<DetailPost> {
                         selectedColor:
                             colorProject.primaryColor.withOpacity(0.4),
                         label: Text(
-                          sexList[index],
+                          sexList[index] == 'male'
+                              ? 'Nam'
+                              : sexList[index] == 'female'
+                                  ? 'Nữ'
+                                  : 'Không yêu cầu',
                           style: TextStyle(fontFamily: fontBoldApp),
                         ),
                         selected: indexSex == index,

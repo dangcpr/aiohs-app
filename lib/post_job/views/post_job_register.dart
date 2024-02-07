@@ -21,6 +21,7 @@ import 'package:rmservice/utilities/components/text_field_basic.dart';
 import 'package:rmservice/utilities/components/text_field_long.dart';
 import 'package:rmservice/utilities/constants/variable.dart';
 
+import '../../place_page/views/maps.dart';
 import '../../shopping/widgets/dialog_wrong.dart';
 import '../../utilities/components/text_label.dart';
 import '../models/post_job_info.dart';
@@ -225,20 +226,19 @@ class _PostJobRegisterState extends State<PostJobRegister> {
                       PageTransition(
                         duration: Duration(milliseconds: 400),
                         type: PageTransitionType.rightToLeftWithFade,
-                        child: ChooseLocationScreen(),
+                        child: ChooseLocationScreenPlace(),
                       ),
                     );
                   },
                   child: Text(
-                    context.watch<SaveAddressCubit>().state == null ||
-                            context.watch<SaveAddressCubit>().state!.address ==
-                                ""
+                    context.watch<SaveAddressCubit>().state!.address == "" ||
+                            context.watch<SaveAddressCubit>().state == null
                         ? "Chọn địa điểm"
                         : context.watch<SaveAddressCubit>().state!.address!,
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       fontFamily: fontBoldApp,
-                      fontSize: fontSize.medium,
+                      fontSize: fontSize.mediumLarger,
                       color: colorProject.primaryColor,
                     ),
                   ),
@@ -369,7 +369,11 @@ class _PostJobRegisterState extends State<PostJobRegister> {
                         selectedColor:
                             colorProject.primaryColor.withOpacity(0.4),
                         label: Text(
-                          sexList[index],
+                          sexList[index] == 'male'
+                              ? 'Nam'
+                              : sexList[index] == 'female'
+                                  ? 'Nữ'
+                                  : 'Không yêu cầu',
                           style: TextStyle(fontFamily: fontBoldApp),
                         ),
                         selected: indexSex == index,
@@ -480,6 +484,9 @@ class _PostJobRegisterState extends State<PostJobRegister> {
                     candidateMinAge: int.parse(candidateMinAgeController.text),
                     candidateMaxAge: int.parse(candidateMaxAgeController.text),
                     candidateExperience: candidateExpController.text,
+                    city: context.read<SaveAddressCubit>().state!.city,
+                    district: context.read<SaveAddressCubit>().state!.district,
+                    ward: context.read<SaveAddressCubit>().state!.ward,
                   );
                   final userCode = context.read<UserCubit>().state.code;
                   context.read<PostJobCubit>().postJob(userCode!, postJobInfo,
