@@ -82,7 +82,7 @@ class _JobPostState extends State<JobPost> {
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
               Text(
-                "Bộ lọc đơn hàng",
+                "Bộ lọc tin tuyển",
                 style: TextStyle(
                     fontFamily: fontBoldApp,
                     fontSize: fontSize.medium,
@@ -171,7 +171,7 @@ class _JobPostState extends State<JobPost> {
           children: [
             Align(
               child:
-                  TextLabel(label: "Bộ lọc đơn hàng", isDarkMode: isDarkMode),
+                  TextLabel(label: "Bộ lọc tin tuyển", isDarkMode: isDarkMode),
             ),
             SizedBox(height: 10),
             // choice chip

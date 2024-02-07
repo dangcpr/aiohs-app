@@ -106,7 +106,7 @@ class _PlacePublicState extends State<PlacePublic> {
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     Text(
-                      "Bộ lọc đơn hàng",
+                      "Bộ lọc tin thuê chỗ",
                       style: TextStyle(
                           fontFamily: fontBoldApp,
                           fontSize: fontSize.medium,
@@ -224,7 +224,7 @@ class _PlacePublicState extends State<PlacePublic> {
           children: [
             Align(
               child:
-                  TextLabel(label: "Bộ lọc đơn hàng", isDarkMode: isDarkMode),
+                  TextLabel(label: "Bộ lọc tin thuê chỗ", isDarkMode: isDarkMode),
             ),
             SizedBox(height: 10),
             // choice chip

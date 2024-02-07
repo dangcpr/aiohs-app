@@ -100,7 +100,7 @@ class ChatController {
       //if (response.statusCode == 200) {
       List<ChatInfo> listRooms = [];
       listRooms =
-          (jsonDecode(response.data) as List).map((e) => ChatInfo.fromJson(e)).toList();
+          (response.data as List).map((e) => ChatInfo.fromJson(e)).toList();
       return listRooms;
     } on DioException catch (e) {
       debugPrint(e.type.toString());
