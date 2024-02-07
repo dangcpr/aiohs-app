@@ -123,7 +123,7 @@ class _CreateRentalScreenState extends State<CreateRentalScreen> {
                   description: detailController.text,
                   images: [],
                   address:
-                      '${addressController.text} - ${context.read<SaveAddressCubit>().state!.address}',
+                      '${context.read<SaveAddressCubit>().state!.address}',
                   latitude: context.read<SaveAddressCubit>().state!.latitude!,
                   longitude: context.read<SaveAddressCubit>().state!.longitude!,
                   height: double.parse(heightController.text),
@@ -390,20 +390,20 @@ class _CreateRentalScreenState extends State<CreateRentalScreen> {
               SizedBox(
                 height: 10,
               ),
-              TextFieldBasic(
-                controller: addressController,
-                isDarkMode: darkMode,
-                hintText: "Tên địa điểm",
-                validator: (value) {
-                  if (value!.isEmpty) {
-                    return AppLocalizations.of(context)!.signupEmptyError;
-                  }
-                  if (value.contains("-")) {
-                    return "Tên địa điểm không được chứa dấu -";
-                  }
-                  return null;
-                },
-              ),
+              // TextFieldBasic(
+              //   controller: addressController,
+              //   isDarkMode: darkMode,
+              //   hintText: "Tên địa điểm",
+              //   validator: (value) {
+              //     if (value!.isEmpty) {
+              //       return AppLocalizations.of(context)!.signupEmptyError;
+              //     }
+              //     if (value.contains("-")) {
+              //       return "Tên địa điểm không được chứa dấu -";
+              //     }
+              //     return null;
+              //   },
+              // ),
               SizedBox(
                 height: 10,
               ),

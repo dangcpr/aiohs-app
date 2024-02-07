@@ -52,7 +52,6 @@ class _UpdateRentalScreenState extends State<UpdateRentalScreen> {
     areaController.text = widget.rentalPlace.area.toString();
     priceController.text = widget.rentalPlace.price.toString();
     detailController.text = widget.rentalPlace.description;
-    addressController.text = widget.rentalPlace.address.split(' - ')[0];
     heightController.text = widget.rentalPlace.height.toString();
     isOnTheFloor = widget.rentalPlace.on_the_floors;
     haveElevator = widget.rentalPlace.has_elevator;
@@ -61,8 +60,7 @@ class _UpdateRentalScreenState extends State<UpdateRentalScreen> {
           Address(
             latitude: widget.rentalPlace.latitude,
             longitude: widget.rentalPlace.longitude,
-            shortAddress: widget.rentalPlace.address.split(' - ')[0],
-            address: widget.rentalPlace.address.split(' - ')[1],
+            address: widget.rentalPlace.address,
             name: context.read<UserCubit>().state.full_name,
           ),
         );
@@ -410,23 +408,23 @@ class _UpdateRentalScreenState extends State<UpdateRentalScreen> {
               SizedBox(
                 height: 10,
               ),
-              TextFieldBasic(
-                controller: addressController,
-                isDarkMode: darkMode,
-                hintText: "Tên địa điểm",
-                validator: (value) {
-                  if (value!.isEmpty) {
-                    return AppLocalizations.of(context)!.signupEmptyError;
-                  }
-                  if (value.contains("-")) {
-                    return "Tên địa điểm không được chứa dấu -";
-                  }
-                  return null;
-                },
-              ),
-              SizedBox(
-                height: 10,
-              ),
+              // TextFieldBasic(
+              //   controller: addressController,
+              //   isDarkMode: darkMode,
+              //   hintText: "Tên địa điểm",
+              //   validator: (value) {
+              //     if (value!.isEmpty) {
+              //       return AppLocalizations.of(context)!.signupEmptyError;
+              //     }
+              //     if (value.contains("-")) {
+              //       return "Tên địa điểm không được chứa dấu -";
+              //     }
+              //     return null;
+              //   },
+              // ),
+              // SizedBox(
+              //   height: 10,
+              // ),
               ElevatedButton(
                 onPressed: () {
                   Navigator.push(

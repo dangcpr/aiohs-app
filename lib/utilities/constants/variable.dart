@@ -5,11 +5,10 @@ String fcmToken = "";
 const nameApp = "AIO Home Serives";
 const protocolServer = "http://";
 // const debugServer = protocolServer + "192.168.206.129:9000";
-const debugServer = protocolServer + "192.168.206.129:9000";
+const debugServer = protocolServer + "18.143.167.78:9000";
 // const debugServer = "https://9e96-171-231-25-147.ngrok-free.app";
-const protocolChat = "https://";
-const serverChat =
-    "192.168.206.129:8080"; //not include method http or https
+const protocolChat = "http://";
+const serverChat = "18.143.167.78:8080"; //not include method http or https
 // const serverChat = "a126-171-231-25-147.ngrok-free.app"; //not include method http or https
 // const debugServer = "https://d7f0-171-231-61-254.ngrok-free.app/";
 const extractIDServer = "https://api.idg.vnpt.vn";
