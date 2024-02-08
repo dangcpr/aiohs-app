@@ -120,6 +120,12 @@ class ChatController {
       debugPrint("get chat detail");
       //if (response.statusCode == 200) {
       List<Messages> messages = [];
+      if (response.data['messages'] == null) {
+        return ChatDetailResult(
+          next: 0,
+          result: messages,
+        );
+      }
       for (var item in response.data['messages']) {
         messages.add(Messages.fromJson(item));
       }
