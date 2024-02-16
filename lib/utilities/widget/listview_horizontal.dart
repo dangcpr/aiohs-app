@@ -18,7 +18,6 @@ import 'package:rmservice/shopping/cubits/get_shopping_price/get_shopping_price_
 import 'package:rmservice/shopping/views/shopping_step2.dart';
 import 'package:rmservice/utilities/constants/variable.dart';
 
-
 class HorizontalListViewWithIndicator extends StatefulWidget {
   const HorizontalListViewWithIndicator({super.key});
 
