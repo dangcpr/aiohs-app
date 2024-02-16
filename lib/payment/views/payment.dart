@@ -61,9 +61,10 @@ class _PayScreenState extends State<PayScreen> {
             child: InAppWebView(
               initialUrlRequest: URLRequest(
                   url: Uri.parse(
-                      "http://18.143.167.78:8888/order/create_payment_url"),
+                      "http://13.213.83.249:8888/order/create_payment_url"),
                   method: 'POST',
-                  body: Uint8List.fromList(utf8.encode("amount=${widget.money}&bankCode=&language=vn")),
+                  body: Uint8List.fromList(utf8
+                      .encode("amount=${widget.money}&bankCode=&language=vn")),
                   headers: {
                     'Content-Type': 'application/x-www-form-urlencoded'
                   }),
@@ -77,10 +78,29 @@ class _PayScreenState extends State<PayScreen> {
                 });
               },
               onLoadStop: (controller, url) async {
-                if (url.toString().contains("/order/vnpay_return")) {
+                String url_string = url.toString();
+                //replace vnpay_return to vnpay_ipn
+                debugPrint(url_string);
+                if (url_string.contains("/order/create_payment_url")) {
+                  String response = await controller.evaluateJavascript(
+                      source: 'document.body.innerText');
+                  //remove first and last
+                  response = response.substring(1, response.length - 1);
+                  controller.loadUrl(
+                      urlRequest: URLRequest(url: Uri.parse(response)));
+                  debugPrint(response);
+                }
+                if (url_string.contains("/order/vnpay_return")) {
+                  url_string =
+                      url_string.replaceAll("vnpay_return", "vnpay_ipn");
+                  controller.loadUrl(
+                      urlRequest: URLRequest(url: Uri.parse(url_string)));
+                  return;
+                }
+                if (url.toString().contains("/order/vnpay_ipn")) {
                   var response = await controller.evaluateJavascript(
                       source: 'document.body.innerText');
-                  var code = jsonDecode(response)['code'];
+                  var code = jsonDecode(response)['RspCode'];
                   Navigator.pop(context);
                   // Navigator.push(
                   //     context,
@@ -104,7 +124,9 @@ class _PayScreenState extends State<PayScreen> {
                             context.read<UserCubit>().state.code!,
                           );
                     } else if (widget.service == 'GROCERY_ASSISTANT') {
-                      context.read<SaveDataShopping>().state.price = context.read<CalculatePriceShoppingCubit>().priceTotal;
+                      context.read<SaveDataShopping>().state.price = context
+                          .read<CalculatePriceShoppingCubit>()
+                          .priceTotal;
                       context.read<OrderShoppingCubit>().orderShopping(
                             context.read<SaveDataShopping>().state,
                             context.read<SaveAddressShoppingCubit>().state!,
