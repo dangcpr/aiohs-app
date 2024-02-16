@@ -1,13 +1,20 @@
 import 'package:flutter/material.dart';
 
-IconData getIcon(String code) {
+String getIcon(String code) {
   switch (code) {
-    case 'CLEAN_ON_DEMAND': return Icons.access_alarm;
-    case 'CLEAN_SUBSCRIPTION': return Icons.cleaning_services;
-    case 'HOME_COOKING': return Icons.cookie;
-    case 'GROCERY_ASSISTANT' : return Icons.shopping_cart;
-    case 'LAUNDRY': return Icons.local_laundry_service;
-    case 'AIR_CONDITIONING_CLEAN': return Icons.ac_unit_outlined;
-    default: return Icons.cleaning_services;
+    case 'CLEAN_ON_DEMAND':
+      return 'assets/images/cleaning_hourly.png';
+    case 'CLEAN_SUBSCRIPTION':
+      return 'assets/images/cleaning_longterm.png';
+    case 'HOME_COOKING':
+      return 'assets/images/cooking.png';
+    case 'GROCERY_ASSISTANT':
+      return 'assets/images/shopping.png';
+    case 'LAUNDRY':
+      return 'assets/images/washing.png';
+    case 'AIR_CONDITIONING_CLEAN':
+      return 'assets/images/air_conditioner.png';
+    default:
+      return 'assets/images/cleaning_hourly.png';
   }
 }

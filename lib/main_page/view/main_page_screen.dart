@@ -19,6 +19,7 @@ import 'package:rmservice/worker_screen/cubits/get_order_all/get_order_all_cubit
 import 'package:rmservice/worker_screen/cubits/get_order_all/get_order_all_state.dart';
 import 'package:rmservice/worker_screen/views/worker_screen.dart';
 import '../../utilities/widget/listview_horizontal.dart';
+import '../widgets/hint_job.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({super.key});
@@ -61,6 +62,18 @@ class _MainPageState extends State<MainPage> {
               context.read<UserCubit>().state.role == "normal"
                   ? Register()
                   : report(),
+              const SizedBox(height: 12),
+              context.read<UserCubit>().state.role == "maid"
+                  ? Text(
+                      'Gợi ý công việc',
+                      style: const TextStyle(
+                        fontFamily: fontBoldApp,
+                        fontSize: 20,
+                      ),
+                    )
+                  : SizedBox(),
+              const SizedBox(height: 12),
+              HintJob(),
               const SizedBox(height: 12),
               //SearchBox(),
               //const SizedBox(height: 12),

@@ -105,9 +105,11 @@ class _CardHistoryOrderCancelState extends State<CardHistoryOrderCancel> {
               );
             }
           },
-          leading: Icon(
+          leading: Image.asset(
             getIcon(widget.order.product_code),
-            color: colorProject.primaryColor,
+            width: 40,
+            height: 40,
+            fit: BoxFit.cover,
           ),
           trailing: Icon(
             Icons.chevron_right,

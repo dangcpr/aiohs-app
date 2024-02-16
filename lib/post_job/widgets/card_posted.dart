@@ -56,9 +56,11 @@ class _CardHistoryPostState extends State<CardHistoryPost> {
               ),
             );
           },
-          leading: Icon(
+          leading: Image.asset(
             getIcon(widget.post.code),
-            color: colorProject.primaryColor,
+            width: 40,
+            height: 40,
+            fit: BoxFit.cover,
           ),
           trailing: Icon(
             Icons.chevron_right,
