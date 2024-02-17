@@ -83,6 +83,7 @@ class _ChatPageState extends State<ChatPage> {
 
   @override
   Widget build(BuildContext context) {
+    bool isDark = Theme.of(context).brightness == Brightness.dark;
     return Scaffold(
       appBar: AppBar(
         title: const Text('Chat Page'),
@@ -96,6 +97,7 @@ class _ChatPageState extends State<ChatPage> {
           showUserNames: true,
           user: _user,
           theme: DefaultChatTheme(
+            backgroundColor: Colors.transparent,
             inputBackgroundColor: colorProject.primaryColor,
             inputTextColor: Colors.white,
             messageInsetsVertical: 10, // padding của tin nhắn

@@ -133,6 +133,7 @@ class _ChatPageV2State extends State<ChatPageV2> {
                 child: Text(state.message),
               );
             } else
+              // ignore: curly_braces_in_flow_control_structures
               return Chat(
                 messages: _messages,
                 onSendPressed: _handleSendPressed,
@@ -140,6 +141,7 @@ class _ChatPageV2State extends State<ChatPageV2> {
                 showUserNames: true,
                 user: _user,
                 theme: DefaultChatTheme(
+                  backgroundColor: Colors.transparent,
                   inputBackgroundColor: colorProject.primaryColor,
                   inputTextColor: Colors.white,
                   messageInsetsVertical: 10,

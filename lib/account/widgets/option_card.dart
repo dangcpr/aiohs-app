@@ -27,7 +27,7 @@ class _OptionCardState extends State<OptionCard> {
           color: isDarkMode == true ? Colors.transparent : Colors.white,
           boxShadow: [
             BoxShadow(
-              color: isDarkMode == true ? Colors.black : Colors.grey.shade300,
+              color: isDarkMode == true ? Colors.grey[800]! : Colors.grey.shade300,
               blurRadius: 2.0,
               offset: Offset(2, 2),
             ),

@@ -37,7 +37,7 @@ class _CardReportState extends State<CardReport> {
           : double.infinity,
       padding: EdgeInsets.all(widget.paddingValue),
       decoration: BoxDecoration(
-        color: isDarrkMode ? Colors.black : Colors.white,
+        color: isDarrkMode ? Colors.grey[800] : Colors.white,
         borderRadius: BorderRadius.circular(10),
         boxShadow: [
           BoxShadow(

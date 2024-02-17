@@ -255,46 +255,48 @@ class _HorizontalListViewWithIndicatorState
   }
 
   itemDashboard(
-          String title, String image, Color background, Function() onTap) =>
-      InkWell(
-        onTap: () {
-          onTap();
-        },
-        child: Container(
-          decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(10),
-              boxShadow: [
-                BoxShadow(
-                    offset: const Offset(0, 4),
-                    color: Theme.of(context).primaryColor.withOpacity(.25),
-                    spreadRadius: 1,
-                    blurRadius: 2)
-              ]),
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Image.asset(
-                  image,
-                  width: 40,
-                  height: 40,
-                  fit: BoxFit.cover,
+      String title, String image, Color background, Function() onTap) {
+    bool isDark = Theme.of(context).brightness == Brightness.dark;
+    return InkWell(
+      onTap: () {
+        onTap();
+      },
+      child: Container(
+        decoration: BoxDecoration(
+            color: isDark ? Colors.grey[800] : Colors.white,
+            borderRadius: BorderRadius.circular(10),
+            boxShadow: [
+              BoxShadow(
+                  offset: const Offset(0, 4),
+                  color: Theme.of(context).primaryColor.withOpacity(.25),
+                  spreadRadius: 1,
+                  blurRadius: 2)
+            ]),
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Image.asset(
+                image,
+                width: 40,
+                height: 40,
+                fit: BoxFit.cover,
+              ),
+              const SizedBox(height: 8),
+              Text(
+                title.toUpperCase(),
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  //color: Colors.black,
+                  fontFamily: fontBoldApp,
+                  fontSize: fontSize.textField,
                 ),
-                const SizedBox(height: 8),
-                Text(
-                  title.toUpperCase(),
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontFamily: fontBoldApp,
-                    fontSize: fontSize.textField,
-                  ),
-                ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
-      );
+      ),
+    );
+  }
 }

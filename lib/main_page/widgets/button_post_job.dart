@@ -13,6 +13,7 @@ class ButtonPostJob extends StatefulWidget {
 class _ButtonPostJobState extends State<ButtonPostJob> {
   @override
   Widget build(BuildContext context) {
+    bool isDark = Theme.of(context).brightness == Brightness.dark;
     return Container(
       alignment: Alignment.center,
       padding: EdgeInsets.symmetric(vertical: 10.0),
@@ -29,7 +30,7 @@ class _ButtonPostJobState extends State<ButtonPostJob> {
             style: TextStyle(
               fontSize: fontSize.mediumLarger + 1,
               fontFamily: fontBoldApp,
-              color: Colors.black,
+              //color: Colors.black,
             ),
           ),
           SizedBox(height: 8),
@@ -57,7 +58,7 @@ class _ButtonPostJobState extends State<ButtonPostJob> {
                 style: TextStyle(
                   fontSize: fontSize.mediumLarger + 1,
                   fontFamily: fontBoldApp,
-                  color: Colors.black54,
+                  color: isDark ? Colors.white : Colors.black54,
                 ),
               ),
             ),

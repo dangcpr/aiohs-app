@@ -31,10 +31,10 @@ class _PlaceDetailScreenState extends State<PlaceDetailScreen> {
     final size = MediaQuery.of(context).size;
     int length = widget.isUser == false ? 3 : 2;
     var userCubit = context.read<UserCubit>();
-
+    bool isDark = Theme.of(context).brightness == Brightness.dark;
     return Scaffold(
       extendBodyBehindAppBar: true,
-      backgroundColor: Colors.grey.shade200,
+      backgroundColor: isDark ? Colors.grey[800] : Colors.grey.shade200,
       appBar: AppBar(
         backgroundColor: Color(0x44000000),
         elevation: 0,
@@ -49,7 +49,7 @@ class _PlaceDetailScreenState extends State<PlaceDetailScreen> {
             width: double.infinity,
             height: size.height * 0.55,
             decoration: BoxDecoration(
-              color: Colors.white,
+              color: isDark ? Colors.grey[900] : Colors.white,
             ),
             child: DefaultTabController(
               length: length,

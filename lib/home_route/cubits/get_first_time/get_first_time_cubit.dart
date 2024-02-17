@@ -13,6 +13,7 @@ class GetFirstTimeCubit extends Cubit<GetFirstTimeState> {
 
       final FirstTimeController firstTimeController = FirstTimeController();
       final firstTime = await firstTimeController.getFirstTime();
+      await firstTimeController.setRemoteConfig();
       LoginModel loginModel = await AuthenticationRepository().autoLogin();
     
       emit(GetFirstTimeLoadedState(firstTime, loginModel));

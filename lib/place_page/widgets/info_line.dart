@@ -40,7 +40,7 @@ class _InfoLineState extends State<InfoLine> {
                   style: TextStyle(
                     fontFamily: fontApp,
                     fontSize: fontSize.medium,
-                    color: Colors.black,
+                    // color: Colors.black,
                   ),
                 ),
             ],

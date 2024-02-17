@@ -157,14 +157,14 @@ class _HintJobState extends State<HintJob> {
       required var order,
       required var productCode}) {
     var userCubit = context.read<UserCubit>();
-
+    bool isDark = Theme.of(context).brightness == Brightness.dark;
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Container(
         width: 180,
         height: 230,
         decoration: BoxDecoration(
-            color: Colors.white,
+            color: isDark ? Colors.grey[800] : Colors.white,
             borderRadius: BorderRadius.circular(10),
             boxShadow: [
               BoxShadow(

@@ -67,7 +67,6 @@ class _CardInboxState extends State<CardInbox> {
           style: TextStyle(
             fontSize: fontSize.medium,
             fontFamily: fontApp,
-            color: Colors.black,
           ),
         ),
       ),

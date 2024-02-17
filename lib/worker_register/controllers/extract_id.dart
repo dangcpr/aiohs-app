@@ -79,11 +79,16 @@ class ExtractIDCardController {
         "crop_param": "0,1"
       });
       debugPrint(response.statusCode.toString());
-      if (response.data["statusCode"] == 200) {
-        ExtractIDCard extractIDCard = ExtractIDCard.fromJson(response.data['object']);
+      if (response.statusCode == 200) {
+        ExtractIDCard extractIDCard =
+            ExtractIDCard.fromJson(response.data['object']);
         return extractIDCard;
-      } else {
+      } else if (response.statusCode == 400) {
+        //debugPrint(response.data);
         String message = jsonEncode(response.data['errors']);
+        throw message;
+      } else {
+        String message = response.data;
         throw message;
       }
     } on DioException catch (e) {
@@ -99,6 +104,9 @@ class ExtractIDCardController {
       }
       debugPrint(e.type.toString());
       throw 'Server Error';
+    } catch (e) {
+      debugPrint(e.toString());
+      throw e.toString();
     }
   }
 }

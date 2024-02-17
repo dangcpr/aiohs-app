@@ -72,12 +72,13 @@ class _LocationCardState extends State<LocationCard> {
 
   Container Card(Size size, String title, String address, String image,
       double price, String state) {
+    bool isDark = Theme.of(context).brightness == Brightness.dark;
     return Container(
       width: size.width / 1.2,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(15),
         border: Border.all(
-          color: Colors.black.withOpacity(0.25),
+          color: isDark ? Colors.grey[300]! : Colors.black.withOpacity(0.25),
         ),
       ),
       child: Column(
@@ -99,7 +100,7 @@ class _LocationCardState extends State<LocationCard> {
               style: TextStyle(
                 fontFamily: fontBoldApp,
                 fontSize: fontSize.mediumLarger + 2,
-                color: Colors.black,
+                // color: Colors.black,
               ),
             ),
           ),
@@ -120,7 +121,7 @@ class _LocationCardState extends State<LocationCard> {
                     style: TextStyle(
                       fontFamily: fontApp,
                       fontSize: fontSize.medium,
-                      color: Colors.black,
+                      // color: Colors.black,
                     ),
                   ),
                 ),
@@ -142,7 +143,7 @@ class _LocationCardState extends State<LocationCard> {
                   style: TextStyle(
                     fontFamily: fontApp,
                     fontSize: fontSize.medium,
-                    color: Colors.black,
+                    // color: Colors.black,
                   ),
                 )
               ],
