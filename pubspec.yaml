@@ -62,7 +62,7 @@ dependencies:
   dio: ^5.3.3
   pattern_formatter: ^3.0.0
   file_picker: ^6.1.1
-  firebase_core: ^2.21.0
+  firebase_core: ^2.24.2
   firebase_messaging: ^14.7.3
   flutter_local_notifications: ^16.1.0
   popup_banner: ^1.0.0

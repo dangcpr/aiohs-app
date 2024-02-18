@@ -32,9 +32,6 @@ class _MaidViewState extends State<MaidView> {
       body: Container(
         width: double.infinity,
         height: size.height * 1,
-        decoration: BoxDecoration(
-          color: Colors.white,
-        ),
         child: DefaultTabController(
           length: 2,
           child: Column(

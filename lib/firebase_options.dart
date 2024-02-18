@@ -67,7 +67,7 @@ class DefaultFirebaseOptions {
     messagingSenderId: '843331886089',
     projectId: 'datn-20cq-aiohs',
     storageBucket: 'datn-20cq-aiohs.appspot.com',
-    androidClientId: '843331886089-tg4qoti16e64ea6f8k1hg76674k1p21b.apps.googleusercontent.com',
+    androidClientId: '843331886089-4sa87imm81cbgd79mf9v03kq88lqj0dj.apps.googleusercontent.com',
     iosClientId: '843331886089-9pebse69sq7ccbfk8sjf42e03tcbq98t.apps.googleusercontent.com',
     iosBundleId: 'com.example.rmservice',
   );
@@ -78,7 +78,7 @@ class DefaultFirebaseOptions {
     messagingSenderId: '843331886089',
     projectId: 'datn-20cq-aiohs',
     storageBucket: 'datn-20cq-aiohs.appspot.com',
-    androidClientId: '843331886089-tg4qoti16e64ea6f8k1hg76674k1p21b.apps.googleusercontent.com',
+    androidClientId: '843331886089-4sa87imm81cbgd79mf9v03kq88lqj0dj.apps.googleusercontent.com',
     iosClientId: '843331886089-0lhqs7oaa9tsnvf46dddajgdm8sa1cqb.apps.googleusercontent.com',
     iosBundleId: 'com.example.rmservice.RunnerTests',
   );
