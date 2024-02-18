@@ -37,6 +37,7 @@ class _HintJobState extends State<HintJob> {
   Widget build(BuildContext context) {
     NumberFormat numberFormat = NumberFormat.simpleCurrency(locale: 'vi-VN');
     var workerGetOrderAll = context.watch<WorkerGetOrderAllCubit>();
+    bool isDark = Theme.of(context).brightness == Brightness.dark;
     return SingleChildScrollView(
       scrollDirection: Axis.horizontal,
       child: BlocBuilder<WorkerGetOrderAllCubit, WorkerGetOrderAllState>(
@@ -87,7 +88,7 @@ class _HintJobState extends State<HintJob> {
                             width: 180,
                             height: 230,
                             decoration: BoxDecoration(
-                                color: Colors.white,
+                                color: isDark ? Colors.grey[800] : Colors.white,
                                 borderRadius: BorderRadius.circular(10),
                                 boxShadow: [
                                   BoxShadow(

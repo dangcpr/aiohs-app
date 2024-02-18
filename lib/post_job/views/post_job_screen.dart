@@ -32,10 +32,14 @@ class _PostJobScreenState extends State<PostJobScreen> {
       child: Scaffold(
         appBar: AppBar(
           automaticallyImplyLeading: false,
+          primary: false,
           titleSpacing: 0,
+          toolbarHeight: 75,
           flexibleSpace: TabBar(
-              tabAlignment: TabAlignment.center,
-              isScrollable: true,
+              //add padding top and bottom
+              //labelPadding: EdgeInsets.only(top: 10, bottom: 10),
+              tabAlignment: TabAlignment.fill,
+              //isScrollable: true,
               indicatorColor: colorProject.primaryColor,
               labelStyle: TextStyle(
                 color: colorProject.primaryColor,

@@ -50,7 +50,6 @@ class _MessageScreenState extends State<MessageScreen> {
                   chatInfoFunc();
                 },
                 child: ListView.builder(
-                    physics: NeverScrollableScrollPhysics(),
                     itemCount: listChatInfo.length,
                     shrinkWrap: true,
                     itemBuilder: (context, index) {

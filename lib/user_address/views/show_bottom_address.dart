@@ -45,7 +45,7 @@ class _BottomSheetAddressUserState extends State<BottomSheetAddressUser> {
   @override
   Widget build(BuildContext context) {
     //controller.text = context.read<SavePriceShopping>().state.toString()
-    bool isDarkMode = widget.isDarkMode;
+    bool isDarkMode = MediaQuery.of(context).platformBrightness == Brightness.dark;
     var addressCubit = context.read<SaveAddressCubit>();
     var userCubit = context.read<UserCubit>();
 
@@ -172,7 +172,7 @@ class _BottomSheetAddressUserState extends State<BottomSheetAddressUser> {
                         : Colors.black,
                     selectedColor: colorProject.primaryColor,
                     labelStyle: TextStyle(
-                      color: _value == chooseTypeOfAddress[index].value
+                      color: _value == chooseTypeOfAddress[index].value || isDarkMode == true
                           ? Colors.white
                           : Colors.black,
                       fontFamily: _value == chooseTypeOfAddress[index].value

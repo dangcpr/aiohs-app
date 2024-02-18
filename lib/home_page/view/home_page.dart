@@ -28,10 +28,10 @@ class HomePageState extends State<HomePage> {
   List pages = [
     const MainPage(),
     const HistoryPage(),
-    const PlacePage(),
     const MessagePage(),
-    // const AccountPage(),
+    const PlacePage(),
     const PostJobScreen(),
+    // const AccountPage(),
   ];
 
   int unreadNoti = 0;
@@ -206,15 +206,15 @@ class HomePageState extends State<HomePage> {
                     label: "History",
                   ),
                   BottomNavigationBarItem(
+                    icon: Icon(Icons.message, color: colorProject.primaryColor),
+                    label: "Message",
+                  ),
+                  BottomNavigationBarItem(
                     icon: Icon(
                       Icons.apartment,
                       color: colorProject.primaryColor,
                     ),
                     label: "Place",
-                  ),
-                  BottomNavigationBarItem(
-                    icon: Icon(Icons.message, color: colorProject.primaryColor),
-                    label: "Message",
                   ),
                   BottomNavigationBarItem(
                     icon: Icon(
