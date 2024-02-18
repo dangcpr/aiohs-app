@@ -97,7 +97,6 @@ class PostJobRepo {
           "number_employee": postJobInfo.numberEmployee,
           "description": postJobInfo.description,
           "wage_type": postJobInfo.wageType,
-          "wage_type_display": postJobInfo.wageTypeDisplay,
           "wage_min": postJobInfo.wageMin,
           "wage_max": postJobInfo.wageMax,
           "images": postJobInfo.images,

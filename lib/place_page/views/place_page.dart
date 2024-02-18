@@ -37,17 +37,13 @@ class _PlacePageState extends State<PlacePage> {
                   Tab(
                     text: 'Tin thuê chỗ của bạn',
                   ),
-                  
                 ],
               )
             ],
           ),
         ),
         body: TabBarView(
-          children: [
-            PlacePublic(),
-            PlaceUser()
-          ],
+          children: [PlacePublic(), PlaceUser()],
         ),
       ),
     );

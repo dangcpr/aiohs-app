@@ -79,7 +79,9 @@ class _ButtonNextStep3State extends State<ButtonNextStep3> {
                   return Text(
                     formatter.format(state.cookingPrice) +
                         ' - ' +
-                        infoCubit.state.realDuration.toString() +
+                        (infoCubit.state.realDuration)
+                            .toStringAsFixed(0)
+                            .toString() +
                         " giờ",
                     style: TextStyle(
                       fontSize: 20,

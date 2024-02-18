@@ -72,8 +72,12 @@ class _MainPageState extends State<MainPage> {
                       ),
                     )
                   : SizedBox(),
-              context.read<UserCubit>().state.role == "maid" ? const SizedBox(height: 12) : SizedBox(),
-              context.read<UserCubit>().state.role == "maid" ? HintJob() : SizedBox(),
+              context.read<UserCubit>().state.role == "maid"
+                  ? const SizedBox(height: 12)
+                  : SizedBox(),
+              context.read<UserCubit>().state.role == "maid"
+                  ? HintJob()
+                  : SizedBox(),
               const SizedBox(height: 12),
               //SearchBox(),
               //const SizedBox(height: 12),
@@ -90,7 +94,7 @@ class _MainPageState extends State<MainPage> {
 
               MaidNear(),
               const SizedBox(height: 15),
-              ButtonPostJob(),
+              // ButtonPostJob(),
             ],
           ),
         ),

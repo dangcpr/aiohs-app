@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:rmservice/cleaning_hourly/cubits/save_info/save_address.dart';
+import 'package:rmservice/home_page/home_page.dart';
 import 'package:rmservice/login/cubit/user_cubit.dart';
 import 'package:rmservice/login/models/user.dart';
 import 'package:rmservice/post_job/constants/sex_choose.dart';
@@ -115,7 +116,7 @@ class _PostJobRegisterState extends State<PostJobRegister> {
               Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(
-                  builder: (_) => PostJobScreen(),
+                  builder: (_) => HomePage(),
                 ),
               );
             },
@@ -151,7 +152,7 @@ class _PostJobRegisterState extends State<PostJobRegister> {
               Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(
-                  builder: (_) => PostJobScreen(),
+                  builder: (_) => HomePage(),
                 ),
               );
             },

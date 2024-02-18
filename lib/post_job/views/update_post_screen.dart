@@ -71,10 +71,10 @@ class _UpdatePostScreenState extends State<UpdatePostScreen> {
     titleController.text = widget.post.title;
     numberEmployeeController.text = widget.post.numberEmployee.toString();
     desController.text = widget.post.description;
-    wageTypeController.text = widget.post.wageTypeDisplay;
+    wageTypeController.text = widget.post.wageType;
     wageMinController.text = widget.post.wageMin.toString();
     wageMaxController.text = widget.post.wageMax.toString();
-    candidateGenderController.text = widget.post.candidateGender;
+    candidateGenderController.text = sexList[indexSex];
     candidateMinAgeController.text = widget.post.candidateMinAge.toString();
     candidateMaxAgeController.text = widget.post.candidateMaxAge.toString();
     candidateExpController.text = widget.post.candidateExperience;
@@ -434,11 +434,11 @@ class _UpdatePostScreenState extends State<UpdatePostScreen> {
                     title: titleController.text,
                     numberEmployee: int.parse(numberEmployeeController.text),
                     description: desController.text,
-                    wageType: selectedValue,
+                    wageType: wageTypeController.text,
                     // wageTypeDisplay: wageTypeDisplayController.text,
                     wageMin: double.parse(wageMinController.text),
                     wageMax: double.parse(wageMaxController.text),
-                    // candidateGender: candidateGenderController.text,
+                    candidateGender: candidateGenderController.text,
                     candidateMinAge: int.parse(candidateMinAgeController.text),
                     candidateMaxAge: int.parse(candidateMaxAgeController.text),
                     candidateExperience: candidateExpController.text,

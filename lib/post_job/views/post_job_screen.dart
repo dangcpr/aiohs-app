@@ -31,22 +31,22 @@ class _PostJobScreenState extends State<PostJobScreen> {
       length: 3,
       child: Scaffold(
         appBar: AppBar(
-          title: Text(
-            "Tin giúp việc",
-            style: TextStyle(
-              fontSize: fontSize.mediumLarger,
-              fontFamily: fontBoldApp,
-            ),
-          ),
-          bottom: TabBar(
-            labelColor: colorProject.primaryColor,
-            indicatorColor: colorProject.primaryColor,
-            tabs: [
-              Tab(icon: Icon(Icons.note_alt), text: "Posts"),
-              Tab(icon: Icon(Icons.all_inbox), text: "Bạn đã đăng"),
-              Tab(icon: Icon(Icons.close), text: "Đã đóng"),
-            ],
-          ),
+          automaticallyImplyLeading: false,
+          titleSpacing: 0,
+          flexibleSpace: TabBar(
+              tabAlignment: TabAlignment.center,
+              isScrollable: true,
+              indicatorColor: colorProject.primaryColor,
+              labelStyle: TextStyle(
+                color: colorProject.primaryColor,
+                fontFamily: fontBoldApp,
+                fontSize: fontSize.medium,
+              ),
+              tabs: [
+                Tab(icon: Icon(Icons.note_alt), text: "Bài đăng"),
+                Tab(icon: Icon(Icons.all_inbox), text: "Bạn đã đăng"),
+                Tab(icon: Icon(Icons.close), text: "Đã đóng"),
+              ]),
         ),
         body: TabBarView(
           children: pages,

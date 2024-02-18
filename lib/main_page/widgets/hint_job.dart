@@ -174,9 +174,10 @@ class _HintJobState extends State<HintJob> {
                   blurRadius: 2)
             ]),
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 10),
+          padding: const EdgeInsets.all(10),
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Image.asset(getIcon(productCode), height: 50),
               Text(
@@ -184,27 +185,25 @@ class _HintJobState extends State<HintJob> {
                 style: TextStyle(fontFamily: fontBoldApp, fontSize: 16),
                 textAlign: TextAlign.center,
               ),
-              SizedBox(height: 6),
               Text(
-                'Địa chỉ: $address',
+                'D/c: $address',
                 style: TextStyle(
                   fontFamily: fontApp,
                 ),
                 overflow: TextOverflow.ellipsis,
               ),
-              SizedBox(height: 6),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
                     price,
                     style: TextStyle(
-                      fontFamily: fontApp,
+                      fontFamily: fontBoldApp,
+                      fontSize: 16,
                     ),
                   ),
-                  IconButton(
-                    splashRadius: 20,
-                    onPressed: () {
+                  InkWell(
+                    onTap: () {
                       showDialog(
                         context: context,
                         barrierDismissible: true,
@@ -264,11 +263,8 @@ class _HintJobState extends State<HintJob> {
                         );
                       }
                     },
-                    icon: Icon(
-                      Icons.arrow_forward_ios,
-                      size: 20,
-                    ),
-                  )
+                    child: Icon(Icons.arrow_forward_ios, size: 20),
+                  ),
                 ],
               )
             ],

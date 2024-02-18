@@ -1,6 +1,7 @@
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
 import 'package:rmservice/history/controllers/history_cancelled.dart';
 import 'package:rmservice/history/models/laundry.dart';
 import 'package:rmservice/history/widgets/laundry/location_info.dart';
@@ -26,6 +27,8 @@ class _WorkerLaundryState extends State<WorkerLaundry> {
   @override
   Widget build(BuildContext context) {
     bool isDarkMode = Theme.of(context).brightness == Brightness.dark;
+    NumberFormat numberFormat = NumberFormat.simpleCurrency(locale: 'vi-VN');
+
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -78,7 +81,7 @@ class _WorkerLaundryState extends State<WorkerLaundry> {
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 Text(
-                  'Tổng giá tiền: ${widget.order.order_amount}',
+                  'Tổng giá tiền: ${numberFormat.format(widget.order.order_amount)}',
                   style: TextStyle(
                     fontFamily: fontBoldApp,
                     fontSize: fontSize.mediumLarger,

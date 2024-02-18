@@ -40,7 +40,7 @@ class _ButtonNextStep2State extends State<ButtonNextStep2> {
 
     int timeToInt = time!.hour * 60 + time.minute;
     if (context.read<SaveInfoCookingCubit>().state.bonusService != 0) {
-      context.read<SaveInfoCookingCubit>().state.realDuration = 2.5;
+      context.read<SaveInfoCookingCubit>().state.realDuration = 2;
     } else {
       context.read<SaveInfoCookingCubit>().state.realDuration = 2;
     }
