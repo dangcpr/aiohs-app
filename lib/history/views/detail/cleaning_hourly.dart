@@ -2,6 +2,7 @@ import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:intl/intl.dart';
 import 'package:rmservice/history/controllers/completed_and_review.dart';
 import 'package:rmservice/history/cubits/get_history_accepted/get_history_accepted_cubit.dart';
 import 'package:rmservice/history/models/cleaning_hourly_history.dart';
@@ -36,6 +37,8 @@ class _CleaningHourlyHistoryDetailState
     bool isDarkMode = Theme.of(context).brightness == Brightness.dark;
     var userCode = context.read<UserCubit>().state.code;
     var orderCode = widget.order.code;
+    NumberFormat numberFormat = NumberFormat.simpleCurrency(locale: 'vi-VN');
+
     return BlocConsumer<OrderCancelCubit, OrderCancelState>(
       listener: (context, state) {
         // TODO: implement listener
@@ -124,7 +127,7 @@ class _CleaningHourlyHistoryDetailState
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     Text(
-                      'Tổng giá tiền: ${widget.order.order_amount}',
+                      'Tổng giá tiền: ${numberFormat.format(widget.order.order_amount)}',
                       style: TextStyle(
                         fontFamily: fontBoldApp,
                         fontSize: fontSize.mediumLarger,

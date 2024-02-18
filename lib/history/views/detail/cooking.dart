@@ -2,6 +2,7 @@ import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:intl/intl.dart';
 import 'package:rmservice/history/controllers/completed_and_review.dart';
 import 'package:rmservice/history/cubits/get_history_accepted/get_history_accepted_cubit.dart';
 import 'package:rmservice/history/models/cooking_history.dart';
@@ -34,6 +35,8 @@ class _CookingHistoryDetailState extends State<CookingHistoryDetail> {
     bool isDarkMode = Theme.of(context).brightness == Brightness.dark;
     var userCode = context.read<UserCubit>().state.code;
     var orderCode = widget.order.orderCooking.code;
+    NumberFormat numberFormat = NumberFormat.simpleCurrency(locale: 'vi-VN');
+
     return BlocConsumer<OrderCancelCubit, OrderCancelState>(
       listener: (context, state) {
         // TODO: implement listener
@@ -122,7 +125,7 @@ class _CookingHistoryDetailState extends State<CookingHistoryDetail> {
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     Text(
-                      'Tổng giá tiền: ${widget.order.orderCooking.orderAmount}',
+                      'Tổng giá tiền: ${numberFormat.format(widget.order.orderCooking.orderAmount)}',
                       style: TextStyle(
                         fontFamily: fontBoldApp,
                         fontSize: fontSize.mediumLarger,
@@ -147,7 +150,7 @@ class _CookingHistoryDetailState extends State<CookingHistoryDetail> {
                       order: widget.order,
                     ),
                   ),
-                (widget.order.orderCooking.status == 'new' &&
+                (widget.order.orderCooking.status == 'new' ||
                         (widget.order.orderCooking.status == 'maid_accepted' &&
                             widget.order.orderCooking.paymentMethod != 'cash'))
                     ? ButtonGreenApp(

@@ -16,6 +16,8 @@ import 'package:rmservice/place_page/views/place_page.dart';
 import 'package:rmservice/shopping/widgets/dialog_wrong.dart';
 import 'package:rmservice/utilities/constants/variable.dart';
 
+import '../../post_job/views/post_job_screen.dart';
+
 class HomePage extends StatefulWidget {
   @override
   HomePageState createState() => HomePageState();
@@ -27,8 +29,9 @@ class HomePageState extends State<HomePage> {
     const MainPage(),
     const HistoryPage(),
     const PlacePage(),
-    MessagePage(),
-    const AccountPage(),
+    const MessagePage(),
+    // const AccountPage(),
+    const PostJobScreen(),
   ];
 
   int unreadNoti = 0;
@@ -109,6 +112,7 @@ class HomePageState extends State<HomePage> {
                     Icon(
                       Icons.notifications,
                       color: colorProject.primaryColor,
+                      size: 30,
                     ),
                     context.watch<UnreadNotiCubit>().state > 0
                         ? Positioned(
@@ -124,7 +128,10 @@ class HomePageState extends State<HomePage> {
                                 minHeight: 14,
                               ),
                               child: Text(
-                                context.watch<UnreadNotiCubit>().state.toString(),
+                                context
+                                    .watch<UnreadNotiCubit>()
+                                    .state
+                                    .toString(),
                                 style: TextStyle(
                                   color: Colors.white,
                                   fontSize: 8,
@@ -135,6 +142,24 @@ class HomePageState extends State<HomePage> {
                           )
                         : const SizedBox.shrink(),
                   ],
+                ),
+              ),
+              SizedBox(width: 20),
+              InkWell(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    PageTransition(
+                      type: PageTransitionType.rightToLeftWithFade,
+                      duration: const Duration(milliseconds: 300),
+                      child: AccountPage(),
+                    ),
+                  );
+                },
+                child: const Icon(
+                  Icons.account_circle_outlined,
+                  color: colorProject.primaryColor,
+                  size: 30,
                 ),
               ),
               SizedBox(width: 20),
@@ -193,10 +218,10 @@ class HomePageState extends State<HomePage> {
                   ),
                   BottomNavigationBarItem(
                     icon: Icon(
-                      Icons.account_circle_outlined,
+                      Icons.podcasts_outlined,
                       color: colorProject.primaryColor,
                     ),
-                    label: "Profile",
+                    label: "Post",
                   ),
                 ],
               ),
