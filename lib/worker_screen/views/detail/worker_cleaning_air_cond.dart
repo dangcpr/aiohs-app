@@ -3,6 +3,7 @@
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
 import 'package:rmservice/history/controllers/history_cancelled.dart';
 import 'package:rmservice/history/models/air_conditioning_history.dart';
 import 'package:rmservice/history/widgets/air_cond/location_info_cleaning_air_cond.dart';
@@ -30,6 +31,8 @@ class _CleaningLongTermHistoryDetailState
   @override
   Widget build(BuildContext context) {
     bool isDarkMode = Theme.of(context).brightness == Brightness.dark;
+    NumberFormat numberFormat = NumberFormat.simpleCurrency(locale: 'vi-VN');
+
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -82,7 +85,7 @@ class _CleaningLongTermHistoryDetailState
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 Text(
-                  'Tổng giá tiền: ${widget.order.orderAirCondHistory.orderAmount}',
+                  'Tổng giá tiền: ${numberFormat.format(widget.order.orderAirCondHistory.orderAmount)}',
                   style: TextStyle(
                     fontFamily: fontBoldApp,
                     fontSize: fontSize.mediumLarger,

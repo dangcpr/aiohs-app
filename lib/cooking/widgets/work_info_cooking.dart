@@ -77,7 +77,7 @@ class _WorkInfoCookingState extends State<WorkInfoCooking> {
                 SizedBox(width: 8),
                 Flexible(
                   child: Text(
-                    '${infoCooking.realDuration} ${AppLocalizations.of(context)!.hourLabel},'
+                    '${infoCooking.realDuration.toStringAsFixed(0)} ${AppLocalizations.of(context)!.hourLabel},'
                     ' ${AppLocalizations.of(context)!.fromLabel} '
                     '${DateFormat.Hm(locale).format(infoCooking.time!)}'
                     ' ${AppLocalizations.of(context)!.toLabel} ${DateFormat.Hm(locale).format(
