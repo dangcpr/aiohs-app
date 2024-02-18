@@ -55,7 +55,7 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyAjH26qXf_fIavKWHOuX8vLZXsAJGqrz40',
-    appId: '1:843331886089:android:6d7617016fd6b30557ecd8',
+    appId: '1:843331886089:android:62acc9f935a925a557ecd8',
     messagingSenderId: '843331886089',
     projectId: 'datn-20cq-aiohs',
     storageBucket: 'datn-20cq-aiohs.appspot.com',
@@ -63,13 +63,13 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions ios = FirebaseOptions(
     apiKey: 'AIzaSyAZ1Bt7e_w7aLaC5rl4YYczizNW3_HuCEA',
-    appId: '1:843331886089:ios:0612b8aa0afe1a8357ecd8',
+    appId: '1:843331886089:ios:c813a95e3ff7582e57ecd8',
     messagingSenderId: '843331886089',
     projectId: 'datn-20cq-aiohs',
     storageBucket: 'datn-20cq-aiohs.appspot.com',
     androidClientId: '843331886089-4sa87imm81cbgd79mf9v03kq88lqj0dj.apps.googleusercontent.com',
-    iosClientId: '843331886089-9pebse69sq7ccbfk8sjf42e03tcbq98t.apps.googleusercontent.com',
-    iosBundleId: 'com.example.rmservice',
+    iosClientId: '843331886089-bfcb9kqt5jt7dedpa0lv25hebipqvmb5.apps.googleusercontent.com',
+    iosBundleId: 'com.aiohs.client',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
