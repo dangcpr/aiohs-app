@@ -25,11 +25,17 @@ final dio = Dio(
 );
 
 class HistoryController {
-  Future<OrderResult> getOrders(String userCode, String status, int next) async {
+  Future<OrderResult> getOrders(
+      String userCode, String status, int next) async {
     try {
       final response = await dio.get(
         '/user/$userCode/orders',
-        queryParameters: {'limit': 7, 'next': next, 'status': status, 'search_role_type': 'renter'},
+        queryParameters: {
+          'limit': 7,
+          'next': next,
+          'status': status,
+          'search_role_type': 'renter'
+        },
       );
       await Future.delayed(const Duration(milliseconds: 700));
 
@@ -64,6 +70,9 @@ class HistoryController {
       }
       debugPrint(e.type.toString());
       throw 'Server Error';
+    } catch (e) {
+      debugPrint(e.toString());
+      throw 'Server Error';
     }
   }
 
@@ -95,6 +104,9 @@ class HistoryController {
       }
       debugPrint(e.type.toString());
       throw 'Server Error';
+    } catch (e) {
+      debugPrint(e.toString());
+      throw 'Server Error';
     }
   }
 
@@ -124,6 +136,9 @@ class HistoryController {
         throw 'Internet Error or Server Error';
       }
       debugPrint(e.type.toString());
+      throw 'Server Error';
+    } catch (e) {
+      debugPrint(e.toString());
       throw 'Server Error';
     }
   }
@@ -156,6 +171,9 @@ class HistoryController {
       }
       debugPrint(e.type.toString());
       throw 'Server Error';
+    } catch (e) {
+      debugPrint(e.toString());
+      throw 'Server Error';
     }
   }
 
@@ -186,6 +204,9 @@ class HistoryController {
         throw 'Internet Error or Server Error';
       }
       debugPrint(e.type.toString());
+      throw 'Server Error';
+    } catch (e) {
+      debugPrint(e.toString());
       throw 'Server Error';
     }
   }
@@ -218,6 +239,9 @@ class HistoryController {
       }
       debugPrint(e.type.toString());
       throw 'Server Error';
+    } catch (e) {
+      debugPrint(e.toString());
+      throw 'Server Error';
     }
   }
 
@@ -247,6 +271,9 @@ class HistoryController {
         throw 'Internet Error or Server Error';
       }
       debugPrint(e.type.toString());
+      throw 'Server Error';
+    } catch (e) {
+      debugPrint(e.toString());
       throw 'Server Error';
     }
   }

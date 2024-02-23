@@ -53,6 +53,7 @@ class _NormalCleaningCardState extends State<NormalCleaningCard> {
       padding: EdgeInsets.all(10),
       child: ExpandablePanel(
         theme: ExpandableThemeData(
+          iconColor: colorProject.primaryColor,
           headerAlignment: ExpandablePanelHeaderAlignment.center,
           alignment: Alignment.center,
           iconPadding: EdgeInsets.symmetric(vertical: 8),
@@ -60,7 +61,7 @@ class _NormalCleaningCardState extends State<NormalCleaningCard> {
         header: Text(
           AppLocalizations.of(context)!.normalCleaning,
           style: TextStyle(
-            color: Colors.black,
+            // color: Colors.black,
             fontFamily: fontBoldApp,
             fontSize: fontSize.mediumLarger + 2,
           ),
@@ -79,7 +80,7 @@ class _NormalCleaningCardState extends State<NormalCleaningCard> {
                       Text(
                         "Quần áo",
                         style: TextStyle(
-                          color: Colors.black,
+                          // color: Colors.black,
                           fontFamily: fontBoldApp,
                           fontSize: fontSize.mediumLarger,
                         ),
@@ -115,7 +116,7 @@ class _NormalCleaningCardState extends State<NormalCleaningCard> {
                       Text(
                         "Mền",
                         style: TextStyle(
-                          color: Colors.black,
+                          // color: Colors.black,
                           fontFamily: fontBoldApp,
                           fontSize: fontSize.mediumLarger,
                         ),
@@ -151,7 +152,7 @@ class _NormalCleaningCardState extends State<NormalCleaningCard> {
                       Text(
                         "Mùng chống muỗi",
                         style: TextStyle(
-                          color: Colors.black,
+                          // color: Colors.black,
                           fontFamily: fontBoldApp,
                           fontSize: fontSize.mediumLarger,
                         ),
@@ -187,7 +188,7 @@ class _NormalCleaningCardState extends State<NormalCleaningCard> {
                       Text(
                         "Lưới chống muỗi",
                         style: TextStyle(
-                          color: Colors.black,
+                          // color: Colors.black,
                           fontFamily: fontBoldApp,
                           fontSize: fontSize.mediumLarger,
                         ),
@@ -222,7 +223,7 @@ class _NormalCleaningCardState extends State<NormalCleaningCard> {
                       Text(
                         "Drap",
                         style: TextStyle(
-                          color: Colors.black,
+                          // color: Colors.black,
                           fontFamily: fontBoldApp,
                           fontSize: fontSize.mediumLarger,
                         ),
@@ -256,7 +257,7 @@ class _NormalCleaningCardState extends State<NormalCleaningCard> {
                       Text(
                         "Tấm phủ nệm",
                         style: TextStyle(
-                          color: Colors.black,
+                          // color: Colors.black,
                           fontFamily: fontBoldApp,
                           fontSize: fontSize.mediumLarger,
                         ),
@@ -290,7 +291,7 @@ class _NormalCleaningCardState extends State<NormalCleaningCard> {
                       Text(
                         "Gối",
                         style: TextStyle(
-                          color: Colors.black,
+                          // color: Colors.black,
                           fontFamily: fontBoldApp,
                           fontSize: fontSize.mediumLarger,
                         ),

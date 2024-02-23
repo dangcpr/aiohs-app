@@ -42,22 +42,22 @@ class _HistoryOrderCancelledState extends State<HistoryOrderCancelled> {
                 .read<GetHistoryCancelCubit>()
                 .getHistoryCancel(context.read<UserCubit>().state.code!);
           },
-          child: state.orders.isEmpty ? WorkerEmptyOrder(
-                title: "Không có đơn đã hoàn thành",
-                desc: "Không có đơn đã hoàn thành, vui lòng quay lại."
-              ) : ListView.builder(
-            itemCount: state.orders.length,
-            itemBuilder: (context, index) {
-              return CardHistoryOrderCancel(order: state.orders[index]);
-            },
-          ),
+          child: state.orders.isEmpty
+              ? WorkerEmptyOrder(
+                  title: "Không có đơn đã hủy",
+                  desc: "Không có đơn đã hủy, vui lòng quay lại sau.")
+              : ListView.builder(
+                  itemCount: state.orders.length,
+                  itemBuilder: (context, index) {
+                    return CardHistoryOrderCancel(order: state.orders[index]);
+                  },
+                ),
         );
       }
 
       if (state is GetHistoryCancelFailed) {
-        return Text(
-          state.message,
-        );
+        return Align(
+            alignment: FractionalOffset.topCenter, child: Text(state.message));
       } else {
         return Container();
       }

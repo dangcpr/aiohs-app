@@ -24,9 +24,7 @@ class GetPlacePublicCubit extends Cubit<GetPlacePublicState> {
     }
     emit(GetPlacePublicLoading());
     try {
-      if (state is GetPlacePublicLoaded && next == "0") {
-        return;
-      } else {
+      
         RentalPlaceResult rentalPlaceRes = await PlacePageController()
             .getRentalPublic(userCode, next, distance, city, district);
         debugPrint(jsonEncode(rentalPlaceRes.rentalPlaceRes));
@@ -34,7 +32,7 @@ class GetPlacePublicCubit extends Cubit<GetPlacePublicState> {
         next = rentalPlaceRes.next;
         debugPrint(rentalPlace.length.toString());
         emit(GetPlacePublicLoaded(rentalPlace));
-      }
+      
     } catch (e) {
       emit(GetPlacePublicError(e.toString()));
     }

@@ -13,5 +13,5 @@ class GetHistoryOrderLoaded extends GetHistoryOrderState {
 
 class GetHistoryOrderError extends GetHistoryOrderState {
   final String message;
-  GetHistoryOrderError(this.message);
+  GetHistoryOrderError({ required this.message });
 }

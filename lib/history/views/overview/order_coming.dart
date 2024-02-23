@@ -48,8 +48,10 @@ class _HistoryOrderCommingState extends State<HistoryOrderComming> {
         physics: AlwaysScrollableScrollPhysics(),
         scrollDirection: Axis.vertical,
         child: Container(
-          child: getHistory is GetHistoryOrderError
-              ? Center(child: Text("Đã có lỗi xảy ra"))
+          child: getHistory.state is GetHistoryOrderError
+              ? Center(
+                  child:
+                      Text((getHistory.state as GetHistoryOrderError).message))
               : (getHistory.orders.isEmpty &&
                       getHistory.state is GetHistoryOrderLoaded)
                   ? WorkerEmptyOrder(

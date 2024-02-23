@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rmservice/history/controllers/history.dart';
 import 'package:rmservice/history/cubits/get_history_order.dart/get_history_order_state.dart';
@@ -13,18 +14,20 @@ class GetHistoryOrderCubit extends Cubit<GetHistoryOrderState> {
   int nextAccepted = 0;
 
   Future<void> getHistory(String userCode, String status) async {
-    if (next == 0 && state is GetHistoryOrderLoaded) {
-      return;
-    }
     emit(GetHistoryOrderLoading());
     try {
       OrderResult ordersResult =
           await HistoryController().getOrders(userCode, status, next);
+      debugPrint('Error: abcd');
+      if (next == 0 && state is GetHistoryOrderLoaded) {
+        return;
+      }
       orders.addAll(ordersResult.orders);
       next = ordersResult.next;
       emit(GetHistoryOrderLoaded(orders));
     } catch (e) {
-      emit(GetHistoryOrderError(e.toString()));
+      debugPrint('Error: $e');
+      emit(GetHistoryOrderError(message: e.toString()));
     }
   }
 
@@ -46,7 +49,7 @@ class GetHistoryOrderCubit extends Cubit<GetHistoryOrderState> {
       nextAccepted = ordersResult.next;
       emit(GetHistoryOrderLoaded(ordersAccepted));
     } catch (e) {
-      emit(GetHistoryOrderError(e.toString()));
+      emit(GetHistoryOrderError(message: e.toString()));
     }
   }
 

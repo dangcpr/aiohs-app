@@ -40,7 +40,7 @@ class _WorkerOrderCancelledState extends State<WorkerOrderCancelled> {
   Widget build(BuildContext context) {
     var workerGetOrderAccepted = context.watch<WorkerGetOrderCancelledCubit>();
     return Container(
-      child: workerGetOrderAccepted is WorkerGetOrderCancelledError
+      child: workerGetOrderAccepted.state is WorkerGetOrderCancelledError
           ? Center(child: Text("Đã có lỗi xảy ra"))
           : RefreshIndicator(
               onRefresh: () async {

@@ -45,8 +45,8 @@ class _HistoryOrderReceivedState extends State<HistoryOrderReceived> {
         physics: AlwaysScrollableScrollPhysics(),
         scrollDirection: Axis.vertical,
         child: Container(
-          child: getHistory is GetHistoryAcceptedError
-              ? Center(child: Text("Đã có lỗi xảy ra"))
+          child: getHistory.state is GetHistoryAcceptedError
+              ? Center(child: Text((getHistory.state as GetHistoryAcceptedError).message))
               : (getHistory.ordersAccepted.isEmpty &&
                       getHistory.state is GetHistoryAcceptedLoaded)
                   ? WorkerEmptyOrder(

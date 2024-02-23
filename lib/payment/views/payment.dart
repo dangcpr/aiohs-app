@@ -61,7 +61,7 @@ class _PayScreenState extends State<PayScreen> {
             child: InAppWebView(
               initialUrlRequest: URLRequest(
                   url: Uri.parse(
-                      "http://13.213.83.249:8888/order/create_payment_url"),
+                      "https://vnpay.aiohs.site/order/create_payment_url"),
                   method: 'POST',
                   body: Uint8List.fromList(utf8
                       .encode("amount=${widget.money}&bankCode=&language=vn")),
@@ -76,8 +76,8 @@ class _PayScreenState extends State<PayScreen> {
                 setState(() {
                   this.progress = progress / 1;
                 });
-              },
-              onLoadStop: (controller, url) async {
+              },              
+              onLoadStart: (controller, url) async {
                 String url_string = url.toString();
                 //replace vnpay_return to vnpay_ipn
                 debugPrint(url_string);
@@ -91,16 +91,15 @@ class _PayScreenState extends State<PayScreen> {
                   debugPrint(response);
                 }
                 if (url_string.contains("/order/vnpay_return")) {
-                  url_string =
-                      url_string.replaceAll("vnpay_return", "vnpay_ipn");
-                  controller.loadUrl(
-                      urlRequest: URLRequest(url: Uri.parse(url_string)));
-                  return;
-                }
-                if (url.toString().contains("/order/vnpay_ipn")) {
-                  var response = await controller.evaluateJavascript(
-                      source: 'document.body.innerText');
-                  var code = jsonDecode(response)['RspCode'];
+                  //   url_string =
+                  //       url_string.replaceAll("vnpay_return", "vnpay_ipn");
+                  //   controller.loadUrl(
+                  //       urlRequest: URLRequest(url: Uri.parse(url_string)));
+                  //   return;
+                  // }
+                  // if (url.toString().contains("/order/vnpay_ipn")) {
+                  String code = url!.queryParameters['vnp_ResponseCode']!;
+                  debugPrint(code);
                   Navigator.pop(context);
                   // Navigator.push(
                   //     context,

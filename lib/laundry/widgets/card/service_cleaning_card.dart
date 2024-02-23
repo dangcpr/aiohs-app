@@ -47,6 +47,7 @@ class _ServiceCleaningCardState extends State<ServiceCleaningCard> {
       padding: EdgeInsets.all(10),
       child: ExpandablePanel(
         theme: ExpandableThemeData(
+          iconColor: colorProject.primaryColor,
           headerAlignment: ExpandablePanelHeaderAlignment.center,
           alignment: Alignment.center,
           iconPadding: EdgeInsets.symmetric(vertical: 8),
@@ -54,7 +55,7 @@ class _ServiceCleaningCardState extends State<ServiceCleaningCard> {
         header: Text(
           AppLocalizations.of(context)!.serviceCleaning,
           style: TextStyle(
-            color: Colors.black,
+            // color: Colors.black,
             fontFamily: fontBoldApp,
             fontSize: fontSize.mediumLarger + 2,
           ),
@@ -73,7 +74,7 @@ class _ServiceCleaningCardState extends State<ServiceCleaningCard> {
                       Text(
                         "Tẩy trắng đồ giặt",
                         style: TextStyle(
-                          color: Colors.black,
+                          // color: Colors.black,
                           fontFamily: fontBoldApp,
                           fontSize: fontSize.mediumLarger,
                         ),

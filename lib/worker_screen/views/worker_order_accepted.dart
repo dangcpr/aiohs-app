@@ -40,7 +40,7 @@ class _WorkerOrderAcceptedState extends State<WorkerOrderAccepted> {
   Widget build(BuildContext context) {
     var workerGetOrderAccepted = context.watch<WorkerGetOrderAcceptedCubit>();
     return Container(
-      child: workerGetOrderAccepted is WorkerGetOrderAcceptedError
+      child: workerGetOrderAccepted.state is WorkerGetOrderAcceptedError
           ? Center(child: Text("Đã có lỗi xảy ra"))
           : RefreshIndicator(
               onRefresh: () async {
@@ -57,9 +57,9 @@ class _WorkerOrderAcceptedState extends State<WorkerOrderAccepted> {
                         workerGetOrderAccepted.state
                             is WorkerGetOrderAcceptedLoaded)
                     ? WorkerEmptyOrder(
-                        title: "Không có đơn đã hủy",
+                        title: "Không có đơn đã nhận",
                         desc:
-                            "Không có đơn đã hủy bởi bạn và người thuê. Vui lòng thử lại sau.")
+                            "Không có đơn đã nhận bởi bạn. Vui lòng thử lại sau.")
                     :  Column(
                   children: [
                     for (int i = 0;

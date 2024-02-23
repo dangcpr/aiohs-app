@@ -34,7 +34,7 @@ class _WorkerScreenState extends State<WorkerScreen> {
             ),
           ),
           bottom: const TabBar(
-            tabAlignment: TabAlignment.start,
+            tabAlignment: TabAlignment.center,
             labelColor: colorProject.primaryColor,
             indicatorPadding:
                 EdgeInsets.symmetric(horizontal: 10),

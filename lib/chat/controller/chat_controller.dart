@@ -98,15 +98,19 @@ class ChatController {
       debugPrint(response.data.toString());
 
       //if (response.statusCode == 200) {
+      if (response.data.toString() == "Not found") {
+        return [];
+      }
       List<ChatInfo> listRooms = [];
       listRooms =
           (response.data as List).map((e) => ChatInfo.fromJson(e)).toList();
       return listRooms;
     } on DioException catch (e) {
       debugPrint(e.type.toString());
-      return [];
+      throw handleError(e);
     } catch (e) {
-      return [];
+      debugPrint(e.toString());
+      throw "Internet Error or Server Error";
     }
   }
 
@@ -134,7 +138,7 @@ class ChatController {
         result: messages,
       );
     } on DioException catch (e) {
-      print(e.toString());
+      print(e.toString() + "get chat detail");
       throw handleError(e);
     } catch (e) {
       print(e.toString());

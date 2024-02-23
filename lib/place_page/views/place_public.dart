@@ -88,6 +88,7 @@ class _PlacePublicState extends State<PlacePublic> {
 
         if (state is GetPlacePublicLoaded) {
           return RefreshIndicator(
+            color: colorProject.primaryColor,
             onRefresh: () async {
               context.read<GetPlacePublicCubit>().setInit();
               await context.read<GetPlacePublicCubit>().getPlacePublic(
@@ -99,67 +100,68 @@ class _PlacePublicState extends State<PlacePublic> {
               debugPrint(state.rentalPlaceRes.length.toString());
             },
             child: SingleChildScrollView(
-              child: Column(
-                //crossAxisAlignment: CrossAxisAlignment.start,
-                //controller: _scrollController,
-                //physics: AlwaysScrollableScrollPhysics(),
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      Text(
-                        "Bộ lọc tin thuê chỗ",
-                        style: TextStyle(
-                            fontFamily: fontBoldApp,
-                            fontSize: fontSize.medium,
-                            color: colorProject.primaryColor),
-                      ),
-                      // Text(
-                      //   distance.toString() + " km",
-                      //   style: TextStyle(
-                      //     fontFamily: fontBoldApp,
-                      //     fontSize: fontSize.medium,
-                      //   ),
-                      // ),
-                      SizedBox(width: 5),
-                      InkWell(
-                        child: Icon(
-                          Icons.filter_list,
-                          color: colorProject.primaryColor,
-                          size: 30,
-                        ),
-                        onTap: () {
-                          showDialog(
-                            context: context,
-                            builder: (context) {
-                              return AlertDialog(
-                                content: StatefulBuilder(
-                                  builder: (context, setState) {
-                                    return filter(isDarkMode);
+              controller: _scrollController,
+              physics: AlwaysScrollableScrollPhysics(),
+              child: state.rentalPlaceRes.isEmpty
+                  ? WorkerEmptyOrder(
+                      title: "Không có bài đăng nào!",
+                      desc:
+                          "Hiện không có bài đăng cho thuê chỗ, vui lòng quay lại sau!",
+                    )
+                  : Column(
+                      //crossAxisAlignment: CrossAxisAlignment.start,
+                      //controller: _scrollController,
+                      //physics: AlwaysScrollableScrollPhysics(),
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            Text(
+                              "Bộ lọc tin thuê chỗ",
+                              style: TextStyle(
+                                  fontFamily: fontBoldApp,
+                                  fontSize: fontSize.medium,
+                                  color: colorProject.primaryColor),
+                            ),
+                            // Text(
+                            //   distance.toString() + " km",
+                            //   style: TextStyle(
+                            //     fontFamily: fontBoldApp,
+                            //     fontSize: fontSize.medium,
+                            //   ),
+                            // ),
+                            SizedBox(width: 5),
+                            InkWell(
+                              child: Icon(
+                                Icons.filter_list,
+                                color: colorProject.primaryColor,
+                                size: 30,
+                              ),
+                              onTap: () {
+                                showDialog(
+                                  context: context,
+                                  builder: (context) {
+                                    return AlertDialog(
+                                      scrollable: true,
+                                      content: StatefulBuilder(
+                                        builder: (context, setState) {
+                                          return filter(isDarkMode);
+                                        },
+                                      ),
+                                    );
                                   },
-                                ),
-                              );
-                            },
-                          );
-                        },
-                      ),
-                      SizedBox(width: 5),
-                    ],
-                  ),
-                  SizedBox(height: 10),
-                  state.rentalPlaceRes.isEmpty
-                      ? WorkerEmptyOrder(
-                          title: "Không có bài đăng nào!",
-                          desc:
-                              "Hiện không có bài đăng cho thuê chỗ, vui lòng quay lại sau!",
-                        )
-                      : Expanded(
-                          child: LocationCard(
-                              rentalPlace: state.rentalPlaceRes,
-                              isUser: false)),
-                  SizedBox(height: 10),
-                ],
-              ),
+                                );
+                              },
+                            ),
+                            SizedBox(width: 5),
+                          ],
+                        ),
+                        SizedBox(height: 10),
+                        LocationCard(
+                            rentalPlace: state.rentalPlaceRes, isUser: false),
+                        SizedBox(height: 10),
+                      ],
+                    ),
             ),
           );
         }

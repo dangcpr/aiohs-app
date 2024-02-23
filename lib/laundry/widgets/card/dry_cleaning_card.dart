@@ -48,6 +48,7 @@ class _DryCleaningCardState extends State<DryCleaningCard> {
       padding: EdgeInsets.all(10),
       child: ExpandablePanel(
         theme: ExpandableThemeData(
+          iconColor: colorProject.primaryColor,
           headerAlignment: ExpandablePanelHeaderAlignment.center,
           alignment: Alignment.center,
           iconPadding: EdgeInsets.symmetric(vertical: 8),
@@ -55,7 +56,7 @@ class _DryCleaningCardState extends State<DryCleaningCard> {
         header: Text(
           AppLocalizations.of(context)!.dryCleaning,
           style: TextStyle(
-            color: Colors.black,
+            // color: Colors.black,
             fontFamily: fontBoldApp,
             fontSize: fontSize.mediumLarger + 2,
           ),
@@ -74,7 +75,7 @@ class _DryCleaningCardState extends State<DryCleaningCard> {
                       Text(
                         "Com-lê",
                         style: TextStyle(
-                          color: Colors.black,
+                          // color: Colors.black,
                           fontFamily: fontBoldApp,
                           fontSize: fontSize.mediumLarger,
                         ),
@@ -109,7 +110,7 @@ class _DryCleaningCardState extends State<DryCleaningCard> {
                       Text(
                         "Áo dài",
                         style: TextStyle(
-                          color: Colors.black,
+                          // color: Colors.black,
                           fontFamily: fontBoldApp,
                           fontSize: fontSize.mediumLarger,
                         ),
@@ -145,7 +146,7 @@ class _DryCleaningCardState extends State<DryCleaningCard> {
                       Text(
                         "Áo cưới",
                         style: TextStyle(
-                          color: Colors.black,
+                          // color: Colors.black,
                           fontFamily: fontBoldApp,
                           fontSize: fontSize.mediumLarger,
                         ),

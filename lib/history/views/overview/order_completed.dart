@@ -59,9 +59,8 @@ class _HistoryOrderCompletedState extends State<HistoryOrderCompleted> {
       }
 
       if (state is GetHistoryOrderCompletedError) {
-        return Text(
-          state.message,
-        );
+        return Align(
+            alignment: FractionalOffset.topCenter, child: Text(state.message));
       } else {
         return Container();
       }

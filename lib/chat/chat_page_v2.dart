@@ -127,8 +127,10 @@ class _ChatPageV2State extends State<ChatPageV2> {
         child: BlocBuilder<GetChatDetailCubit, GetChatDetailState>(
           builder: (context, state) {
             if (state is GetChatDetailLoading) {
+              debugPrint("Loading");
               return const Center(child: CircularProgressIndicator());
             } else if (state is GetChatDetailFailure) {
+              debugPrint("Failure");
               return Center(
                 child: Text(state.message),
               );
