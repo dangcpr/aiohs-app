@@ -5,6 +5,7 @@ import 'package:rmservice/post_job/cubits/get_history_post_cubit/get_history_pos
 import '../../login/cubit/user_cubit.dart';
 import 'package:rmservice/utilities/constants/variable.dart';
 
+import '../../utilities/components/empty_card.dart';
 import '../widgets/card_posted.dart';
 
 class JobPosted extends StatefulWidget {
@@ -36,41 +37,43 @@ class _JobPostedState extends State<JobPosted> {
         physics: AlwaysScrollableScrollPhysics(),
         scrollDirection: Axis.vertical,
         child: Container(
-          child: getHistory is GetHistoryPostFailed
-              ? Center(child: Text("Đã có lỗi xảy ra"))
-              : Column(
-                  children: [
-                    getHistory.posts.length != 0
-                        ? ListView.builder(
-                            physics: NeverScrollableScrollPhysics(),
-                            itemCount: getHistory.posts.length,
-                            shrinkWrap: true,
-                            itemBuilder: (context, index) {
-                              return CardHistoryPost(
-                                  post: getHistory.posts[index]);
-                            })
-                        : Center(
-                            child: Text("Bạn chưa đăng tin tuyển dụng nào")),
-                    //loading
-                    BlocBuilder<GetHistoryPostCubit, GetHistoryPostState>(
-                        builder: (context, state) {
-                      if (state is GetHistoryPostLoading) {
-                        return Align(
-                          alignment: FractionalOffset.topCenter,
-                          child: CircularProgressIndicator(
-                            color: colorProject.primaryColor,
-                          ),
-                        );
-                      }
-                      // if (state is GetHistoryPostFailed) {
-                      //   return Center(
-                      //     child: Text(state.message),
-                      //   );
-                      // }
-                      return Container();
-                    }),
-                  ],
+          child: BlocBuilder<GetHistoryPostCubit, GetHistoryPostState>(
+              builder: (context, state) {
+            if (state is GetHistoryPostLoading) {
+              return Align(
+                alignment: FractionalOffset.topCenter,
+                child: CircularProgressIndicator(
+                  color: colorProject.primaryColor,
                 ),
+              );
+            }
+            if (state is GetHistoryPostFailed) {
+              return Center(
+                child: Text(state.message),
+              );
+            }
+            if (state is GetHistoryPostSuccess) {
+              if (state.posts.isEmpty) {
+                return WorkerEmptyOrder(
+                  title: "Không có bài đăng",
+                  desc: "Bạn chưa đăng bài nào. Hãy đăng bài đầu tiên của bạn!",
+                );
+              } else {
+                return ListView.builder(
+                  shrinkWrap: true,
+                  physics: NeverScrollableScrollPhysics(),
+                  itemCount: state.posts.length,
+                  itemBuilder: (context, index) {
+                    return CardHistoryPost(
+                      post: state.posts[index],
+                    );
+                  },
+                );
+              }
+            } else {
+              return Container();
+            }
+          }),
         ),
       ),
     );

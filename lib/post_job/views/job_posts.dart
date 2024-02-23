@@ -75,86 +75,131 @@ class _JobPostState extends State<JobPost> {
     bool isDarkMode =
         MediaQuery.of(context).platformBrightness == Brightness.dark;
     var getAllPost = context.watch<GetPostAllCubit>();
-    return Container(
-      child: Column(
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              Text(
-                "Bộ lọc tin tuyển",
-                style: TextStyle(
-                    fontFamily: fontBoldApp,
-                    fontSize: fontSize.medium,
-                    color: colorProject.primaryColor),
-              ),
-              // Text(
-              //   distance.toString() + " km",
-              //   style: TextStyle(
-              //     fontFamily: fontBoldApp,
-              //     fontSize: fontSize.medium,
-              //   ),
-              // ),
-              SizedBox(width: 5),
-              InkWell(
-                child: Icon(
-                  Icons.filter_list,
-                  color: colorProject.primaryColor,
-                  size: 30,
+    return SingleChildScrollView(
+      controller: _scrollController,
+      scrollDirection: Axis.vertical,
+      child: Container(
+        child: Column(
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                Text(
+                  "Bộ lọc tin tuyển",
+                  style: TextStyle(
+                      fontFamily: fontBoldApp,
+                      fontSize: fontSize.medium,
+                      color: colorProject.primaryColor),
                 ),
-                onTap: () {
-                  showDialog(
-                    context: context,
-                    builder: (context) {
-                      return AlertDialog(
-                        content: StatefulBuilder(
-                          builder: (context, setState) {
-                            return filter(isDarkMode);
-                          },
-                        ),
-                      );
-                    },
+                SizedBox(width: 5),
+                InkWell(
+                  child: Icon(
+                    Icons.filter_list,
+                    color: colorProject.primaryColor,
+                    size: 30,
+                  ),
+                  onTap: () {
+                    showDialog(
+                      context: context,
+                      builder: (context) {
+                        return AlertDialog(
+                          content: StatefulBuilder(
+                            builder: (context, setState) {
+                              return filter(isDarkMode);
+                            },
+                          ),
+                        );
+                      },
+                    );
+                  },
+                ),
+                SizedBox(width: 5),
+              ],
+            ),
+            // Expanded(
+            //   child: getAllPost is GetPostAllFailed
+            //       ? Center(child: Text('Có lỗi xảy ra, vui lòng thử lại'))
+            //       : (getAllPost.posts.isEmpty &&
+            //               getAllPost.state is GetPostAllSuccess)
+            //           ? WorkerEmptyOrder(
+            //               title: "Không có bài đăng",
+            //               desc:
+            //                   "Hiện không có bài đăng nào, vui lòng thử lại sau.",
+            //             )
+            //           : SingleChildScrollView(
+            //               controller: _scrollController,
+            //               scrollDirection: Axis.vertical,
+            //               child: Column(
+            //                 children: [
+            //                   for (int i = 0; i < getAllPost.posts.length; i++)
+            //                     CardPost(post: getAllPost.posts[i]),
+            //                   //loading
+            //                   BlocBuilder<GetPostAllCubit, GetPostAllState>(
+            //                       builder: (context, state) {
+            //                     if (state is GetPostAllLoading) {
+            //                       return Align(
+            //                         alignment: FractionalOffset.topCenter,
+            //                         child: CircularProgressIndicator(
+            //                           color: colorProject.primaryColor,
+            //                         ),
+            //                       );
+            //                     }
+            //                     return Container();
+            //                   }),
+            //                 ],
+            //               ),
+            //             ),
+            // ),
+            BlocBuilder<GetPostAllCubit, GetPostAllState>(
+              builder: (context, state) {
+                if (state is GetPostAllLoading) {
+                  return Align(
+                    alignment: FractionalOffset.topCenter,
+                    child: CircularProgressIndicator(
+                      color: colorProject.primaryColor,
+                    ),
                   );
-                },
-              ),
-              SizedBox(width: 5),
-            ],
-          ),
-          Expanded(
-            child: getAllPost is GetPostAllFailed
-                ? Center(child: Text("Đã có lỗi xảy ra"))
-                : (getAllPost.posts.isEmpty &&
-                        getAllPost.state is GetPostAllSuccess)
-                    ? WorkerEmptyOrder(
-                        title: "Không có bài post",
-                        desc:
-                            "Hiện không có bài post nào, vui lòng thử lại sau.",
-                      )
-                    : SingleChildScrollView(
-                        controller: _scrollController,
-                        scrollDirection: Axis.vertical,
-                        child: Column(
-                          children: [
-                            for (int i = 0; i < getAllPost.posts.length; i++)
-                              CardPost(post: getAllPost.posts[i]),
-                            //loading
-                            BlocBuilder<GetPostAllCubit, GetPostAllState>(
-                                builder: (context, state) {
-                              if (state is GetPostAllLoading) {
-                                return Align(
-                                  alignment: FractionalOffset.topCenter,
-                                  child: CircularProgressIndicator(
-                                    color: colorProject.primaryColor,
-                                  ),
-                                );
-                              }
-                              return Container();
-                            }),
-                          ],
-                        ),
-                      ),
-          ),
-        ],
+                }
+                if (state is GetPostAllFailed) {
+                  return Center(
+                    child: Text(state.message),
+                  );
+                }
+                if (state is GetPostAllSuccess) {
+                  if (state.posts.isEmpty) {
+                    return WorkerEmptyOrder(
+                      title: "Không có bài đăng",
+                      desc: "Hiện không có bài đăng nào, vui lòng thử lại sau.",
+                    );
+                  } else {
+                    return Column(
+                      children: [
+                        for (int i = 0; i < state.posts.length; i++)
+                          CardPost(post: state.posts[i]),
+                        //loading
+                        if (state.posts.isNotEmpty)
+                          BlocBuilder<GetPostAllCubit, GetPostAllState>(
+                              builder: (context, state) {
+                            if (state is GetPostAllLoading) {
+                              return Align(
+                                alignment: FractionalOffset.topCenter,
+                                child: CircularProgressIndicator(
+                                  color: colorProject.primaryColor,
+                                ),
+                              );
+                            }
+                            return Container();
+                          }),
+                      ],
+                    );
+                  }
+                } else {
+                  return Container();
+                }
+              },
+            ),
+          ],
+        ),
       ),
     );
   }

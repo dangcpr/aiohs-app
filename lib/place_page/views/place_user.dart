@@ -6,6 +6,7 @@ import 'package:rmservice/login/cubit/user_cubit.dart';
 import 'package:rmservice/place_page/cubits/get_place_user/get_place_user_cubit.dart';
 import 'package:rmservice/place_page/cubits/get_place_user/get_place_user_state.dart';
 import 'package:rmservice/place_page/views/create_rental_screen.dart';
+import '../../utilities/components/empty_card.dart';
 import '../widgets/place_card.dart';
 import '../../utilities/constants/variable.dart';
 
@@ -116,10 +117,15 @@ class _PlaceUserState extends State<PlaceUser> {
                               .getPlaceUserInactive(
                                   context.read<UserCubit>().state.code!);
                     },
-                    child: LocationCard(
-                      rentalPlace: state.rentalPlaceRes,
-                      isUser: true,
-                    ),
+                    child: state.rentalPlaceRes.isEmpty
+                        ? WorkerEmptyOrder(
+                            title: "Không có bài đăng nào!",
+                            desc: "Hiện không có bài đăng nào!",
+                          )
+                        : LocationCard(
+                            rentalPlace: state.rentalPlaceRes,
+                            isUser: true,
+                          ),
                   );
                 }
 
