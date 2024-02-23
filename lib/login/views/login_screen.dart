@@ -37,6 +37,7 @@ class _LoginScreenState extends State<LoginScreen> with InputValidationMixin {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   bool oauth = false;
+  bool isCheck = true;
   @override
   void initState() {
     super.initState();
@@ -155,7 +156,8 @@ class _LoginScreenState extends State<LoginScreen> with InputValidationMixin {
                                 controller: passwordController,
                                 label: AppLocalizations.of(context)!.password,
                                 icon: Icons.password,
-                                obsecure: true,
+                                suffixIcon: true,
+                                obsecure: isCheck,
                                 validatorFunc: (input) {
                                   if (input!.isEmpty) {
                                     return AppLocalizations.of(context)!
@@ -207,7 +209,9 @@ class _LoginScreenState extends State<LoginScreen> with InputValidationMixin {
                         ),
                       ),
                       const SizedBox(height: 14),
-                      if ((hasOauth_G == true || hasOauth_F == true || hasOauth_A == true) ||
+                      if ((hasOauth_G == true ||
+                              hasOauth_F == true ||
+                              hasOauth_A == true) ||
                           !Platform.isIOS)
                         Center(
                           child: Text(AppLocalizations.of(context)!.orLogin,
@@ -235,7 +239,8 @@ class _LoginScreenState extends State<LoginScreen> with InputValidationMixin {
                                 context.read<LoginCubit>().logInFB();
                               },
                             ),
-                          if (hasOauth_A && Platform.isIOS) const SizedBox(width: 15),
+                          if (hasOauth_A && Platform.isIOS)
+                            const SizedBox(width: 15),
                           if (hasOauth_A && Platform.isIOS)
                             socialButton(
                               assetString: AppAssets.apple,

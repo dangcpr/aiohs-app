@@ -11,6 +11,7 @@ import 'package:rmservice/utilities/components/text_label.dart';
 import 'package:rmservice/utilities/components/text_sub_label.dart';
 import 'package:rmservice/utilities/constants/variable.dart';
 
+import '../../utilities/components/empty_card.dart';
 import '../../worker_screen/controllers/address_vn.dart';
 import '../../worker_screen/models/address_vn.dart';
 
@@ -97,59 +98,68 @@ class _PlacePublicState extends State<PlacePublic> {
                   );
               debugPrint(state.rentalPlaceRes.length.toString());
             },
-            child: Column(
-              //crossAxisAlignment: CrossAxisAlignment.start,
-              //controller: _scrollController,
-              //physics: AlwaysScrollableScrollPhysics(),
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    Text(
-                      "Bộ lọc tin thuê chỗ",
-                      style: TextStyle(
-                          fontFamily: fontBoldApp,
-                          fontSize: fontSize.medium,
-                          color: colorProject.primaryColor),
-                    ),
-                    // Text(
-                    //   distance.toString() + " km",
-                    //   style: TextStyle(
-                    //     fontFamily: fontBoldApp,
-                    //     fontSize: fontSize.medium,
-                    //   ),
-                    // ),
-                    SizedBox(width: 5),
-                    InkWell(
-                      child: Icon(
-                        Icons.filter_list,
-                        color: colorProject.primaryColor,
-                        size: 30,
+            child: SingleChildScrollView(
+              child: Column(
+                //crossAxisAlignment: CrossAxisAlignment.start,
+                //controller: _scrollController,
+                //physics: AlwaysScrollableScrollPhysics(),
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      Text(
+                        "Bộ lọc tin thuê chỗ",
+                        style: TextStyle(
+                            fontFamily: fontBoldApp,
+                            fontSize: fontSize.medium,
+                            color: colorProject.primaryColor),
                       ),
-                      onTap: () {
-                        showDialog(
-                          context: context,
-                          builder: (context) {
-                            return AlertDialog(
-                              content: StatefulBuilder(
-                                builder: (context, setState) {
-                                  return filter(isDarkMode);
-                                },
-                              ),
-                            );
-                          },
-                        );
-                      },
-                    ),
-                    SizedBox(width: 5),
-                  ],
-                ),
-                SizedBox(height: 10),
-                Expanded(
-                    child: LocationCard(
-                        rentalPlace: state.rentalPlaceRes, isUser: false)),
-                SizedBox(height: 10),
-              ],
+                      // Text(
+                      //   distance.toString() + " km",
+                      //   style: TextStyle(
+                      //     fontFamily: fontBoldApp,
+                      //     fontSize: fontSize.medium,
+                      //   ),
+                      // ),
+                      SizedBox(width: 5),
+                      InkWell(
+                        child: Icon(
+                          Icons.filter_list,
+                          color: colorProject.primaryColor,
+                          size: 30,
+                        ),
+                        onTap: () {
+                          showDialog(
+                            context: context,
+                            builder: (context) {
+                              return AlertDialog(
+                                content: StatefulBuilder(
+                                  builder: (context, setState) {
+                                    return filter(isDarkMode);
+                                  },
+                                ),
+                              );
+                            },
+                          );
+                        },
+                      ),
+                      SizedBox(width: 5),
+                    ],
+                  ),
+                  SizedBox(height: 10),
+                  state.rentalPlaceRes.isEmpty
+                      ? WorkerEmptyOrder(
+                          title: "Không có bài đăng nào!",
+                          desc:
+                              "Hiện không có bài đăng cho thuê chỗ, vui lòng quay lại sau!",
+                        )
+                      : Expanded(
+                          child: LocationCard(
+                              rentalPlace: state.rentalPlaceRes,
+                              isUser: false)),
+                  SizedBox(height: 10),
+                ],
+              ),
             ),
           );
         }
@@ -223,8 +233,8 @@ class _PlacePublicState extends State<PlacePublic> {
           mainAxisSize: MainAxisSize.min,
           children: [
             Align(
-              child:
-                  TextLabel(label: "Bộ lọc tin thuê chỗ", isDarkMode: isDarkMode),
+              child: TextLabel(
+                  label: "Bộ lọc tin thuê chỗ", isDarkMode: isDarkMode),
             ),
             SizedBox(height: 10),
             // choice chip

@@ -13,6 +13,7 @@ class TextFieldApp extends StatefulWidget {
     this.errorText,
     required this.darkMode,
     this.enabled = true,
+    this.suffixIcon = false,
   });
 
   final TextEditingController controller;
@@ -23,6 +24,7 @@ class TextFieldApp extends StatefulWidget {
   String? errorText;
   bool darkMode;
   bool enabled;
+  final bool? suffixIcon;
 
   @override
   State<TextFieldApp> createState() => _TextFieldAppState();
@@ -58,6 +60,19 @@ class _TextFieldAppState extends State<TextFieldApp> {
             borderRadius: BorderRadius.circular(15),
           ),
           prefixIcon: Icon(widget.icon, color: colorProject.primaryColor),
+          suffixIcon: widget.suffixIcon == true
+              ? InkWell(
+                  onTap: () {
+                    setState(() {
+                      widget.obsecure = !widget.obsecure;
+                    });
+                  },
+                  child: widget.obsecure
+                      ? Icon(Icons.visibility, color: colorProject.primaryColor)
+                      : Icon(Icons.visibility_off,
+                          color: colorProject.primaryColor),
+                )
+              : null,
           labelText: widget.label,
           labelStyle: const TextStyle(
             color: colorProject.primaryColor,

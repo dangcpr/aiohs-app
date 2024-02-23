@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../login/cubit/user_cubit.dart';
+import '../../utilities/components/empty_card.dart';
 import '../cubits/get_history_post_cubit/get_history_post_cubit.dart';
 import '../widgets/card_posted.dart';
 import 'package:rmservice/utilities/constants/variable.dart';
@@ -35,27 +36,40 @@ class _JobClosedState extends State<JobClosed> {
         physics: AlwaysScrollableScrollPhysics(),
         scrollDirection: Axis.vertical,
         child: Container(
-          child: getHistory is GetHistoryPostFailed
-              ? Center(child: Text("Đã có lỗi xảy ra"))
-              : Column(
-                  children: [
-                    for (int i = 0; i < getHistory.posts.length; i++)
-                      CardHistoryPost(post: getHistory.posts[i]),
-                    //loading
-                    BlocBuilder<GetHistoryPostCubit, GetHistoryPostState>(
-                        builder: (context, state) {
-                      if (state is GetHistoryPostLoading) {
-                        return Align(
-                          alignment: FractionalOffset.topCenter,
-                          child: CircularProgressIndicator(
-                            color: colorProject.primaryColor,
-                          ),
-                        );
-                      }
-                      return Container();
-                    }),
-                  ],
+          child: BlocBuilder<GetHistoryPostCubit, GetHistoryPostState>(
+              builder: (context, state) {
+            if (state is GetHistoryPostLoading) {
+              return Align(
+                alignment: FractionalOffset.topCenter,
+                child: CircularProgressIndicator(
+                  color: colorProject.primaryColor,
                 ),
+              );
+            }
+            if (state is GetHistoryPostFailed) {
+              return Center(
+                child: Text(state.message),
+              );
+            }
+            if (state is GetHistoryPostSuccess) {
+              if (state.posts.isEmpty) {
+                return WorkerEmptyOrder(
+                  title: "Không có bài đăng",
+                  desc: "Không có bài đang nào đã đóng.",
+                );
+              }
+              return ListView.builder(
+                  shrinkWrap: true,
+                  physics: NeverScrollableScrollPhysics(),
+                  itemCount: state.posts.length,
+                  itemBuilder: (context, index) {
+                    return CardHistoryPost(
+                      post: state.posts[index],
+                    );
+                  });
+            }
+            return Container();
+          }),
         ),
       ),
     );
