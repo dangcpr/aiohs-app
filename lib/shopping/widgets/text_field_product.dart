@@ -3,9 +3,11 @@ import 'dart:io';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_chat_ui/flutter_chat_ui.dart';
 import 'package:rmservice/shopping/cubits/add_items.dart';
 import 'package:rmservice/shopping/cubits/save_data.dart';
 import 'package:rmservice/shopping/models/product_buy.dart';
+import 'package:rmservice/shopping/widgets/dialog_wrong.dart';
 import 'package:rmservice/utilities/constants/variable.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -58,6 +60,15 @@ class _TextFieldProductState extends State<TextFieldProduct> {
                 ),
                 onPressed: () {
                   if (controller.text.isEmpty) {
+                    showDialog(
+                      context: context,
+                      builder: (context) {
+                        return DialogWrong(
+                          notification:
+                              "Không được để trống tên sản phẩm",
+                        );
+                      },
+                    );
                     return;
                   }
                   ProductBuy product =

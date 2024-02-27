@@ -118,7 +118,7 @@ class _MethodPaymentstate extends State<MethodPayment> {
           ),
         ),
         SizedBox(height: 10),
-        InkWell(
+        if(zalopay == true) InkWell(
           onTap: () {
             setState(() {
               value = 3;
@@ -147,7 +147,7 @@ class _MethodPaymentstate extends State<MethodPayment> {
                       ? colorProject.primaryColor
                       : (widget.isDarkMode ? Colors.white : Colors.black),
                 ),
-                Flexible(
+                 Flexible(
                   child: Text(
                     "Zalopay",
                     style: TextStyle(

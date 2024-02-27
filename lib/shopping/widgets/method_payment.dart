@@ -118,7 +118,7 @@ class _MethodPaymentShoppingState extends State<MethodPaymentShopping> {
           ),
         ),
         SizedBox(height: 10),
-        InkWell(
+        if(zalopay == true) InkWell(
           onTap: () {
             setState(() {
               value = 3;

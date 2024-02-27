@@ -24,7 +24,7 @@ class NormalCleaningCard extends StatefulWidget {
 }
 
 class _NormalCleaningCardState extends State<NormalCleaningCard> {
-  static bool expanded = false;
+  static bool expanded = true;
 
   ExpandableController additionalInfoController = ExpandableController(
     initialExpanded: expanded,

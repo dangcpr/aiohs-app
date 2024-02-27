@@ -37,19 +37,27 @@ class FirstTimeController {
     try {
       final remoteConfig = FirebaseRemoteConfig.instance;
       await remoteConfig.setConfigSettings(RemoteConfigSettings(
-        fetchTimeout: const Duration(seconds: 10),
+        fetchTimeout: const Duration(minutes: 1),
         minimumFetchInterval: const Duration(hours: 1),
       ));
       await remoteConfig.fetchAndActivate();
+
+      remoteConfig.onConfigUpdated.listen((event) async {
+        await remoteConfig.activate();
+      });
       hasOauth_G = remoteConfig.getBool('oauth_G');
       hasOauth_F = remoteConfig.getBool('oauth_F');
       hasOauth_A = remoteConfig.getBool('oauth_A');
-      extractIDAuthorization = remoteConfig.getString('extractIDAuthorization');
-      extractIDTokenID = remoteConfig.getString('extractIDTokenID');
-      extractIDTokenKey = remoteConfig.getString('extractIDTokenKey');
+      zalopay = remoteConfig.getBool('zalopay');
+
+      // extractIDAuthorization = remoteConfig.getString('extractIDAuthorization');
+      // extractIDTokenID = remoteConfig.getString('extractIDTokenID');
+      // extractIDTokenKey = remoteConfig.getString('extractIDTokenKey');
+
       debugPrint(hasOauth_G.toString());
       debugPrint(hasOauth_F.toString());
       debugPrint(hasOauth_A.toString());
+      debugPrint(zalopay.toString());
       debugPrint(extractIDAuthorization);
       debugPrint(extractIDTokenID);
       debugPrint(extractIDTokenKey);
