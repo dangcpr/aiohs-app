@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rmservice/cooking/cubit/save_info_cooking.dart';
+import 'package:rmservice/shopping/widgets/dialog_wrong.dart';
 import 'package:rmservice/utilities/constants/variable.dart';
 
 class NumberOfPeople extends StatefulWidget {
@@ -31,6 +32,14 @@ class _NumberOfPeopleState extends State<NumberOfPeople> {
               ),
               child: InkWell(
                   onTap: () {
+                    if (cubit.state.numberOfPeople <= 1) {
+                      showDialog(
+                          context: context,
+                          builder: (context) {
+                            return DialogWrong(
+                                notification: "Số người phải lớn hơn 1");
+                          });
+                    }
                     setState(() {
                       cubit.state.numberOfPeople--;
                       if (cubit.state.numberOfPeople <= 1)

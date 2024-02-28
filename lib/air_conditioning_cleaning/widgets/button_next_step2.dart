@@ -26,7 +26,7 @@ class ButtonNextStep2 extends StatefulWidget {
 
 class _ButtonNextStep2State extends State<ButtonNextStep2> {
   int time6Hours = 6 * 60;
-  int time23Hours = 23 * 60;
+  int time23Hours = 20 * 60;
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +43,7 @@ class _ButtonNextStep2State extends State<ButtonNextStep2> {
     int timeToInt = time!.hour * 60 + time.minute;
     int duration =
         context.read<SaveInfoAirConditioningCleaningCubit>().state.realDuration;
-    int timeEnd = time23Hours - duration * 60;
+    int timeEnd = time23Hours;
 
     debugPrint(timeToInt.toString() + ' ' + timeEnd.toString());
 
@@ -94,21 +94,16 @@ class _ButtonNextStep2State extends State<ButtonNextStep2> {
                           .state
                           .time!
                           .minute >
-                  time23Hours -
-                      context
-                              .read<SaveInfoAirConditioningCleaningCubit>()
-                              .state
-                              .realDuration! *
-                          60) {
+                  time23Hours) {
             debugPrint("Vui lòng chọn giờ làm việc từ 06:00 tới " +
-                (23 - duration).toString() +
+                (20).toString() +
                 " giờ");
             showDialog(
               context: context,
               builder: (context) {
                 return DialogWrong(
                     notification:
-                        "Vui lòng chọn giờ làm việc từ 06:00 tới ${(23 - duration).toString()}:00");
+                        "Vui lòng chọn giờ làm việc từ 06:00 tới ${(20).toString()}:00");
               },
             );
             return;

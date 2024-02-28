@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rmservice/air_conditioning_cleaning/cubit/save_info_air_conditioning_cleaning.dart';
 import 'package:rmservice/air_conditioning_cleaning/model/info_air_conditioning_cleaning.dart';
+import 'package:rmservice/shopping/widgets/dialog_wrong.dart';
 import 'package:rmservice/utilities/constants/variable.dart';
 
 class AnimatedContanierGiauTranCustom extends StatefulWidget {
@@ -69,6 +70,18 @@ class _AnimatedContanierGiauTranCustomState
                           child: InkWell(
                               onTap: () {
                                 setState(() {
+                                  if (countHasGas >= count) {
+                                    showDialog(
+                                      context: context,
+                                      builder: (context) {
+                                        return DialogWrong(
+                                          notification:
+                                              "Số lượng máy cần bơm gas phải nhỏ hơn số lượng máy cần vệ sinh",
+                                        );
+                                      },
+                                    );
+                                    return;
+                                  }
                                   if (count <= 1) {
                                     select = !select;
                                     cubit.removeDetail(detail);
@@ -127,6 +140,18 @@ class _AnimatedContanierGiauTranCustomState
                           ),
                           child: InkWell(
                               onTap: () {
+                                if (countHasGas < 1) {
+                                  showDialog(
+                                    context: context,
+                                    builder: (context) {
+                                      return DialogWrong(
+                                        notification:
+                                            "Số lượng không thể nhỏ hơn 0",
+                                      );
+                                    },
+                                  );
+                                  return;
+                                }
                                 setState(() {
                                   if (countHasGas > 0) {
                                     countHasGas--;
@@ -150,6 +175,18 @@ class _AnimatedContanierGiauTranCustomState
                           ),
                           child: InkWell(
                             onTap: () {
+                              if (countHasGas >= count) {
+                                showDialog(
+                                  context: context,
+                                  builder: (context) {
+                                    return DialogWrong(
+                                      notification:
+                                          "Số lượng máy cần bơm gas phải nhỏ hơn số lượng máy cần vệ sinh",
+                                    );
+                                  },
+                                );
+                                return;
+                              }
                               setState(() {
                                 if (countHasGas < count) {
                                   countHasGas++;

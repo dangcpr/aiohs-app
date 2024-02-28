@@ -59,7 +59,8 @@ class _NormalCleaningCardState extends State<NormalCleaningCard> {
           iconPadding: EdgeInsets.symmetric(vertical: 8),
         ),
         header: Text(
-          AppLocalizations.of(context)!.normalCleaning,
+          AppLocalizations.of(context)!.normalCleaning +
+              (widget.priceType == 'LAUNDRY_PRICE_TYPE_KG' ? " (kg)" : " (bộ)"),
           style: TextStyle(
             // color: Colors.black,
             fontFamily: fontBoldApp,
@@ -159,8 +160,8 @@ class _NormalCleaningCardState extends State<NormalCleaningCard> {
                       ),
                       Text(
                         widget.priceType == 'LAUNDRY_PRICE_TYPE_KG'
-                            ? formatter
-                                    .format(priceLaundryCubit.state.mosquito_k) +
+                            ? formatter.format(
+                                    priceLaundryCubit.state.mosquito_k) +
                                 "/kg"
                             : formatter
                                     .format(priceLaundryCubit.state.mosquito) +
@@ -195,8 +196,7 @@ class _NormalCleaningCardState extends State<NormalCleaningCard> {
                       ),
                       Text(
                         widget.priceType == 'LAUNDRY_PRICE_TYPE_KG'
-                            ? formatter
-                                    .format(priceLaundryCubit.state.net_k) +
+                            ? formatter.format(priceLaundryCubit.state.net_k) +
                                 "/kg"
                             : formatter.format(priceLaundryCubit.state.net) +
                                 "/bộ",
@@ -264,7 +264,8 @@ class _NormalCleaningCardState extends State<NormalCleaningCard> {
                       ),
                       Text(
                         widget.priceType == 'LAUNDRY_PRICE_TYPE_KG'
-                            ? formatter.format(priceLaundryCubit.state.topper_k) +
+                            ? formatter
+                                    .format(priceLaundryCubit.state.topper_k) +
                                 "/kg"
                             : formatter.format(priceLaundryCubit.state.topper) +
                                 "/bộ",
@@ -298,7 +299,8 @@ class _NormalCleaningCardState extends State<NormalCleaningCard> {
                       ),
                       Text(
                         widget.priceType == 'LAUNDRY_PRICE_TYPE_KG'
-                            ? formatter.format(priceLaundryCubit.state.pillow_k) +
+                            ? formatter
+                                    .format(priceLaundryCubit.state.pillow_k) +
                                 "/kg"
                             : formatter.format(priceLaundryCubit.state.pillow) +
                                 "/bộ",

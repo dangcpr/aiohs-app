@@ -54,7 +54,8 @@ class _DryCleaningCardState extends State<DryCleaningCard> {
           iconPadding: EdgeInsets.symmetric(vertical: 8),
         ),
         header: Text(
-          AppLocalizations.of(context)!.dryCleaning,
+          AppLocalizations.of(context)!.dryCleaning +
+              (widget.priceType == 'LAUNDRY_PRICE_TYPE_KG' ? " (kg)" : " (bộ)"),
           style: TextStyle(
             // color: Colors.black,
             fontFamily: fontBoldApp,

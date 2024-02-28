@@ -7,12 +7,14 @@ class GetInboxCubit extends Cubit<GetInboxState> {
   GetInboxCubit() : super(GetInboxInitial());
 
   List<Inbox> inboxes_C = [];
+  List<Inbox> inboxes_U = [];
 
   Future<void> getInbox(String userCode) async {
     emit(GetInboxLoading());
     try {
       List<Inbox> inboxes = await InboxController().getInbox(userCode);
       inboxes_C = inboxes;
+      inboxes_U = inboxes.where((element) => element.is_open == false).toList();
       emit(GetInboxSuccess(inboxes: inboxes));
     } catch (e) {
       emit(GetInboxError(message: e.toString()));
@@ -24,6 +26,7 @@ class GetInboxCubit extends Cubit<GetInboxState> {
     try {
       List<Inbox> inboxes = await InboxController().getInbox(userCode);
       inboxes_C = inboxes;
+      inboxes_U = inboxes.where((element) => element.is_open == false).toList();
       emit(GetInboxSuccess(inboxes: inboxes));
     } catch (e) {
       emit(GetInboxError(message: e.toString()));

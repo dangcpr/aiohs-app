@@ -9,6 +9,7 @@ import 'package:rmservice/notification/cubits/get_inbox/get_inbox_cubit.dart';
 import 'package:rmservice/notification/cubits/get_inbox/get_inbox_state.dart';
 import 'package:rmservice/notification/cubits/unread_cubit.dart';
 import 'package:rmservice/notification/widgets/card_inbox.dart';
+import 'package:rmservice/shopping/widgets/dialog_wrong.dart';
 import 'package:rmservice/utilities/components/empty_card.dart';
 import 'package:rmservice/utilities/constants/variable.dart';
 
@@ -38,18 +39,49 @@ class _NotiScreenState extends State<NotiScreen> {
           IconButton(
             tooltip: "Đánh dấu tất cả đã đọc",
             onPressed: () async {
-              await InboxController().readedAll(
-                  context.read<UserCubit>().state.code!);
+              if (context.read<GetInboxCubit>().inboxes_U.isEmpty) {
+                showDialog(
+                    context: context,
+                    builder: (context) {
+                      return DialogWrong(
+                          notification:
+                              "Đã đánh dấu tất cả thông báo rồi hoặc không có thông báo nào!");
+                    });
+                return;
+              }
+              showDialog(
+                  context: context,
+                  builder: (context) {
+                    return Center(
+                        child: CircularProgressIndicator(
+                            color: colorProject.primaryColor));
+                  });
+              await InboxController()
+                  .readedAll(context.read<UserCubit>().state.code!);
+
               await context
                   .read<GetInboxCubit>()
                   .getInboxNoLoad(context.read<UserCubit>().state.code!);
+
+              Navigator.pop(context);
               context.read<UnreadNotiCubit>().setReadNotiAll();
             },
-            icon: const Icon(Icons.mark_email_read, color: colorProject.primaryColor),
+            icon: const Icon(Icons.mark_email_read,
+                color: colorProject.primaryColor),
           ),
           IconButton(
             tooltip: "Xóa toàn bộ thông báo",
             onPressed: () async {
+              if (context.read<GetInboxCubit>().inboxes_C.isEmpty) {
+                showDialog(
+                    context: context,
+                    builder: (context) {
+                      return DialogWrong(
+                          notification:
+                              "Đã xóa toàn bộ thông báo hoặc không có thông báo nào!");
+                    });
+                return;
+              }
               AwesomeDialog(
                 context: context,
                 dialogType: DialogType.warning,
@@ -62,12 +94,20 @@ class _NotiScreenState extends State<NotiScreen> {
                 desc: 'Bạn có chắc chắn muốn xóa toàn bộ thông báo?',
                 btnCancelOnPress: () {},
                 btnOkOnPress: () async {
-                  await InboxController().deleteAll(
-                      context.read<UserCubit>().state.code!);
+                  showDialog(
+                      context: context,
+                      builder: (context) {
+                        return Center(
+                            child: CircularProgressIndicator(
+                                color: colorProject.primaryColor));
+                      });
+                  await InboxController()
+                      .deleteAll(context.read<UserCubit>().state.code!);
                   await context
                       .read<GetInboxCubit>()
                       .getInbox(context.read<UserCubit>().state.code!);
                   context.read<UnreadNotiCubit>().setReadNotiAll();
+                  Navigator.pop(context);
                 },
               ).show();
             },

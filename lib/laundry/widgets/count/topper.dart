@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rmservice/laundry/cubits/calculate_laundry/calculate_laundry_cubit.dart';
 import 'package:rmservice/laundry/cubits/save_info_laundry_cubit.dart';
+import 'package:rmservice/shopping/widgets/dialog_wrong.dart';
 import 'package:rmservice/utilities/constants/variable.dart';
 
 class TopperCount extends StatefulWidget {
@@ -34,6 +35,17 @@ class _TopperCountState extends State<TopperCount> {
               ),
               child: InkWell(
                 onTap: () {
+                  if(infoLaundryCubit.state.topper < 1) {
+                    showDialog(
+                      context: context,
+                      builder: (context) {
+                        return DialogWrong(
+                          notification: "Số lượng không thể nhỏ hơn 0",
+                        );
+                      },
+                    );
+                    return;
+                  }
                   setState(() {
                     if (infoLaundryCubit.state.topper >= 1) {
                       infoLaundryCubit

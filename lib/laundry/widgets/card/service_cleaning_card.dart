@@ -53,7 +53,8 @@ class _ServiceCleaningCardState extends State<ServiceCleaningCard> {
           iconPadding: EdgeInsets.symmetric(vertical: 8),
         ),
         header: Text(
-          AppLocalizations.of(context)!.serviceCleaning,
+          AppLocalizations.of(context)!.serviceCleaning +
+              (widget.priceType == 'LAUNDRY_PRICE_TYPE_KG' ? " (kg)" : " (bộ)"),
           style: TextStyle(
             // color: Colors.black,
             fontFamily: fontBoldApp,
