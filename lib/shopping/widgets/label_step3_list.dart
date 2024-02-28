@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rmservice/shopping/cubits/add_items.dart';
 import 'package:rmservice/shopping/cubits/save_data.dart';
+import 'package:rmservice/shopping/widgets/dialog_wrong.dart';
 import 'package:rmservice/shopping/widgets/text_label.dart';
 import 'package:rmservice/utilities/constants/variable.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -63,6 +64,13 @@ class LabelStep3List extends StatelessWidget {
                       ),
                     ),
                   ],
+                ),
+              );
+            } else {
+              showDialog<String>(
+                context: context,
+                builder: (BuildContext context) => DialogWrong(
+                  notification: 'Không có sản phẩm nào để xóa',
                 ),
               );
             }

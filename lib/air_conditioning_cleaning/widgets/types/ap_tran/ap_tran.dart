@@ -24,7 +24,7 @@ class _ApTranState extends State<ApTran> {
           text: 'Above 5HP',
         ),
         sizedBox.largeHeight(),
-        Footer(),
+        // Footer(),
       ],
     );
   }

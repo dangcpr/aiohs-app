@@ -25,7 +25,7 @@ class _AmtranState extends State<Amtran> {
           text: 'Above 3HP',
         ),
         sizedBox.largeHeight(),
-        Footer(),
+        // Footer(),
       ],
     );
   }

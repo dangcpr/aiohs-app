@@ -24,7 +24,7 @@ class _TreoTuongState extends State<TreoTuong> {
           text: 'Above 2HP',
         ),
         sizedBox.largeHeight(),
-        Footer(),
+        // Footer(),
       ],
     );
   }

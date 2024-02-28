@@ -20,7 +20,7 @@ class _GiauTranState extends State<GiauTran> {
           text: 'Build_in',
         ),
         sizedBox.largeHeight(),
-        Footer(),
+        // Footer(),
       ],
     );
   }

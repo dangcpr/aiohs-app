@@ -43,7 +43,7 @@ class _AnimatedContanierTuDungCustomState
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(widget.text),
-                    Icon(Icons.check, color: colorProject.primaryColor),
+                    // Icon(Icons.check, color: colorProject.primaryColor),
                   ],
                 ),
                 sizedBox.largeHeight(),

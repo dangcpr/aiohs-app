@@ -20,7 +20,7 @@ class _TuDungState extends State<TuDung> {
           text: 'Portable',
         ),
         sizedBox.largeHeight(),
-        Footer(),
+        // Footer(),
       ],
     );
   }
